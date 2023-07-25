@@ -43,7 +43,7 @@ export default function Home() {
             textAlign={"center"}
             sx={{ fontSize: "26px", fontWeight: "bold", fontFamily: "", my: 3 }}
           >
-            NEXTJS MUI BOILERPLATE - Template One
+            Aris Koding - Template One
           </Typography>
           <Typography
             textAlign={"center"}
