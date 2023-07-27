@@ -15,6 +15,9 @@ const nextTranslate = require("next-translate-plugin");
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  images: {
+    domains: ["strapi-rezero-space.sgp1.digitaloceanspaces.com"],
+  },
 };
 
 module.exports = withBundleAnalyzer(nextTranslate(withPWA(nextConfig)));
