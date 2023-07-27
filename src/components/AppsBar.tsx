@@ -6,6 +6,7 @@ import {
   IconButton,
   Stack,
   Toolbar,
+  Typography,
 } from "@mui/material";
 import { useThemeContext } from "@modules/components/ThemeContext";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
@@ -21,6 +22,14 @@ const link = [
   { title: "Blog", link: "/blog" },
 ];
 
+const linkNav = [
+  // { title: "Visit our  online Factory Outlet", link: "/" },
+  { title: "Search", link: "/" },
+  { title: "Sign", link: "/" },
+  { title: "Mood Boards", link: "/" },
+  { title: "Cart", link: "/" },
+]
+
 export default function AppsBar() {
   const { toggleDarkMode, darkMode } = useThemeContext();
 
@@ -32,23 +41,24 @@ export default function AppsBar() {
       sx={{
         backgroundColor: "transparent",
         boxShadow: "none",
-        borderWidth: "2px",
-        borderStyle: "solid",
+        // borderWidth: "2px",
+        // borderStyle: "solid",
+        margin: 0
       }}
     >
       <Container
-        maxWidth={"sm"}
+        maxWidth={"xl"}
         disableGutters
         sx={{
-          borderWidth: "2px",
+          width: "100%",
+          // borderWidth: "2px",
           backdropFilter: "blur(20px)",
-          boxShadow: `inset 0px -1px 1px ${
-            theme.palette.mode === "dark"
-              ? yaleBlue[400]
-              : theme.palette.grey[100]
-          }`,
-          borderRadius: "8px",
-          my: 2,
+          boxShadow: `inset 0px -1px 1px ${theme.palette.mode === "dark"
+            ? yaleBlue[400]
+            : theme.palette.grey[100]
+            }`,
+          // borderRadius: "8px",
+          // my: 2,
           overflow: "hidden",
         }}
       >
@@ -58,28 +68,24 @@ export default function AppsBar() {
         >
           <Box
             sx={{
+              bgcolor: "#FFF",
               display: "flex",
               width: "100%",
-              justifyContent: "flex-end",
-              alignContent: "flex-end",
+              alignItems: "center",
+              justifyContent: "space-between",
+              alignContent: "center",
+              borderBottom: 0.5,
+              borderColor: "#000"
             }}
           >
-            <IconButton onClick={toggleDarkMode} sx={{ my: "1.5px", mr: 0.5 }}>
+            {/* <IconButton onClick={toggleDarkMode} sx={{ my: "1.5px", mr: 0.5 }}>
               {darkMode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
-            </IconButton>
-          </Box>
-          <Box
-            component="nav"
-            sx={{
-              display: "flex",
-              backgroundColor: "#F5F5F5",
-              width: "100%",
-              overflow: "hidden",
-              flexGrow: 1,
-              gap: 4,
-              "& ul": {},
-            }}
-          >
+            </IconButton> */}
+
+            <Typography
+              component={"ul"}
+              sx={{ alignContent: "center", color: "grey" }}
+            >Visit our  online Factory Outlet</Typography>
             <Stack
               component={"ul"}
               direction="row"
@@ -107,10 +113,64 @@ export default function AppsBar() {
                 },
               }}
             >
-              {link.map((item, index) => {
+              {linkNav.map((item, index) => {
                 return (
                   <li key={index}>
                     <Link href={item.link}>{item.title}</Link>
+                  </li>
+                );
+              })}
+            </Stack>
+          </Box>
+          <Box
+            component="nav"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              backgroundColor: "#FFF",
+              width: "100%",
+              overflow: "hidden",
+              flexGrow: 1,
+              gap: 4,
+              "& ul": {},
+            }}
+          >
+            <Typography component={"ul"} sx={{ color: "red", fontWeight: 400 }}>LE BRANDE</Typography>
+            <Stack
+              component={"ul"}
+              direction="row"
+              spacing={0}
+              sx={{
+                alignItems: "center",
+                listStyleType: "none",
+                padding: 0,
+                margin: 0,
+                px: "10px",
+                "& li": {
+                  // backgroundColor: "red",
+                  py: 1,
+                  px: 1.5,
+                  my: "4px !important",
+                  borderRadius: "8px",
+                  "& a": {
+                    fontFamily: "",
+                    fontSize: "14px",
+                    textDecoration: "none",
+                    color: "gray",
+                    "&:hover": {
+                      fontWeight: "bold",
+                    },
+                  },
+                },
+              }}
+            >
+              {link.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <Link href={item.link}>
+                      {item.title}
+                    </Link>
                   </li>
                 );
               })}
