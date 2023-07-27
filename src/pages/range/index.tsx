@@ -4,6 +4,7 @@ import React from "react";
 import axios from "axios";
 import { data } from "cypress/types/jquery";
 import useSWR from "swr";
+import Image from "next/Image";
 
 const headers = {
   Authorization:
@@ -37,12 +38,31 @@ export default function Index() {
 
   return (
     <Container>
-      <Grid container>
+      <Grid container spacing={2}>
         {data &&
           data.data.map((item: any, index: React.Key | null | undefined) => {
             return (
-              <Grid item key={index} xs={6} md={3}>
-                {item}
+              <Grid item key={index} xs={6} md={2.4}>
+                <Box
+                  sx={{
+                    position: "relative",
+                    height: "217.6px",
+                    backgroundColor: "lightGray",
+                  }}
+                >
+                  <Image
+                    fill
+                    alt="ads"
+                    src={
+                      item.attributes.Image_Thumbnail_350px.data?.attributes.url
+                    }
+                  />
+                </Box>
+                <Box sx={{ widt: "100%", backgroundColor: "#F2F1F0", p: 1 }}>
+                  <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>
+                    {item.attributes.Name}
+                  </Typography>
+                </Box>
               </Grid>
             );
           })}
