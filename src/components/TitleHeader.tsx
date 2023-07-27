@@ -15,7 +15,7 @@ export default function TitleHeader({ title, desc }: TitleHeader) {
           fontSize: "32px",
           fontWeight: "bold",
           fontFamily: "",
-          mb: 1.5,
+          // mb: 1.5,
           color: "gray",
         }}
       >

@@ -16,7 +16,15 @@ export default function Home() {
   return (
     <AppsContainer>
       <Box component="main" sx={{ minHeight: "640px" }}>
-        <header>{/* <h1>Title</h1> */}</header>
+        <header>
+          <Box sx={{ width: "100%", height: "750px", bgcolor: "green" }}>
+            {/* <Image
+              src={"/static/images/hero.jpg"}
+              fill
+              alt={""}
+            /> */}
+          </Box>
+        </header>
         <section>
           <Box
             sx={{ display: "flex", justifyContent: "center", height: "120px" }}
@@ -26,17 +34,13 @@ export default function Home() {
                 justifySelf: "center",
                 alignSelf: "center",
                 position: "relative",
-                borderRadius: "8px",
+                // borderRadius: "8px",
                 overflow: "hidden",
-                width: "72px",
-                height: "72px",
+                width: "100%",
+                height: "750px",
+                bgcolor: "#",
               }}
             >
-              <Image
-                src={"/static/icons/maskable_icon_x384.png"}
-                fill
-                alt={""}
-              />
             </Box>
           </Box>
           <Typography
@@ -72,7 +76,7 @@ export default function Home() {
             magna eu. Lorem dolore elit in laboris sunt.
           </Typography>
         </section>
-      </Box>
-    </AppsContainer>
+      </Box >
+    </AppsContainer >
   );
 }
