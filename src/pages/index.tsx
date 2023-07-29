@@ -47,7 +47,7 @@ export default function Home() {
             textAlign={"center"}
             sx={{ fontSize: "26px", fontWeight: "bold", fontFamily: "", my: 3 }}
           >
-            farhaan - Koding Coba
+            wildan awwwwwwwwwwwwwwwwwwwwwww
           </Typography>
           <Typography
             textAlign={"center"}

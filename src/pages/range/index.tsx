@@ -4,7 +4,7 @@ import React from "react";
 import axios from "axios";
 import { data } from "cypress/types/jquery";
 import useSWR from "swr";
-import Image from "next/Image";
+import Image from "next/image";
 
 const headers = {
   Authorization:
