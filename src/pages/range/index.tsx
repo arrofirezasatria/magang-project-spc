@@ -1,4 +1,12 @@
-import { Box, Container, Grid, Stack, Typography, Button } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  Stack,
+  Typography,
+  Button,
+  Link,
+} from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 import axios from "axios";
@@ -6,7 +14,7 @@ import { data } from "cypress/types/jquery";
 import useSWR from "swr";
 import Image from "next/image";
 import AppsContainer from "@layouts/AppsContainer";
-import FeaturedProducts from "@components/pages/range/featuredProducts";
+import FeaturedProducts from "@components/pages/range/FeaturedProducts";
 
 const headers = {
   Authorization:
@@ -337,7 +345,10 @@ export default function Index() {
             data.data.map((item: any, index: React.Key | null | undefined) => {
               return (
                 <Grid item key={index} xs={6} md={2.4}>
-                  <Box sx={{ cursor: "pointer" }}>
+                  <Link
+                    href={"/range/" + item.id}
+                    style={{ textDecoration: "none" }}
+                  >
                     <Box
                       sx={{
                         position: "relative",
@@ -351,6 +362,10 @@ export default function Index() {
                         src={
                           item.attributes.Image_Thumbnail_350px.data?.attributes
                             .url
+                        }
+                        blurDataURL={
+                          item.attributes.Image_Thumbnail_350px.data?.attributes
+                            .hash
                         }
                       />
                     </Box>
@@ -476,7 +491,7 @@ export default function Index() {
                         </Box>
                       </Box>
                     </Box>
-                  </Box>
+                  </Link>
                 </Grid>
               );
             })}
