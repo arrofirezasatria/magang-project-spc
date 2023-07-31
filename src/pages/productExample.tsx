@@ -166,6 +166,17 @@ export default function productExample() {
           <ListItem>Stone</ListItem>
         </List>
       </Box>
+<<<<<<< Updated upstream
+=======
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6} sx={{bgcolor: 'red'}}>
+          <Box>TES</Box>
+        </Grid>
+        <Grid item xs={12} md={6} sx={{bgcolor: 'blue'}}>
+          <Box>COBA</Box>
+        </Grid>
+      </Grid>
+>>>>>>> Stashed changes
     </AppsContainer>
   )
 }
