@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from "react";
-import { Box, Stack, Typography, Paper, Button, colors, List, ListItem, Icon } from "@mui/material";
+import { Box, Stack, Typography, Paper, Button, colors, List, ListItem, Icon, Grid, Grid } from "@mui/material";
 import swr from 'swr'
 import AppsContainer from '@layouts/AppsContainer';
 import Image from "next/Image";
