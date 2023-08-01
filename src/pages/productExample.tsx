@@ -1,13 +1,16 @@
 import React from 'react'
-import { useState, useEffect } from "react";
-import { Box, Stack, Typography, Paper, Button, colors, List, ListItem, Icon, Grid, Grid } from "@mui/material";
+import { Box, Stack, Typography, Paper, Button, colors, List, ListItem, Icon, Grid, Link } from "@mui/material";
 import swr from 'swr'
-import AppsContainer from '@layouts/AppsContainer';
-import Image from "next/Image";
+import Image from "next/image";
 import { url } from 'inspector';
 import axios from "axios";
 import { data } from "cypress/types/jquery";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import PinterestIcon from '@mui/icons-material/Pinterest';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const headers = {
   Authorization:
@@ -23,6 +26,9 @@ export default function productExample() {
     `https://strapi-app-tnshv.ondigitalocean.app/api/motifs/69?populate=*`,
     fetcher2
   );
+
+  const { Name, Description, N_Finish, N_Color, N_Dimension } = data?.data?.attributes || {};
+  const imageUrl = data?.data?.attributes?.Image_Hero_2880x1138px?.data?.attributes?.url;
 
   if (isLoading) {
     console.log("masih loading");
@@ -40,7 +46,7 @@ export default function productExample() {
     console.log(data);
   }
   return (
-    <AppsContainer>
+    <>
       <Box className="hero-container" 
       sx={{ 
         height: "70vh",
@@ -50,10 +56,8 @@ export default function productExample() {
         // bgcolor: "#C4C4C4", 
         color: "white" 
         }}>
-        {data.data.attributes((item: any, index: React.Key | null | undefined) => {
-          return (
-          <Box key={index} sx={{ height: '100%', position: 'relative' }}>
-            <Image src={item.Image_Hero_2880x1138px.data?.attributes.url}
+          <Box sx={{ height: '100%', position: 'relative' }}>
+            <Image src={imageUrl}
               fill
               alt='hero'
               style={{
@@ -62,7 +66,7 @@ export default function productExample() {
             <Box className='transparent-bg' sx={{
               width: '100%',
               height: '100%',
-              background: 'rgba(0, 0, 0, 0.25)',
+              background: 'rgba(0, 0, 0, 0.1)',
               display: 'flex',
               textAlign: 'center',
               justifyContent: 'center',
@@ -75,105 +79,304 @@ export default function productExample() {
                 position: 'absolute',
               }}>
                 <Typography variant='h1' sx={{
-                  fontSize: '70px',
+                  fontSize: {xs: '40px', md:'70px'},
                   fontWeight: '600',
                   letterSpacing: '5px',
                   mb: '1rem',
-                  textShadow: '2px 2px 10px rgba(0, 0, 0, 0.25), -2px -2px 10px rgba(0, 0, 0, 0.25)'
+                  textTransform: 'uppercase',
                 }}>
-                  DARWIN
+                  {Name}
                 </Typography>
-                <Box sx={{display: 'flex', width:'500px', justifyContent:'space-between'}}>
-                  <Box sx={{display: 'flex', alignItems:'center' }}>
-                    <Image src='/static/icons/range-hero-colour-icon.svg' 
-                    alt='Colors Icon'
-                    width={30}
-                    height={30}
+                <Box sx={{ display: 'flex', alignItems:'center'}}>
+                  <Image src='/static/icons/range-hero-colour-icon.svg' 
+                  alt='Colors Icon'
+                  width={30}
+                  height={30}
+                  style={{
+                    marginLeft: '20px',
+                  }}
                   />
-                    <Typography variant='h2' sx={{
-                    display: 'flex',
-                    fontSize: '25px',
-                    fontWeight: '400',
-                    ml: 1.5,
-                    textShadow: '2px 2px 10px rgba(0, 0, 0, 0.25), -2px -2px 10px rgba(0, 0, 0, 0.25)'
-                    }}>2</Typography>
+                  <Typography variant='h2' sx={{
+                  fontSize: {xs: '18px', md:'25px'},
+                  fontWeight: '400',
+                  mx: '5px'
+                  }}>{N_Color}</Typography>
 
-                    <Typography variant='h2' sx={{
-                    display: 'flex',
-                    fontSize: '25px',
-                    fontWeight: '400',
-                    ml: 1.5,
-                    textShadow: '2px 2px 10px rgba(0, 0, 0, 0.25), -2px -2px 10px rgba(0, 0, 0, 0.25)'
-                    }}>Colors</Typography>
-                  </Box>
+                  <Typography variant='h2' sx={{
+                  fontSize: {xs: '18px', md:'25px'},
+                  fontWeight: '400',
+                  mr: '20px'
+                  }}>Colors</Typography>
+                  
+                  <Image src='/static/icons/range-hero-size-icon.svg' 
+                  alt='Sizes Icon'
+                  width={30}
+                  height={30}
+                  style={{
+                    marginLeft: '20px',
+                  }}
+                  />
+                  <Typography variant='h2' sx={{
+                  fontSize: {xs: '18px', md:'25px'},
+                  fontWeight: '400',
+                  mx: '5px'
+                  }}>{N_Dimension}</Typography>
 
-                  <Box sx={{display: 'flex', alignItems:'center' }}>
-                    <Image src='/static/icons/range-hero-size-icon.svg' 
-                    alt='Sizes Icon'
-                    width={30}
-                    height={30}
-                    />
-                    <Typography variant='h2' sx={{
-                    display: 'flex',
-                    fontSize: '25px',
-                    fontWeight: '400',
-                    ml: 1.5,
-                    textShadow: '2px 2px 10px rgba(0, 0, 0, 0.25), -2px -2px 10px rgba(0, 0, 0, 0.25)'
-                    }}>2</Typography>
+                  <Typography variant='h2' sx={{
+                  fontSize: {xs: '18px', md:'25px'},
+                  fontWeight: '400',
+                  mr: '20px',
+                  }}>Sizes</Typography>
 
-                    <Typography variant='h2' sx={{
-                    fontSize: '25px',
-                    fontWeight: '400',
-                    ml: 1.5,
-                    textShadow: '2px 2px 10px rgba(0, 0, 0, 0.25), -2px -2px 10px rgba(0, 0, 0, 0.25)'
-                    }}>Sizes</Typography>
-                  </Box>
+                  <Image src='/static/icons/range-hero-finish-icon.svg' 
+                  alt='Finish Icon'
+                  width={30}
+                  height={30}
+                  style={{
+                    marginLeft: '20px',
+                  }}
+                  />
+                  <Typography variant='h2' sx={{
+                  fontSize: {xs: '18px', md:'25px'},
+                  fontWeight: '400',
+                  mx: '5px'
+                  }}>{N_Finish}</Typography>
 
-                  <Box sx={{display: 'flex', alignItems:'center'}}>
-                    <Image src='/static/icons/range-hero-finish-icon.svg' 
-                    alt='Finish Icon'
-                    width={30}
-                    height={30}
-                    />
-                    <Typography variant='h2' sx={{
-                    display: 'flex',
-                    fontSize: '25px',
-                    fontWeight: '400',
-                    ml: 1.5,
-                    textShadow: '2px 2px 10px rgba(0, 0, 0, 0.25), -2px -2px 10px rgba(0, 0, 0, 0.25)'
-                    }}>1</Typography>
-
-                    <Typography variant='h2' sx={{
-                    fontSize: '25px',
-                    fontWeight: '400',
-                    ml: 1.5,
-                    textShadow: '2px 2px 10px rgba(0, 0, 0, 0.25), -2px -2px 10px rgba(0, 0, 0, 0.25)'
-                    }}>Finish</Typography>
-                  </Box>
+                  <Typography variant='h2' sx={{
+                  fontSize: {xs: '18px', md:'25px'},
+                  fontWeight: '400',
+                  }}>Finish</Typography>
                 </Box>
               </Box>
             </Box>
           </Box>
-          );
-        })}
+        </Box>
+      <Box className='product-wrap-white' sx={{display: 'flex'}}>
+        <Box className='product-container' sx={{maxWidth: '1200px', padding: '20px 30px', margin: '0 auto'}}>
+          <Box className='nav' sx={{display:'block', mb: '30px'}}>
+            <List sx={{ 
+              listStyleType: 'disc', 
+              pl: 4, 
+              display: 'flex', 
+              alignItems: 'baseline', 
+              color: '#999', 
+              fontWeight: 'medium', 
+              fontSize: '16px',
+              fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";'
+              }}>
+              <Link href='#' underline='always' sx={{color: '#999'}}>Product</Link>
+              <ArrowForwardIosIcon sx={{fontSize: '10px', mx: '6px'}} />
+              <Link href='#' underline='always' sx={{color: '#999'}}>Product Style</Link>
+              <ArrowForwardIosIcon sx={{fontSize: '10px', mx: '6px'}} />
+              <Link underline='none' sx={{color: '#999'}}>Stone</Link>
+            </List>
+          </Box>
+          <Box>
+          <>
+            <Grid container spacing={6} sx={{p: '20px 30px'}}>
+              <Grid item xs={12} md={6} sx={{}}>
+                <Box sx={{textTransform: 'uppercase', letterSpacing: '2px'}}>
+                  <Typography component='h2' sx={{mb: '10px', fontSize: '32px', fontWeight: 'bold'}}>{Name}</Typography>
+                  <Typography sx={{fontSize: '18px', fontWeight: 'medium'}}>GLAZED CERAMIC & PORCELAIN</Typography>
+                  <Typography sx={{mb: '10px', fontSize: '18px', fontWeight: 'medium'}}>FLOOR & WALL TILES</Typography>
+                  <Stack direction="row" spacing={0}  sx={{
+                    mt: '15px',
+                    display: 'flex',
+                    fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                    fontSize: '13px',
+                    fontWeight: 'medium',
+                    flexWrap: 'wrap'
+                  }}>
+                    <Link href="#" underline="none" sx={{mb: '5px', mr: '5px', bgcolor: 'grey', border: '1px solid grey', color: '#fff', p: '6px 8px 1px', borderRadius: '5px'}}>CONCRETE</Link>
+                    <Link href="#" underline="none" sx={{mb: '5px', mr: '5px', bgcolor: 'grey', border: '1px solid grey', color: '#fff', p: '6px 8px 1px', borderRadius: '5px'}}>STRUCTURE</Link>
+                    <Link href="#" underline="none" sx={{mb: '5px', mr: '5px', bgcolor: 'grey', border: '1px solid grey', color: '#fff', p: '6px 8px 1px', borderRadius: '5px'}}>MADE IN THE UK</Link>
+                    <Link href="#" underline="none" sx={{mb: '5px', mr: '5px', bgcolor: 'grey', border: '1px solid grey', color: '#fff', p: '6px 8px 1px', borderRadius: '5px'}}>FLOOR TILES</Link>
+                    <Link href="#" underline="none" sx={{mb: '5px', mr: '5px', bgcolor: 'grey', border: '1px solid grey', color: '#fff', p: '6px 8px 1px', borderRadius: '5px'}}>PTV 36+ TILES</Link>
+                    <Link href="#" underline="none" sx={{mb: '5px', mr: '5px', border: '1px solid #000', color: '#000', p: '6px 8px 1px', borderRadius: '5px'}}>SELECT</Link>
+                  </Stack>
+                </Box>
+
+                <Box sx={{borderTop: '2px solid #000', mt: '15px', pt: '20px'}}>
+                  <Typography sx={{fontSize: '16px', fontWeight: 'medium'}}>
+                    {Description}
+                  </Typography>
+                  <Stack direction="row" spacing={0}  sx={{
+                    mt: '15px',
+                    display: 'flex',
+                    position: 'relative',
+                    flexWrap: 'wrap',
+                  }}>
+                    <Image 
+                      alt=''
+                      src='https://www.johnson-tiles.com/media/filer_public/5d/bc/5dbc78a2-c345-4e00-8622-74de46632280/made_in_the_uk_icon.svg'
+                      width={80}
+                      height={80}
+                      style={{
+                        margin: '0 12px 12px 0'
+                      }}
+                    />
+                    <Image 
+                      alt=''
+                      src='https://www.johnson-tiles.com/media/filer_public/98/38/983888a0-b4fa-433b-aa1d-257ca557a8d3/20_recycled_content_icon.svg'
+                      width={80}
+                      height={80}
+                      style={{
+                        margin: '0 12px 12px 0'
+                      }}
+                    />
+                    <Image 
+                      alt=''
+                      src='https://www.johnson-tiles.com/media/filer_public/e0/d8/e0d849ce-c25b-4e88-9b4c-4dcb9fe2066e/epd_icon.svg'
+                      width={80}
+                      height={80}
+                      style={{
+                        margin: '0 12px 12px 0'
+                      }}
+                    />
+                    <Image 
+                      alt=''
+                      src='https://www.johnson-tiles.com/media/filer_public/e3/d0/e3d0d3a4-4eca-4531-bcf4-1c43de0adf32/36_slip_rating_4s_icon.svg'
+                      width={80}
+                      height={80}
+                      style={{
+                        margin: '0 12px 12px 0'
+                      }}
+                    />
+                    <Image 
+                      alt=''
+                      src='https://www.johnson-tiles.com/media/filer_public/68/9f/689f3e2c-4bac-4841-9d2c-fe4d36644b7f/neutral_colour_palette_icon.svg'
+                      width={80}
+                      height={80}
+                      style={{
+                        margin: '0 12px 12px 0'
+                      }}
+                    />
+                  </Stack>
+                </Box>
+
+                <Box sx={{borderTop: '2px solid #000', mt: '13px', pt: '20px', display: 'flex', justifyContent: 'space-between'}}>
+                  <Box>
+                    <Box sx={{mb: '10px'}}>
+                      <Link href='#' underline='none' sx={{
+                      bgcolor: '#000', 
+                      color: '#fff', 
+                      borderRadius: '5px', 
+                      p: '8px 8px 5px 8px', 
+                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";', 
+                      fontSize: '14px', 
+                      mb: '5px', 
+                      display: 'flex', 
+                      justifyContent:'center', 
+                      alignItem: 'center'}}>
+                        <FileDownloadOutlinedIcon sx={{pr: '8px', fontSize: '18px'}} />
+                        Download Range Overview
+                      </Link>
+                    </Box>
+                    <Stack direction='row' spacing={1}>
+                      <FacebookIcon />
+                      <TwitterIcon />
+                      <PinterestIcon />
+                      <LinkedInIcon />
+                    </Stack>
+                  </Box>
+                  <Box>
+                    <Link href='#'>
+                      <Image 
+                          alt=''
+                          src='https://www.johnson-tiles.com/static/img/outlet-buy.svg'
+                          width={0}
+                          height={0}
+                          style={{width: '130px', height: 'auto'}}
+                        />
+                    </Link>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={6} sx={{pb: '50px'}}>
+                <Box sx={{width: '100%', height:'715px', position:'relative'}}>
+                  <Image src={imageUrl}
+                      fill
+                      alt='hero'
+                      style={{objectFit: 'cover'}} 
+                  />
+                </Box>
+                <Typography sx={{color: '#999', mt: '10px', fontWeight: 'medium'}}>
+                  Darwin Clay Matt Rockfall Structure 450x250mm, Clay Matt Rectangular Structure 450x250mm & Putty Matt 450x450mm
+                </Typography>
+              </Grid>
+            </Grid>
+          </>
+          </Box>
+        </Box>
       </Box>
-      <Box className='nav'>
-        <List sx={{ listStyleType: 'disc', pl: 4, display: 'flex' }}>
-          <ListItem>Product</ListItem>
-          <ArrowForwardIosIcon />
-          <ListItem>Product Style</ListItem>
-          <ArrowForwardIosIcon />
-          <ListItem>Stone</ListItem>
-        </List>
+      <Box className='product-wrap-grey' sx={{display: 'flex', bgcolor: '#F5F5F5'}}>
+        <Box className='product-container' sx={{maxWidth: '1200px', padding: '20px 30px', margin: '0 auto'}}>
+          <Box sx={{py: '40px'}}>
+            <Box sx={{display: 'flex', justifyContent: 'center'}}>
+              <Typography component='h2' sx={{fontSize: '27px', fontWeight: '500', mb: '15px'}}>THE PRODUCTS</Typography>
+            </Box>
+            <Box sx={{
+            display: 'flex', 
+            justifyContent: 'center',
+            mb: '15px'
+            }}>
+              <Box sx={{display: 'flex', alignItems:'center', mx: '20px'}}>
+                <Image src='/static/icons/icon-colour-black.svg' 
+                alt='Colors Icon'
+                width={25}
+                height={25}
+              />
+                <Typography variant='h2' sx={{
+                fontSize: '16px',
+                fontWeight: '400',
+                mx: '5px'
+                }}>{N_Color}</Typography>
+
+                <Typography variant='h2' sx={{
+                fontSize: '16px',
+                fontWeight: '400',
+                }}>Colors</Typography>
+              </Box>
+
+              <Box sx={{display: 'flex', alignItems:'center', mx: '20px' }}>
+                <Image src='/static/icons/icon-size-black.svg' 
+                alt='Sizes Icon'
+                width={25}
+                height={25}
+                />
+                <Typography variant='h2' sx={{
+                fontSize: '16px',
+                fontWeight: '400',
+                mx: "5px"
+                }}>{N_Dimension}</Typography>
+
+                <Typography variant='h2' sx={{
+                fontSize: '16px',
+                fontWeight: '400',
+                }}>Sizes</Typography>
+              </Box>
+
+              <Box sx={{display: 'flex', alignItems:'center', mx: '20px'}}>
+                <Image src='/static/icons/icon-finish-black.svg' 
+                alt='Finish Icon'
+                width={25}
+                height={25}
+                />
+                <Typography variant='h2' sx={{
+                fontSize: '16px',
+                fontWeight: '400',
+                mx: '5px'
+                }}>{N_Finish}</Typography>
+
+                <Typography variant='h2' sx={{
+                fontSize: '16px',
+                fontWeight: '400',
+                }}>Finish</Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
       </Box>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6} sx={{bgcolor: 'red'}}>
-          <Box>TES</Box>
-        </Grid>
-        <Grid item xs={12} md={6} sx={{bgcolor: 'blue'}}>
-          <Box>COBA</Box>
-        </Grid>
-      </Grid>
-    </AppsContainer>
+    </>
   )
 }
