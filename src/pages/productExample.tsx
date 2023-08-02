@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from "react";
-import { Box, Stack, Typography, Paper, Button, colors, List, ListItem, Icon, Grid, Grid } from "@mui/material";
+import { Box, Stack, Typography, Paper, Button, colors, List, ListItem, Icon, Grid } from "@mui/material";
 import swr from 'swr'
 import AppsContainer from '@layouts/AppsContainer';
-import Image from "next/Image";
+import Image from "next/image";
 import { url } from 'inspector';
 import axios from "axios";
 import { data } from "cypress/types/jquery";
