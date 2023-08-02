@@ -4,8 +4,11 @@ import React from "react";
 import axios from "axios";
 import { data } from "cypress/types/jquery";
 import useSWR from "swr";
-import Image from "next/Image";
+import Image from "next/image";
 import FeaturedProducts from "@components/pages/range/featuredProducts";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import { useState } from "react";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const headers = {
   Authorization:
@@ -16,6 +19,19 @@ const fetcher2 = (url: RequestInfo | URL) => fetch(url, { headers }).then((res) 
 
 export default function Index() {
   const { data, error, isLoading, isValidating } = useSWR(`https://strapi-app-tnshv.ondigitalocean.app/api/motifs?populate=*`, fetcher2);
+  const [open, setOpen] = useState(false);
+  const DropdownFilter = [
+    '-Collections-',
+    '-sizes-',
+    '-Types-',
+    '-Finishes-',
+    '-Styles-',
+    '-Materials-',
+    '-Ranges-',
+    '-Suitabillity-',
+    '-Colors-',
+  ];
+
 
   if (isLoading) {
     console.log("masih loading");
@@ -35,19 +51,21 @@ export default function Index() {
 
   return (
     <>
-      <Box sx={{height:"600px", width:"100%", position:"absolute"}}>
-          <Image src={"/static/images/concrete.jpg"} fill alt={""} />
-        <Box display="flex" flexDirection="column" sx={{textAlign:"center", backgroundColor:"salmon", position:"absolute"}}>
-          <Box sx={{ }}>
-            <Typography sx={{ fontSize: "90px", fontWeight: "bold", color: "white", lineHeight: "1", letterSpacing: "10px", textTransform: "uppercase", textShadow:"0 0 20px #000" }}>Concrete</Typography>
-          </Box>
-          <Box sx={{ position: "relative"}}>
-            <Typography sx={{ fontSize: "30px", fontWeight: "400", color: "white", lineHeight: "1.3", textTransform: "uppercase", textShadow:"0 0 20px #000" }}>A Selection Of Stunning Concrete Products</Typography>
+      <Box display="flex" sx={{ height: "600px", width: "100%", position: "relative" }}>
+        <Image src={"/static/images/concrete.jpg"} fill alt={""} />
+        <Box display="flex" flexDirection="column" sx={{ textAlign: "center", position: "absolute", width: "100%", height: "600px", justifyContent: "center" }}>
+          <Box sx={{ width: "100%", justifyContent: "center" }}>
+            <Typography
+              sx={{ fontSize: { xs: "30px", md: "90px" }, fontWeight: "bold", color: "white", lineHeight: { xs: "30px", md: "90px" }, letterSpacing: { xs: "5px", md: "10px" }, textTransform: "uppercase", textShadow: "0 0 20px #000" }}
+            >
+              Concrete
+            </Typography>
+            <Typography sx={{ fontSize: { xs: "16px", md: "30px" }, fontWeight: "400", color: "white", lineHeight: "39px", textTransform: "uppercase", textShadow: "0 0 20px #000" }}>A Selection Of Stunning Concrete Products</Typography>
           </Box>
         </Box>
       </Box>
       <Container>
-        <Grid sx={{ }}>
+        <Grid sx={{}}>
           <Box display="flex" flexDirection="row" sx={{ fontSize: "16px", color: "#999999", margin: { xs: "30px 0", md: "40px 30px" } }}>
             <Typography sx={{ marginRight: "11px" }}>Product</Typography>
             <Typography sx={{ marginRight: "11px" }}>&gt;</Typography>
@@ -114,97 +132,126 @@ export default function Index() {
                 <Box display="flex" flexDirection="row" sx={{ marginLeft: "6px" }}>
                   <Typography sx={{ fontWeight: "medium", fontSize: "16px", textAlign: "center", paddingTop: "5px" }}>NEW</Typography>
                 </Box>
-                <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                  <Box sx={{ width: "30px", height: "30px", position: "relative", marginLeft: "25px", ":hover": { backgroundImage: 'url("/static/images/icon-five-col-selected.svg")' } }}>
-                    <Image src={"/static/images/icon-five-col.svg"} fill alt={""} />
-                  </Box>
-                  <Box sx={{ width: "30px", height: "30px", position: "relative", marginLeft: "12px" }}>
-                    <Image src={"/static/images/icon-three-col.svg"} fill alt={""} style={{}} />
-                  </Box>
-                </Box>
+                <Button onClick={() => setOpen(!open)} sx={{ transition: "2s", marginLeft: "40px", backgroundColor: "#F2F1F0", paddingRight: "10px", paddingLeft: "10px", borderRadius: "5px", border: "0.5px solid #000" }}>
+                  <Typography sx={{ fontWeight: "medium", fontSize: "16px", textAlign: "center" }}>FILTERS</Typography>
+                  <FilterListIcon sx={{ marginLeft: "16px" }} />
+                </Button>
               </Box>
             </Stack>
           </Stack>
         </Grid>
-        <Grid container spacing={2}>
-          {data &&
-            data.data.map((item: any, index: React.Key | null | undefined) => {
-              return (
-                <Grid item key={index} xs={6} md={2.4}>
-                  <Box sx={{ cursor: "pointer" }}>
-                    <Box
-                      sx={{
-                        position: "relative",
-                        height: "217.6px",
-                        backgroundColor: "lightGray",
-                      }}
-                    >
-                      <Image fill alt="ads" src={item.attributes.Image_Thumbnail_350px.data?.attributes.url} />
+        <Grid display="flex" flexDirection="column" sx={{ position: "relative" }}>
+          {open && (
+            <Box sx={{ backgroundColor: "rgba(242, 241, 240)", position: "absolute ", width: "100%", height: {xs:"400px",md:"200px"}, zIndex: "1", boxShadow: "0px 0px 0px 0px rgba(0,0,0,0.75)" }}>
+              <Typography sx={{ marginTop: "24px", marginLeft: "24px", fontSize: "18px", letterSpacing: "2px", fontWeight: "bold" }}>PRODUCT FILTERS</Typography>
+              <Grid container spacing={2}>
+                {DropdownFilter.map((DropdownFilter, index) => (
+                  <Grid item key={index} xs={6} md={4} >
+                    <Box>
+                <Button
+                    sx={{
+                      width: {xs:"350px",md:"350px", lg:"300px"},
+                      height: "23px",
+                      transition: "2s",
+                      backgroundColor: "#F2F1F0",
+                      paddingRight: "10px",
+                      paddingLeft: "10px",
+                      borderRadius: "5px",
+                      border: "0.5px solid #000",
+                      justifyContent: "space-between",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                      <Typography sx={{ color: "grey", fontSize: "14px" }}>{DropdownFilter}</Typography>
+                    <KeyboardArrowDownIcon sx={{ color: "grey" }} />
+                  </Button>
                     </Box>
-                    <Box sx={{ backgroundColor: "#F2F1F0", p: 1 }}>
-                      <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>{item.attributes.Name}</Typography>
-                      <Box display="flex" flexDirection="row" sx={{}}>
-                        <Typography
-                          sx={{
-                            borderRadius: "5px",
-                            color: "white",
-                            display: "inline-block",
-                            fontSize: "12px",
-                            fontWeight: "medium",
-                            letterSpacing: "1px",
-                            marginTop: "5px",
-                            padding: "3px 6px 0",
-                            textTransform: "uppercase",
-                            backgroundColor: "grey",
-                            border: "1px solid grey",
-                            marginRight: "5px",
-                          }}
-                        >
-                          concrate
-                        </Typography>
-                        <Typography
-                          sx={{
-                            border: "1px solid black",
-                            borderRadius: "5px",
-                            color: "black",
-                            display: "inline-block",
-                            fontSize: "12px",
-                            fontWeight: "medium",
-                            letterSpacing: "1px",
-                            marginTop: "5px",
-                            padding: "3px 6px 0",
-                            textTransform: "uppercase",
-                          }}
-                        >
-                          select
-                        </Typography>
-                      </Box>
-
-                      <Box display="flex" flexDirection="row" sx={{ marginTop: "12px", borderTop: "1px solid black", justifyContent: "space-between", paddingTop: "12px", right: "10px" }}>
-                        <Box display="flex" flexDirection="row">
-                          <Box sx={{ width: "24px", height: "24px", position: "relative", marginRight: "5px" }}>
-                            <Image src={"/static/images/icon-colour-black.svg"} fill alt={""} style={{}} />
-                          </Box>
-                          <Typography sx={{ fontSize: "24x", fontWeight: "medium" }}>0{item.attributes.N_Color}</Typography>
-                        </Box>
-                        <Box display="flex" flexDirection="row">
-                          <Box sx={{ width: "23px", height: "23px", position: "relative", marginRight: "5px" }}>
-                            <Image src={"/static/images/icon-size-black.svg"} fill alt={""} style={{}} />
-                          </Box>
-                          <Typography sx={{ fontSize: "14x", fontWeight: "medium" }}>0{item.attributes.N_Dimension}</Typography>
-                        </Box>
-                        <Box display="flex" flexDirection="row">
-                          <Box sx={{ width: "24px", height: "24px", position: "relative", marginRight: "5px" }}>
-                            <Image src={"/static/images/icon-finish-black.svg"} fill alt={""} style={{}} />
-                          </Box>
-                          <Typography sx={{ fontSize: "14x", fontWeight: "medium" }}>0{item.attributes.N_Finish}</Typography>
-                        </Box>
-                      </Box>
-                    </Box>
-                  </Box>
                 </Grid>
-              );
-            })}
+                ))}
+              </Grid>
+            </Box>
+          )}
+
+          <Grid container spacing={2}>
+            {data &&
+              data.data.map((item: any, index: React.Key | null | undefined) => {
+                return (
+                  <Grid item key={index} xs={6} md={2.4}>
+                    <Box sx={{ cursor: "pointer" }}>
+                      <Box
+                        sx={{
+                          position: "relative",
+                          height: "217.6px",
+                          backgroundColor: "lightGray",
+                        }}
+                      >
+                        <Image fill alt="ads" src={item.attributes.Image_Thumbnail_350px.data?.attributes.url} />
+                      </Box>
+                      <Box sx={{ backgroundColor: "#F2F1F0", p: 1 }}>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>{item.attributes.Name}</Typography>
+                        <Box display="flex" flexDirection="row" sx={{}}>
+                          <Typography
+                            sx={{
+                              borderRadius: "5px",
+                              color: "white",
+                              display: "inline-block",
+                              fontSize: "12px",
+                              fontWeight: "medium",
+                              letterSpacing: "1px",
+                              marginTop: "5px",
+                              padding: "3px 6px 0",
+                              textTransform: "uppercase",
+                              backgroundColor: "grey",
+                              border: "1px solid grey",
+                              marginRight: "5px",
+                            }}
+                          >
+                            concrate
+                          </Typography>
+                          <Typography
+                            sx={{
+                              border: "1px solid black",
+                              borderRadius: "5px",
+                              color: "black",
+                              display: "inline-block",
+                              fontSize: "12px",
+                              fontWeight: "medium",
+                              letterSpacing: "1px",
+                              marginTop: "5px",
+                              padding: "3px 6px 0",
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            select
+                          </Typography>
+                        </Box>
+
+                        <Box display="flex" flexDirection="row" sx={{ marginTop: "12px", borderTop: "1px solid black", justifyContent: "space-between", paddingTop: "12px", right: "10px" }}>
+                          <Box display="flex" flexDirection="row">
+                            <Box sx={{ width: "24px", height: "24px", position: "relative", marginRight: "5px" }}>
+                              <Image src={"/static/images/icon-colour-black.svg"} fill alt={""} style={{}} />
+                            </Box>
+                            <Typography sx={{ fontSize: "24x", fontWeight: "medium" }}>0{item.attributes.N_Color}</Typography>
+                          </Box>
+                          <Box display="flex" flexDirection="row">
+                            <Box sx={{ width: "23px", height: "23px", position: "relative", marginRight: "5px" }}>
+                              <Image src={"/static/images/icon-size-black.svg"} fill alt={""} style={{}} />
+                            </Box>
+                            <Typography sx={{ fontSize: "14x", fontWeight: "medium" }}>0{item.attributes.N_Dimension}</Typography>
+                          </Box>
+                          <Box display="flex" flexDirection="row">
+                            <Box sx={{ width: "24px", height: "24px", position: "relative", marginRight: "5px" }}>
+                              <Image src={"/static/images/icon-finish-black.svg"} fill alt={""} style={{}} />
+                            </Box>
+                            <Typography sx={{ fontSize: "14x", fontWeight: "medium" }}>0{item.attributes.N_Finish}</Typography>
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Grid>
+                );
+              })}
+          </Grid>
         </Grid>
       </Container>
     </>
