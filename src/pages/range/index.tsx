@@ -6,7 +6,7 @@ import { data } from "cypress/types/jquery";
 import useSWR from "swr";
 import Image from "next/image";
 import AppsContainer from "@layouts/AppsContainer";
-import FeaturedProducts from "@components/pages/range/featuredProducts";
+import FeaturedProducts from "@components/pages/range/FeaturedProducts";
 
 const headers = {
   Authorization:

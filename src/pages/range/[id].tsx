@@ -10,7 +10,7 @@ type Repo = {
   id: number;
 };
 
-export default function Page({ repo }) {
+export default function Page({ repo }: any) {
   // console.log(repo);
   return <Box>{repo.data.id}</Box>;
 }

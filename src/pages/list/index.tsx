@@ -5,7 +5,7 @@ import axios from "axios";
 import { data } from "cypress/types/jquery";
 import useSWR from "swr";
 import Image from "next/image";
-import FeaturedProducts from "@components/pages/range/featuredProducts";
+import FeaturedProducts from "@components/pages/range/FeaturedProducts";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useState } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -150,7 +150,7 @@ export default function Index() {
                     <Box>
                 <Button
                     sx={{
-                      width: {xs:"350px",md:"350px", lg:"300px"},
+                      width: "100%",
                       height: "23px",
                       transition: "2s",
                       backgroundColor: "#F2F1F0",

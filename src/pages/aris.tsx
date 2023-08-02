@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Stack, Typography, Paper, Button, colors } from "@mui/material";
-import Carousel from 'react-material-ui-carousel'
 import { useThemeContext } from "@modules/components/ThemeContext";
 import AppsContainer from "@layouts/AppsContainer";
 import useTranslation from "next-translate/useTranslation";
