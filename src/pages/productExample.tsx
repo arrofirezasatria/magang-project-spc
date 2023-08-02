@@ -11,6 +11,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import PinterestIcon from '@mui/icons-material/Pinterest';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import AltProductRanges from "@components/pages/range/altProductRanges";
 
 const headers = {
   Authorization:
@@ -29,6 +30,14 @@ export default function productExample() {
 
   const { Name, Description, N_Finish, N_Color, N_Dimension } = data?.data?.attributes || {};
   const imageUrl = data?.data?.attributes?.Image_Hero_2880x1138px?.data?.attributes?.url;
+  const imageThumbnail = [
+    'image-darwin1.jpg',
+    'image-darwin2.jpg',
+    'image-darwin3.jpg',
+    'image-darwin4.jpg',
+    'image-darwin5.jpg',
+    'image-darwin6.jpg',
+  ];
 
   if (isLoading) {
     console.log("masih loading");
@@ -183,16 +192,22 @@ export default function productExample() {
                     mt: '15px',
                     display: 'flex',
                     fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
-                    fontSize: '13px',
+                    fontSize: '12px',
                     fontWeight: 'medium',
-                    flexWrap: 'wrap'
+                    flexWrap: 'wrap',
+                    '& .MuiLink-root': {
+                      mb: '5px', mr: '5px', bgcolor: 'grey', border: '1px solid grey', color: '#fff', p: '6px 8px 1px', borderRadius: '5px'
+                    }, 
+                    '& .white-link': {
+                      mb: '5px', mr: '5px', bgcolor: '#fff', border: '1px solid #000', color: '#000', p: '6px 8px 1px', borderRadius: '5px'
+                    },
                   }}>
-                    <Link href="#" underline="none" sx={{mb: '5px', mr: '5px', bgcolor: 'grey', border: '1px solid grey', color: '#fff', p: '6px 8px 1px', borderRadius: '5px'}}>CONCRETE</Link>
-                    <Link href="#" underline="none" sx={{mb: '5px', mr: '5px', bgcolor: 'grey', border: '1px solid grey', color: '#fff', p: '6px 8px 1px', borderRadius: '5px'}}>STRUCTURE</Link>
-                    <Link href="#" underline="none" sx={{mb: '5px', mr: '5px', bgcolor: 'grey', border: '1px solid grey', color: '#fff', p: '6px 8px 1px', borderRadius: '5px'}}>MADE IN THE UK</Link>
-                    <Link href="#" underline="none" sx={{mb: '5px', mr: '5px', bgcolor: 'grey', border: '1px solid grey', color: '#fff', p: '6px 8px 1px', borderRadius: '5px'}}>FLOOR TILES</Link>
-                    <Link href="#" underline="none" sx={{mb: '5px', mr: '5px', bgcolor: 'grey', border: '1px solid grey', color: '#fff', p: '6px 8px 1px', borderRadius: '5px'}}>PTV 36+ TILES</Link>
-                    <Link href="#" underline="none" sx={{mb: '5px', mr: '5px', border: '1px solid #000', color: '#000', p: '6px 8px 1px', borderRadius: '5px'}}>SELECT</Link>
+                    <Link href="#" underline="none">CONCRETE</Link>
+                    <Link href="#" underline="none">STRUCTURE</Link>
+                    <Link href="#" underline="none">MADE IN THE UK</Link>
+                    <Link href="#" underline="none">FLOOR TILES</Link>
+                    <Link href="#" underline="none">PTV 36+ TILES</Link>
+                    <Link href="#" underline="none" className="white-link">SELECT</Link>
                   </Stack>
                 </Box>
 
@@ -312,69 +327,112 @@ export default function productExample() {
       <Box className='product-wrap-grey' sx={{display: 'flex', bgcolor: '#F5F5F5'}}>
         <Box className='product-container' sx={{maxWidth: '1200px', padding: '20px 30px', margin: '0 auto'}}>
           <Box sx={{py: '40px'}}>
-            <Box sx={{display: 'flex', justifyContent: 'center'}}>
-              <Typography component='h2' sx={{fontSize: '27px', fontWeight: '500', mb: '15px'}}>THE PRODUCTS</Typography>
+            <Box sx={{display: 'flex', justifyContent: 'center', position: 'relative'}}>
+              <Typography component='h2' sx={{fontSize: '27px', fontWeight: 'bold', mb: '15px', letterSpacing: '2px'}}>THE PRODUCTS</Typography>
             </Box>
             <Box sx={{
             display: 'flex', 
             justifyContent: 'center',
-            mb: '15px'
+            mb: '15px', 
+            pb : '30px',
+            position: 'relative',
+            '& .MuiTypography-root': {
+              fontSize: '16px',
+              fontWeight: 'medium',
+            }
             }}>
-              <Box sx={{display: 'flex', alignItems:'center', mx: '20px'}}>
+              <Box sx={{
+                display: 'flex', 
+                alignItems:'center', 
+                mx: '20px', 
+                position: 'relative'
+                }}>
                 <Image src='/static/icons/icon-colour-black.svg' 
                 alt='Colors Icon'
                 width={25}
                 height={25}
               />
                 <Typography variant='h2' sx={{
-                fontSize: '16px',
-                fontWeight: '400',
                 mx: '5px'
                 }}>{N_Color}</Typography>
 
                 <Typography variant='h2' sx={{
-                fontSize: '16px',
-                fontWeight: '400',
                 }}>Colors</Typography>
               </Box>
 
-              <Box sx={{display: 'flex', alignItems:'center', mx: '20px' }}>
+              <Box sx={{display: 'flex', alignItems:'center', mx: '20px', position: 'relative'}}>
                 <Image src='/static/icons/icon-size-black.svg' 
                 alt='Sizes Icon'
                 width={25}
                 height={25}
                 />
                 <Typography variant='h2' sx={{
-                fontSize: '16px',
-                fontWeight: '400',
                 mx: "5px"
                 }}>{N_Dimension}</Typography>
 
                 <Typography variant='h2' sx={{
-                fontSize: '16px',
-                fontWeight: '400',
                 }}>Sizes</Typography>
               </Box>
 
-              <Box sx={{display: 'flex', alignItems:'center', mx: '20px'}}>
+              <Box sx={{display: 'flex', alignItems:'center', mx: '20px', position: 'relative'}}>
                 <Image src='/static/icons/icon-finish-black.svg' 
                 alt='Finish Icon'
                 width={25}
                 height={25}
                 />
                 <Typography variant='h2' sx={{
-                fontSize: '16px',
-                fontWeight: '400',
                 mx: '5px'
                 }}>{N_Finish}</Typography>
 
                 <Typography variant='h2' sx={{
-                fontSize: '16px',
-                fontWeight: '400',
                 }}>Finish</Typography>
               </Box>
+              <Box component="span"
+                sx={{
+                  position: 'absolute',
+                  bottom: '0',
+                  left: '50%',
+                  width: '100px',
+                  height: '2px',
+                  backgroundColor: 'black',
+                  transform: 'translateX(-50%)',
+                  content: "''",
+                }}
+              />
             </Box>
+            <Grid container spacing={2} sx={{mt: '44px'}}>
+            {imageThumbnail.map((imageThumbnail, index) => (
+              <Grid item key={index} xs={6} md={2} sx={{}}>
+                <Box sx={{height: '173px', width: '173px', position: 'relative'}}>
+                  <Image
+                  fill
+                  alt=''
+                  src={`/static/images/${imageThumbnail}`}
+                  />
+                </Box>
+                <Box sx={{
+                  mt: '7px',
+                  pt: '7px',
+                  pb: '10px',
+                  border: '2px',
+                  textAlign: 'center'
+                }}>
+                  <Typography sx={{fontSize: '14px', fontWeight: 'bold'}}>
+                    MOTIF
+                  </Typography>
+                  <Typography sx={{fontsize: '14px', fontWeight: 'medium', color: '#999'}}>
+                    KETERANGAN
+                  </Typography>
+                </Box>
+              </Grid>
+              ))}
+            </Grid>
           </Box>
+        </Box>
+      </Box>
+      <Box className='product-wrap-white' sx={{display: 'flex'}}>
+        <Box className='product-container' sx={{maxWidth: '1200px', padding: '20px 30px', margin: '0 auto', width: '100%'}}>
+          <AltProductRanges />
         </Box>
       </Box>
     </>
