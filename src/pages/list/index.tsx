@@ -36,15 +36,42 @@ export default function Index() {
   );
   const [open, setOpen] = useState(false);
   const DropdownFilter = [
-    "-Collections-",
-    "-sizes-",
-    "-Types-",
-    "-Finishes-",
-    "-Styles-",
-    "-Materials-",
-    "-Ranges-",
-    "-Suitabillity-",
-    "-Colors-",
+    {
+      label: "-Collections-",
+      menu: ["one", "two", "three"],
+    },
+    {
+      label: "-Collections-",
+      menu: ["one", "two", "three"],
+    },
+    {
+      label: "-Collections-",
+      menu: ["one", "two", "three"],
+    },
+    {
+      label: "-Collections-",
+      menu: ["one", "two", "three"],
+    },
+    {
+      label: "-Collections-",
+      menu: ["one", "two", "three"],
+    },
+    {
+      label: "-Collections-",
+      menu: ["one", "two", "three"],
+    },
+    {
+      label: "-Collections-",
+      menu: ["one", "two", "three"],
+    },
+    {
+      label: "-Collections-",
+      menu: ["one", "two", "three"],
+    },
+    {
+      label: "-Collections-",
+      menu: ["one", "two", "three"],
+    },
   ];
 
   if (isLoading) {
@@ -420,16 +447,20 @@ export default function Index() {
                     <Box sx={{}}>
                       <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">
-                          Age
+                          {DropdownFilter.label}
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label="Age"
                         >
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
+                          {DropdownFilter.menu.map((item, index) => {
+                            return (
+                              <MenuItem value={10} key={index}>
+                                item
+                              </MenuItem>
+                            );
+                          })}
                         </Select>
                       </FormControl>
                       {/* <Button
