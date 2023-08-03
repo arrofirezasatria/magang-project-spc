@@ -102,7 +102,6 @@ export default function productExample() {
                   width={30}
                   height={30}
                   style={{
-                    marginLeft: '20px',
                   }}
                   />
                   <Typography variant='h2' sx={{
@@ -161,11 +160,11 @@ export default function productExample() {
           </Box>
         </Box>
       <Box className='product-wrap-white' sx={{display: 'flex'}}>
-        <Box className='product-container' sx={{maxWidth: '1200px', padding: '20px 30px', margin: '0 auto'}}>
+        <Box className='product-container' sx={{maxWidth: '1200px', padding: {xs: '20px 15px', md: '20px 30px'}, margin: '0 auto'}}>
           <Box className='nav' sx={{display:'block', mb: '30px'}}>
             <List sx={{ 
               listStyleType: 'disc', 
-              pl: 4, 
+              pl: {xs: 0, md: 4}, 
               display: 'flex', 
               alignItems: 'baseline', 
               color: '#999', 
@@ -182,7 +181,7 @@ export default function productExample() {
           </Box>
           <Box>
           <>
-            <Grid container spacing={6} sx={{p: '20px 30px'}}>
+            <Grid container spacing={6} sx={{p: {xs: '20px 0x', md: '20px 30px'}}}>
               <Grid item xs={12} md={6} sx={{}}>
                 <Box sx={{textTransform: 'uppercase', letterSpacing: '2px'}}>
                   <Typography component='h2' sx={{mb: '10px', fontSize: '32px', fontWeight: 'bold'}}>{Name}</Typography>
@@ -308,7 +307,7 @@ export default function productExample() {
                 </Box>
               </Grid>
               <Grid item xs={12} md={6} sx={{pb: '50px'}}>
-                <Box sx={{width: '100%', height:'715px', position:'relative'}}>
+                <Box sx={{width: '100%', height:{xs: '480px', md: '715px'}, position:'relative'}}>
                   <Image src={imageUrl}
                       fill
                       alt='hero'
@@ -325,8 +324,8 @@ export default function productExample() {
         </Box>
       </Box>
       <Box className='product-wrap-grey' sx={{display: 'flex', bgcolor: '#F5F5F5'}}>
-        <Box className='product-container' sx={{maxWidth: '1200px', padding: '20px 30px', margin: '0 auto'}}>
-          <Box sx={{py: '40px'}}>
+        <Box className='product-container' sx={{maxWidth: '1200px', padding: {xs: '20px 15px', md: '20px 30px'}, margin: '0 auto', width: '100%'}}>
+          <Box sx={{py: '40px', px: {xs: 0, md: 4}, }}>
             <Box sx={{display: 'flex', justifyContent: 'center', position: 'relative'}}>
               <Typography component='h2' sx={{fontSize: '27px', fontWeight: 'bold', mb: '15px', letterSpacing: '2px'}}>THE PRODUCTS</Typography>
             </Box>
@@ -403,7 +402,7 @@ export default function productExample() {
             <Grid container spacing={2} sx={{mt: '44px'}}>
             {imageThumbnail.map((imageThumbnail, index) => (
               <Grid item key={index} xs={6} md={2} sx={{}}>
-                <Box sx={{height: '173px', width: '173px', position: 'relative'}}>
+                <Box sx={{height: '173px', width: 'auto', position: 'relative'}}>
                   <Image
                   fill
                   alt=''
@@ -431,7 +430,7 @@ export default function productExample() {
         </Box>
       </Box>
       <Box className='product-wrap-white' sx={{display: 'flex'}}>
-        <Box className='product-container' sx={{maxWidth: '1200px', padding: '20px 30px', margin: '0 auto', width: '100%'}}>
+        <Box className='product-container' sx={{maxWidth: '1200px', padding: {xs: '20px 15px', md: '20px 30px'}, margin: '0 auto', width: '100%'}}>
           <AltProductRanges />
         </Box>
       </Box>
