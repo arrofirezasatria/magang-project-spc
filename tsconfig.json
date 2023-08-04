@@ -30,7 +30,9 @@
     "cypress/tsconfig.json",
     "next-i18next.config.js",
     "next-i18next.config.js",
-    "next-sitemap.config.js"
+    "next-sitemap.config.js",
+    "store/store.js",
+    "store/cartSlice.js"
   ],
   "exclude": ["node_modules"]
 }
