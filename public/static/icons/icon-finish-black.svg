@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon-finish-black</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Artboard" transform="translate(-90.000000, -23.000000)" stroke="#1D1D1B">
+            <g id="icon-finish-black" transform="translate(91.419000, 24.192000)">
+                <path d="M8.504,17.008 L17.008,17.008 L17.008,8.504 L8.504,8.504 L8.504,17.008 Z M8.504,4.252 L8.504,1.95399252e-14 L2.84217094e-14,1.95399252e-14 L2.84217094e-14,8.504 L4.252,8.504 L8.504,4.252 Z M12.756,8.504 L12.756,4.252 L4.252,4.252 L4.252,12.756 L8.504,12.756 L12.756,8.504 Z M12.756,8.504 L12.756,17.008 L12.756,8.504 Z M8.504,12.756 L17.008,12.756 L8.504,12.756 Z M12.756,4.252 L4.252,12.756 L12.756,4.252 Z M5.54,4.252 L4.252,5.54 L5.54,4.252 Z M12.756,7.86 L12.112,8.504 L12.756,7.86 Z M8.504,12.112 L7.86,12.756 L8.504,12.112 Z M9.148,4.252 L4.252,9.148 L9.148,4.252 Z" id="Stroke-7"></path>
+            </g>
+        </g>
+    </g>
+</svg>

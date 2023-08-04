@@ -15,7 +15,7 @@ export default function AppsContainer(AppsContainerProps: props) {
   const { children, basicSeo, ...rest } = AppsContainerProps;
 
   return (
-    <Container maxWidth={"xl"} sx={{ width: "100%", bgcolor: "#F5F5F5", pl: "0 !important", pr: "0 !important" }} {...rest}>
+    <Container maxWidth={"xl"} sx={{ width: "100%", pl: "0 !important", pr: "0 !important" }} {...rest}>
       <NextSeo {...basicSeo} />
       <AppsBar />
       {children}
