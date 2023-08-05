@@ -299,24 +299,30 @@ export default function Page(props: any) {
                           },
                         }}
                       >
-                        <Link href="#" underline="none">
-                          CONCRETE
-                        </Link>
-                        <Link href="#" underline="none">
-                          STRUCTURE
-                        </Link>
-                        <Link href="#" underline="none">
-                          MADE IN THE UK
-                        </Link>
-                        <Link href="#" underline="none">
-                          FLOOR TILES
-                        </Link>
-                        <Link href="#" underline="none">
-                          PTV 36+ TILES
-                        </Link>
-                        <Link href="#" underline="none" className="white-link">
-                          SELECT
-                        </Link>
+                        {props.motif.data.attributes.motif.data.attributes.product_varians.data.map(
+                          (item, index) => {
+                            return (
+                              <Link href="#" underline="none" key={index}>
+                                {item.attributes.Varian}
+                              </Link>
+                            );
+                          }
+                        )}
+
+                        {props.motif.data.attributes.motif.data.attributes.style_motifs.data.map(
+                          (item, index) => {
+                            return (
+                              <Link
+                                href="#"
+                                underline="none"
+                                key={index}
+                                className="white-link"
+                              >
+                                {item.attributes.Style}
+                              </Link>
+                            );
+                          }
+                        )}
                       </Stack>
                     </Box>
 
@@ -460,10 +466,9 @@ export default function Page(props: any) {
                       />
                     </Box>
                     <Typography
-                      sx={{ color: "#999", mt: "10px", fontWeight: "medium" }}
+                      sx={{ color: "#999", mt: "10px", fontWeight: "" }}
                     >
-                      Darwin Clay Matt Rockfall Structure 450x250mm, Clay Matt
-                      Rectangular Structure 450x250mm & Putty Matt 450x450mm
+                      {props.product.data.attributes.Name} 120x60cm
                     </Typography>
                   </Grid>
                 </Grid>
