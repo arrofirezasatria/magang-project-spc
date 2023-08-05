@@ -12,6 +12,7 @@ import AltProductRanges from "@components/pages/range/altProductRanges";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useState } from "react";
 import NavbarProduct from "@components/pages/range/NavbarProduct";
+import HoverInProduct from "@components/pages/range/hoverInProduct";
 
 const headers = {
   Authorization:
@@ -102,7 +103,7 @@ export default function Index() {
 
   return (
     <>
-      <NavbarProduct/>
+      <NavbarProduct />
       <HeroProducts />
       <Container>
         <Description />
@@ -176,7 +177,7 @@ export default function Index() {
                   <Typography
                     sx={{
                       fontWeight: "medium",
-                      fontSize: "16px",
+                      fontSize: { xs: "14px", md: "16px" },
                       textAlign: "center",
                       paddingTop: "5px",
                     }}
@@ -194,18 +195,6 @@ export default function Index() {
                     }}
                   >
                     A-Z
-                  </Typography>
-                </Box>
-                <Box display="flex" flexDirection="row" sx={{ marginLeft: "6px" }}>
-                  <Typography
-                    sx={{
-                      fontWeight: "medium",
-                      fontSize: "16px",
-                      textAlign: "center",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    /
                   </Typography>
                 </Box>
                 <Box display="flex" flexDirection="row" sx={{ marginLeft: "6px" }}>
@@ -266,7 +255,6 @@ export default function Index() {
                 backgroundColor: "rgba(242, 241, 240)",
                 position: "absolute ",
                 width: "100%",
-                // height: { xs: "400px", md: "200px" },
                 zIndex: "2",
                 boxShadow: "0px 0px 0px 0px rgba(0,0,0,0.75)",
               }}
@@ -282,7 +270,7 @@ export default function Index() {
               >
                 PRODUCT FILTERS
               </Typography>
-              <Grid container spacing={2} sx={{ px: "24px", my: 2 }}>
+              <Grid container spacing={2} sx={{ px: "24px", my: 2, mb: "80px" }}>
                 {DropdownFilter.map((filter, index) => (
                   <Grid item key={index} xs={6} md={4}>
                     <Box sx={{}}>
@@ -304,7 +292,7 @@ export default function Index() {
               </Grid>
             </Box>
           )}
-          <Grid container spacing={2}>
+          <Grid container spacing={2} >
             {data &&
               data.data.map((item: any, index: React.Key | null | undefined) => {
                 return (
@@ -319,164 +307,65 @@ export default function Index() {
                         }}
                       >
                         {item.attributes.isNew && (
-                          <Box sx={{ backgroundColor: "black", width: "65px", zIndex: "1", position: "relative", ml: {xs:"5%",md:"5%", lg:"5%"} }}>
+                          <Box sx={{ backgroundColor: "black", width: "65px", zIndex: "1", position: "relative", ml: { xs: "5%", md: "5%", lg: "5%" } }}>
                             <Typography sx={{ textAlign: "center", color: "white", fontWeight: "bold", fontSize: "14px", letterSpacing: "2px" }}>NEW</Typography>
                           </Box>
                         )}
                         <Image fill alt="ads" src={item.attributes.Image_Thumbnail_350px.data?.attributes.url} />
 
-                        <Link href="#">
-                          <Box
-                            sx={{
-                              position: "absolute",
-                              top: 0,
-                              left: 0,
-                              width: "100%",
-                              height: "100%",
-                              display: "flex",
-                              justifyContent: "center",
-                              opacity: 0,
-                              zIndex: "1",
-                              transition: "opacity 0.3s ease-in-out",
-                              "&:hover": {
-                                opacity: 1,
-                              },
-                              "&:before": {
-                                content: '""',
-                                position: "absolute",
-                                top: "0",
-                                left: "0",
-                                width: "100%",
-                                height: "110%",
-                                backgroundSize: "cover",
-                                backgroundPosition: "0 0",
-                                transition: "transform calc(var(--d) * 1.5) var(--e)",
-                                pointerEvents: "none",
-                              },
-                              "&:after": {
-                                content: '""',
-                                display: "block",
-                                position: "absolute",
-                                top: "0",
-                                left: "0",
-                                width: "100%",
-                                height: "200%",
-                                pointerEvents: "none",
-                                backgroundColor: "black",
-                                opacity: 0.25,
-                                transform: "translateY(-50%)",
-                                transition: "transform calc(var(--d) * 2) var(--e)",
-                              },
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                position: "relative",
-                                display: "flex",
-                                flexDirection: "column",
-                                width: "100%",
-                                transition: "transform var(--d) var(--e)",
-                                zIndex: 1,
-                                "&:hover": {
-                                  transition: ["max-height .3s ease-out", "margin .3s ease-out", "opacity .3s linear"],
-                                },
-                              }}
-                            >
-                              <Box display="flex" flexDirection="column" sx={{  justifyContent: "space-between", width: "100%", height: "80%", textTransform: "capitalize", mt: "24px", ml: "16px" }}>
-                                <Box display="flex" flexDirection="row">
-                                  <Box sx={{ position: "relative", width: "35px", height: "35px" }}>
-                                    <Image src={"/static/images/kotakdua.jpg"} fill alt={""} />
-                                  </Box>
-                                  <Box display="flex" flexDirection="column" ml="8px" sx={{opacity:"0.8"}}>
-                                    <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", fontSize: "12px" }}>nature</Typography>
-                                    <Box display="flex" flexWrap="wrap" sx={{opacity:"0.6"}}>
-                                      <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", mr:"8px", fontSize: "12px" }}>120x60</Typography>
-                                      <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", mr:"8px",fontSize: "12px" }}>60x60</Typography>
-                                      <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", mr:"8px",fontSize: "12px" }}>36x60</Typography>
-                                    </Box>
-                                  </Box>
-                                </Box>
-                                <Box display="flex" flexDirection="row">
-                                  <Box sx={{ position: "relative", width: "35px", height: "35px" }}>
-                                    <Image src={"/static/images/kotaktiga.jpg"} fill alt={""} />
-                                  </Box>
-                                  <Box display="flex" flexDirection="column" ml="8px" sx={{opacity:"0.8"}}>
-                                    <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", fontSize: "12px" }}>Bianco</Typography>
-                                    <Box display="flex" flexWrap="wrap" sx={{opacity:"0.6"}}>
-                                      <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", mr:"8px", fontSize: "12px" }}>120x60</Typography>
-                                      <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", mr:"8px",fontSize: "12px" }}>60x60</Typography>
-                                      <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", mr:"8px",fontSize: "12px" }}>36x60</Typography>
-                                    </Box>
-                                  </Box>
-                                </Box>
-                                <Box display="flex" flexDirection="row">
-                                  <Box sx={{ position: "relative", width: "35px", height: "35px" }}>
-                                    <Image src={"/static/images/kotakempat.jpg"} fill alt={""} />
-                                  </Box>
-                                  <Box display="flex" flexDirection="column" ml="8px" sx={{opacity:"0.8"}}>
-                                    <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", fontSize: "12px" }}>grigio</Typography>
-                                    <Box display="flex" flexWrap="wrap" sx={{opacity:"0.6"}}>
-                                      <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", mr:"8px", fontSize: "12px" }}>120x60</Typography>
-                                      <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", mr:"8px",fontSize: "12px" }}>60x60</Typography>
-                                      <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", mr:"8px",fontSize: "12px" }}>36x60</Typography>
-                                    </Box>
-                                  </Box>
-                                </Box>
-                                <Box display="flex" flexDirection="row">
-                                  <Box sx={{ position: "relative", width: "35px", height: "35px" }}>
-                                    <Image src={"/static/images/kotaklima.jpg"} fill alt={""} />
-                                  </Box>
-                                  <Box display="flex" flexDirection="column" ml="8px" sx={{opacity:"0.7"}}>
-                                    <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", fontSize: "12px" }}>rovere</Typography>
-                                    <Box display="flex" flexWrap="wrap" sx={{opacity:"0.5"}} >
-                                      <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", mr:"8px", fontSize: "12px" }}>120x60</Typography>
-                                      <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", mr:"8px",fontSize: "12px" }}>60x60</Typography>
-                                      <Typography sx={{ fontWeight: "medium", textTransform: "capitalize", color: "white", mr:"8px",fontSize: "12px" }}>36x60</Typography>
-                                    </Box>
-                                  </Box>
-                                </Box>
-                              </Box>
-                            </Box>
-                          </Box>
-                        </Link>
+                        <HoverInProduct />
                       </Box>
                       <Box sx={{ backgroundColor: "#F2F1F0", p: 1 }}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>{item.attributes.Name}</Typography>
-                        <Box display="flex" flexDirection="row" sx={{}}>
-                          <Typography
-                            sx={{
-                              borderRadius: "5px",
-                              color: "white",
-                              display: "inline-block",
-                              fontSize: "12px",
-                              fontWeight: "medium",
-                              letterSpacing: "1px",
-                              marginTop: "5px",
-                              padding: "3px 6px 0",
-                              textTransform: "uppercase",
-                              backgroundColor: "grey",
-                              border: "1px solid grey",
-                              marginRight: "5px",
-                            }}
-                          >
-                            concrate
-                          </Typography>
-                          <Typography
-                            sx={{
-                              border: "1px solid black",
-                              borderRadius: "5px",
-                              color: "black",
-                              display: "inline-block",
-                              fontSize: "12px",
-                              fontWeight: "medium",
-                              letterSpacing: "1px",
-                              marginTop: "5px",
-                              padding: "3px 6px 0",
-                              textTransform: "uppercase",
-                            }}
-                          >
-                            select
-                          </Typography>
+                        <Box sx={{ display: "flex", flexDirection: "row" }}>
+                          {item.attributes.product_varians.data.map((item: any, index: React.Key | null | undefined) => {
+                            return (
+                              <Box key={index} sx={{justifyContent:"space-between"}}>
+                                <Typography
+                                  sx={{
+                                    borderRadius: "5px",
+                                    color: "white",
+                                    fontSize: "12px",
+                                    fontWeight: "medium",
+                                    letterSpacing: "1px",
+                                    marginTop: "5px",
+                                    textTransform: "uppercase",
+                                    backgroundColor: "grey",
+                                    border: "1px solid grey",
+                                    marginRight: "5px",
+                                    px: "2px",
+                                  }}
+                                >
+                                  {item.attributes.Varian}
+                                </Typography>
+                              </Box>
+                            );
+                          })}
+                          {item.attributes.style_motifs.data.map((item: any, index: React.Key | null | undefined) => {
+                            return (
+                              <Box key={index} sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                                <Typography
+                                  sx={{
+                                    borderRadius: "5px",
+                                    color: "black",
+                                    display: "inline-block",
+                                    fontSize: "12px",
+                                    fontWeight: "medium",
+                                    letterSpacing: "1px",
+                                    marginTop: "5px",
+                                    height:"20px",
+                                    textTransform: "uppercase",
+                                    backgroundColor: "white",
+                                    border: "1px solid grey",
+                                    marginRight: "5px",
+                                    px: "4px",
+                                  }}
+                                >
+                                  {item.attributes.Style}
+                                </Typography>
+                              </Box>
+                            );
+                          })}
                         </Box>
 
                         <Box
