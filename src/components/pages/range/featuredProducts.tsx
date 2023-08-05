@@ -7,16 +7,16 @@ export default function FeaturedProducts() {
   return (
     <>
       <Grid>
-        <Box
-          sx={{
-            letterSpacing: "2px",
-            paddingBottom: { md: "40px", xs: "0" },
-            position: "relative",
-            textAlign: "center",
-          }}
-        >
-          <Typography sx={{ fontSize: "27px", fontWeight: "bold" }}>FEATURED PRODUCT RANGES: CONCRETE</Typography>
-        </Box>
+      <Box
+            sx={{
+              letterSpacing: "2px",
+              paddingBottom: { md: "40px", xs: "0" },
+              position: "relative",
+              textAlign: "center",
+            }}
+          >
+            <Typography sx={{ fontSize: "27px", fontWeight: "bold" }}>FEATURED PRODUCT RANGES: CONCRETE</Typography>
+          </Box>
         <Grid>
           <Box
             display="flex"

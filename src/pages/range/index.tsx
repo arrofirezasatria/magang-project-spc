@@ -346,7 +346,7 @@ export default function Index({ data }: any) {
               return (
                 <Grid item key={index} xs={6} md={2.4}>
                   <Link
-                    href={"/range/" + item.id}
+                    href={"/range/" + item.attributes.products.data[0]?.id}
                     style={{ textDecoration: "none" }}
                   >
                     <Box
