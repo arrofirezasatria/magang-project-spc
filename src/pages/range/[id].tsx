@@ -20,7 +20,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-
 } from "@mui/material";
 import AppsBar from "@components/AppsBar";
 import { useSelector, useDispatch } from "react-redux";
@@ -34,6 +33,8 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import AltProductRanges from "@components/pages/range/altProductRanges";
 import Image from "next/image";
 import { url } from "inspector";
+import product from "next-seo/lib/jsonld/product";
+import { headers } from "next/dist/client/components/headers";
 
 export default function Page(props: any) {
   // console.log(data);
@@ -338,6 +339,10 @@ export default function Page(props: any) {
                               .data.attributes.Name
                           }
                         </Link>
+                        <Link href="#" underline="none" className="white-link">
+                          {props.productOnly.data.attributes.tile_color.data
+                            .attributes.Name + " color"}
+                        </Link>
                       </Stack>
                     </Box>
 
@@ -466,6 +471,7 @@ export default function Page(props: any) {
                     </Box>
                   </Grid>
                   <Grid item xs={12} md={6} sx={{ pb: "50px" }}>
+                    f
                     <Box
                       sx={{
                         width: "100%",
@@ -505,6 +511,16 @@ export default function Page(props: any) {
                 add to Cart
               </Button>
             </Box>
+            <Box
+              className="product-highlight"
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                bgcolor: "#f5f5f5",
+                p: "20px",
+              }}
+            >
+              <Grid container spacing={6}>
             <Box className='product-highlight' sx={{ display: 'flex', justifyContent: 'center', bgcolor: '#f5f5f5' }}>
               <Grid container spacing={0} sx={{
                 maxWidth: '1200px',
@@ -518,8 +534,8 @@ export default function Page(props: any) {
                   >
                     <Image
                       src={
-                        props.productOnly.data.attributes?.Image_Tile_Face.data[0]
-                          .attributes?.formats.medium.url
+                        props.productOnly.data.attributes?.Image_Tile_Face
+                          .data[0].attributes?.formats.medium.url
                       }
                       fill
                       alt=""
@@ -534,7 +550,9 @@ export default function Page(props: any) {
                           display: "flex",
                         }}
                       >
-                        <Typography sx={{ fontSize: "24px", fontWeight: "bold" }}>
+                        <Typography
+                          sx={{ fontSize: "24px", fontWeight: "bold" }}
+                        >
                           {props.productOnly.data.attributes?.Name} -{" "}
                           {props.productOnly.data.attributes?.Code}
                         </Typography>
@@ -577,19 +595,49 @@ export default function Page(props: any) {
                       <Box sx={{ bgcolor: '#f8f8f8', border: '1px solid #999', borderRadius: '1px', p: '20px', mt: '20px' }}>
                         <Typography sx={{ fontSize: '22px', fontWeight: 'bold' }}>Order tiles now</Typography>
                         <TableContainer>
-                          <Table sx={{ width: '100%', fontSize: '14px', borderCollapse: 'collapse', mt: '20px' }} aria-label="simple table">
+                          <Table
+                            sx={{
+                              width: "100%",
+                              fontSize: "14px",
+                              borderCollapse: "collapse",
+                              mt: "20px",
+                            }}
+                            aria-label="simple table"
+                          >
                             <TableHead>
                               <TableRow>
-                                <TableCell sx={{ minWidth: '19%' }}>Required</TableCell>
-                                <TableCell sx={{ minWidth: '19%' }} align="right">Quantity</TableCell>
-                                <TableCell sx={{ minWidth: '19%' }} align="right">Coverage</TableCell>
-                                <TableCell sx={{ minWidth: '19%' }} align="right">Box Price</TableCell>
-                                <TableCell sx={{ minWidth: '19%' }} align="right">Total Price</TableCell>
+                                <TableCell sx={{ minWidth: "19%" }}>
+                                  Required
+                                </TableCell>
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
+                                  Quantity
+                                </TableCell>
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
+                                  Coverage
+                                </TableCell>
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
+                                  Box Price
+                                </TableCell>
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
+                                  Total Price
+                                </TableCell>
                               </TableRow>
                             </TableHead>
                             <TableBody>
                               <TableRow>
-                                <TableCell component='th' scope="row">
+                                <TableCell component="th" scope="row">
                                   <TextField
                                     id="outlined-number"
                                     label="Box"
@@ -597,7 +645,7 @@ export default function Page(props: any) {
                                     InputLabelProps={{
                                       shrink: true,
                                     }}
-                                    sx={{ width: '100px' }}
+                                    sx={{ width: "100px" }}
                                   />
                                 </TableCell>
                                 <TableCell align="right">1 Box</TableCell>
@@ -608,15 +656,20 @@ export default function Page(props: any) {
                             </TableBody>
                           </Table>
                         </TableContainer>
-                        <Button variant="contained" sx={{
-                          bgcolor: '#111',
-                          width: '100%',
-                          borderRadius: '50px',
-                          fontSize: '16px',
-                          '&:hover': {
-                            bgcolor: '#222',
-                          },
-                        }}>Add to Cart</Button>
+                        <Button
+                          variant="contained"
+                          sx={{
+                            bgcolor: "#111",
+                            width: "100%",
+                            borderRadius: "50px",
+                            fontSize: "16px",
+                            "&:hover": {
+                              bgcolor: "#222",
+                            },
+                          }}
+                        >
+                          Add to Cart
+                        </Button>
                       </Box>
                       {/* <Box
                         sx={{
@@ -928,8 +981,8 @@ export const getStaticProps = async ({ params }: any) => {
   console.log(params.id);
   const responseProduct = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-    params.id +
-    "?populate[motif][populate][products][populate]=*",
+      params.id +
+      "?populate[motif][populate][products][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -939,8 +992,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseMotif = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-    params.id +
-    "?populate[motif][populate]=*",
+      params.id +
+      "?populate[motif][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -950,8 +1003,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAmbience = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-    params.id +
-    "?populate=*",
+      params.id +
+      "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
