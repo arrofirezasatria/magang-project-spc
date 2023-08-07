@@ -285,7 +285,7 @@ export default function Page(props: any) {
                             bgcolor: "grey",
                             border: "1px solid grey",
                             color: "#fff",
-                            p: "6px 8px 1px",
+                            p: "6px 6px",
                             borderRadius: "5px",
                           },
                           "& .white-link": {
@@ -294,7 +294,7 @@ export default function Page(props: any) {
                             bgcolor: "#fff",
                             border: "1px solid #000",
                             color: "#000",
-                            p: "6px 8px 1px",
+                            p: "6px 6px",
                             borderRadius: "5px",
                           },
                         }}
@@ -308,7 +308,6 @@ export default function Page(props: any) {
                             );
                           }
                         )}
-
                         {props.motif.data.attributes.motif.data.attributes.style_motifs.data.map(
                           (item, index) => {
                             return (
@@ -323,6 +322,13 @@ export default function Page(props: any) {
                             );
                           }
                         )}
+
+                        <Link href="#" underline="none" className="white-link">
+                          {
+                            props.productOnly.data.attributes.surface_finish
+                              .data.attributes.Name
+                          }
+                        </Link>
                       </Stack>
                     </Box>
 
@@ -459,7 +465,10 @@ export default function Page(props: any) {
                       }}
                     >
                       <Image
-                        src={props.ambience}
+                        src={
+                          props?.productOnly?.data.attributes?.Image_Ambience
+                            ?.data[0].attributes.formats.large.url
+                        }
                         fill
                         alt="hero"
                         style={{ objectFit: "cover" }}
@@ -787,9 +796,8 @@ export const getStaticProps = async ({ params }: any) => {
     props: {
       product: product,
       motif: motif,
-      ambience:
-        ambience.data.attributes?.Image_Ambience?.data[0].attributes.formats
-          .large.url,
+      productOnly: ambience,
+      // ambience.data.attributes?.Image_Ambience?.data[0].attributes.formats.large.url,
     },
   };
 };
