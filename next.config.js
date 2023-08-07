@@ -20,4 +20,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withBundleAnalyzer(nextTranslate(withPWA(nextConfig)));
+module.exports = withBundleAnalyzer(nextConfig);
