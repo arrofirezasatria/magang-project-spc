@@ -12,6 +12,15 @@ import {
   List,
   Stack,
   Typography,
+  TextField,
+  Table,
+  Paper,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+
 } from "@mui/material";
 import AppsBar from "@components/AppsBar";
 import { useSelector, useDispatch } from "react-redux";
@@ -496,126 +505,167 @@ export default function Page(props: any) {
                 add to Cart
               </Button>
             </Box>
-            <Grid container spacing={6}>
-              <Grid item xs={12} md={6}>
-                <Box
-                  sx={{ width: "50%", height: "273px", position: "relative" }}
-                >
-                  <Image
-                    src={
-                      props.productOnly.data.attributes?.Image_Tile_Face.data[0]
-                        .attributes?.formats.medium.url
-                    }
-                    fill
-                    alt=""
-                  />
-                </Box>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Box>
-                  <Box sx={{}}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                      }}
-                    >
-                      <Typography sx={{ fontSize: "24px", fontWeight: "bold" }}>
-                        {props.productOnly.data.attributes?.Name} -{" "}
-                        {props.productOnly.data.attributes?.Code}
-                      </Typography>
-                    </Box>
-                    <Typography
-                      sx={{
-                        fontSize: "24px",
-                        fontWeight: "medium",
-                        color: "#999",
-                      }}
-                    >
-                      Rp. {props.productOnly.data.attributes?.Price}
-                    </Typography>
-                  </Box>
+            <Box className='product-highlight' sx={{ display: 'flex', justifyContent: 'center', bgcolor: '#f5f5f5', p: '20px' }}>
+              <Grid container spacing={6}>
+                <Grid item xs={12} md={6}>
                   <Box
-                    sx={{
-                      "& .MuiTypography-root": {
-                        fontSize: "16px",
-                        fontWeight: "400",
-                      },
-                    }}
+                    sx={{ width: "50%", height: "273px", position: "relative" }}
                   >
-                    {[{ title: "Code" }, { title: "Size" }].map(
-                      (item, index) => {
-                        return (
-                          <Box
-                            sx={{
-                              display: "flex",
-                              borderTop: "1px solid #999",
-                              width: "100%",
-                            }}
-                            key={index}
-                          >
-                            <Typography sx={{ flexBasis: "50%" }}>
-                              {item.title}
-                            </Typography>
-                            <Typography sx={{ flexBasis: "50%" }}>
-                              {props.productOnly.data.attributes?.Code}
-                            </Typography>
-                          </Box>
-                        );
+                    <Image
+                      src={
+                        props.productOnly.data.attributes?.Image_Tile_Face.data[0]
+                          .attributes?.formats.medium.url
                       }
-                    )}
-
-                    {/* <Box
-                      sx={{
-                        display: "flex",
-                        borderTop: "1px solid #999",
-                        width: "100%",
-                      }}
-                    >
-                      <Typography sx={{ flexBasis: "50%" }}>Code:</Typography>
-                      <Typography sx={{ flexBasis: "50%" }}>
-                        {props.productOnly.data.attributes?.Code}
+                      fill
+                      alt=""
+                    />
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Box>
+                    <Box sx={{}}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                        }}
+                      >
+                        <Typography sx={{ fontSize: "24px", fontWeight: "bold" }}>
+                          {props.productOnly.data.attributes?.Name} -{" "}
+                          {props.productOnly.data.attributes?.Code}
+                        </Typography>
+                      </Box>
+                      <Typography
+                        sx={{
+                          fontSize: "24px",
+                          fontWeight: "medium",
+                          color: "#999",
+                        }}
+                      >
+                        Rp. {props.productOnly.data.attributes?.Price}
                       </Typography>
                     </Box>
                     <Box
                       sx={{
-                        display: "flex",
-                        borderTop: "1px solid #999",
-                        width: "100%",
                       }}
                     >
-                      <Typography sx={{ flexBasis: "50%" }}>Size:</Typography>
-                      <Typography sx={{ flexBasis: "50%" }}>
-                        {
-                          props.productOnly.data.attributes?.tile_dimension.data
-                            .attributes?.Dimension
+                      {[{ title: "Code", value: props.productOnly.data.attributes?.Code }, { title: "Size", value: props.productOnly.data.attributes?.tile_dimension.data.attributes?.Dimension }, { title: "Finish", value: props.productOnly.data.attributes?.surface_finish.data?.attributes?.Name }, { title: "Color", value: props.productOnly.data.attributes?.Motif_Color }, { title: "Face", value: props.productOnly.data.attributes?.N_Face }].map(
+                        (item, index) => {
+                          return (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                borderTop: "1px solid #999",
+                                width: "100%",
+                              }}
+                              key={index}
+                            >
+                              <Typography sx={{ fontSize: "16px", fontWeight: 'medium', flexBasis: "50%" }}>
+                                {item.title}
+                              </Typography>
+                              <Typography sx={{ fontSize: "16px", flexBasis: "50%" }}>
+                                {item.value}
+                              </Typography>
+                            </Box>
+                          );
                         }
-                      </Typography>
+                      )}
+                      <Box sx={{ bgcolor: '#f8f8f8', border: '1px solid #999', borderRadius: '1px', p: '20px', mt: '20px' }}>
+                        <Typography sx={{ fontSize: '22px', fontWeight: 'bold' }}>Order tiles now</Typography>
+                        <TableContainer>
+                          <Table sx={{ width: '100%', fontSize: '14px', borderCollapse: 'collapse', mt: '20px' }} aria-label="simple table">
+                            <TableHead>
+                              <TableRow>
+                                <TableCell sx={{ minWidth: '19%' }}>Required</TableCell>
+                                <TableCell sx={{ minWidth: '19%' }} align="right">Quantity</TableCell>
+                                <TableCell sx={{ minWidth: '19%' }} align="right">Coverage</TableCell>
+                                <TableCell sx={{ minWidth: '19%' }} align="right">Box Price</TableCell>
+                                <TableCell sx={{ minWidth: '19%' }} align="right">Total Price</TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              <TableRow>
+                                <TableCell component='th' scope="row">
+                                  <TextField
+                                    id="outlined-number"
+                                    label="Box"
+                                    type="number"
+                                    InputLabelProps={{
+                                      shrink: true,
+                                    }}
+                                    sx={{ width: '100px' }}
+                                  />
+                                </TableCell>
+                                <TableCell align="right">1 Box</TableCell>
+                                <TableCell align="right">1m</TableCell>
+                                <TableCell align="right">Rp. 123123</TableCell>
+                                <TableCell align="right">Rp. 999999</TableCell>
+                              </TableRow>
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
+                        <Button variant="contained" sx={{
+                          bgcolor: '#111',
+                          width: '100%',
+                          borderRadius: '50px',
+                          fontSize: '16px',
+                          '&:hover': {
+                            bgcolor: '#222',
+                          },
+                        }}>Add to Cart</Button>
+                      </Box>
+                      {/* <Box
+                        sx={{
+                          display: "flex",
+                          borderTop: "1px solid #999",
+                          width: "100%",
+                        }}
+                      >
+                        <Typography sx={{ flexBasis: "50%" }}>Code:</Typography>
+                        <Typography sx={{ flexBasis: "50%" }}>
+                          {props.productOnly.data.attributes?.Code}
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          borderTop: "1px solid #999",
+                          width: "100%",
+                        }}
+                      >
+                        <Typography sx={{ flexBasis: "50%" }}>Size:</Typography>
+                        <Typography sx={{ flexBasis: "50%" }}>
+                          {
+                            props.productOnly.data.attributes?.tile_dimension.data
+                              .attributes?.Dimension
+                          }
+                        </Typography>
+                      </Box>
+                      <Box sx={{ display: "flex", borderTop: "1px solid #999" }}>
+                        <Typography sx={{ flexBasis: "50%" }}>Finish:</Typography>
+                        <Typography sx={{ flexBasis: "50%" }}>
+                          {
+                            props.productOnly.data.attributes?.surface_finish.data
+                              ?.attributes?.Name
+                          }
+                        </Typography>
+                      </Box>
+                      <Box sx={{ display: "flex", borderTop: "1px solid #999" }}>
+                        <Typography sx={{ flexBasis: "50%" }}>Color:</Typography>
+                        <Typography sx={{ flexBasis: "50%" }}>
+                          {props.productOnly.data.attributes?.Motif_Color}
+                        </Typography>
+                      </Box>
+                      <Box sx={{ display: "flex", borderTop: "1px solid #999" }}>
+                        <Typography sx={{ flexBasis: "50%" }}>Face:</Typography>
+                        <Typography sx={{ flexBasis: "50%" }}>
+                          {props.productOnly.data.attributes?.N_Face}
+                        </Typography>
+                      </Box> */}
                     </Box>
-                    <Box sx={{ display: "flex", borderTop: "1px solid #999" }}>
-                      <Typography sx={{ flexBasis: "50%" }}>Finish:</Typography>
-                      <Typography sx={{ flexBasis: "50%" }}>
-                        {
-                          props.productOnly.data.attributes?.surface_finish.data
-                            ?.attributes?.Name
-                        }
-                      </Typography>
-                    </Box>
-                    <Box sx={{ display: "flex", borderTop: "1px solid #999" }}>
-                      <Typography sx={{ flexBasis: "50%" }}>Color:</Typography>
-                      <Typography sx={{ flexBasis: "50%" }}>
-                        {props.productOnly.data.attributes?.Motif_Color}
-                      </Typography>
-                    </Box>
-                    <Box sx={{ display: "flex", borderTop: "1px solid #999" }}>
-                      <Typography sx={{ flexBasis: "50%" }}>Face:</Typography>
-                      <Typography sx={{ flexBasis: "50%" }}>
-                        {props.productOnly.data.attributes?.N_Face}
-                      </Typography>
-                    </Box> */}
                   </Box>
-                </Box>
+                </Grid>
               </Grid>
-            </Grid>
+            </Box>
           </Box>
         </Box>
         <Box
@@ -873,8 +923,8 @@ export const getStaticProps = async ({ params }: any) => {
   console.log(params.id);
   const responseProduct = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate[motif][populate][products][populate]=*",
+    params.id +
+    "?populate[motif][populate][products][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -884,8 +934,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseMotif = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate[motif][populate]=*",
+    params.id +
+    "?populate[motif][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -895,8 +945,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAmbience = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate=*",
+    params.id +
+    "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
