@@ -505,8 +505,13 @@ export default function Page(props: any) {
                 add to Cart
               </Button>
             </Box>
-            <Box className='product-highlight' sx={{ display: 'flex', justifyContent: 'center', bgcolor: '#f5f5f5', p: '20px' }}>
-              <Grid container spacing={6}>
+            <Box className='product-highlight' sx={{ display: 'flex', justifyContent: 'center', bgcolor: '#f5f5f5' }}>
+              <Grid container spacing={0} sx={{
+                maxWidth: '1200px',
+                padding: { xs: "20px 15px", md: "20px 30px" },
+                margin: "0 auto",
+                width: "100%",
+              }}>
                 <Grid item xs={12} md={6}>
                   <Box
                     sx={{ width: "50%", height: "273px", position: "relative" }}
@@ -521,7 +526,7 @@ export default function Page(props: any) {
                     />
                   </Box>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} sx={{ pl: '22px' }}>
                   <Box>
                     <Box sx={{}}>
                       <Box
@@ -548,7 +553,7 @@ export default function Page(props: any) {
                       sx={{
                       }}
                     >
-                      {[{ title: "Code", value: props.productOnly.data.attributes?.Code }, { title: "Size", value: props.productOnly.data.attributes?.tile_dimension.data.attributes?.Dimension }, { title: "Finish", value: props.productOnly.data.attributes?.surface_finish.data?.attributes?.Name }, { title: "Color", value: props.productOnly.data.attributes?.Motif_Color }, { title: "Face", value: props.productOnly.data.attributes?.N_Face }].map(
+                      {[{ title: "Size", value: props.productOnly.data.attributes?.tile_dimension.data.attributes?.Dimension }, { title: "Colour", value: props.productOnly.data.attributes?.Motif_Color }, { title: "Finish", value: props.productOnly.data.attributes?.surface_finish.data?.attributes?.Name }, { title: "Material", value: "Glazed Ceramic" }, { title: "Suitability", value: "Internal Wall" }, { title: "Tiles per Box", value: "5" }, { title: "Coverage/box", value: "0.9m" }].map(
                         (item, index) => {
                           return (
                             <Box
