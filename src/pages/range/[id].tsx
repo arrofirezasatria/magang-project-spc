@@ -48,9 +48,12 @@ export default function Page(props: any) {
   const products =
     props.product.data.attributes.motif.data.attributes.products.data; // array
 
-  console.log(data);
+  console.log(props.alternative1);
+  console.log(props.alternative2);
+  console.log(props.alternative3);
 
-  console.log(props.product.data.attributes.motif.data.attributes);
+  // console.log(data);
+  // console.log(props.product.data.attributes.motif.data.attributes);
 
   return (
     <>
@@ -473,7 +476,6 @@ export default function Page(props: any) {
                     </Box>
                   </Grid>
                   <Grid item xs={12} md={6} sx={{ pb: "50px" }}>
-                    f
                     <Box
                       sx={{
                         width: "100%",
@@ -576,7 +578,7 @@ export default function Page(props: any) {
                     </Link>
                   </Box>
                 </Grid>
-                <Grid item xs={12} md={6} sx={{ pl: '22px' }}>
+                <Grid item xs={12} md={6}>
                   <Box>
                     <Box sx={{}}>
                       <Box sx={{
@@ -991,7 +993,7 @@ export default function Page(props: any) {
               width: "100%",
             }}
           >
-            <AltProductRanges />
+            <AltProductRanges alt1={2} alt2={3} alt3={4} />
           </Box>
         </Box>
       </>
@@ -1081,15 +1083,55 @@ export const getStaticProps = async ({ params }: any) => {
   const motif = await responseMotif.json();
   const ambience = await responseAmbience.json();
 
-  // console.log(
-  //   ambience.data.attributes.Image_Ambience.data[0].attributes.formats.large.url
-  // );
+  const responseAlt1 = await fetch(
+    "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
+      1 +
+      "?populate=*",
+    {
+      headers: {
+        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+      },
+    }
+  );
+
+  const responseAlternative1 = await responseAlt1.json();
+
+  const responseAlt2 = await fetch(
+    "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
+      2 +
+      "?populate=*",
+    {
+      headers: {
+        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+      },
+    }
+  );
+
+  const responseAlternative2 = await responseAlt2.json();
+
+  const responseAlt3 = await fetch(
+    "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
+      3 +
+      "?populate=*",
+    {
+      headers: {
+        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+      },
+    }
+  );
+
+  const responseAlternative3 = await responseAlt3.json();
+
+  console.log(responseAlternative1);
 
   return {
     props: {
       product: product,
       motif: motif,
       productOnly: ambience,
+      alternative1: responseAlternative1,
+      alternative2: responseAlternative2,
+      alternative3: responseAlternative3,
       // ambience.data.attributes?.Image_Ambience?.data[0].attributes.formats.large.url,
     },
   };
