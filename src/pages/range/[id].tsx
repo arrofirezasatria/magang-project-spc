@@ -499,7 +499,7 @@ export default function Page(props: any) {
                 </Grid>
               </>
             </Box>
-            <Box>
+            <Box sx={{ display: "none" }}>
               <AppsBar />
               <Box>{data.attributes?.Slug}</Box>
               <Typography>Product name : {data.attributes?.Name}</Typography>
@@ -522,6 +522,43 @@ export default function Page(props: any) {
               }}
             >
               <Grid container spacing={6}> */}
+            <Box sx={{ position: "relative", pt: "20px" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  position: "relative",
+                  py: "30px",
+                  textAlign: "center",
+                  backgroundColor: "#f5f5f5",
+                }}
+              >
+                <Typography
+                  component="h2"
+                  sx={{
+                    fontSize: "27px",
+                    fontWeight: "bold",
+                    letterSpacing: "2px",
+                  }}
+                >
+                  PRODUCT SPECIFICATION
+                </Typography>
+              </Box>
+              <Box
+                component="span"
+                sx={{
+                  position: "absolute",
+                  bottom: "0",
+                  left: "50%",
+                  width: "100px",
+                  height: "3px",
+                  backgroundColor: "black",
+                  transform: "translateX(-50%)",
+                  content: "''",
+                }}
+              />
+            </Box>
+            <Box sx={{ height: "30px", backgroundColor: "#f5f5f5" }} />
             <Box
               className="product-highlight"
               sx={{
@@ -889,9 +926,11 @@ export default function Page(props: any) {
             </Box>
           </Box>
         </Box>
+
         <Box
           className="product-wrap-grey"
-          sx={{ display: "flex", bgcolor: "#F5F5F5" }}
+          // sx={{ display: "flex", bgcolor: "#F5F5F5" }}
+          sx={{ display: "none", bgcolor: "#F5F5F5" }}
         >
           <Box
             className="product-container"
@@ -1079,6 +1118,7 @@ export default function Page(props: any) {
             </Box>
           </Box>
         </Box>
+
         <Box className="product-wrap-white" sx={{ display: "flex" }}>
           <Box
             className="product-container"
