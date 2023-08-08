@@ -21,7 +21,6 @@ import {
   TableHead,
   TableRow,
   Divider,
-
 } from "@mui/material";
 import AppsBar from "@components/AppsBar";
 import { useSelector, useDispatch } from "react-redux";
@@ -35,8 +34,6 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import AltProductRanges from "@components/pages/range/altProductRanges";
 import Image from "next/image";
 import { url } from "inspector";
-import product from "next-seo/lib/jsonld/product";
-import { headers } from "next/dist/client/components/headers";
 
 export default function Page(props: any) {
   // console.log(data);
@@ -439,7 +436,7 @@ export default function Page(props: any) {
                               bgcolor: "#000",
                               color: "#fff",
                               borderRadius: "5px",
-                              p: "8px 8px 5px 8px",
+                              p: "6px 10px 6px 10px",
                               fontFamily:
                                 '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                               fontSize: "14px",
@@ -515,7 +512,7 @@ export default function Page(props: any) {
                 add to Cart
               </Button>
             </Box>
-            <Box
+            {/* <Box
               className="product-highlight"
               sx={{
                 display: "flex",
@@ -524,44 +521,66 @@ export default function Page(props: any) {
                 p: "20px",
               }}
             >
-              <Grid container spacing={6}>
-            <Box className='product-highlight' sx={{ display: 'flex', justifyContent: 'center', bgcolor: '#f5f5f5' }}>
-              <Grid container spacing={0} sx={{
-                maxWidth: '1200px',
-                padding: { xs: "20px 15px", md: "20px 30px" },
-                margin: "0 auto",
-                width: "100%",
-                height: '100%',
-              }}>
-                <Grid item xs={12} md={6}>
+              <Grid container spacing={6}> */}
+            <Box
+              className="product-highlight"
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                bgcolor: "#f5f5f5",
+              }}
+            >
+              <Grid
+                container
+                spacing={0}
+                sx={{
+                  maxWidth: "1200px",
+                  padding: { xs: "20px 15px", md: "20px 30px" },
+                  margin: "0 auto",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <Grid item xs={12} md={6} sx={{ pl: "22px" }}>
                   <Box
-                    sx={{ width: "75%", height: '427.500px', position: "relative" }}
+                    sx={{
+                      width: "75%",
+                      height: "427.500px",
+                      position: "relative",
+                    }}
                   >
                     <Image
                       src={
-                        props.productOnly.data.attributes?.Image_Tile_Face.data[0]
-                          .attributes?.formats.large.url
+                        props.productOnly.data.attributes?.Image_Tile_Face
+                          .data[0].attributes?.formats.large.url
                       }
                       fill
                       alt=""
                       style={{
-                        borderRadius: '0px',
-                        background: '#e0e0e0',
-                        boxShadow: '5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6',
+                        borderRadius: "0px",
+                        background: "#e0e0e0",
+                        boxShadow:
+                          "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
                       }}
                     />
                   </Box>
-                  <Box sx={{ mt: "20px", width: '75%' }}>
+                  <Box sx={{ mt: "20px", width: "75%" }}>
                     <Link
-                      target='_blank'
-                      href={props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url}
+                      target="_blank"
+                      href={
+                        props.productOnly.data.attributes?.Image_Tile_Face
+                          .data[0].attributes?.url
+                      }
                       underline="none"
-                      download={props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url}
+                      download={
+                        props.productOnly.data.attributes?.Image_Tile_Face
+                          .data[0].attributes?.url
+                      }
                       sx={{
                         bgcolor: "#000",
                         color: "#fff",
                         borderRadius: "5px",
-                        p: "8px 8px 5px 8px",
+                        p: "8px 8px 8px 8px",
                         fontFamily:
                           '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                         fontSize: "14px",
@@ -581,22 +600,50 @@ export default function Page(props: any) {
                 <Grid item xs={12} md={6}>
                   <Box>
                     <Box sx={{}}>
-                      <Box sx={{
-                        background: '#3aad6c',
-                        borderRadius: '5px',
-                        color: '#fff',
-                        display: 'flex',
-                        mb: '20px',
-                      }}>
-                        <Box sx={{ display: 'flex', flexBasis: '50%', alignItems: 'center' }}>
-                          <Image src="/static/icons/icon-leaf.svg" alt='' width={15} height={15}
+                      <Box
+                        sx={{
+                          background: "#3aad6c",
+                          borderRadius: "5px",
+                          color: "#fff",
+                          display: "flex",
+                          mb: "20px",
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexBasis: "50%",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Image
+                            src="/static/icons/icon-leaf.svg"
+                            alt=""
+                            width={15}
+                            height={15}
                             style={{
-                              padding: '6px 0 3px 10px',
+                              padding: "6px 0 3px 10px",
                             }}
                           />
-                          <Typography sx={{ p: '6px 0 3px 10px', fontSize: '16px', fontWeight: '400' }}>Recycled Content</Typography>
+                          <Typography
+                            sx={{
+                              p: "6px 6px 6px 10px",
+                              fontSize: "16px",
+                              fontWeight: "400",
+                            }}
+                          >
+                            Recycled Content
+                          </Typography>
                         </Box>
-                        <Typography sx={{ p: '6px 0 3px 10px', fontSize: '16px', fontWeight: 'bold' }}>Up to 40%</Typography>
+                        <Typography
+                          sx={{
+                            p: "6px 6px 6px 10px",
+                            fontSize: "16px",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          Up to 40%
+                        </Typography>
                       </Box>
                       <Box
                         sx={{
@@ -604,7 +651,7 @@ export default function Page(props: any) {
                         }}
                       >
                         <Typography
-                          sx={{ fontSize: "24px", fontWeight: "bold" }}
+                          sx={{ fontSize: "26px", fontWeight: "bold" }}
                         >
                           {props.productOnly.data.attributes?.Name} -{" "}
                           {props.productOnly.data.attributes?.Code}
@@ -613,54 +660,103 @@ export default function Page(props: any) {
                       <Typography
                         sx={{
                           fontSize: "24px",
-                          fontWeight: "medium",
-                          color: "#555",
-                          mb: '20px'
+                          fontWeight: "bold",
+                          color: "#14b9b9",
+                          mb: "20px",
                         }}
                       >
-                        Rp. {props.productOnly.data.attributes?.Price}
+                        Rp. 153.000 /m²
+                        {/* Rp. {props.productOnly.data.attributes?.Price} */}
                       </Typography>
                     </Box>
-                    <Divider sx={{
-                      borderBottomWidth: '2px',
-                      borderColor: '#000'
-                    }} />
-                    <Box
+                    <Divider
                       sx={{
+                        borderBottomWidth: "2px",
+                        borderColor: "#000",
                       }}
-                    >
-                      {[{ title: "Code", value: props.productOnly.data.attributes?.Code }, { title: "Colour", value: props.productOnly.data.attributes?.Motif_Color }, { title: "Finish", value: props.productOnly.data.attributes?.surface_finish.data?.attributes?.Name }, { title: "Rectified Edge", value: props.productOnly.data.attributes?.Rectified.toString() }, { title: "Suitability", value: "Internal Wall" }, { title: "Wet Barefoot", value: "-" }, { title: "Material", value: "Glazed Ceramic" }, { title: "Tiles per Box", value: "5" }, { title: "Classification", value: "BIII" }, { title: "Light Reflectane Value", value: "80.00" }, { title: "CSV", value: "V2" },].map(
-                        (item, index) => {
-                          return (
-                            <><Box
+                    />
+                    <Box sx={{}}>
+                      {[
+                        {
+                          title: "Code",
+                          value: props.productOnly.data.attributes?.Code,
+                        },
+                        {
+                          title: "Colour",
+                          value: props.productOnly.data.attributes?.Motif_Color,
+                        },
+                        {
+                          title: "Finish",
+                          value:
+                            props.productOnly.data.attributes?.surface_finish
+                              .data?.attributes?.Name,
+                        },
+                        {
+                          title: "Rectified Edge",
+                          value:
+                            props.productOnly.data.attributes?.Rectified.toString(),
+                        },
+                        { title: "Suitability", value: "Internal Wall" },
+                        { title: "Wet Barefoot", value: "-" },
+                        { title: "Material", value: "Glazed Ceramic" },
+                        { title: "Tiles per Box", value: "5" },
+                        { title: "Classification", value: "BIII" },
+                        { title: "Light Reflectane Value", value: "80.00" },
+                        { title: "CSV", value: "V2" },
+                      ].map((item, index) => {
+                        return (
+                          <>
+                            <Box
                               sx={{
                                 display: "flex",
                                 width: "100%",
                               }}
                               key={index}
                             >
-                              <Typography sx={{
-                                fontSize: "16px", fontWeight: '400', flexBasis: "50%",
-                                p: '12px 10px 8px',
-                              }}>
+                              <Typography
+                                sx={{
+                                  fontSize: "16px",
+                                  fontWeight: "400",
+                                  flexBasis: "50%",
+                                  p: "12px 10px 8px",
+                                }}
+                              >
                                 {item.title}
                               </Typography>
-                              <Typography sx={{
-                                fontSize: "16px", flexBasis: "50%",
-                                fontWeight: 'bold',
-                                p: '12px 10px 8px',
-                              }}>
+                              <Typography
+                                sx={{
+                                  fontSize: "16px",
+                                  flexBasis: "50%",
+                                  fontWeight: "bold",
+                                  p: "12px 10px 8px",
+                                }}
+                              >
                                 {item.value}
                               </Typography>
-                            </Box><Divider sx={{
-                              borderBottomWidth: '2px',
-                              borderColor: '#000'
-                            }} /></>
-                          );
-                        }
-                      )}
-                      <Box sx={{ bgcolor: '#f8f8f8', border: '1px solid #999', borderRadius: '1px', p: '20px', mt: '20px' }}>
-                        <Typography sx={{ fontSize: '22px', fontWeight: 'bold' }}>Order tiles now</Typography>
+                            </Box>
+                            <Divider
+                              sx={{
+                                borderBottomWidth: "2px",
+                                borderColor: "#000",
+                              }}
+                            />
+                          </>
+                        );
+                      })}
+                      <Box
+                        sx={{
+                          bgcolor: "#f8f8f8",
+                          border: "1px solid #999",
+                          borderRadius: "1px",
+                          p: "20px",
+                          mt: "20px",
+                        }}
+                      >
+                        <Typography
+                          sx={{ fontSize: "22px", fontWeight: "bold" }}
+                        >
+                          Order tiles now
+                        </Typography>
                         <TableContainer>
                           <Table
                             sx={{
