@@ -41,15 +41,19 @@ export default function Page(props: any) {
   // console.log(data.attributes.Price);
   const dispatch = useDispatch();
 
-  const imgFileUrl = props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url;
+  const imgFileUrl =
+    props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url;
   const downloadFileAtUrl = () => {
     fetch(
       props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url
     )
       .then((response) => response.blob())
       .then((blob) => {
-        const blobURL = window.URL.createObjectURL(new Blob([blob]))
-        const fileName = props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url.split("/").pop();
+        const blobURL = window.URL.createObjectURL(new Blob([blob]));
+        const fileName =
+          props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url
+            .split("/")
+            .pop();
         const aTag = document.createElement("a");
         aTag.href = blobURL;
         aTag.setAttribute("download", fileName);
@@ -60,12 +64,12 @@ export default function Page(props: any) {
   };
 
   const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: 'background.paper',
+    bgcolor: "background.paper",
     p: 4,
   };
 
@@ -611,7 +615,7 @@ export default function Page(props: any) {
                   height: "100%",
                 }}
               >
-                <Grid item xs={12} md={6} sx={{ pl: { xs: "0", md: "22px" }, }}>
+                <Grid item xs={12} md={6} sx={{ pl: { xs: "0", md: "22px" } }}>
                   <Box
                     onClick={handleOpen}
                     sx={{
@@ -641,21 +645,29 @@ export default function Page(props: any) {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                     sx={{
-                      background: 'linear-gradient(rgba(30,30,30,.9),#000 1810%)'
+                      background:
+                        "linear-gradient(rgba(30,30,30,.9),#000 1810%)",
                     }}
                   >
                     <Box sx={style}>
-                      <Typography id="modal-modal-title" variant="h6" component="h2">
+                      <Typography
+                        id="modal-modal-title"
+                        variant="h6"
+                        component="h2"
+                      >
                         Text in a modal
                       </Typography>
                       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        Duis mollis, est non commodo luctus, nisi erat porttitor
+                        ligula.
                       </Typography>
                     </Box>
                   </Modal>
-                  <Box sx={{ my: "20px", width: { xs: "100%", md: "75%" }, }}>
+                  <Box sx={{ my: "20px", width: { xs: "100%", md: "75%" } }}>
                     <Link
-                      onClick={() => { downloadFileAtUrl(imgFileUrl) }}
+                      onClick={() => {
+                        downloadFileAtUrl(imgFileUrl);
+                      }}
                       underline="none"
                       download={
                         props.productOnly.data.attributes?.Image_Tile_Face
@@ -766,6 +778,9 @@ export default function Page(props: any) {
                           title: "Code",
                           value: props.productOnly.data.attributes?.Code,
                         },
+                        { title: "Product Varian", value: "-" },
+                        { title: "Dimension", value: "600 x 600 x 10.1mm" },
+                        { title: "Face", value: "12" },
                         {
                           title: "Colour",
                           value: props.productOnly.data.attributes?.Motif_Color,
@@ -781,13 +796,15 @@ export default function Page(props: any) {
                           value:
                             props.productOnly.data.attributes?.Rectified.toString(),
                         },
-                        { title: "Suitability", value: "Internal Wall" },
-                        { title: "Wet Barefoot", value: "-" },
-                        { title: "Material", value: "Glazed Ceramic" },
-                        { title: "Tiles per Box", value: "5" },
-                        { title: "Classification", value: "BIII" },
-                        { title: "Light Reflectane Value", value: "80.00" },
-                        { title: "CSV", value: "V2" },
+                        { title: "Shade Variation", value: "Slight" },
+                        { title: "Suitability", value: "Internal Floor" },
+                        { title: "Tiles per Box", value: "4" },
+                        { title: "Square Meter per Box", value: "14.4 /m²" },
+                        {
+                          title: "Technical Specification",
+                          value: "Glazed Ceramic",
+                        },
+                        { title: "Packing Details", value: "80.00" },
                       ].map((item, index) => {
                         return (
                           <>
@@ -828,6 +845,7 @@ export default function Page(props: any) {
                           </>
                         );
                       })}
+
                       <Box
                         sx={{
                           bgcolor: "#f8f8f8",
@@ -1232,8 +1250,8 @@ export const getStaticProps = async ({ params }: any) => {
   console.log(params.id);
   const responseProduct = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-    params.id +
-    "?populate[motif][populate][products][populate]=*",
+      params.id +
+      "?populate[motif][populate][products][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1243,8 +1261,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseMotif = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-    params.id +
-    "?populate[motif][populate]=*",
+      params.id +
+      "?populate[motif][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1254,8 +1272,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAmbience = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-    params.id +
-    "?populate=*",
+      params.id +
+      "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1269,8 +1287,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt1 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-    1 +
-    "?populate=*",
+      1 +
+      "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1282,8 +1300,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt2 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-    2 +
-    "?populate=*",
+      2 +
+      "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1295,8 +1313,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt3 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-    3 +
-    "?populate=*",
+      3 +
+      "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
