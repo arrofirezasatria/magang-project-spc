@@ -1,6 +1,28 @@
 import React from "react";
-import type { InferGetStaticPropsType, GetStaticProps, GetStaticPaths } from "next";
-import { Box, Button, Grid, Link, List, Stack, Typography, TextField, Table, Paper, TableBody, TableCell, TableContainer, TableHead, TableRow, Divider, Modal } from "@mui/material";
+import type {
+  InferGetStaticPropsType,
+  GetStaticProps,
+  GetStaticPaths,
+} from "next";
+import {
+  Box,
+  Button,
+  Grid,
+  Link,
+  List,
+  Stack,
+  Typography,
+  TextField,
+  Table,
+  Paper,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Divider,
+  Modal,
+} from "@mui/material";
 import AppsBar from "@components/AppsBar";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "store/cartSlice";
@@ -12,20 +34,35 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import AltProductRanges from "@components/pages/range/altProductRanges";
 import Image from "next/image";
-import { url } from "inspector";
+import { useForm } from "react-hook-form";
+
+interface IFormInputs {
+  name: string;
+  code: string;
+  quantity: number;
+  coverage: number;
+  showAge: boolean;
+  age: number;
+}
 
 export default function Page(props: any) {
   // console.log(data);
   // console.log(data.attributes.Price);
   const dispatch = useDispatch();
 
-  const imgFileUrl = props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url;
+  const imgFileUrl =
+    props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url;
   const downloadFileAtUrl = () => {
-    fetch(props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url)
+    fetch(
+      props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url
+    )
       .then((response) => response.blob())
       .then((blob) => {
         const blobURL = window.URL.createObjectURL(new Blob([blob]));
-        const fileName = props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url.split("/").pop();
+        const fileName =
+          props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url
+            .split("/")
+            .pop();
         const aTag = document.createElement("a");
         aTag.href = blobURL;
         aTag.setAttribute("download", fileName);
@@ -51,7 +88,8 @@ export default function Page(props: any) {
 
   // const p = data.attributes;
   const data = props.motif.data.attributes.motif.data.attributes;
-  const products = props.product.data.attributes.motif.data.attributes.products.data; // array
+  const products =
+    props.product.data.attributes.motif.data.attributes.products.data; // array
 
   console.log(props.alternative1);
   console.log(props.alternative2);
@@ -62,9 +100,40 @@ export default function Page(props: any) {
 
   // const { onChange, onBlur, name, ref } = register("firstName");
 
+  const {
+    register,
+    watch,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<IFormInputs>();
+
+  // Callback version of watch.  It's your responsibility to unsubscribe when done.
+  // React.useEffect(() => {
+  //   const subscription = watch((value, { name, type }) =>
+  //     console.log(value, name, type)
+  //   );
+  //   return () => subscription.unsubscribe();
+  // }, [watch]);
+
+  console.log(watch());
+
+  const [Evalue, setEvalue] = React.useState("");
+
+  const name = watch("name");
+
+  React.useState();
+
+  const onSubmit = (data: IFormInputs) => console.log(data);
+
   return (
     <>
       <>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input {...register("name", { required: true, maxLength: 50 })} />
+          <input type="submit" />
+        </form>
+        {name}
+        <Typography>{"addasd as asd"}</Typography>
         <Box
           className="hero-container"
           sx={{
@@ -119,7 +188,13 @@ export default function Page(props: any) {
                   {data.Name}
                 </Typography>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <Image src="/static/icons/range-hero-colour-icon.svg" alt="Colors Icon" width={30} height={30} style={{}} />
+                  <Image
+                    src="/static/icons/range-hero-colour-icon.svg"
+                    alt="Colors Icon"
+                    width={30}
+                    height={30}
+                    style={{}}
+                  />
                   <Typography
                     variant="h2"
                     sx={{
@@ -232,7 +307,8 @@ export default function Page(props: any) {
                   color: "#999",
                   fontWeight: "medium",
                   fontSize: "16px",
-                  fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                  fontFamily:
+                    '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                 }}
               >
                 <Link href="#" underline="always" sx={{ color: "#999" }}>
@@ -250,9 +326,15 @@ export default function Page(props: any) {
             </Box>
             <Box>
               <>
-                <Grid container spacing={6} sx={{ p: { xs: "20px 0x", md: "20px 30px" } }}>
+                <Grid
+                  container
+                  spacing={6}
+                  sx={{ p: { xs: "20px 0x", md: "20px 30px" } }}
+                >
                   <Grid item xs={12} md={6} sx={{}}>
-                    <Box sx={{ textTransform: "uppercase", letterSpacing: "2px" }}>
+                    <Box
+                      sx={{ textTransform: "uppercase", letterSpacing: "2px" }}
+                    >
                       <Typography
                         component="h2"
                         sx={{
@@ -263,7 +345,11 @@ export default function Page(props: any) {
                       >
                         {props.product.data.attributes.Name}
                       </Typography>
-                      <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>SUN GLAZED CERAMIC</Typography>
+                      <Typography
+                        sx={{ fontSize: "18px", fontWeight: "medium" }}
+                      >
+                        SUN GLAZED CERAMIC
+                      </Typography>
                       <Typography
                         sx={{
                           mb: "10px",
@@ -279,7 +365,8 @@ export default function Page(props: any) {
                         sx={{
                           mt: "15px",
                           display: "flex",
-                          fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                          fontFamily:
+                            '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                           fontSize: "12px",
                           fontWeight: "medium",
                           flexWrap: "wrap",
@@ -303,26 +390,39 @@ export default function Page(props: any) {
                           },
                         }}
                       >
-                        {props.motif.data.attributes.motif.data.attributes.product_varians.data.map((item, index) => {
-                          return (
-                            <Link href="#" underline="none" key={index}>
-                              {item.attributes.Varian}
-                            </Link>
-                          );
-                        })}
-                        {props.motif.data.attributes.motif.data.attributes.style_motifs.data.map((item, index) => {
-                          return (
-                            <Link href="#" underline="none" key={index} className="white-link">
-                              {item.attributes.Style}
-                            </Link>
-                          );
-                        })}
+                        {props.motif.data.attributes.motif.data.attributes.product_varians.data.map(
+                          (item, index) => {
+                            return (
+                              <Link href="#" underline="none" key={index}>
+                                {item.attributes.Varian}
+                              </Link>
+                            );
+                          }
+                        )}
+                        {props.motif.data.attributes.motif.data.attributes.style_motifs.data.map(
+                          (item, index) => {
+                            return (
+                              <Link
+                                href="#"
+                                underline="none"
+                                key={index}
+                                className="white-link"
+                              >
+                                {item.attributes.Style}
+                              </Link>
+                            );
+                          }
+                        )}
 
                         <Link href="#" underline="none" className="white-link">
-                          {props.productOnly.data.attributes.surface_finish.data.attributes.Name}
+                          {
+                            props.productOnly.data.attributes.surface_finish
+                              .data.attributes.Name
+                          }
                         </Link>
                         <Link href="#" underline="none" className="white-link">
-                          {props.productOnly.data.attributes.tile_color.data.attributes.Name + " color"}
+                          {props.productOnly.data.attributes.tile_color.data
+                            .attributes.Name + " color"}
                         </Link>
                       </Stack>
                     </Box>
@@ -334,7 +434,11 @@ export default function Page(props: any) {
                         pt: "20px",
                       }}
                     >
-                      <Typography sx={{ fontSize: "16px", fontWeight: "medium" }}>{data.Description}</Typography>
+                      <Typography
+                        sx={{ fontSize: "16px", fontWeight: "medium" }}
+                      >
+                        {data.Description}
+                      </Typography>
                       <Stack
                         direction="row"
                         spacing={0}
@@ -412,7 +516,8 @@ export default function Page(props: any) {
                               color: "#fff",
                               borderRadius: "5px",
                               p: "6px 10px 6px 10px",
-                              fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                              fontFamily:
+                                '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                               fontSize: "14px",
                               mb: "5px",
                               display: "flex",
@@ -420,7 +525,9 @@ export default function Page(props: any) {
                               alignItem: "center",
                             }}
                           >
-                            <FileDownloadOutlinedIcon sx={{ pr: "8px", fontSize: "18px" }} />
+                            <FileDownloadOutlinedIcon
+                              sx={{ pr: "8px", fontSize: "18px" }}
+                            />
                             Download Range Overview
                           </Link>
                         </Box>
@@ -452,9 +559,21 @@ export default function Page(props: any) {
                         position: "relative",
                       }}
                     >
-                      <Image src={props?.productOnly?.data.attributes?.Image_Ambience?.data[0].attributes.formats.large.url} fill alt="hero" style={{ objectFit: "cover" }} />
+                      <Image
+                        src={
+                          props?.productOnly?.data.attributes?.Image_Ambience
+                            ?.data[0].attributes.formats.large.url
+                        }
+                        fill
+                        alt="hero"
+                        style={{ objectFit: "cover" }}
+                      />
                     </Box>
-                    <Typography sx={{ color: "#999", mt: "10px", fontWeight: "" }}>{props.product.data.attributes.Name} 120x60cm</Typography>
+                    <Typography
+                      sx={{ color: "#999", mt: "10px", fontWeight: "" }}
+                    >
+                      {props.product.data.attributes.Name} 120x60cm
+                    </Typography>
                   </Grid>
                 </Grid>
               </>
@@ -548,13 +667,17 @@ export default function Page(props: any) {
                     }}
                   >
                     <Image
-                      src={props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.formats.large.url}
+                      src={
+                        props.productOnly.data.attributes?.Image_Tile_Face
+                          .data[0].attributes?.formats.large.url
+                      }
                       fill
                       alt=""
                       style={{
                         borderRadius: "0px",
                         background: "#e0e0e0",
-                        boxShadow: "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
+                        boxShadow:
+                          "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
                       }}
                     />
                   </Box>
@@ -564,15 +687,21 @@ export default function Page(props: any) {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                     sx={{
-                      background: "linear-gradient(rgba(30,30,30,.9),#000 1810%)",
+                      background:
+                        "linear-gradient(rgba(30,30,30,.9),#000 1810%)",
                     }}
                   >
                     <Box sx={style}>
-                      <Typography id="modal-modal-title" variant="h6" component="h2">
+                      <Typography
+                        id="modal-modal-title"
+                        variant="h6"
+                        component="h2"
+                      >
                         Text in a modal
                       </Typography>
                       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        Duis mollis, est non commodo luctus, nisi erat porttitor
+                        ligula.
                       </Typography>
                     </Box>
                   </Modal>
@@ -582,13 +711,17 @@ export default function Page(props: any) {
                         downloadFileAtUrl(imgFileUrl);
                       }}
                       underline="none"
-                      download={props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url}
+                      download={
+                        props.productOnly.data.attributes?.Image_Tile_Face
+                          .data[0].attributes?.url
+                      }
                       sx={{
                         bgcolor: "#000",
                         color: "#fff",
                         borderRadius: "5px",
                         p: "8px 8px 8px 8px",
-                        fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                        fontFamily:
+                          '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                         fontSize: "14px",
                         mb: "5px",
                         display: "flex",
@@ -596,7 +729,9 @@ export default function Page(props: any) {
                         alignItem: "center",
                       }}
                     >
-                      <FileDownloadOutlinedIcon sx={{ pr: "8px", fontSize: "18px" }} />
+                      <FileDownloadOutlinedIcon
+                        sx={{ pr: "8px", fontSize: "18px" }}
+                      />
                       Download Tile Preview
                     </Link>
                   </Box>
@@ -654,8 +789,11 @@ export default function Page(props: any) {
                           display: "flex",
                         }}
                       >
-                        <Typography sx={{ fontSize: "26px", fontWeight: "bold" }}>
-                          {props.productOnly.data.attributes?.Name} - {props.productOnly.data.attributes?.Code}
+                        <Typography
+                          sx={{ fontSize: "26px", fontWeight: "bold" }}
+                        >
+                          {props.productOnly.data.attributes?.Name} -{" "}
+                          {props.productOnly.data.attributes?.Code}
                         </Typography>
                       </Box>
                       <Typography
@@ -691,11 +829,14 @@ export default function Page(props: any) {
                         },
                         {
                           title: "Finish",
-                          value: props.productOnly.data.attributes?.surface_finish.data?.attributes?.Name,
+                          value:
+                            props.productOnly.data.attributes?.surface_finish
+                              .data?.attributes?.Name,
                         },
                         {
                           title: "Rectified Edge",
-                          value: props.productOnly.data.attributes?.Rectified.toString(),
+                          value:
+                            props.productOnly.data.attributes?.Rectified.toString(),
                         },
                         { title: "Shade Variation", value: "Slight" },
                         { title: "Suitability", value: "Internal Floor" },
@@ -762,24 +903,31 @@ export default function Page(props: any) {
                               p: "12px 10px 8px",
                             }}
                           >
-                            {"sdadasd"}
+                            {"Technical Specification"}
                           </Typography>
-                          <Button
+                          <Box
                             sx={{
-                              backgroundColor: "black",
-                              my: "8px",
-                              height: "28px",
-                              typography: {
-                                fontWeight: "medium", // Change the fontWeight value as needed
-                                color: "white",
-                                letterSpacing: 1, // Use a number for letter spacing
-                                fontSize: "14px",
-                                textTransform: "lowercase",
-                              },
+                              flexBasis: "50%",
                             }}
                           >
-                            Preview
-                          </Button>
+                            <Button
+                              sx={{
+                                // backgroundColor: "black",
+                                border: "2px solid black",
+                                my: "8px",
+                                height: "28px",
+                                typography: {
+                                  fontWeight: "medium", // Change the fontWeight value as needed
+                                  color: "black",
+                                  letterSpacing: 1, // Use a number for letter spacing
+                                  fontSize: "14px",
+                                  textTransform: "lowercase",
+                                },
+                              }}
+                            >
+                              click for full specification
+                            </Button>
+                          </Box>
                         </Box>
                         <Divider
                           sx={{
@@ -804,25 +952,31 @@ export default function Page(props: any) {
                               p: "12px 10px 8px",
                             }}
                           >
-                            {"sdadasd"}
+                            {"Packing Details"}
                           </Typography>
-                          <Button
-                            
+                          <Box
                             sx={{
-                              backgroundColor: "black",
-                              my: "8px",
-                              height: "28px",
-                              typography: {
-                                fontWeight: "medium", // Change the fontWeight value as needed
-                                color: "white",
-                                letterSpacing: 1, // Use a number for letter spacing
-                                fontSize: "14px",
-                                textTransform: "lowercase",
-                              },
+                              flexBasis: "50%",
                             }}
                           >
-                            Preview
-                          </Button>
+                            <Button
+                              sx={{
+                                // backgroundColor: "black",
+                                border: "2px solid black",
+                                my: "8px",
+                                height: "28px",
+                                typography: {
+                                  fontWeight: "medium", // Change the fontWeight value as needed
+                                  color: "black",
+                                  letterSpacing: 1, // Use a number for letter spacing
+                                  fontSize: "14px",
+                                  textTransform: "lowercase",
+                                },
+                              }}
+                            >
+                              click for full packing details
+                            </Button>
+                          </Box>
                         </Box>
                         <Divider
                           sx={{
@@ -841,7 +995,11 @@ export default function Page(props: any) {
                           mt: "20px",
                         }}
                       >
-                        <Typography sx={{ fontSize: "22px", fontWeight: "bold" }}>Order tiles now</Typography>
+                        <Typography
+                          sx={{ fontSize: "22px", fontWeight: "bold" }}
+                        >
+                          Order tiles now
+                        </Typography>
                         <TableContainer>
                           <Table
                             sx={{
@@ -854,17 +1012,31 @@ export default function Page(props: any) {
                           >
                             <TableHead>
                               <TableRow>
-                                <TableCell sx={{ minWidth: "19%" }}>Required</TableCell>
-                                <TableCell sx={{ minWidth: "19%" }} align="right">
+                                <TableCell sx={{ minWidth: "19%" }}>
+                                  Required
+                                </TableCell>
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
                                   Quantity
                                 </TableCell>
-                                <TableCell sx={{ minWidth: "19%" }} align="right">
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
                                   Coverage
                                 </TableCell>
-                                <TableCell sx={{ minWidth: "19%" }} align="right">
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
                                   Box Price
                                 </TableCell>
-                                <TableCell sx={{ minWidth: "19%" }} align="right">
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
                                   Total Price
                                 </TableCell>
                               </TableRow>
@@ -960,7 +1132,6 @@ export default function Page(props: any) {
             </Box>
           </Box>
         </Box>
-
         <Box
           className="product-wrap-grey"
           // sx={{ display: "flex", bgcolor: "#F5F5F5" }}
@@ -1115,7 +1286,11 @@ export default function Page(props: any) {
                         position: "relative",
                       }}
                     >
-                      <Image fill alt="" src={`/static/images/${product.attributes?.Image_Tile_Face.data[0].attributes.formats.thumbnail.url}`} />
+                      <Image
+                        fill
+                        alt=""
+                        src={`/static/images/${product.attributes?.Image_Tile_Face.data[0].attributes.formats.thumbnail.url}`}
+                      />
                     </Box>
                     <Box
                       sx={{
@@ -1126,7 +1301,12 @@ export default function Page(props: any) {
                         textAlign: "center",
                       }}
                     >
-                      <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>{product.product?.attributes?.Image_Tile_Face.data[0].attributes.formats.thumbnail.url}</Typography>
+                      <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
+                        {
+                          product.product?.attributes?.Image_Tile_Face.data[0]
+                            .attributes.formats.thumbnail.url
+                        }
+                      </Typography>
                       <Typography
                         sx={{
                           fontsize: "14px",
@@ -1143,7 +1323,6 @@ export default function Page(props: any) {
             </Box>
           </Box>
         </Box>
-
         <Box className="product-wrap-white" sx={{ display: "flex" }}>
           <Box
             className="product-container"
@@ -1168,11 +1347,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
       "Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c",
   };
 
-  const res = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products?pagination[page]=0&pagination[pageSize]=999", {
-    headers: {
-      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-    },
-  });
+  const res = await fetch(
+    "https://strapi-app-tnshv.ondigitalocean.app/api/products?pagination[page]=0&pagination[pageSize]=999",
+    {
+      headers: {
+        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+      },
+    }
+  );
 
   const response = await res.json();
 
@@ -1204,49 +1386,79 @@ export const getStaticProps = async ({ params }: any) => {
   // console.log(params);
   console.log();
   console.log(params.id);
-  const responseProduct = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + params.id + "?populate[motif][populate][products][populate]=*", {
-    headers: {
-      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-    },
-  });
+  const responseProduct = await fetch(
+    "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
+      params.id +
+      "?populate[motif][populate][products][populate]=*",
+    {
+      headers: {
+        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+      },
+    }
+  );
 
-  const responseMotif = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + params.id + "?populate[motif][populate]=*", {
-    headers: {
-      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-    },
-  });
+  const responseMotif = await fetch(
+    "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
+      params.id +
+      "?populate[motif][populate]=*",
+    {
+      headers: {
+        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+      },
+    }
+  );
 
-  const responseAmbience = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + params.id + "?populate=*", {
-    headers: {
-      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-    },
-  });
+  const responseAmbience = await fetch(
+    "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
+      params.id +
+      "?populate=*",
+    {
+      headers: {
+        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+      },
+    }
+  );
 
   const product = await responseProduct.json();
   const motif = await responseMotif.json();
   const ambience = await responseAmbience.json();
 
-  const responseAlt1 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" + 1 + "?populate=*", {
-    headers: {
-      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-    },
-  });
+  const responseAlt1 = await fetch(
+    "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
+      1 +
+      "?populate=*",
+    {
+      headers: {
+        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+      },
+    }
+  );
 
   const responseAlternative1 = await responseAlt1.json();
 
-  const responseAlt2 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" + 2 + "?populate=*", {
-    headers: {
-      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-    },
-  });
+  const responseAlt2 = await fetch(
+    "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
+      2 +
+      "?populate=*",
+    {
+      headers: {
+        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+      },
+    }
+  );
 
   const responseAlternative2 = await responseAlt2.json();
 
-  const responseAlt3 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" + 3 + "?populate=*", {
-    headers: {
-      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-    },
-  });
+  const responseAlt3 = await fetch(
+    "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
+      3 +
+      "?populate=*",
+    {
+      headers: {
+        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+      },
+    }
+  );
 
   const responseAlternative3 = await responseAlt3.json();
 
