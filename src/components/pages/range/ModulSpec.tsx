@@ -9,7 +9,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 
-export default function ModulProduct() {
+export default function ModulSpec() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const table = [
     {
