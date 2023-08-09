@@ -12,6 +12,16 @@ import {
   List,
   Stack,
   Typography,
+  TextField,
+  Table,
+  Paper,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Divider,
+  Modal,
 } from "@mui/material";
 import AppsBar from "@components/AppsBar";
 import { useSelector, useDispatch } from "react-redux";
@@ -31,14 +41,49 @@ export default function Page(props: any) {
   // console.log(data.attributes.Price);
   const dispatch = useDispatch();
 
+  const imgFileUrl = props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url;
+  const downloadFileAtUrl = () => {
+    fetch(
+      props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url
+    )
+      .then((response) => response.blob())
+      .then((blob) => {
+        const blobURL = window.URL.createObjectURL(new Blob([blob]))
+        const fileName = props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url.split("/").pop();
+        const aTag = document.createElement("a");
+        aTag.href = blobURL;
+        aTag.setAttribute("download", fileName);
+        document.body.appendChild(aTag);
+        aTag.click();
+        aTag.remove();
+      });
+  };
+
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    p: 4,
+  };
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   // const p = data.attributes;
   const data = props.motif.data.attributes.motif.data.attributes;
   const products =
     props.product.data.attributes.motif.data.attributes.products.data; // array
 
-  console.log(data);
+  console.log(props.alternative1);
+  console.log(props.alternative2);
+  console.log(props.alternative3);
 
-  console.log(props.product.data.attributes.motif.data.attributes);
+  // console.log(data);
+  // console.log(props.product.data.attributes.motif.data.attributes);
 
   return (
     <>
@@ -285,7 +330,7 @@ export default function Page(props: any) {
                             bgcolor: "grey",
                             border: "1px solid grey",
                             color: "#fff",
-                            p: "6px 8px 1px",
+                            p: "6px 6px",
                             borderRadius: "5px",
                           },
                           "& .white-link": {
@@ -294,28 +339,44 @@ export default function Page(props: any) {
                             bgcolor: "#fff",
                             border: "1px solid #000",
                             color: "#000",
-                            p: "6px 8px 1px",
+                            p: "6px 6px",
                             borderRadius: "5px",
                           },
                         }}
                       >
-                        <Link href="#" underline="none">
-                          CONCRETE
-                        </Link>
-                        <Link href="#" underline="none">
-                          STRUCTURE
-                        </Link>
-                        <Link href="#" underline="none">
-                          MADE IN THE UK
-                        </Link>
-                        <Link href="#" underline="none">
-                          FLOOR TILES
-                        </Link>
-                        <Link href="#" underline="none">
-                          PTV 36+ TILES
+                        {props.motif.data.attributes.motif.data.attributes.product_varians.data.map(
+                          (item, index) => {
+                            return (
+                              <Link href="#" underline="none" key={index}>
+                                {item.attributes.Varian}
+                              </Link>
+                            );
+                          }
+                        )}
+                        {props.motif.data.attributes.motif.data.attributes.style_motifs.data.map(
+                          (item, index) => {
+                            return (
+                              <Link
+                                href="#"
+                                underline="none"
+                                key={index}
+                                className="white-link"
+                              >
+                                {item.attributes.Style}
+                              </Link>
+                            );
+                          }
+                        )}
+
+                        <Link href="#" underline="none" className="white-link">
+                          {
+                            props.productOnly.data.attributes.surface_finish
+                              .data.attributes.Name
+                          }
                         </Link>
                         <Link href="#" underline="none" className="white-link">
-                          SELECT
+                          {props.productOnly.data.attributes.tile_color.data
+                            .attributes.Name + " color"}
                         </Link>
                       </Stack>
                     </Box>
@@ -408,7 +469,7 @@ export default function Page(props: any) {
                               bgcolor: "#000",
                               color: "#fff",
                               borderRadius: "5px",
-                              p: "8px 8px 5px 8px",
+                              p: "6px 10px 6px 10px",
                               fontFamily:
                                 '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                               fontSize: "14px",
@@ -453,23 +514,25 @@ export default function Page(props: any) {
                       }}
                     >
                       <Image
-                        src={props.ambience}
+                        src={
+                          props?.productOnly?.data.attributes?.Image_Ambience
+                            ?.data[0].attributes.formats.large.url
+                        }
                         fill
                         alt="hero"
                         style={{ objectFit: "cover" }}
                       />
                     </Box>
                     <Typography
-                      sx={{ color: "#999", mt: "10px", fontWeight: "medium" }}
+                      sx={{ color: "#999", mt: "10px", fontWeight: "" }}
                     >
-                      Darwin Clay Matt Rockfall Structure 450x250mm, Clay Matt
-                      Rectangular Structure 450x250mm & Putty Matt 450x450mm
+                      {props.product.data.attributes.Name} 120x60cm
                     </Typography>
                   </Grid>
                 </Grid>
               </>
             </Box>
-            <Box>
+            <Box sx={{ display: "none" }}>
               <AppsBar />
               <Box>{data.attributes?.Slug}</Box>
               <Typography>Product name : {data.attributes?.Name}</Typography>
@@ -482,11 +545,440 @@ export default function Page(props: any) {
                 add to Cart
               </Button>
             </Box>
+            {/* <Box
+              className="product-highlight"
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                bgcolor: "#f5f5f5",
+                p: "20px",
+              }}
+            >
+              <Grid container spacing={6}> */}
+            <Box sx={{ position: "relative", pt: "20px" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  position: "relative",
+                  py: "30px",
+                  textAlign: "center",
+                  backgroundColor: "#f5f5f5",
+                }}
+              >
+                <Typography
+                  component="h2"
+                  sx={{
+                    fontSize: "27px",
+                    fontWeight: "bold",
+                    letterSpacing: "2px",
+                  }}
+                >
+                  PRODUCT SPECIFICATION
+                </Typography>
+              </Box>
+              <Box
+                component="span"
+                sx={{
+                  position: "absolute",
+                  bottom: "0",
+                  left: "50%",
+                  width: "100px",
+                  height: "3px",
+                  backgroundColor: "black",
+                  transform: "translateX(-50%)",
+                  content: "''",
+                }}
+              />
+            </Box>
+            <Box sx={{ height: "30px", backgroundColor: "#f5f5f5" }} />
+            <Box
+              className="product-highlight"
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                bgcolor: "#f5f5f5",
+              }}
+            >
+              <Grid
+                container
+                spacing={0}
+                sx={{
+                  maxWidth: "1200px",
+                  padding: { xs: "20px 15px", md: "20px 30px" },
+                  margin: "0 auto",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <Grid item xs={12} md={6} sx={{ pl: { xs: "0", md: "22px" }, }}>
+                  <Box
+                    onClick={handleOpen}
+                    sx={{
+                      width: { xs: "100%", md: "75%" },
+                      height: "427.500px",
+                      position: "relative",
+                    }}
+                  >
+                    <Image
+                      src={
+                        props.productOnly.data.attributes?.Image_Tile_Face
+                          .data[0].attributes?.formats.large.url
+                      }
+                      fill
+                      alt=""
+                      style={{
+                        borderRadius: "0px",
+                        background: "#e0e0e0",
+                        boxShadow:
+                          "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
+                      }}
+                    />
+                  </Box>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                    sx={{
+                      background: 'linear-gradient(rgba(30,30,30,.9),#000 1810%)'
+                    }}
+                  >
+                    <Box sx={style}>
+                      <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Text in a modal
+                      </Typography>
+                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                      </Typography>
+                    </Box>
+                  </Modal>
+                  <Box sx={{ my: "20px", width: { xs: "100%", md: "75%" }, }}>
+                    <Link
+                      onClick={() => { downloadFileAtUrl(imgFileUrl) }}
+                      underline="none"
+                      download={
+                        props.productOnly.data.attributes?.Image_Tile_Face
+                          .data[0].attributes?.url
+                      }
+                      sx={{
+                        bgcolor: "#000",
+                        color: "#fff",
+                        borderRadius: "5px",
+                        p: "8px 8px 8px 8px",
+                        fontFamily:
+                          '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                        fontSize: "14px",
+                        mb: "5px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItem: "center",
+                      }}
+                    >
+                      <FileDownloadOutlinedIcon
+                        sx={{ pr: "8px", fontSize: "18px" }}
+                      />
+                      Download Tile Preview
+                    </Link>
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Box>
+                    <Box sx={{}}>
+                      <Box
+                        sx={{
+                          background: "#3aad6c",
+                          borderRadius: "5px",
+                          color: "#fff",
+                          display: "flex",
+                          mb: "20px",
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexBasis: "50%",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Image
+                            src="/static/icons/icon-leaf.svg"
+                            alt=""
+                            width={15}
+                            height={15}
+                            style={{
+                              padding: "6px 0 3px 10px",
+                            }}
+                          />
+                          <Typography
+                            sx={{
+                              p: "6px 6px 6px 10px",
+                              fontSize: "16px",
+                              fontWeight: "400",
+                            }}
+                          >
+                            Recycled Content
+                          </Typography>
+                        </Box>
+                        <Typography
+                          sx={{
+                            p: "6px 6px 6px 10px",
+                            fontSize: "16px",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          Up to 40%
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                        }}
+                      >
+                        <Typography
+                          sx={{ fontSize: "26px", fontWeight: "bold" }}
+                        >
+                          {props.productOnly.data.attributes?.Name} -{" "}
+                          {props.productOnly.data.attributes?.Code}
+                        </Typography>
+                      </Box>
+                      <Typography
+                        sx={{
+                          fontSize: "24px",
+                          fontWeight: "bold",
+                          color: "#14b9b9",
+                          mb: "20px",
+                        }}
+                      >
+                        Rp. 153.000 /m²
+                        {/* Rp. {props.productOnly.data.attributes?.Price} */}
+                      </Typography>
+                    </Box>
+                    <Divider
+                      sx={{
+                        borderBottomWidth: "2px",
+                        borderColor: "#000",
+                      }}
+                    />
+                    <Box sx={{}}>
+                      {[
+                        {
+                          title: "Code",
+                          value: props.productOnly.data.attributes?.Code,
+                        },
+                        {
+                          title: "Colour",
+                          value: props.productOnly.data.attributes?.Motif_Color,
+                        },
+                        {
+                          title: "Finish",
+                          value:
+                            props.productOnly.data.attributes?.surface_finish
+                              .data?.attributes?.Name,
+                        },
+                        {
+                          title: "Rectified Edge",
+                          value:
+                            props.productOnly.data.attributes?.Rectified.toString(),
+                        },
+                        { title: "Suitability", value: "Internal Wall" },
+                        { title: "Wet Barefoot", value: "-" },
+                        { title: "Material", value: "Glazed Ceramic" },
+                        { title: "Tiles per Box", value: "5" },
+                        { title: "Classification", value: "BIII" },
+                        { title: "Light Reflectane Value", value: "80.00" },
+                        { title: "CSV", value: "V2" },
+                      ].map((item, index) => {
+                        return (
+                          <>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                width: "100%",
+                              }}
+                              key={index}
+                            >
+                              <Typography
+                                sx={{
+                                  fontSize: "16px",
+                                  fontWeight: "400",
+                                  flexBasis: "50%",
+                                  p: "12px 10px 8px",
+                                }}
+                              >
+                                {item.title}
+                              </Typography>
+                              <Typography
+                                sx={{
+                                  fontSize: "16px",
+                                  flexBasis: "50%",
+                                  fontWeight: "bold",
+                                  p: "12px 10px 8px",
+                                }}
+                              >
+                                {item.value}
+                              </Typography>
+                            </Box>
+                            <Divider
+                              sx={{
+                                borderBottomWidth: "2px",
+                                borderColor: "#000",
+                              }}
+                            />
+                          </>
+                        );
+                      })}
+                      <Box
+                        sx={{
+                          bgcolor: "#f8f8f8",
+                          border: "1px solid #999",
+                          borderRadius: "1px",
+                          p: "20px",
+                          mt: "20px",
+                        }}
+                      >
+                        <Typography
+                          sx={{ fontSize: "22px", fontWeight: "bold" }}
+                        >
+                          Order tiles now
+                        </Typography>
+                        <TableContainer>
+                          <Table
+                            sx={{
+                              width: "100%",
+                              fontSize: "14px",
+                              borderCollapse: "collapse",
+                              mt: "20px",
+                            }}
+                            aria-label="simple table"
+                          >
+                            <TableHead>
+                              <TableRow>
+                                <TableCell sx={{ minWidth: "19%" }}>
+                                  Required
+                                </TableCell>
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
+                                  Quantity
+                                </TableCell>
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
+                                  Coverage
+                                </TableCell>
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
+                                  Box Price
+                                </TableCell>
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
+                                  Total Price
+                                </TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              <TableRow>
+                                <TableCell component="th" scope="row">
+                                  <TextField
+                                    id="outlined-number"
+                                    label="Box"
+                                    type="number"
+                                    InputLabelProps={{
+                                      shrink: true,
+                                    }}
+                                    sx={{ width: "100px" }}
+                                  />
+                                </TableCell>
+                                <TableCell align="right">1 Box</TableCell>
+                                <TableCell align="right">1m</TableCell>
+                                <TableCell align="right">Rp. 123123</TableCell>
+                                <TableCell align="right">Rp. 999999</TableCell>
+                              </TableRow>
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
+                        <Button
+                          variant="contained"
+                          sx={{
+                            bgcolor: "#111",
+                            width: "100%",
+                            borderRadius: "50px",
+                            fontSize: "16px",
+                            "&:hover": {
+                              bgcolor: "#222",
+                            },
+                          }}
+                        >
+                          Add to Cart
+                        </Button>
+                      </Box>
+                      {/* <Box
+                        sx={{
+                          display: "flex",
+                          borderTop: "1px solid #999",
+                          width: "100%",
+                        }}
+                      >
+                        <Typography sx={{ flexBasis: "50%" }}>Code:</Typography>
+                        <Typography sx={{ flexBasis: "50%" }}>
+                          {props.productOnly.data.attributes?.Code}
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          borderTop: "1px solid #999",
+                          width: "100%",
+                        }}
+                      >
+                        <Typography sx={{ flexBasis: "50%" }}>Size:</Typography>
+                        <Typography sx={{ flexBasis: "50%" }}>
+                          {
+                            props.productOnly.data.attributes?.tile_dimension.data
+                              .attributes?.Dimension
+                          }
+                        </Typography>
+                      </Box>
+                      <Box sx={{ display: "flex", borderTop: "1px solid #999" }}>
+                        <Typography sx={{ flexBasis: "50%" }}>Finish:</Typography>
+                        <Typography sx={{ flexBasis: "50%" }}>
+                          {
+                            props.productOnly.data.attributes?.surface_finish.data
+                              ?.attributes?.Name
+                          }
+                        </Typography>
+                      </Box>
+                      <Box sx={{ display: "flex", borderTop: "1px solid #999" }}>
+                        <Typography sx={{ flexBasis: "50%" }}>Color:</Typography>
+                        <Typography sx={{ flexBasis: "50%" }}>
+                          {props.productOnly.data.attributes?.Motif_Color}
+                        </Typography>
+                      </Box>
+                      <Box sx={{ display: "flex", borderTop: "1px solid #999" }}>
+                        <Typography sx={{ flexBasis: "50%" }}>Face:</Typography>
+                        <Typography sx={{ flexBasis: "50%" }}>
+                          {props.productOnly.data.attributes?.N_Face}
+                        </Typography>
+                      </Box> */}
+                    </Box>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
           </Box>
         </Box>
+
         <Box
           className="product-wrap-grey"
-          sx={{ display: "flex", bgcolor: "#F5F5F5" }}
+          // sx={{ display: "flex", bgcolor: "#F5F5F5" }}
+          sx={{ display: "none", bgcolor: "#F5F5F5" }}
         >
           <Box
             className="product-container"
@@ -674,6 +1166,7 @@ export default function Page(props: any) {
             </Box>
           </Box>
         </Box>
+
         <Box className="product-wrap-white" sx={{ display: "flex" }}>
           <Box
             className="product-container"
@@ -684,7 +1177,7 @@ export default function Page(props: any) {
               width: "100%",
             }}
           >
-            <AltProductRanges />
+            <AltProductRanges alt1={2} alt2={3} alt3={4} />
           </Box>
         </Box>
       </>
@@ -739,8 +1232,8 @@ export const getStaticProps = async ({ params }: any) => {
   console.log(params.id);
   const responseProduct = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate[motif][populate][products][populate]=*",
+    params.id +
+    "?populate[motif][populate][products][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -750,8 +1243,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseMotif = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate[motif][populate]=*",
+    params.id +
+    "?populate[motif][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -761,8 +1254,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAmbience = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate=*",
+    params.id +
+    "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -774,17 +1267,56 @@ export const getStaticProps = async ({ params }: any) => {
   const motif = await responseMotif.json();
   const ambience = await responseAmbience.json();
 
-  // console.log(
-  //   ambience.data.attributes.Image_Ambience.data[0].attributes.formats.large.url
-  // );
+  const responseAlt1 = await fetch(
+    "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
+    1 +
+    "?populate=*",
+    {
+      headers: {
+        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+      },
+    }
+  );
+
+  const responseAlternative1 = await responseAlt1.json();
+
+  const responseAlt2 = await fetch(
+    "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
+    2 +
+    "?populate=*",
+    {
+      headers: {
+        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+      },
+    }
+  );
+
+  const responseAlternative2 = await responseAlt2.json();
+
+  const responseAlt3 = await fetch(
+    "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
+    3 +
+    "?populate=*",
+    {
+      headers: {
+        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+      },
+    }
+  );
+
+  const responseAlternative3 = await responseAlt3.json();
+
+  console.log(responseAlternative1);
 
   return {
     props: {
       product: product,
       motif: motif,
-      ambience:
-        ambience.data.attributes?.Image_Ambience?.data[0].attributes.formats
-          .large.url,
+      productOnly: ambience,
+      alternative1: responseAlternative1,
+      alternative2: responseAlternative2,
+      alternative3: responseAlternative3,
+      // ambience.data.attributes?.Image_Ambience?.data[0].attributes.formats.large.url,
     },
   };
 };
