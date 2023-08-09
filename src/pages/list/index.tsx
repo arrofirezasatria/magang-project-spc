@@ -5,7 +5,7 @@ import axios from "axios";
 import { data } from "cypress/types/jquery";
 import useSWR from "swr";
 import Image from "next/image";
-import FeaturedProducts from "@components/pages/range/FeaturedProducts";
+import FeaturedProducts from "@components/pages/range/featuredProducts";
 import HeroProducts from "@components/pages/range/HeroProducts";
 import Description from "@components/pages/range/DescriptionProducts";
 import AltProductRanges from "@components/pages/range/altProductRanges";
@@ -104,7 +104,7 @@ export default function Index() {
   return (
     <>
       <NavbarProduct />
-      <HeroProducts />
+      <HeroProducts/>
       <Container>
         <Description />
         <FeaturedProducts />

@@ -6,6 +6,7 @@ export default function HeroProducts() {
     <>
       <Box display="flex" sx={{ height: "600px", width: "100%", position: "relative" }}>
         <Image src={"/static/images/concrete.jpg"} fill alt={""} />
+        <Box sx={{ width: "100%", display: "flex", backgroundColor: "Black", height: "600px", position: "absolute", zIndex: "", opacity: "0.4" }}></Box>
         <Box
           display="flex"
           flexDirection="column"

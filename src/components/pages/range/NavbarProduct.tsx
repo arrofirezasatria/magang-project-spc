@@ -1,12 +1,16 @@
-import { Box, Button, Grid, ListItemIcon, AppBar,Typography, ListItemText, ListItemButton, Divider, MenuItem, Toolbar, IconButton, Link, Menu, Popover, FormControl, InputLabel, Select } from "@mui/material";
+import { Box, Button, Grid, Tabs, ListItemIcon, AppBar, Typography, ListItemText, ListItemButton, Divider, MenuItem, Toolbar, IconButton, Link, Menu, Popover, FormControl, Collapse, InputLabel, Select, Paper, Tab } from "@mui/material";
 // import { GetStaticProps } from "next";
-import React, { useState } from "react";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Image from "next/image";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import SearchIcon from "@mui/icons-material/Search";
 import LockPersonIcon from "@mui/icons-material/LockPerson";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import zIndex from "@mui/material/styles/zIndex";
+import React, { useEffect, useState } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 const headers = {
   Authorization:
@@ -15,21 +19,108 @@ const headers = {
 
 const fetcher2 = (url: RequestInfo | URL) => fetch(url, { headers }).then((res) => res.json());
 
-const DropdownFilter = [
+interface TabPanelProps {
+  children: React.ReactNode;
+  value: number;
+  index: number;
+}
+
+const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
+  return <div hidden={value !== index}>{value === index && <Box p={3}>{children}</Box>}</div>;
+};
+
+const productStyles = [
   {
-    nama: "-Collections-",
-    Subitem: ["Intro colection", "Select Collection", "Absolute Collection", "Minton Hollins Collection"],
+    imgSrc: "/static/images/stylestone.jpg",
+    text: "Stone",
   },
   {
-    nama: "-sizes-",
+    imgSrc: "/static/images/styleconcrete.jpg",
+    text: "Concrete",
+  },
+  {
+    imgSrc: "/static/images/stylemarble.jpg",
+    text: "Marble",
+  },
+  {
+    imgSrc: "/static/images/stylewood.jpg",
+    text: "Wood",
+  },
+  {
+    imgSrc: "/static/images/stylecolour.jpg",
+    text: "Colours",
+  },
+  {
+    imgSrc: "/static/images/stylewhite.jpg",
+    text: "White",
+  },
+];
+
+const productTypes = [
+  {
+    imgSrc: "/static/images/styleconcrete.jpg",
+    text: "Concrete",
+  },
+  {
+    imgSrc: "/static/images/stylewhite.jpg",
+    text: "White",
+  },
+  {
+    imgSrc: "/static/images/stylestone.jpg",
+    text: "Stone",
+  },
+  {
+    imgSrc: "/static/images/stylemarble.jpg",
+    text: "Marble",
+  },
+  {
+    imgSrc: "/static/images/stylecolour.jpg",
+    text: "Colours",
+  },
+  {
+    imgSrc: "/static/images/stylewood.jpg",
+    text: "Wood",
+  },
+];
+
+const productCollections = [
+  {
+    imgSrc: "/static/images/styleconcrete.jpg",
+    text: "Concrete",
+  },
+  {
+    imgSrc: "/static/images/stylestone.jpg",
+    text: "Stone",
+  },
+  {
+    imgSrc: "/static/images/stylewhite.jpg",
+    text: "White",
+  },
+
+  {
+    imgSrc: "/static/images/stylemarble.jpg",
+    text: "Marble",
+  },
+  {
+    imgSrc: "/static/images/stylewood.jpg",
+    text: "Wood",
+  },
+  {
+    imgSrc: "/static/images/stylecolour.jpg",
+    text: "Colours",
+  },
+];
+const DropdownFilter = [
+  {
+    nama: "sizes",
     Subitem: ["Up to 200mm", "201mm - 400mm", "401mm - 600mm", "601mm+"],
   },
   {
-    nama: "-Types-",
+    nama: "Types",
     Subitem: ["Made in UKA", "Floor tiles", "PTV 36 + Tiles", "2 cm"],
   },
   {
-    nama: "-Finishes-",
+    nama: "Finishes",
     Subitem: [
       "Structure",
       "Antislip",
@@ -54,136 +145,48 @@ const DropdownFilter = [
     ],
   },
   {
-    nama: "-Styles-",
+    nama: "Styles",
     Subitem: ["Stone", "concrete", "Marble", "Wood", "Colours", "White", "Structure", "patern", "Shape", "Speckle", "Mosaic"],
   },
   {
-    nama: "-Materials-",
+    nama: "Materials",
     Subitem: ["Glazed Ceramic", "Natural Stone & Glass", "Natural Stone", "Glass", "Ceramic", "Un-Glazed Porcelain", "Glazed Vitrified", "Porcelain", "Glazed Porcelain"],
   },
   {
-    nama: "-Ranges-",
-    Subitem: ["1901", "Abstract", "Allure", "Arctic white", "Arlo", "Artisan", "Ashlar", "Atrium", "Baseline Wall", "bellagio", "Bergen", "Bevel", "Bevel Brick", "Bianco", "Blake"],
-  },
-  {
-    nama: "-Suitabillity-",
-    Subitem: ["Wall", "Floor", "Border", "External Wall", "External Floor", "Wet Room"],
-  },
-  {
-    nama: "-Colours-",
+    nama: "Colours",
     Subitem: ["Blue", "Purple", "Pink", "Red", "Orange", "Yellow", "Green"],
   },
 ];
 
-const logoNavbar = [
+const NavbarAbout = [
   {
-    namanavbar: "About",
-    dropdown: (
-      <Box sx={{ p: "25px" }}>
-        <MenuItem>Our Company</MenuItem>
-        <MenuItem>Our Story: A Potted History</MenuItem>
-        <MenuItem>We Make It. Sustainable</MenuItem>
-        <MenuItem>Accreditations and Awards</MenuItem>
-        <MenuItem>Manufacturing Processes</MenuItem>
-      </Box>
-    ),
+    name: "About Us",
+    Subitems: ["Our Company", "Our Story: A Potted History", "We Make It. Sustainable", "Accreditations and Awards", "Manufacturing Processes"],
   },
   {
-    namanavbar: "Product",
-    dropdown: (
-      <Box display="flex" flexDirection="row">
-        <Box display="flex" flexDirection="column">
-          <Typography sx={{ml:"25px"}}>Find A Product</Typography>
-        <Grid container spacing={2} sx={{ px: "24px", my: 2, mb: "80px", width:"400px"}}>
-          {DropdownFilter.map((filter, index) => (
-            <Grid item key={index} xs={6} md={6}>
-              <Box sx={{}}>
-                <FormControl sx={{ backgroundColor: "rgba(242, 241, 240) !important" }} fullWidth>
-                  <InputLabel sx={{ backgroundColor: "rgba(242, 241, 240)" }} id={`filter-label-${index}`}>
-                    {filter.nama}
-                  </InputLabel>
-                  <Select sx={{ backgroundColor: "rgba(242, 241, 240) !important", color: "#000", fontWeight: "medium" }} labelId={`filter-label-${index}`} id={`filter-select-${index}`} label={filter.nama}>
-                    {filter.Subitem.map((subitem, subindex) => (
-                      <MenuItem sx={{ backgroundColor: "rgba(242, 241, 240)", color: "grey", "&:hover": { fontWeight: "medium", color: "#000", cursor: "pointer" } }} key={subindex} value={subitem}>
-                        {subitem}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-        </Box>
-        <Box>
-
-        </Box>
-      </Box>
-    ),
+    name: "Services",
+    Subitems: ["Color Genie", "Mood Boards", "CPD Suite", "Samples & Merchandising", "Take Note Time Capsule", "Podcast", "Material Lab"],
   },
   {
-    namanavbar: "Services",
-    dropdown: (
-      <Box sx={{ p: "25px" }}>
-        <MenuItem>Color Genie</MenuItem>
-        <MenuItem>Mood Boards</MenuItem>
-        <MenuItem>CPD Suite</MenuItem>
-        <MenuItem>Samples & Merchandising</MenuItem>
-        <MenuItem>Take Note Time Capsule</MenuItem>
-        <MenuItem>Podcast</MenuItem>
-        <MenuItem>Material Lab</MenuItem>
-      </Box>
-    ),
+    name: "Sectors",
+    Subitems: ["Residential", "Commercial"],
   },
   {
-    namanavbar: "Sector",
-    dropdown: (
-      <Box sx={{ p: "25px" }}>
-        <MenuItem>Residential</MenuItem>
-        <MenuItem>Commersial</MenuItem>
-      </Box>
-    ),
+    name: "Projects",
+    Subitems: ["Residential", "Commercial", "Hospitaly & Leisure", "Care & Education", "Spesials"],
   },
   {
-    namanavbar: "Project",
-    dropdown: (
-      <Box sx={{ p: "25px" }}>
-        <MenuItem>Residential</MenuItem>
-        <MenuItem>Commersial</MenuItem>
-        <MenuItem>CPD Suite</MenuItem>
-        <MenuItem>Hospitaly & Leisure</MenuItem>
-        <MenuItem>Care & Education</MenuItem>
-        <MenuItem>Specials</MenuItem>
-        <Divider/>
-        <MenuItem>Show All</MenuItem>
-      </Box>
-    ),
+    name: "News",
+    Subitems: ["Company", "Inspiration", "Product", "Collaboration"],
   },
-  {
-    namanavbar: "News",
-    dropdown: (
-      <Box sx={{ p: "25px" }}>
-        <MenuItem>Company</MenuItem>
-        <MenuItem>Inspiration</MenuItem>
-        <MenuItem>Product</MenuItem>
-        <MenuItem>Colaboration</MenuItem>
-        <Divider/>
-        <MenuItem>Show All</MenuItem>
-      </Box>
-    ),
-  },
-  {
-    namanavbar: "Contact",
-  }
-  
 ];
 
 export default function NavbarProduct() {
-  const navItems = [
-    { text: "Search", icon: <SearchIcon /> },
-    { text: "Sign In", icon: <LockPersonIcon /> },
-    { text: "Mood Boards", icon: <FavoriteBorderIcon /> },
-  ];
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleChangeTab = (event: any, newValue: React.SetStateAction<number>) => {
+    setActiveTab(newValue);
+  };
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedDropdown, setSelectedDropdown] = useState(null);
@@ -198,32 +201,399 @@ export default function NavbarProduct() {
     setSelectedDropdown(null);
   };
 
-  return (
-    <>
-      <Grid>
-        <Box>
-          <Box display="flex" flexDirection="row" sx={{ justifyContent: "space-between", width: "1519px", height: "49px" }}>
-            <Box sx={{ ml: "185px" }}>
-              <Link display="flex" flexDirection="row" sx={{ width: "100%", height: "49px", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
-                <Box sx={{ width: "18px", height: "18px", position: "relative", mr: "10px" }}>
-                  <Image src={"/static/images/icon-outlet-grey.svg"} fill alt={""} style={{}} />
-                </Box>
-                <Typography sx={{ color: "#878787" }}>Visit Our Online Factory Outlet</Typography>
-              </Link>
-            </Box>
-            <Box>
-              <List sx={{ display: "flex", flexDirection: "row", p: "0", mt: "0", mr: "180px" }}>
-                {navItems.map((item, index) => (
-                  <ListItemButton sx={{ mr: "20px" }} key={index}>
-                    <ListItemIcon sx={{ pr: "10px", minWidth: "0" }}>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.text} />
-                  </ListItemButton>
+  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [orOpen, setOrOpen] = useState(false);
+
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    setIsScrolled(scrollPosition > 100);
+  }, [scrollPosition]);
+
+  const productData = [
+    {
+      title: "Product Styles",
+      data: productStyles,
+    },
+    {
+      title: "Product Types",
+      data: productTypes,
+    },
+    {
+      title: "Product Collections",
+      data: productCollections,
+    },
+  ];
+  const logoNavbar = [
+    {
+      namanavbar: "About",
+      dropdown: (
+        <Box sx={{ p: "25px" }}>
+          <MenuItem>Our Company</MenuItem>
+          <MenuItem>Our Story: A Potted History</MenuItem>
+          <MenuItem>We Make It. Sustainable</MenuItem>
+          <MenuItem>Accreditations and Awards</MenuItem>
+          <MenuItem>Manufacturing Processes</MenuItem>
+        </Box>
+      ),
+    },
+    {
+      namanavbar: "Product",
+      dropdown: (
+        <Box sx={{ width: "100%" }}>
+          <Tabs
+            value={activeTab}
+            onChange={handleChangeTab}
+            centered
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              backgroundColor: "#e6e6e6",
+              "& .MuiTabs-indicator": {
+                backgroundColor: "black", // Change the underline color to black
+              },
+            }}
+          >
+            {productData.map((item, index) => (
+              <Tab
+                sx={{
+                  backgroundColor: "#e6e6e6",
+                  width: "1160px",
+                  color: "grey",
+                  textAlign: "center",
+                  typography: {
+                    fontWeight: "bold", // Change the fontWeight value as needed
+                    letterSpacing: 1, // Use a number for letter spacing
+                    fontSize: "16px",
+                    "&:hover": {
+                      color: "black",
+                    },
+                    "&.Mui-selected": {
+                      color: "black",
+                    },
+                  },
+                }}
+                key={index}
+                label={item.title}
+              />
+            ))}
+          </Tabs>
+          {productData.map((item, index) => (
+            <TabPanel key={index} value={activeTab} index={index}>
+              <Grid container spacing={3}>
+                {item.data.map((product, productIndex) => (
+                  <Grid item md={2} key={productIndex}>
+                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                      <Box sx={{ position: "relative", width: "170px", height: "299px" }}>
+                        <Image src={product.imgSrc} fill alt={`Gambar ${productIndex}`} />
+                      </Box>
+                      <Typography variant="subtitle1" sx={{ textAlign: "center", width: "170px", marginTop: "8px" }}>
+                        {product.text}
+                      </Typography>
+                    </Box>
+                  </Grid>
                 ))}
-              </List>
+              </Grid>
+            </TabPanel>
+          ))}
+          <Box sx={{ width: "100%", display: "flex", justifyContent: "center", mt: "20px" }}>
+            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "1150px", py: "20px", borderTop: "2px dotted #868686" }}>
+              <Link sx={{ textDecoration: "none", display: "flex", flexDirection: "row" }}>
+                <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "medium" }}>View All</Typography>
+                <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "bold" }}>Product Style</Typography>
+              </Link>
+              <Box sx={{ display: "flex", flexDirection: "row" }}>
+                <Link sx={{ textDecoration: "none", display: "flex", flexDirection: "row" }}>
+                  <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "medium" }}>All Ranges</Typography>
+                  <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "medium" }}>-</Typography>
+                  <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "bold" }}>A to Z</Typography>
+                </Link>
+                <Link sx={{ textDecoration: "none", display: "flex", flexDirection: "row" }}>
+                  <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "medium" }}>All Ranges</Typography>
+                  <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "medium" }}>-</Typography>
+                  <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "bold" }}>New</Typography>
+                </Link>
+              </Box>
             </Box>
           </Box>
-          <Divider sx={{ zIndex: "2" }} />
-          <Box display="flex" flexDirection="row" sx={{ justifyContent: "space-between", alignItems: "center", width: "1519px", height: "80px" }}>
+        </Box>
+      ),
+    },
+    {
+      namanavbar: "Services",
+      dropdown: (
+        <Box sx={{ p: "25px" }}>
+          <MenuItem>Color Genie</MenuItem>
+          <MenuItem>Mood Boards</MenuItem>
+          <MenuItem>CPD Suite</MenuItem>
+          <MenuItem>Samples & Merchandising</MenuItem>
+          <MenuItem>Take Note Time Capsule</MenuItem>
+          <MenuItem>Podcast</MenuItem>
+          <MenuItem>Material Lab</MenuItem>
+        </Box>
+      ),
+    },
+    {
+      namanavbar: "Sector",
+      dropdown: (
+        <Box sx={{ p: "25px" }}>
+          <MenuItem>Residential</MenuItem>
+          <MenuItem>Commersial</MenuItem>
+        </Box>
+      ),
+    },
+    {
+      namanavbar: "Project",
+      dropdown: (
+        <Box sx={{ p: "25px" }}>
+          <MenuItem>Residential</MenuItem>
+          <MenuItem>Commersial</MenuItem>
+          <MenuItem>CPD Suite</MenuItem>
+          <MenuItem>Hospitaly & Leisure</MenuItem>
+          <MenuItem>Care & Education</MenuItem>
+          <MenuItem>Specials</MenuItem>
+          <Divider />
+          <MenuItem>Show All</MenuItem>
+        </Box>
+      ),
+    },
+    {
+      namanavbar: "News",
+      dropdown: (
+        <Box sx={{ p: "25px" }}>
+          <MenuItem>Company</MenuItem>
+          <MenuItem>Inspiration</MenuItem>
+          <MenuItem>Product</MenuItem>
+          <MenuItem>Colaboration</MenuItem>
+          <Divider />
+          <MenuItem>Show All</MenuItem>
+        </Box>
+      ),
+    },
+    {
+      namanavbar: "Contact",
+    },
+  ];
+
+  return (
+    <>
+      <Grid sx={{ position: "Fixed", zIndex: "9", width: "100%" }}>
+        <Grid display={{ xs: "flex", lg: "none" }} sx={{ width: "100%" }}>
+          <Box sx={{ p: "25px", width: "100%", display: "flex", backgroundColor: "white", height: "50px", position: "absolute", zIndex: "9", opacity: "0.5" }}></Box>
+          <Box display="flex" sx={{ width: "100%", p: "25px", justifyContent: "space-between", zIndex: "10", backgroundColor: isScrolled ? "white" : "white", transition: "background-color 0.3s" }}>
+            <Link display="flex" flexDirection="row" sx={{ height: "49px", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
+              <Button sx={{ width: "150px", height: "50px", position: "relative", mr: "10px" }}>
+                <Image src={"/static/images/Sunpower.png"} fill alt={""} style={{}} />
+              </Button>
+            </Link>
+            <Button sx={{ color: "black" }} onClick={() => setOpen(!open)}>
+              <MenuIcon />
+            </Button>
+          </Box>
+        </Grid>
+        <Grid display={{ xs: "flex", lg: "none" }} sx={{ width: "100%" }}>
+          <Box>
+            {open && (
+              <Box
+                sx={{
+                  backgroundColor: "White",
+                  position: "absolute ",
+                  width: "100%",
+                  zIndex: "2",
+                  boxShadow: "0px 0px 0px 0px rgba(0,0,0,0.75)",
+                }}
+              >
+                <Grid container spacing={0} sx={{ px: "24px", my: 2, mb: "80px" }}>
+                  <Button
+                    sx={{
+                      p: "6px 8px",
+                      fontWeight: "Medium",
+                      borderRadius: "0",
+                      textTransform: "capitalize",
+                      color: "black",
+                      letterSpacing: 0.5,
+                      fontSize: "16px",
+                      display: "flex",
+                      alignItems: "center",
+                      width: "100%",
+                      justifyContent: "space-between",
+                      borderBottom: "1px solid #999",
+                    }}
+                  >
+                    Home
+                  </Button>
+                  {NavbarAbout.map((filter, index) => (
+                    <Grid item key={index} xs={12} md={12}>
+                      <Box sx={{}}>
+                        <Button
+                          sx={{
+                            typography: {
+                              fontWeight: "Medium",
+                              textTransform: "Capitalize",
+                              borderRadius: "0",
+                              color: "black",
+                              fontSize: "16px",
+                              letterSpacing: 0.5,
+                              borderBottom: "1px solid #999",
+                              display: "flex",
+                              alignItems: "center",
+                              width: "100%",
+                              justifyContent: "space-between",
+                              "&:hover": {
+                                color: "black",
+                              },
+                              "&.Mui-selected": {
+                                color: "black",
+                              },
+                            },
+                          }}
+                          onClick={() => setOrOpen((prev) => (prev === index ? null : index))}
+                        >
+                          {filter.name}
+                          {orOpen === index ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                        </Button>
+                        <Collapse in={orOpen === index} timeout={600} unmountOnExit>
+                          <Box>
+                            {filter.Subitems.map((subitems, subindex) => (
+                              <MenuItem
+                                sx={{
+                                  backgroundColor: "White",
+                                  color: "grey",
+                                  "&:hover": {
+                                    fontWeight: "medium",
+                                    color: "#000",
+                                    cursor: "pointer",
+                                  },
+                                }}
+                                key={subindex}
+                                value={subitems}
+                              >
+                                {subitems}
+                              </MenuItem>
+                            ))}
+                          </Box>
+                        </Collapse>
+                      </Box>
+                    </Grid>
+                  ))}
+                  <Button
+                    sx={{
+                      p: "6px 8px",
+                      fontWeight: "Medium",
+                      color: "black",
+                      borderRadius: "0",
+                      textTransform: "capitalize",
+                      letterSpacing: 0.5,
+                      fontSize: "16px",
+                      display: "flex",
+                      alignItems: "center",
+                      width: "100%",
+                      justifyContent: "space-between",
+                      borderBottom: "1px solid #999",
+                    }}
+                  >
+                    Contact
+                  </Button>
+                  <Typography
+                    sx={{
+                      p: "6px 8px",
+                      mt: "40px",
+                      fontWeight: "medium",
+                      fontSize: "16px",
+                      color: "#999999",
+                      letterSpacing: 1,
+                      display: "flex",
+                      alignItems: "center",
+                      width: "100%",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    Product
+                  </Typography>
+                  {DropdownFilter.map((filter, index) => (
+                    <Grid item key={index} xs={12} md={12}>
+                      <Box sx={{}}>
+                        <Button
+                          sx={{
+                            typography: {
+                              fontWeight: "medium",
+                              color: "black",
+                              letterSpacing: 0.5,
+                              fontSize: "16px",
+                              display: "flex",
+                              alignItems: "center",
+                              textTransform: "capitalize",
+                              borderRadius: "0",
+                              borderBottom: "1px solid #999",
+                              width: "100%",
+                              justifyContent: "space-between",
+                              "&:hover": {
+                                color: "black",
+                              },
+                              "&.Mui-selected": {
+                                color: "black",
+                              },
+                            },
+                          }}
+                          onClick={() => setIsOpen((prev) => (prev === index ? null : index))}
+                        >
+                          {filter.nama}
+                          {isOpen === index ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                        </Button>
+                        <Collapse in={isOpen === index} timeout={600} unmountOnExit>
+                          <Box>
+                            {filter.Subitem.map((subitem, subindex) => (
+                              <MenuItem
+                                sx={{
+                                  backgroundColor: "White",
+                                  color: "grey",
+                                  "&:hover": {
+                                    fontWeight: "medium",
+                                    color: "#000",
+                                    cursor: "pointer",
+                                  },
+                                }}
+                                key={subindex}
+                                value={subitem}
+                              >
+                                {subitem}
+                              </MenuItem>
+                            ))}
+                          </Box>
+                        </Collapse>
+                      </Box>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Box>
+            )}
+          </Box>
+        </Grid>
+      </Grid>
+
+      <Grid>
+        <Box display={{ xs: "none", lg: "flex" }} flexDirection="row" sx={{ position: "fixed", zIndex: "5", width: "100%" }}>
+          <Box sx={{ width: "100%", display: "flex", backgroundColor: "white", height: "80px", position: "absolute", zIndex: "9", opacity: "0" }}></Box>
+          <Box
+            display={{ xs: "none", lg: "flex" }}
+            flexDirection="row"
+            sx={{ justifyContent: "space-between", alignItems: "center", width: "100%", height: "80px", position: "relative", zIndex: "10", backgroundColor: isScrolled ? "white" : "transparent", transition: "background-color 0.3s" }}
+          >
             <Box sx={{ ml: "185px" }}>
               <Link display="flex" flexDirection="row" sx={{ width: "100%", height: "49px", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
                 <Button sx={{ width: "230px", height: "60px", position: "relative", mr: "10px" }}>
@@ -231,14 +601,37 @@ export default function NavbarProduct() {
                 </Button>
               </Link>
             </Box>
-            <Box position="static">
-              <Toolbar sx={{ zIndex: "2" , mr:"180px", p:"0"}}>
-                <List component="nav" sx={{ display: "flex",p:"0", justifyContent:"space-between" }}>
+            <Box sx={{}}>
+              <Toolbar sx={{ zIndex: "2", mr: "180px", p: "0", width: "100%" }}>
+                <List component="nav" sx={{ display: "flex", p: "0", justifyContent: "space-between" }}>
                   {logoNavbar.map((item, index) => (
-                    <ListItem key={index} component="li" sx={{ marginRight: "10px",p:"0" }}>
+                    <ListItem key={index} component="li" sx={{ marginRight: "10px", p: "0" }}>
                       {item.dropdown ? (
                         <Box>
-                          <Button sx={{p:"0"}} onClick={(event) => handleDropdownOpen(event, index)}>
+                          <Button
+                            sx={{
+                              py: "10px",
+                              color: "black",
+                              px: "20px",
+                              position: "relative",
+                              "&::after": {
+                                content: '""',
+                                position: "absolute",
+                                bottom: 0,
+                                left: 0,
+                                width: "100%",
+                                height: "2px",
+                                backgroundColor: "black",
+                                transform: "scaleX(0)", // Start with no underline
+                                transformOrigin: "left", // Underline origin from left
+                                transition: "transform 0.2s ease-out", // Add a smooth transition for the underline
+                              },
+                              "&:hover::after": {
+                                transform: "scaleX(1)", // Show the underline on hover
+                              },
+                            }}
+                            onClick={(event) => handleDropdownOpen(event, index)}
+                          >
                             {item.namanavbar}
                           </Button>
                           <Popover
@@ -256,8 +649,8 @@ export default function NavbarProduct() {
                             }}
                             PaperProps={{
                               sx: {
-                                mt: "20px",
-                                p:"0"
+                                mt: "17px",
+                                p: "0",
                               },
                             }}
                           >
@@ -265,7 +658,31 @@ export default function NavbarProduct() {
                           </Popover>
                         </Box>
                       ) : (
-                        <Button color="inherit">{item.namanavbar}</Button>
+                        <Button
+                          sx={{
+                            py: "10px",
+                            color: "black",
+                            px: "20px",
+                            position: "relative", // Add position relative to allow positioning of ::after pseudo-element
+                            "&::after": {
+                              content: '""',
+                              position: "absolute",
+                              bottom: 0,
+                              left: 0,
+                              width: "100%",
+                              height: "2px",
+                              backgroundColor: "black",
+                              transform: "scaleX(0)", // Start with no underline
+                              transformOrigin: "left", // Underline origin from left
+                              transition: "transform 0.2s ease-out", // Add a smooth transition for the underline
+                            },
+                            "&:hover::after": {
+                              transform: "scaleX(1)", // Show the underline on hover
+                            },
+                          }}
+                        >
+                          {item.namanavbar}
+                        </Button>
                       )}
                     </ListItem>
                   ))}
