@@ -89,6 +89,8 @@ export default function Page(props: any) {
   // console.log(data);
   // console.log(props.product.data.attributes.motif.data.attributes);
 
+  // const { onChange, onBlur, name, ref } = register("firstName");
+
   return (
     <>
       <>
@@ -800,11 +802,11 @@ export default function Page(props: any) {
                         { title: "Suitability", value: "Internal Floor" },
                         { title: "Tiles per Box", value: "4" },
                         { title: "Square Meter per Box", value: "14.4 /m²" },
-                        {
-                          title: "Technical Specification",
-                          value: "Glazed Ceramic",
-                        },
-                        { title: "Packing Details", value: "80.00" },
+                        // {
+                        //   title: "Technical Specification",
+                        //   value: "Glazed Ceramic",
+                        // },
+                        // { title: "Packing Details", value: "80.00" },
                       ].map((item, index) => {
                         return (
                           <>
@@ -845,6 +847,78 @@ export default function Page(props: any) {
                           </>
                         );
                       })}
+
+                      <>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            width: "100%",
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              fontSize: "16px",
+                              fontWeight: "400",
+                              flexBasis: "50%",
+                              p: "12px 10px 8px",
+                            }}
+                          >
+                            {"sdadasd"}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              fontSize: "16px",
+                              flexBasis: "50%",
+                              fontWeight: "bold",
+                              p: "12px 10px 8px",
+                            }}
+                          >
+                            {"asdad"}
+                          </Typography>
+                        </Box>
+                        <Divider
+                          sx={{
+                            borderBottomWidth: "2px",
+                            borderColor: "#000",
+                          }}
+                        />
+                      </>
+
+                      <>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            width: "100%",
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              fontSize: "16px",
+                              fontWeight: "400",
+                              flexBasis: "50%",
+                              p: "12px 10px 8px",
+                            }}
+                          >
+                            {"sdadasd"}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              fontSize: "16px",
+                              flexBasis: "50%",
+                              fontWeight: "bold",
+                              p: "12px 10px 8px",
+                            }}
+                          >
+                            {"asdad"}
+                          </Typography>
+                        </Box>
+                        <Divider
+                          sx={{
+                            borderBottomWidth: "2px",
+                            borderColor: "#000",
+                          }}
+                        />
+                      </>
 
                       <Box
                         sx={{
