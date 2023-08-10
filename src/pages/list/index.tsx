@@ -13,7 +13,8 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { useState } from "react";
 import NavbarProduct from "@components/pages/range/NavbarProduct";
 import HoverInProduct from "@components/pages/range/hoverInProduct";
-import ModulProduct from "@components/pages/range/ModulProduct";
+import ModulProduct from "@components/pages/range/ModulSpec";
+import ModulPacking from "@components/pages/range/modulPacking";
 
 const headers = {
   Authorization:
@@ -429,7 +430,8 @@ export default function Index() {
         </Grid>
       </Container>
 
-      <ModulProduct/>
+      <ModulProduct />
+      <ModulPacking/>
     </>
   );
 }
