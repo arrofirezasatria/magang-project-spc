@@ -35,14 +35,17 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import AltProductRanges from "@components/pages/range/altProductRanges";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
+import { headers } from "next/dist/client/components/headers";
+import { NumericFormat } from "react-number-format";
 
 interface IFormInputs {
-  name: string;
-  code: string;
-  quantity: number;
-  coverage: number;
-  showAge: boolean;
-  age: number;
+  // name: string;
+  // code: string;
+  quantityBox: number;
+  // coverage: number;
+  // showAge: boolean;
+  // age: number;
 }
 
 export default function Page(props: any) {
@@ -105,6 +108,7 @@ export default function Page(props: any) {
     watch,
     formState: { errors },
     handleSubmit,
+    control,
   } = useForm<IFormInputs>();
 
   // Callback version of watch.  It's your responsibility to unsubscribe when done.
@@ -117,9 +121,19 @@ export default function Page(props: any) {
 
   console.log(watch());
 
-  const [Evalue, setEvalue] = React.useState("");
+  const name = watch("quantityBox");
 
-  const name = watch("name");
+  // const [Evalue, setEvalue] = React.useState("");
+  const [coverage, setCoverage] = React.useState(0);
+  const [totalPrice, setTotalPrice] = React.useState(0);
+
+  React.useEffect(() => {
+    setCoverage(name * 1.44);
+  }, [name]);
+
+  React.useEffect(() => {
+    setTotalPrice(name * 1.44 * 153000);
+  }, [name]);
 
   React.useState();
 
@@ -128,11 +142,107 @@ export default function Page(props: any) {
   return (
     <>
       <>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input {...register("name", { required: true, maxLength: 50 })} />
+        <Box
+          sx={{
+            bgcolor: "#f8f8f8",
+            border: "1px solid #999",
+            borderRadius: "1px",
+            p: "20px",
+            mt: "20px",
+          }}
+        >
+          <Typography sx={{ fontSize: "22px", fontWeight: "bold" }}>
+            Order tiles now
+          </Typography>
+          <TableContainer>
+            <Table
+              sx={{
+                width: "100%",
+                fontSize: "14px",
+                borderCollapse: "collapse",
+                mt: "20px",
+              }}
+              aria-label="simple table"
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ minWidth: "19%" }}>Required</TableCell>
+                  <TableCell sx={{ minWidth: "19%" }} align="right">
+                    Quantity
+                  </TableCell>
+                  <TableCell sx={{ minWidth: "19%" }} align="right">
+                    Coverage
+                  </TableCell>
+                  <TableCell sx={{ minWidth: "19%" }} align="right">
+                    Box Price
+                  </TableCell>
+                  <TableCell sx={{ minWidth: "19%" }} align="right">
+                    Total Price
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell component="th" scope="row">
+                    <Controller
+                      name={"quantityBox"}
+                      control={control}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                        formState,
+                      }) => (
+                        <TextField
+                          helperText={error ? error.message : null}
+                          size="small"
+                          error={!!error}
+                          onChange={onChange}
+                          type="number"
+                          // value={}
+                          fullWidth
+                          label={"Box"}
+                          variant="outlined"
+                          sx={{ width: "100px" }}
+                        />
+                      )}
+                    />
+                  </TableCell>
+                  <TableCell align="right">1 Box</TableCell>
+                  <TableCell align="right">{coverage + " "}/m²</TableCell>
+                  <TableCell align="right">
+                    {1.44 * data.attributes?.Price}
+                  </TableCell>
+                  <TableCell align="right">{"Rp. " + totalPrice} </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Button
+            variant="contained"
+            sx={{
+              bgcolor: "#111",
+              width: "100%",
+              borderRadius: "50px",
+              fontSize: "16px",
+              "&:hover": {
+                bgcolor: "#222",
+              },
+            }}
+          >
+            Add to Cart
+          </Button>
+        </Box>
+        {name}
+        {/* <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            type="number"
+            {...register("name", { required: true, maxLength: 50 })}
+          />
           <input type="submit" />
         </form>
-        {name}
+        <Box>{name}</Box>
+        <Box>{coverage + " /m2"}</Box>
+        <Box>{"Rp. " + totalPrice}</Box>
         <Typography>{"addasd as asd"}</Typography>
         <Box
           className="hero-container"
@@ -287,7 +397,7 @@ export default function Page(props: any) {
               </Box>
             </Box>
           </Box>
-        </Box>
+        </Box> */}
         <Box className="product-wrap-white" sx={{ display: "flex" }}>
           <Box
             className="product-container"
@@ -804,9 +914,16 @@ export default function Page(props: any) {
                           mb: "20px",
                         }}
                       >
-                        Rp. 153.000 /m²
-                        {/* Rp. {props.productOnly.data.attributes?.Price} */}
+                        <NumericFormat
+                          value={153000}
+                          decimalScale={3}
+                          displayType={"text"}
+                          thousandSeparator={true}
+                          prefix={"Rp. "}
+                        />
+                        /m²
                       </Typography>
+                      {/* Rp. {props.productOnly.data.attributes?.Price} */}
                     </Box>
                     <Divider
                       sx={{
@@ -936,7 +1053,6 @@ export default function Page(props: any) {
                           }}
                         />
                       </>
-
                       <>
                         <Box
                           sx={{
@@ -1044,18 +1160,32 @@ export default function Page(props: any) {
                             <TableBody>
                               <TableRow>
                                 <TableCell component="th" scope="row">
-                                  <TextField
-                                    id="outlined-number"
-                                    label="Box"
-                                    type="number"
-                                    InputLabelProps={{
-                                      shrink: true,
-                                    }}
-                                    sx={{ width: "100px" }}
+                                  <Controller
+                                    name={"quantity"}
+                                    control={control}
+                                    render={({
+                                      field: { onChange, value },
+                                      fieldState: { error },
+                                      formState,
+                                    }) => (
+                                      <TextField
+                                        helperText={
+                                          error ? error.message : null
+                                        }
+                                        size="small"
+                                        error={!!error}
+                                        // onChange={onChange}
+                                        // value={}
+                                        fullWidth
+                                        label={"Box"}
+                                        variant="outlined"
+                                        sx={{ width: "100px" }}
+                                      />
+                                    )}
                                   />
                                 </TableCell>
                                 <TableCell align="right">1 Box</TableCell>
-                                <TableCell align="right">1m</TableCell>
+                                <TableCell align="right">{"1"}/m²</TableCell>
                                 <TableCell align="right">Rp. 123123</TableCell>
                                 <TableCell align="right">Rp. 999999</TableCell>
                               </TableRow>
@@ -1476,3 +1606,14 @@ export const getStaticProps = async ({ params }: any) => {
     },
   };
 };
+
+// <TextField
+//   id="outlined-number"
+//   label="Box"
+//   type="number"
+//   onChange={handleBoxOnChange()}
+//   InputLabelProps={{
+//      shrink: true,
+//    }}
+//   sx={{ width: "100px" }}
+// />
