@@ -395,7 +395,7 @@ export default function NavbarProduct() {
       <Grid sx={{ position: "Fixed", zIndex: "9", width: "100%" }}>
         <Grid display={{ xs: "flex", lg: "none" }} sx={{ width: "100%" }}>
           <Box sx={{ p: "25px", width: "100%", display: "flex", backgroundColor: "white", height: "50px", position: "absolute", zIndex: "9", opacity: "0.5" }}></Box>
-          <Box display="flex" sx={{ width: "100%", p: "25px", justifyContent: "space-between", zIndex: "10", backgroundColor: isScrolled ? "white" : "white", transition: "background-color 0.3s" }}>
+          <Box display="flex" sx={{ width: "100%", p: "25px", justifyContent: "space-around", zIndex: "10", backgroundColor: isScrolled ? "white" : "white", transition: "background-color 0.3s" }}>
             <Link display="flex" flexDirection="row" sx={{ height: "49px", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
               <Button sx={{ width: "150px", height: "50px", position: "relative", mr: "10px" }}>
                 <Image src={"/static/images/Sunpower.png"} fill alt={""} style={{}} />
