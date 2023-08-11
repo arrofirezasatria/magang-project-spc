@@ -233,7 +233,7 @@ export default function Page(props: any) {
             {...register("name", { required: true, maxLength: 50 })}
           />
           <input type="submit" />
-        </form>
+        </form> */}
         <Box>{name}</Box>
         <Box>{coverage + " /m2"}</Box>
         <Box>{"Rp. " + totalPrice}</Box>
@@ -391,7 +391,7 @@ export default function Page(props: any) {
               </Box>
             </Box>
           </Box>
-        </Box> */}
+        </Box>
         <Box className="product-wrap-white" sx={{ display: "flex" }}>
           <Box
             className="product-container"
