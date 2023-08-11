@@ -1022,10 +1022,26 @@ export default function Page(props: any) {
                       <>
                         <Box
                           sx={{
-                            flexBasis: "50%",
+                            display: "flex",
+                            width: "100%",
                           }}
                         >
-                          {/* <Button
+                          <Typography
+                            sx={{
+                              fontSize: "16px",
+                              fontWeight: "400",
+                              flexBasis: "50%",
+                              p: "12px 10px 8px",
+                            }}
+                          >
+                            {"Packing Details"}
+                          </Typography>
+                          <Box
+                            sx={{
+                              flexBasis: "50%",
+                            }}
+                          >
+                            {/* <Button
                             sx={{
                               // backgroundColor: "black",
                               border: "2px solid black",
@@ -1042,7 +1058,8 @@ export default function Page(props: any) {
                           >
                             click for full packing details
                           </Button> */}
-                          <ModulPacking />
+                            <ModulPacking />
+                          </Box>
                         </Box>
                       </>
 

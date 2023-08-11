@@ -76,7 +76,8 @@ export default function AltProductRanges(props: any) {
             md={4}
             sx={{
               px: { xs: "0px", md: "20px" },
-              width: "100%",
+              // width: "100%",
+              flexBasis: '33.3333%',
               mb: { xs: "20px", md: "0px" },
             }}
           >
@@ -95,10 +96,10 @@ export default function AltProductRanges(props: any) {
                   },
                   "&:hover .poster img": {
                     transform: "translateY(-50px)",
-                    filter: { xs: "blur(0)", md: "blur(2px)" },
+                    // filter: { xs: "blur(0)", md: "blur(1px)" },
                   },
                   "&:hover .details": {
-                    bottom: "40px",
+                    bottom: "0px",
                   },
                   "&:hover .details p": {
                     opacity: "1",
@@ -114,10 +115,10 @@ export default function AltProductRanges(props: any) {
                     "&::before": {
                       content: '""',
                       position: "absolute",
-                      bottom: "-150px",
+                      bottom: "-50%",
                       width: "100%",
                       height: "100%",
-                      background: "linear-gradient(0deg, #000000a5 50%, transparent)",
+                      background: "linear-gradient(0deg, #000000c0 50%, transparent)",
                       transition: "0.5s",
                       zIndex: "1",
                       display: { xs: "none", md: "block" },
@@ -140,8 +141,9 @@ export default function AltProductRanges(props: any) {
                 <Box
                   className="details"
                   sx={{
+                    width: '100%',
                     position: "absolute",
-                    bottom: "-70px",
+                    bottom: "-30%",
                     p: "20px",
                     zIndex: "2",
                     transition: "0.5s",
@@ -149,33 +151,48 @@ export default function AltProductRanges(props: any) {
                     display: { xs: "none", md: "block" },
                   }}
                 >
-                  <Box sx={{}}>
+                  <Box sx={{ width: '100%' }}>
                     <Typography
                       component="h3"
                       sx={{
-                        fontSize: "30px",
+                        letterSpacing: '1px',
+                        fontSize: "24px",
                         fontWeight: "bold",
                         color: "#fff",
+                        textShadow: '0 0 5px rgba(0,0,0,.3)',
                       }}
                     >
                       {articleRecomendation.name}
                     </Typography>
+                    <Box className='description-wrap' sx={{
+                      my: "20px",
+                      px: "15px",
+                      display: 'flex',
+                      flexDirection: 'row',
+                    }}>
+                      <Typography
+                        component="p"
+                        sx={{
+                          letterSpacing: '1px',
+                          wordBreak: 'break-',
+                          display: '-webkit-box',
+                          WebkitBoxOrient: 'vertical',
+                          WebkitLineClamp: '3',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          fontSize: "16px",
+                          color: "#fff",
+                          transition: "max-height .25s ease-in-out,margin .25s ease-in-out,opacity .25s linear",
+                          opacity: "0",
+                        }}
+                      >
+                        {articleRecomendation.description}
+                      </Typography>
+                    </Box>
                     <Typography
                       component="p"
                       sx={{
-                        fontSize: "20px",
-                        color: "#fff",
-                        my: "20px",
-                        px: "15px",
-                        transition: "max-height .25s ease-in-out,margin .25s ease-in-out,opacity .25s linear",
-                        opacity: "0",
-                      }}
-                    >
-                      {articleRecomendation.description}
-                    </Typography>
-                    <Typography
-                      component="p"
-                      sx={{
+                        letterSpacing: '1px',
                         fontSize: "20px",
                         color: "#fff",
                         textDecoration: "underline",
@@ -191,7 +208,7 @@ export default function AltProductRanges(props: any) {
             </Link>
           </Grid>
         ))}
-      </Grid>
+      </Grid >
     </>
   );
 }
