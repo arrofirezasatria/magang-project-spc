@@ -23,7 +23,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import AltProductRanges from "@components/pages/range/altProductRanges";
+import AltProductRanges from "@components/pages/range/altProductRangesCoba";
 
 const headers = {
   Authorization:

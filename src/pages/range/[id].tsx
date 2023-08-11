@@ -34,24 +34,14 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import AltProductRanges from "@components/pages/range/altProductRanges";
 import Image from "next/image";
-import { useForm } from "react-hook-form";
-import { Controller } from "react-hook-form";
-import { headers } from "next/dist/client/components/headers";
-import { NumericFormat } from "react-number-format";
-
-interface IFormInputs {
-  // name: string;
-  // code: string;
-  quantityBox: number;
-  // coverage: number;
-  // showAge: boolean;
-  // age: number;
-}
+import { url } from "inspector";
+import SliderImage from "@components/pages/range/SliderImage";
 
 export default function Page(props: any) {
   // console.log(data);
   // console.log(data.attributes.Price);
   const dispatch = useDispatch();
+  props.productOnly
 
   const imgFileUrl =
     props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url;
@@ -669,21 +659,10 @@ export default function Page(props: any) {
                         position: "relative",
                       }}
                     >
-                      <Image
-                        src={
-                          props?.productOnly?.data.attributes?.Image_Ambience
-                            ?.data[0].attributes.formats.large.url
-                        }
-                        fill
-                        alt="hero"
-                        style={{ objectFit: "cover" }}
-                      />
+                    <SliderImage productOnly={props?.productOnly?.data.attributes} />
+                      {/* <Image src={props?.productOnly?.data.attributes?.Image_Ambience?.data[0].attributes.formats.large.url} fill alt="hero" style={{ objectFit: "cover" }} /> */}
                     </Box>
-                    <Typography
-                      sx={{ color: "#999", mt: "10px", fontWeight: "" }}
-                    >
-                      {props.product.data.attributes.Name} 120x60cm
-                    </Typography>
+                    {/* <Typography sx={{ color: "#999", mt: "10px", fontWeight: "" }}>{props.product.data.attributes.Name} 120x60cm</Typography> */}
                   </Grid>
                 </Grid>
               </>
@@ -1070,7 +1049,7 @@ export default function Page(props: any) {
                           >
                             {"Packing Details"}
                           </Typography>
-                          <Box
+                          <Button
                             sx={{
                               flexBasis: "50%",
                             }}
@@ -1463,7 +1442,7 @@ export default function Page(props: any) {
               width: "100%",
             }}
           >
-            <AltProductRanges alt1={2} alt2={3} alt3={4} />
+            <AltProductRanges alt1={2} alt2={3} alt3={props.alternative3} />
           </Box>
         </Box>
       </>
