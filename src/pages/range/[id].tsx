@@ -22,6 +22,7 @@ import {
   TableRow,
   Divider,
   Modal,
+  Chip,
 } from "@mui/material";
 import AppsBar from "@components/AppsBar";
 import { useSelector, useDispatch } from "react-redux";
@@ -41,6 +42,7 @@ import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import SliderImage from "@components/pages/range/SliderImage";
 import { NumericFormat } from "react-number-format";
+import CircleIcon from "@mui/icons-material/Circle";
 
 interface IFormInputs {
   name: string;
@@ -823,7 +825,7 @@ export default function Page(props: any) {
                         { title: "Shade Variation", value: "Slight" },
                         { title: "Suitability", value: "Internal Floor" },
                         { title: "Tiles per Box", value: "4" },
-                        { title: "Square Meter per Box", value: "14.4 /m²" },
+                        { title: "Square Meter per Box", value: "1.44 /m²" },
                         // {
                         //   title: "Technical Specification",
                         //   value: "Glazed Ceramic",
@@ -870,7 +872,6 @@ export default function Page(props: any) {
                           </>
                         );
                       })}
-
                       <>
                         <Box
                           sx={{
@@ -971,6 +972,56 @@ export default function Page(props: any) {
                         />
                       </>
 
+                      <>
+                        <Divider
+                          sx={{
+                            borderBottomWidth: "2px",
+                            borderColor: "#000",
+                          }}
+                        />
+                        <Box
+                          sx={{
+                            display: "flex",
+
+                            width: "100%",
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              fontSize: "16px",
+                              fontWeight: "400",
+                              flexBasis: "50%",
+                              p: "12px 10px 8px",
+                            }}
+                          >
+                            {"Stock"}
+                          </Typography>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              flexBasis: "50%",
+                              my: "8px",
+                            }}
+                          >
+                            <CircleIcon
+                              color={true ? "success" : "error"}
+                              fontSize="inherit"
+                              sx={{ mt: "2px" }}
+                            />
+                            <Typography
+                              sx={{
+                                fontSize: "16px",
+                                fontWeight: 700,
+                                ml: 1,
+                              }}
+                            >
+                              {true ? "Available" : "Not Available"}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </>
+
                       <Box
                         sx={{
                           bgcolor: "#f8f8f8",
@@ -978,7 +1029,7 @@ export default function Page(props: any) {
                           borderRadius: "1px",
                           p: "20px",
                           mt: "20px",
-                          overflow: 'auto',
+                          overflow: "auto",
                         }}
                       >
                         <Typography
@@ -986,9 +1037,12 @@ export default function Page(props: any) {
                         >
                           Order tiles now
                         </Typography>
-                        <TableContainer component='div' sx={{
-                          overflow: 'auto'
-                        }}>
+                        <TableContainer
+                          component="div"
+                          sx={{
+                            overflow: "auto",
+                          }}
+                        >
                           <Table
                             sx={{
                               width: "100%",
@@ -1368,8 +1422,8 @@ export const getStaticProps = async ({ params }: any) => {
   console.log(params.id);
   const responseProduct = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-    params.id +
-    "?populate[motif][populate][products][populate]=*",
+      params.id +
+      "?populate[motif][populate][products][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1379,8 +1433,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseMotif = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-    params.id +
-    "?populate[motif][populate]=*",
+      params.id +
+      "?populate[motif][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1390,8 +1444,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAmbience = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-    params.id +
-    "?populate=*",
+      params.id +
+      "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1405,8 +1459,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt1 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-    1 +
-    "?populate=*",
+      1 +
+      "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1418,8 +1472,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt2 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-    2 +
-    "?populate=*",
+      2 +
+      "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1431,8 +1485,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt3 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-    3 +
-    "?populate=*",
+      3 +
+      "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
