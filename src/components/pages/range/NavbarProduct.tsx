@@ -611,9 +611,16 @@ export default function NavbarProduct() {
                           <Button
                             sx={{
                               py: "10px",
-                              color: "black",
                               px: "20px",
                               position: "relative",
+                              typography: {
+                                letterSpacing: 2, // Use a number for letter spacing
+                                color: isScrolled ? "black" : "white",
+                                transition: "color 0.3s",
+                                "&:hover": {
+                                  color: "black",
+                                },
+                              },
                               "&::after": {
                                 content: '""',
                                 position: "absolute",
@@ -661,9 +668,17 @@ export default function NavbarProduct() {
                         <Button
                           sx={{
                             py: "10px",
-                            color: "black",
+
                             px: "20px",
-                            position: "relative", // Add position relative to allow positioning of ::after pseudo-element
+                            position: "relative",
+                            typography: {
+                              letterSpacing: 2, // Use a number for letter spacing
+                              color: isScrolled ? "black" : "white",
+                              transition: "color 0.3s",
+                              "&:hover": {
+                                color: "black",
+                              },
+                            }, // Add position relative to allow positioning of ::after pseudo-element
                             "&::after": {
                               content: '""',
                               position: "absolute",

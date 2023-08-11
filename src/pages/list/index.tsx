@@ -15,6 +15,7 @@ import NavbarProduct from "@components/pages/range/NavbarProduct";
 import HoverInProduct from "@components/pages/range/hoverInProduct";
 import ModulProduct from "@components/pages/range/ModulSpec";
 import ModulPacking from "@components/pages/range/modulPacking";
+import SliderImage from "@components/pages/range/SliderImage";
 
 const headers = {
   Authorization:
@@ -431,7 +432,8 @@ export default function Index() {
       </Container>
 
       <ModulProduct />
-      <ModulPacking/>
+      <ModulPacking />
+      <SliderImage/>
     </>
   );
 }
