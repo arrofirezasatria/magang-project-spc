@@ -150,9 +150,32 @@ export default function ModulSpec() {
 
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "center", mt: "100px", flexDirection: "column" }}>
-        <Button onClick={() => setIsModalOpen(true)} sx={{ width: "300px", backgroundColor: "salmon" }}>
+      <Box sx={{
+        // display: "flex",
+        // justifyContent: "center",
+        // mt: "100px", 
+        // flexDirection: "column"
+      }}>
+
+        {/* <Button onClick={() => setIsModalOpen(true)} sx={{ width: "300px", backgroundColor: "salmon" }}>
           <Typography>tolong diclick</Typography>
+        </Button> */}
+        <Button onClick={() => setIsModalOpen(true)}
+          sx={{
+            // backgroundColor: "black",
+            border: "2px solid black",
+            my: "8px",
+            height: "28px",
+            typography: {
+              fontWeight: "medium", // Change the fontWeight value as needed
+              color: "black",
+              letterSpacing: 1, // Use a number for letter spacing
+              fontSize: "14px",
+              textTransform: "lowercase",
+            },
+          }}
+        >
+          click for full specification
         </Button>
         <Modal
           open={isModalOpen}
@@ -249,7 +272,7 @@ export default function ModulSpec() {
             </Box>
           </Box>
         </Modal>
-      </Box>
+      </Box >
     </>
   );
 }

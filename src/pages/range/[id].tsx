@@ -33,9 +33,22 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import AltProductRanges from "@components/pages/range/altProductRanges";
+import ModulSpec from "@components/pages/range/ModulSpec";
+import ModulPacking from "@components/pages/range/modulPacking";
 import Image from "next/image";
-import { url } from "inspector";
+import { Controller, useForm } from "react-hook-form";
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 import SliderImage from "@components/pages/range/SliderImage";
+
+interface IFormInputs {
+  name: string;
+  code: string;
+  quantity: number;
+  coverage: number;
+  showAge: boolean;
+  age: number;
+}
 
 export default function Page(props: any) {
   // console.log(data);
@@ -65,16 +78,6 @@ export default function Page(props: any) {
       });
   };
 
-  const style = {
-    position: "absolute" as "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    p: 4,
-  };
-
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -84,9 +87,9 @@ export default function Page(props: any) {
   const products =
     props.product.data.attributes.motif.data.attributes.products.data; // array
 
-  console.log(props.alternative1);
-  console.log(props.alternative2);
-  console.log(props.alternative3);
+  // console.log(props.alternative1);
+  // console.log(props.alternative2);
+  // console.log(props.alternative3);
 
   // console.log(data);
   // console.log(props.product.data.attributes.motif.data.attributes);
@@ -659,7 +662,7 @@ export default function Page(props: any) {
                         position: "relative",
                       }}
                     >
-                    <SliderImage productOnly={props?.productOnly?.data.attributes} />
+                      <SliderImage productOnly={props?.productOnly?.data.attributes} />
                       {/* <Image src={props?.productOnly?.data.attributes?.Image_Ambience?.data[0].attributes.formats.large.url} fill alt="hero" style={{ objectFit: "cover" }} /> */}
                     </Box>
                     {/* <Typography sx={{ color: "#999", mt: "10px", fontWeight: "" }}>{props.product.data.attributes.Name} 120x60cm</Typography> */}
@@ -747,53 +750,30 @@ export default function Page(props: any) {
                 }}
               >
                 <Grid item xs={12} md={6} sx={{ pl: { xs: "0", md: "22px" } }}>
-                  <Box
-                    onClick={handleOpen}
-                    sx={{
-                      width: { xs: "100%", md: "75%" },
-                      height: "427.500px",
-                      position: "relative",
-                    }}
-                  >
-                    <Image
-                      src={
-                        props.productOnly.data.attributes?.Image_Tile_Face
-                          .data[0].attributes?.formats.large.url
-                      }
-                      fill
-                      alt=""
-                      style={{
-                        borderRadius: "0px",
-                        background: "#e0e0e0",
-                        boxShadow:
-                          "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
+                  <Zoom >
+                    <Box
+                      sx={{
+                        width: { xs: "100%", md: "75%" },
+                        height: "427.500px",
+                        position: "relative",
                       }}
-                    />
-                  </Box>
-                  <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                    sx={{
-                      background:
-                        "linear-gradient(rgba(30,30,30,.9),#000 1810%)",
-                    }}
-                  >
-                    <Box sx={style}>
-                      <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                      >
-                        Text in a modal
-                      </Typography>
-                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor
-                        ligula.
-                      </Typography>
+                    >
+                      <Image
+                        src={
+                          props.productOnly.data.attributes?.Image_Tile_Face
+                            .data[0].attributes?.formats.large.url
+                        }
+                        fill
+                        alt=""
+                        style={{
+                          borderRadius: "0px",
+                          background: "#e0e0e0",
+                          boxShadow:
+                            "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
+                        }}
+                      />
                     </Box>
-                  </Modal>
+                  </Zoom>
                   <Box sx={{ my: "20px", width: { xs: "100%", md: "75%" } }}>
                     <Link
                       onClick={() => {
@@ -816,6 +796,7 @@ export default function Page(props: any) {
                         display: "flex",
                         justifyContent: "center",
                         alignItem: "center",
+                        cursor: 'pointer',
                       }}
                     >
                       <FileDownloadOutlinedIcon
@@ -969,6 +950,7 @@ export default function Page(props: any) {
                                   flexBasis: "50%",
                                   fontWeight: "bold",
                                   p: "12px 10px 8px",
+                                  textTransform: 'capitalize',
                                 }}
                               >
                                 {item.value}
@@ -1006,7 +988,7 @@ export default function Page(props: any) {
                               flexBasis: "50%",
                             }}
                           >
-                            <Button
+                            {/* <Button
                               sx={{
                                 // backgroundColor: "black",
                                 border: "2px solid black",
@@ -1022,7 +1004,8 @@ export default function Page(props: any) {
                               }}
                             >
                               click for full specification
-                            </Button>
+                            </Button> */}
+                            <ModulSpec />
                           </Box>
                         </Box>
                         <Divider
@@ -1054,7 +1037,7 @@ export default function Page(props: any) {
                               flexBasis: "50%",
                             }}
                           >
-                            <Button
+                            {/* <Button
                               sx={{
                                 // backgroundColor: "black",
                                 border: "2px solid black",
@@ -1070,123 +1053,118 @@ export default function Page(props: any) {
                               }}
                             >
                               click for full packing details
-                            </Button>
-                          </Box>
+                            </Button> */}
+                            <ModulPacking />
                         </Box>
-                        <Divider
-                          sx={{
-                            borderBottomWidth: "2px",
-                            borderColor: "#000",
-                          }}
-                        />
-                      </>
-
-                      <Box
+                      </Box>
+                      <Divider
                         sx={{
-                          bgcolor: "#f8f8f8",
-                          border: "1px solid #999",
-                          borderRadius: "1px",
-                          p: "20px",
-                          mt: "20px",
+                          borderBottomWidth: "2px",
+                          borderColor: "#000",
+                        }}
+                      />
+                    </>
+
+                    <Box
+                      sx={{
+                        bgcolor: "#f8f8f8",
+                        border: "1px solid #999",
+                        borderRadius: "1px",
+                        p: "20px",
+                        mt: "20px",
+                      }}
+                    >
+                      <Typography
+                        sx={{ fontSize: "22px", fontWeight: "bold" }}
+                      >
+                        Order tiles now
+                      </Typography>
+                      <TableContainer>
+                        <Table
+                          sx={{
+                            width: "100%",
+                            fontSize: "14px",
+                            borderCollapse: "collapse",
+                            mt: "20px",
+                          }}
+                          aria-label="simple table"
+                        >
+                          <TableHead>
+                            <TableRow>
+                              <TableCell sx={{ minWidth: "19%" }}>
+                                Required
+                              </TableCell>
+                              <TableCell
+                                sx={{ minWidth: "19%" }}
+                                align="right"
+                              >
+                                Coverage
+                              </TableCell>
+                              <TableCell
+                                sx={{ minWidth: "19%" }}
+                                align="right"
+                              >
+                                Box Price
+                              </TableCell>
+                              <TableCell
+                                sx={{ minWidth: "19%" }}
+                                align="right"
+                              >
+                                Total Price
+                              </TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            <TableRow>
+                              <TableCell component="th" scope="row">
+                                <Controller
+                                  name={"quantity"}
+                                  control={control}
+                                  render={({
+                                    field: { onChange, value },
+                                    fieldState: { error },
+                                    formState,
+                                  }) => (
+                                    <TextField
+                                      helperText={
+                                        error ? error.message : null
+                                      }
+                                      size="small"
+                                      error={!!error}
+                                      // onChange={onChange}
+                                      // value={}
+                                      fullWidth
+                                      label={"Box"}
+                                      variant="outlined"
+                                      sx={{ width: "100px" }}
+                                    />
+                                  )}
+                                />
+                              </TableCell>
+                              <TableCell align="right">1 Box</TableCell>
+                              <TableCell align="right">{"1"}/m²</TableCell>
+                              <TableCell align="right">Rp. 123123</TableCell>
+                              <TableCell align="right">Rp. 999999</TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                      <Button
+                        variant="contained"
+                        sx={{
+                          bgcolor: "#111",
+                          width: "100%",
+                          borderRadius: "50px",
+                          fontSize: "16px",
+                          "&:hover": {
+                            bgcolor: "#222",
+                          },
                         }}
                       >
-                        <Typography
-                          sx={{ fontSize: "22px", fontWeight: "bold" }}
-                        >
-                          Order tiles now
-                        </Typography>
-                        <TableContainer>
-                          <Table
-                            sx={{
-                              width: "100%",
-                              fontSize: "14px",
-                              borderCollapse: "collapse",
-                              mt: "20px",
-                            }}
-                            aria-label="simple table"
-                          >
-                            <TableHead>
-                              <TableRow>
-                                <TableCell sx={{ minWidth: "19%" }}>
-                                  Required
-                                </TableCell>
-                                <TableCell
-                                  sx={{ minWidth: "19%" }}
-                                  align="right"
-                                >
-                                  Quantity
-                                </TableCell>
-                                <TableCell
-                                  sx={{ minWidth: "19%" }}
-                                  align="right"
-                                >
-                                  Coverage
-                                </TableCell>
-                                <TableCell
-                                  sx={{ minWidth: "19%" }}
-                                  align="right"
-                                >
-                                  Box Price
-                                </TableCell>
-                                <TableCell
-                                  sx={{ minWidth: "19%" }}
-                                  align="right"
-                                >
-                                  Total Price
-                                </TableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              <TableRow>
-                                <TableCell component="th" scope="row">
-                                  <Controller
-                                    name={"quantity"}
-                                    control={control}
-                                    render={({
-                                      field: { onChange, value },
-                                      fieldState: { error },
-                                      formState,
-                                    }) => (
-                                      <TextField
-                                        helperText={
-                                          error ? error.message : null
-                                        }
-                                        size="small"
-                                        error={!!error}
-                                        // onChange={onChange}
-                                        // value={}
-                                        fullWidth
-                                        label={"Box"}
-                                        variant="outlined"
-                                        sx={{ width: "100px" }}
-                                      />
-                                    )}
-                                  />
-                                </TableCell>
-                                <TableCell align="right">1 Box</TableCell>
-                                <TableCell align="right">{"1"}/m²</TableCell>
-                                <TableCell align="right">Rp. 123123</TableCell>
-                                <TableCell align="right">Rp. 999999</TableCell>
-                              </TableRow>
-                            </TableBody>
-                          </Table>
-                        </TableContainer>
-                        <Button
-                          variant="contained"
-                          sx={{
-                            bgcolor: "#111",
-                            width: "100%",
-                            borderRadius: "50px",
-                            fontSize: "16px",
-                            "&:hover": {
-                              bgcolor: "#222",
-                            },
-                          }}
-                        >
-                          Add to Cart
-                        </Button>
-                      </Box>
-                      {/* <Box
+                        Add to Cart
+                      </Button>
+                    </Box>
+                    {/* <Box
                         sx={{
                           display: "flex",
                           borderTop: "1px solid #999",
@@ -1234,218 +1212,218 @@ export default function Page(props: any) {
                           {props.productOnly.data.attributes?.N_Face}
                         </Typography>
                       </Box> */}
-                    </Box>
                   </Box>
-                </Grid>
+                </Box>
               </Grid>
-            </Box>
+            </Grid>
           </Box>
         </Box>
+      </Box >
+      <Box
+        className="product-wrap-grey"
+        // sx={{ display: "flex", bgcolor: "#F5F5F5" }}
+        sx={{ display: "none", bgcolor: "#F5F5F5" }}
+      >
         <Box
-          className="product-wrap-grey"
-          // sx={{ display: "flex", bgcolor: "#F5F5F5" }}
-          sx={{ display: "none", bgcolor: "#F5F5F5" }}
+          className="product-container"
+          sx={{
+            maxWidth: "1200px",
+            padding: { xs: "20px 15px", md: "20px 30px" },
+            margin: "0 auto",
+            width: "100%",
+          }}
         >
-          <Box
-            className="product-container"
-            sx={{
-              maxWidth: "1200px",
-              padding: { xs: "20px 15px", md: "20px 30px" },
-              margin: "0 auto",
-              width: "100%",
-            }}
-          >
-            <Box sx={{ py: "40px", px: { xs: 0, md: 4 } }}>
-              <Box
+          <Box sx={{ py: "40px", px: { xs: 0, md: 4 } }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                position: "relative",
+              }}
+            >
+              <Typography
+                component="h2"
                 sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  position: "relative",
-                }}
-              >
-                <Typography
-                  component="h2"
-                  sx={{
-                    fontSize: "27px",
-                    fontWeight: "bold",
-                    mb: "15px",
-                    letterSpacing: "2px",
-                  }}
-                >
-                  THE PRODUCTS
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
+                  fontSize: "27px",
+                  fontWeight: "bold",
                   mb: "15px",
-                  pb: "30px",
-                  position: "relative",
-                  "& .MuiTypography-root": {
-                    fontSize: "16px",
-                    fontWeight: "medium",
-                  },
+                  letterSpacing: "2px",
                 }}
               >
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    mx: "20px",
-                    position: "relative",
-                  }}
-                >
-                  {/* <Image
+                THE PRODUCTS
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                mb: "15px",
+                pb: "30px",
+                position: "relative",
+                "& .MuiTypography-root": {
+                  fontSize: "16px",
+                  fontWeight: "medium",
+                },
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  mx: "20px",
+                  position: "relative",
+                }}
+              >
+                {/* <Image
                     src="/static/icons/icon-colour-black.svg"
                     alt="Colors Icon"
                     width={25}
                     height={25}
                   /> */}
-                  <Typography
-                    variant="h2"
-                    sx={{
-                      mx: "5px",
-                    }}
-                  >
-                    {/* {N_Color} */}
-                  </Typography>
-
-                  <Typography variant="h2" sx={{}}>
-                    Colors
-                  </Typography>
-                </Box>
-
-                <Box
+                <Typography
+                  variant="h2"
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    mx: "20px",
-                    position: "relative",
+                    mx: "5px",
                   }}
                 >
-                  {/* <Image
+                  {/* {N_Color} */}
+                </Typography>
+
+                <Typography variant="h2" sx={{}}>
+                  Colors
+                </Typography>
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  mx: "20px",
+                  position: "relative",
+                }}
+              >
+                {/* <Image
                     src="/static/icons/icon-size-black.svg"
                     alt="Sizes Icon"
                     width={25}
                     height={25}
                   /> */}
-                  <Typography
-                    variant="h2"
-                    sx={{
-                      mx: "5px",
-                    }}
-                  >
-                    {/* {N_Dimension} */}
-                  </Typography>
-
-                  <Typography variant="h2" sx={{}}>
-                    Sizes
-                  </Typography>
-                </Box>
-
-                <Box
+                <Typography
+                  variant="h2"
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    mx: "20px",
-                    position: "relative",
+                    mx: "5px",
                   }}
                 >
-                  {/* <Image
+                  {/* {N_Dimension} */}
+                </Typography>
+
+                <Typography variant="h2" sx={{}}>
+                  Sizes
+                </Typography>
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  mx: "20px",
+                  position: "relative",
+                }}
+              >
+                {/* <Image
                     src="/static/icons/icon-finish-black.svg"
                     alt="Finish Icon"
                     width={25}
                     height={25}
                   /> */}
-                  <Typography
-                    variant="h2"
+                <Typography
+                  variant="h2"
+                  sx={{
+                    mx: "5px",
+                  }}
+                >
+                  {/* {N_Finish} */}
+                </Typography>
+
+                <Typography variant="h2" sx={{}}>
+                  Finish
+                </Typography>
+              </Box>
+              <Box
+                component="span"
+                sx={{
+                  position: "absolute",
+                  bottom: "0",
+                  left: "50%",
+                  width: "100px",
+                  height: "2px",
+                  backgroundColor: "black",
+                  transform: "translateX(-50%)",
+                  content: "''",
+                }}
+              />
+            </Box>
+            <Grid container spacing={2} sx={{ mt: "44px" }}>
+              {products.map((product, index) => (
+                <Grid item key={index} xs={6} md={2} sx={{}}>
+                  <Box
                     sx={{
-                      mx: "5px",
+                      height: "173px",
+                      width: "auto",
+                      position: "relative",
                     }}
                   >
-                    {/* {N_Finish} */}
-                  </Typography>
-
-                  <Typography variant="h2" sx={{}}>
-                    Finish
-                  </Typography>
-                </Box>
-                <Box
-                  component="span"
-                  sx={{
-                    position: "absolute",
-                    bottom: "0",
-                    left: "50%",
-                    width: "100px",
-                    height: "2px",
-                    backgroundColor: "black",
-                    transform: "translateX(-50%)",
-                    content: "''",
-                  }}
-                />
-              </Box>
-              <Grid container spacing={2} sx={{ mt: "44px" }}>
-                {products.map((product, index) => (
-                  <Grid item key={index} xs={6} md={2} sx={{}}>
-                    <Box
+                    <Image
+                      fill
+                      alt=""
+                      src={`/static/images/${product.attributes?.Image_Tile_Face.data[0].attributes.formats.thumbnail.url}`}
+                    />
+                  </Box>
+                  <Box
+                    sx={{
+                      mt: "7px",
+                      pt: "7px",
+                      pb: "10px",
+                      border: "2px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
+                      {
+                        product.product?.attributes?.Image_Tile_Face.data[0]
+                          .attributes.formats.thumbnail.url
+                      }
+                    </Typography>
+                    <Typography
                       sx={{
-                        height: "173px",
-                        width: "auto",
-                        position: "relative",
+                        fontsize: "14px",
+                        fontWeight: "medium",
+                        color: "#999",
                       }}
                     >
-                      <Image
-                        fill
-                        alt=""
-                        src={`/static/images/${product.attributes?.Image_Tile_Face.data[0].attributes.formats.thumbnail.url}`}
-                      />
-                    </Box>
-                    <Box
-                      sx={{
-                        mt: "7px",
-                        pt: "7px",
-                        pb: "10px",
-                        border: "2px",
-                        textAlign: "center",
-                      }}
-                    >
-                      <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
-                        {
-                          product.product?.attributes?.Image_Tile_Face.data[0]
-                            .attributes.formats.thumbnail.url
-                        }
-                      </Typography>
-                      <Typography
-                        sx={{
-                          fontsize: "14px",
-                          fontWeight: "medium",
-                          color: "#999",
-                        }}
-                      >
-                        KETERANGAN
-                      </Typography>
-                    </Box>
-                  </Grid>
-                ))}
-              </Grid>
-            </Box>
+                      KETERANGAN
+                    </Typography>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
           </Box>
         </Box>
-        <Box className="product-wrap-white" sx={{ display: "flex" }}>
-          <Box
-            className="product-container"
-            sx={{
-              maxWidth: "1200px",
-              padding: { xs: "20px 15px", md: "20px 30px" },
-              margin: "0 auto",
-              width: "100%",
-            }}
-          >
-            <AltProductRanges alt1={2} alt2={3} alt3={props.alternative3} />
-          </Box>
+      </Box>
+      <Box className="product-wrap-white" sx={{ display: "flex" }}>
+        <Box
+          className="product-container"
+          sx={{
+            maxWidth: "1200px",
+            padding: { xs: "20px 15px", md: "20px 30px" },
+            margin: "0 auto",
+            width: "100%",
+          }}
+        >
+          <AltProductRanges alt1={2} alt2={3} alt3={props.alternative3} />
         </Box>
-      </>
+      </Box>
+    </>
     </>
   );
 }
@@ -1497,8 +1475,8 @@ export const getStaticProps = async ({ params }: any) => {
   console.log(params.id);
   const responseProduct = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate[motif][populate][products][populate]=*",
+    params.id +
+    "?populate[motif][populate][products][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1508,8 +1486,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseMotif = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate[motif][populate]=*",
+    params.id +
+    "?populate[motif][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1519,8 +1497,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAmbience = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate=*",
+    params.id +
+    "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1534,8 +1512,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt1 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-      1 +
-      "?populate=*",
+    1 +
+    "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1547,8 +1525,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt2 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-      2 +
-      "?populate=*",
+    2 +
+    "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1560,8 +1538,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt3 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-      3 +
-      "?populate=*",
+    3 +
+    "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1571,7 +1549,7 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlternative3 = await responseAlt3.json();
 
-  console.log(responseAlternative1);
+  // console.log(responseAlternative1);
 
   return {
     props: {

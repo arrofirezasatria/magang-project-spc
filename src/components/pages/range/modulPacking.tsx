@@ -40,9 +40,31 @@ export default function ModulPacking() {
 
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "center", mt: "100px", flexDirection: "column" }}>
-        <Button onClick={() => setIsModalOpen(true)} sx={{ width: "300px", backgroundColor: "salmon" }}>
+      <Box sx={{
+        // display: "flex",
+        // justifyContent: "center",
+        // mt: "100px",
+        // flexDirection: "column"
+      }}>
+        {/* <Button onClick={() => setIsModalOpen(true)} sx={{ width: "300px", backgroundColor: "salmon" }}>
           <Typography>tolong diclick</Typography>
+        </Button> */}
+        <Button onClick={() => setIsModalOpen(true)}
+          sx={{
+            // backgroundColor: "black",
+            border: "2px solid black",
+            my: "8px",
+            height: "28px",
+            typography: {
+              fontWeight: "medium", // Change the fontWeight value as needed
+              color: "black",
+              letterSpacing: 1, // Use a number for letter spacing
+              fontSize: "14px",
+              textTransform: "lowercase",
+            },
+          }}
+        >
+          click for full packing details
         </Button>
         <Modal
           open={isModalOpen}
@@ -55,8 +77,8 @@ export default function ModulPacking() {
           }}
         >
           <Box sx={{ width: "1200px", border: "1px solid #000", backgroundColor: "white", overflow: "scroll" }}>
-            <Box > 
-              <Box sx={{width:"100%", justifyContent:"space-between", display:"flex",flexDirection:"row",ml:"30px"}}>
+            <Box >
+              <Box sx={{ width: "100%", justifyContent: "space-between", display: "flex", flexDirection: "row", ml: "30px" }}>
                 <Box sx={{ mt: "30px", display: "flex", flexDirection: "row" }}>
                   <Box
                     sx={{
@@ -71,10 +93,10 @@ export default function ModulPacking() {
                     <Typography sx={{ fontSize: "21px", color: "black", mx: "15px", fontWeight: "bold", mt: "7px" }}>White Marble</Typography>
                   </Box>
                 </Box>
-                <Box sx={{mt:"35px", backgroundColor:"black",mr:"50px"}}>
+                <Box sx={{ mt: "35px", backgroundColor: "black", mr: "50px" }}>
                   <Button onClick={() => setIsModalOpen(false)}>
-                    <Typography sx={{color:"white"}}>Close</Typography>
-                    <CloseIcon sx={{ml:"10px",mt:"3px", color:"white"}} />
+                    <Typography sx={{ color: "white" }}>Close</Typography>
+                    <CloseIcon sx={{ ml: "10px", mt: "3px", color: "white" }} />
                   </Button>
                 </Box>
               </Box>

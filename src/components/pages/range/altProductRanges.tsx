@@ -4,11 +4,30 @@ import Image from "next/image";
 import { transform } from "cypress/types/lodash";
 
 export default function AltProductRanges(props: any) {
-  const productRangesImg = [
-    "alt-product-ranges.jpg",
-    "alt-product-ranges.jpg",
-    "alt-product-ranges.jpg",
-  ];
+  console.log(props.alt1)
+  console.log(props.alt2)
+  console.log(props.alt3)
+  console.log(props.alt1.data.attributes?.Image_Thumbnail_350px.data.attributes?.url)
+
+  let articleRecomendation = [];
+
+  articleRecomendation.push({
+    name: props.alt1.data.attributes.Name,
+    description: props.alt1.data.attributes.Description,
+    image: props.alt1.data.attributes?.Image_Thumbnail_350px.data.attributes?.url,
+  });
+
+  articleRecomendation.push({
+    name: props.alt2.data.attributes.Name,
+    description: props.alt2.data.attributes.Description,
+    image: props.alt2.data.attributes?.Image_Thumbnail_350px.data.attributes?.url,
+  });
+
+  articleRecomendation.push({
+    name: props.alt3.data.attributes.Name,
+    description: props.alt3.data.attributes.Description,
+    image: props.alt3.data.attributes?.Image_Thumbnail_350px.data.attributes?.url,
+  })
 
   return (
     <>
@@ -49,7 +68,7 @@ export default function AltProductRanges(props: any) {
         spacing={0}
         sx={{ mt: "44px", px: { xs: "0px", md: "20px" }, mb: "40px" }}
       >
-        {productRangesImg.map((productRangesImg, index) => (
+        {articleRecomendation.map((articleRecomendation, index) => (
           <Grid
             item
             key={index}
@@ -76,7 +95,7 @@ export default function AltProductRanges(props: any) {
                 overflow: "hidden",
               }}
             >
-              <Image fill alt="" src={`/static/images/${productRangesImg}`} />
+              <Image fill alt="" src={articleRecomendation.image} />
               <Link href="#">
                 <Box
                   sx={{
@@ -152,7 +171,7 @@ export default function AltProductRanges(props: any) {
                         color: "white",
                       }}
                     >
-                      LOREM IPSUM
+                      {articleRecomendation.name}
                     </Typography>
                     <Typography
                       component="p"
@@ -163,7 +182,7 @@ export default function AltProductRanges(props: any) {
                         px: "15px",
                       }}
                     >
-                      Tap to style title. Bottom text.
+                      {articleRecomendation.description}
                     </Typography>
                     <Typography
                       component="p"
