@@ -1,10 +1,12 @@
 import React from 'react'
-import { Box, Stack, Typography, Paper, Button, colors, List, ListItem, Icon, Grid, Link } from "@mui/material";
+import { Box, Stack, Typography, Button, colors, List, ListItem, Grid, Link, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Paper, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 import swr from 'swr'
 import Image from "next/image";
 import { url } from 'inspector';
 import axios from "axios";
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
+import { title } from 'process';
+import { Controller } from 'react-hook-form';
 
 const headers = {
   Authorization:
@@ -134,10 +136,21 @@ export default function productExample() {
                     p: '0 20px'
                   }}>
                     <Typography component='h2' sx={{ fontSize: '22px', fontWeight: 'bold' }}>{Name}</Typography>
-                    <Typography component='p' sx={{ fontSize: '16px', fontWeight: 'medium', my: '16px' }}>{Description}</Typography>
+                    <Typography component='p' sx={{
+                      fontSize: '16px',
+                      fontWeight: 'medium',
+                      my: '16px',
+                      display: '-webkit-box',
+                      WebkitBoxOrient: 'vertical',
+                      WebkitLineClamp: '3',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                      {Description}
+                    </Typography>
                     <Grid
                       container
-                      spacing={2}
+                      spacing={0}
                       sx={{
                         width: '100%',
                         '& .MuiTypography-root': {
@@ -145,62 +158,110 @@ export default function productExample() {
                           fontWeight: 'medium'
                         }
                       }}>
-                      <Grid item sx={{ flexBasis: '50%' }}>
-                        <Typography variant='body1'>
-                          Colour :
-                        </Typography>
-                        <Typography variant='body1'>
-                          Dimension :
-                        </Typography>
-                        <Typography variant='body1'>
-                          Finish :
-                        </Typography>
-                      </Grid>
-                      <Grid item sx={{ flexBasis: '50%' }}>
-                        <Typography variant='body1'>
-                          RED
-                        </Typography>
-                        <Typography variant='body1'>
-                          99x99
-                        </Typography>
-                        <Typography variant='body1'>
-                          FATALITY
-                        </Typography>
-                      </Grid>
+
+                      {[
+                        { title: "Colour", value: "RED" },
+                        { title: "Dimension", value: "600 x 600 x 10.1mm" },
+                        { title: "Finish", value: "Glossy" },
+
+                      ].map((item, index) => {
+                        return (
+                          <>
+                            <Grid key={index} item sx={{ flexBasis: '50%' }}>
+                              <Typography variant='body1' sx={{ fontSize: '16px' }}>
+                                {item.title} :
+                              </Typography>
+                            </Grid>
+                            <Grid item sx={{ flexBasis: '50%' }}>
+                              <Typography variant='body1' sx={{ fontSize: '16px' }}>
+                                {item.value}
+                              </Typography>
+                            </Grid>
+                          </>
+                        );
+                      })}
                     </Grid>
                   </Box>
-                  <Box className='item-value' sx={{
-                    flexBasis: '50%',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    bgcolor: '#f8f9fa',
-                    border: '1px solid #dee2e6',
-                    p: '10px',
-                  }}>
-                    <Box sx={{
-                      flexBasis: '40%'
+                  <Box>
+
+                    <TableContainer sx={{
+                      border: '1px solid #999',
+                      borderRadius: '10px',
+                      flexBasis: '50%'
                     }}>
-                      <Typography>Number of Box</Typography>
-                      <Typography>11</Typography>
+                      <Table
+                        sx={{
+                          width: "100%",
+                          fontSize: "14px",
+                          borderCollapse: "collapse",
+                          mt: "20px",
+                        }}
+                        aria-label="simple table"
+                      >
+                        <TableHead>
+                          <TableRow>
+                            <TableCell sx={{ minWidth: "19%" }}>Number of Box</TableCell>
+                            <TableCell sx={{ minWidth: "19%" }} align="right">
+                              Coverage
+                            </TableCell>
+                            <TableCell sx={{ minWidth: "19%" }} align="right">
+                              Box Price
+                            </TableCell>
+                            <TableCell sx={{ minWidth: "19%" }} align="right">
+                              Total Price
+                            </TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell component="th" scope="row">
+                              {/* <Controller
+                              name={"quantityBox"}
+                              control={control}
+                              render={({
+                                field: { onChange, value },
+                                fieldState: { error },
+                                formState,
+                              }) => ( */}
+                              <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                                <Select
+                                  labelId="demo-select-small-label"
+                                  id="demo-select-small"
+                                  sx={{
+                                    width: '100%',
+                                    '& .MuiSelect-select': {
+                                      p: '4px !important'
+                                    },
+                                  }}
+                                >
+                                  <MenuItem value={0}>1 Box</MenuItem>
+                                  <MenuItem value={10}>2 Box</MenuItem>
+                                  <MenuItem value={20}>3 Box</MenuItem>
+                                  <MenuItem value={30}>4 Box</MenuItem>
+                                </Select>
+                              </FormControl>
+                              {/* )}
+                            /> */}
+                            </TableCell>
+                            <TableCell align="right">
+                              {/* {coverage + " "}/m² */}
+                            </TableCell>
+                            <TableCell align="right">
+                              {/* {1.44 * data.attributes?.Price} */}
+                            </TableCell>
+                            <TableCell align="right">
+                              {/* {"Rp. " + totalPrice}  */}
+                            </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                    <Box>
+                      <Link sx={{
+                        bgcolor: '#dee2e6',
+                        borderRadius: '12px'
+                      }}>Remove</Link>
                     </Box>
-                    <Box sx={{
-                      flexBasis: '30%'
-                    }}>
-                      <Typography>Box Price</Typography>
-                      <Typography>Rp 12312</Typography>
-                    </Box>
-                    <Box sx={{
-                      flexBasis: '30%'
-                    }}>
-                      <Typography>Total Price</Typography>
-                      <Typography>Rp 9999999</Typography>
-                    </Box>
-                  </Box>
-                  <Box sx={{ display: 'block' }}>
-                    <Link sx={{
-                      bgcolor: '#dee2e6',
-                      borderRadius: '12px'
-                    }}>Remove</Link>
                   </Box>
                 </Box>
               );

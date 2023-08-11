@@ -174,7 +174,7 @@ export default function AltProductRanges(props: any) {
                         component="p"
                         sx={{
                           letterSpacing: '1px',
-                          wordBreak: 'break-',
+                          wordBreak: 'break-word',
                           display: '-webkit-box',
                           WebkitBoxOrient: 'vertical',
                           WebkitLineClamp: '3',
