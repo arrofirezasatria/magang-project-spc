@@ -963,6 +963,12 @@ export default function Page(props: any) {
                             <ModulPacking />
                           </Box>
                         </Box>
+                        <Divider
+                          sx={{
+                            borderBottomWidth: "2px",
+                            borderColor: "#000",
+                          }}
+                        />
                       </>
 
                       <Box
@@ -972,6 +978,7 @@ export default function Page(props: any) {
                           borderRadius: "1px",
                           p: "20px",
                           mt: "20px",
+                          overflow: 'auto',
                         }}
                       >
                         <Typography
@@ -979,7 +986,9 @@ export default function Page(props: any) {
                         >
                           Order tiles now
                         </Typography>
-                        <TableContainer>
+                        <TableContainer component='div' sx={{
+                          overflow: 'auto'
+                        }}>
                           <Table
                             sx={{
                               width: "100%",
@@ -993,12 +1002,6 @@ export default function Page(props: any) {
                               <TableRow>
                                 <TableCell sx={{ minWidth: "19%" }}>
                                   Required
-                                </TableCell>
-                                <TableCell
-                                  sx={{ minWidth: "19%" }}
-                                  align="right"
-                                >
-                                  Quantity
                                 </TableCell>
                                 <TableCell
                                   sx={{ minWidth: "19%" }}
@@ -1048,7 +1051,6 @@ export default function Page(props: any) {
                                     )}
                                   />
                                 </TableCell>
-                                <TableCell align="right">1 Box</TableCell>
                                 <TableCell align="right">
                                   <NumericFormat
                                     value={coverage}
@@ -1099,54 +1101,6 @@ export default function Page(props: any) {
                           Add to Cart
                         </Button>
                       </Box>
-                      {/* <Box
-                        sx={{
-                          display: "flex",
-                          borderTop: "1px solid #999",
-                          width: "100%",
-                        }}
-                      >
-                        <Typography sx={{ flexBasis: "50%" }}>Code:</Typography>
-                        <Typography sx={{ flexBasis: "50%" }}>
-                          {props.productOnly.data.attributes?.Code}
-                        </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          borderTop: "1px solid #999",
-                          width: "100%",
-                        }}
-                      >
-                        <Typography sx={{ flexBasis: "50%" }}>Size:</Typography>
-                        <Typography sx={{ flexBasis: "50%" }}>
-                          {
-                            props.productOnly.data.attributes?.tile_dimension.data
-                              .attributes?.Dimension
-                          }
-                        </Typography>
-                      </Box>
-                      <Box sx={{ display: "flex", borderTop: "1px solid #999" }}>
-                        <Typography sx={{ flexBasis: "50%" }}>Finish:</Typography>
-                        <Typography sx={{ flexBasis: "50%" }}>
-                          {
-                            props.productOnly.data.attributes?.surface_finish.data
-                              ?.attributes?.Name
-                          }
-                        </Typography>
-                      </Box>
-                      <Box sx={{ display: "flex", borderTop: "1px solid #999" }}>
-                        <Typography sx={{ flexBasis: "50%" }}>Color:</Typography>
-                        <Typography sx={{ flexBasis: "50%" }}>
-                          {props.productOnly.data.attributes?.Motif_Color}
-                        </Typography>
-                      </Box>
-                      <Box sx={{ display: "flex", borderTop: "1px solid #999" }}>
-                        <Typography sx={{ flexBasis: "50%" }}>Face:</Typography>
-                        <Typography sx={{ flexBasis: "50%" }}>
-                          {props.productOnly.data.attributes?.N_Face}
-                        </Typography>
-                      </Box> */}
                     </Box>
                   </Box>
                 </Grid>
@@ -1414,8 +1368,8 @@ export const getStaticProps = async ({ params }: any) => {
   console.log(params.id);
   const responseProduct = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate[motif][populate][products][populate]=*",
+    params.id +
+    "?populate[motif][populate][products][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1425,8 +1379,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseMotif = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate[motif][populate]=*",
+    params.id +
+    "?populate[motif][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1436,8 +1390,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAmbience = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate=*",
+    params.id +
+    "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1451,8 +1405,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt1 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-      1 +
-      "?populate=*",
+    1 +
+    "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1464,8 +1418,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt2 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-      2 +
-      "?populate=*",
+    2 +
+    "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1477,8 +1431,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt3 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-      3 +
-      "?populate=*",
+    3 +
+    "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
