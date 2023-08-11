@@ -55,7 +55,7 @@ export default function Page(props: any) {
   // console.log(data);
   // console.log(data.attributes.Price);
   const dispatch = useDispatch();
-  props.productOnly;
+  // props.productOnly;
 
   const imgFileUrl =
     props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url;
@@ -87,6 +87,9 @@ export default function Page(props: any) {
   const data = props.motif.data.attributes.motif.data.attributes;
   const products =
     props.product.data.attributes.motif.data.attributes.products.data; // array
+
+  console.log("harga");
+  console.log(props.productOnly.data.attributes.Price);
 
   // console.log(props.alternative1);
   // console.log(props.alternative2);
@@ -136,108 +139,6 @@ export default function Page(props: any) {
   return (
     <>
       <>
-        <Box
-          sx={{
-            bgcolor: "#f8f8f8",
-            border: "1px solid #999",
-            borderRadius: "1px",
-            p: "20px",
-            mt: "20px",
-          }}
-        >
-          <Typography sx={{ fontSize: "22px", fontWeight: "bold" }}>
-            Order tiles now
-          </Typography>
-          <TableContainer>
-            <Table
-              sx={{
-                width: "100%",
-                fontSize: "14px",
-                borderCollapse: "collapse",
-                mt: "20px",
-              }}
-              aria-label="simple table"
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell sx={{ minWidth: "19%" }}>Required</TableCell>
-                  <TableCell sx={{ minWidth: "19%" }} align="right">
-                    Quantity
-                  </TableCell>
-                  <TableCell sx={{ minWidth: "19%" }} align="right">
-                    Coverage
-                  </TableCell>
-                  <TableCell sx={{ minWidth: "19%" }} align="right">
-                    Box Price
-                  </TableCell>
-                  <TableCell sx={{ minWidth: "19%" }} align="right">
-                    Total Price
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    <Controller
-                      name={"quantityBox"}
-                      control={control}
-                      render={({
-                        field: { onChange, value },
-                        fieldState: { error },
-                        formState,
-                      }) => (
-                        <TextField
-                          helperText={error ? error.message : null}
-                          size="small"
-                          error={!!error}
-                          onChange={onChange}
-                          type="number"
-                          // value={}
-                          fullWidth
-                          label={"Box"}
-                          variant="outlined"
-                          sx={{ width: "100px" }}
-                        />
-                      )}
-                    />
-                  </TableCell>
-                  <TableCell align="right">1 Box</TableCell>
-                  <TableCell align="right">{coverage + " "}/m²</TableCell>
-                  <TableCell align="right">
-                    {1.44 * data.attributes?.Price}
-                  </TableCell>
-                  <TableCell align="right">{"Rp. " + totalPrice} </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <Button
-            variant="contained"
-            sx={{
-              bgcolor: "#111",
-              width: "100%",
-              borderRadius: "50px",
-              fontSize: "16px",
-              "&:hover": {
-                bgcolor: "#222",
-              },
-            }}
-          >
-            Add to Cart
-          </Button>
-        </Box>
-        {name}
-        {/* <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type="number"
-            {...register("name", { required: true, maxLength: 50 })}
-          />
-          <input type="submit" />
-        </form> */}
-        <Box>{name}</Box>
-        <Box>{coverage + " /m2"}</Box>
-        <Box>{"Rp. " + totalPrice}</Box>
-        <Typography>{"addasd as asd"}</Typography>
         <Box
           className="hero-container"
           sx={{
@@ -673,6 +574,7 @@ export default function Page(props: any) {
                 </Grid>
               </>
             </Box>
+
             <Box sx={{ display: "none" }}>
               <AppsBar />
               <Box>{data.attributes?.Slug}</Box>
@@ -1096,6 +998,12 @@ export default function Page(props: any) {
                                   sx={{ minWidth: "19%" }}
                                   align="right"
                                 >
+                                  Quantity
+                                </TableCell>
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
                                   Coverage
                                 </TableCell>
                                 <TableCell
@@ -1116,7 +1024,7 @@ export default function Page(props: any) {
                               <TableRow>
                                 <TableCell component="th" scope="row">
                                   <Controller
-                                    name={"quantity"}
+                                    name={"quantityBox"}
                                     control={control}
                                     render={({
                                       field: { onChange, value },
@@ -1129,7 +1037,8 @@ export default function Page(props: any) {
                                         }
                                         size="small"
                                         error={!!error}
-                                        // onChange={onChange}
+                                        onChange={onChange}
+                                        type="number"
                                         // value={}
                                         fullWidth
                                         label={"Box"}
@@ -1140,9 +1049,37 @@ export default function Page(props: any) {
                                   />
                                 </TableCell>
                                 <TableCell align="right">1 Box</TableCell>
-                                <TableCell align="right">{"1"}/m²</TableCell>
-                                <TableCell align="right">Rp. 123123</TableCell>
-                                <TableCell align="right">Rp. 999999</TableCell>
+                                <TableCell align="right">
+                                  <NumericFormat
+                                    value={coverage}
+                                    decimalScale={3}
+                                    displayType={"text"}
+                                    thousandSeparator={true}
+                                    prefix={"Rp. "}
+                                  />
+                                  {" /m²"}
+                                </TableCell>
+                                <TableCell align="right">
+                                  <NumericFormat
+                                    value={
+                                      1.44 *
+                                      props.productOnly.data.attributes.Price
+                                    }
+                                    decimalScale={3}
+                                    displayType={"text"}
+                                    thousandSeparator={true}
+                                    prefix={"Rp. "}
+                                  />
+                                </TableCell>
+                                <TableCell align="right">
+                                  <NumericFormat
+                                    value={totalPrice}
+                                    decimalScale={3}
+                                    displayType={"text"}
+                                    thousandSeparator={true}
+                                    prefix={"Rp. "}
+                                  />
+                                </TableCell>
                               </TableRow>
                             </TableBody>
                           </Table>
@@ -1477,8 +1414,8 @@ export const getStaticProps = async ({ params }: any) => {
   console.log(params.id);
   const responseProduct = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-    params.id +
-    "?populate[motif][populate][products][populate]=*",
+      params.id +
+      "?populate[motif][populate][products][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1488,8 +1425,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseMotif = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-    params.id +
-    "?populate[motif][populate]=*",
+      params.id +
+      "?populate[motif][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1499,8 +1436,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAmbience = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-    params.id +
-    "?populate=*",
+      params.id +
+      "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1514,8 +1451,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt1 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-    1 +
-    "?populate=*",
+      1 +
+      "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1527,8 +1464,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt2 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-    2 +
-    "?populate=*",
+      2 +
+      "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1540,8 +1477,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt3 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-    3 +
-    "?populate=*",
+      3 +
+      "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
