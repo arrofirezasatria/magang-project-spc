@@ -1,29 +1,6 @@
 import React from "react";
-import type {
-  InferGetStaticPropsType,
-  GetStaticProps,
-  GetStaticPaths,
-} from "next";
-import {
-  Box,
-  Button,
-  Grid,
-  Link,
-  List,
-  Stack,
-  Typography,
-  TextField,
-  Table,
-  Paper,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Divider,
-  Modal,
-  Chip,
-} from "@mui/material";
+import type { InferGetStaticPropsType, GetStaticProps, GetStaticPaths } from "next";
+import { Box, Button, Grid, Link, List, Stack, Typography, TextField, Table, Paper, TableBody, TableCell, TableContainer, TableHead, TableRow, Divider, Modal, Chip } from "@mui/material";
 import AppsBar from "@components/AppsBar";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "store/cartSlice";
@@ -43,6 +20,8 @@ import "react-medium-image-zoom/dist/styles.css";
 import SliderImage from "@components/pages/range/SliderImage";
 import { NumericFormat } from "react-number-format";
 import CircleIcon from "@mui/icons-material/Circle";
+import Footer from "@components/pages/range/Footer";
+import ModulPackingSG from "@components/pages/range/modulPackingSG";
 
 interface IFormInputs {
   name: string;
@@ -59,19 +38,13 @@ export default function Page(props: any) {
   const dispatch = useDispatch();
   // props.productOnly;
 
-  const imgFileUrl =
-    props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url;
+  const imgFileUrl = props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url;
   const downloadFileAtUrl = () => {
-    fetch(
-      props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url
-    )
+    fetch(props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url)
       .then((response) => response.blob())
       .then((blob) => {
         const blobURL = window.URL.createObjectURL(new Blob([blob]));
-        const fileName =
-          props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url
-            .split("/")
-            .pop();
+        const fileName = props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url.split("/").pop();
         const aTag = document.createElement("a");
         aTag.href = blobURL;
         aTag.setAttribute("download", fileName);
@@ -80,6 +53,8 @@ export default function Page(props: any) {
         aTag.remove();
       });
   };
+  console.log("ini Avalible iayayysyayyasaasasdasjkl");
+  console.log(props.productOnly.data.attributes?.IsInStock);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -87,8 +62,7 @@ export default function Page(props: any) {
 
   // const p = data.attributes;
   const data = props.motif.data.attributes.motif.data.attributes;
-  const products =
-    props.product.data.attributes.motif.data.attributes.products.data; // array
+  const products = props.product.data.attributes.motif.data.attributes.products.data; // array
 
   console.log("harga");
   console.log(props.productOnly.data.attributes.Price);
@@ -154,7 +128,8 @@ export default function Page(props: any) {
         >
           <Box sx={{ height: "100%", position: "relative" }}>
             <Image
-              src={data.Image_Hero_2880x1138px?.data.attributes.url}
+              // src={data.Image_Hero_2880x1138px?.data.attributes.url}
+              src={"/static/images/shelf-lay_white_crop.jpg__2880x0_q85_subsampling-2.jpg"}
               fill
               alt="hero"
               style={{
@@ -195,13 +170,7 @@ export default function Page(props: any) {
                   {data.Name}
                 </Typography>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <Image
-                    src="/static/icons/range-hero-colour-icon.svg"
-                    alt="Colors Icon"
-                    width={30}
-                    height={30}
-                    style={{}}
-                  />
+                  <Image src="/static/icons/range-hero-colour-icon.svg" alt="Colors Icon" width={30} height={30} style={{}} />
                   <Typography
                     variant="h2"
                     sx={{
@@ -314,8 +283,7 @@ export default function Page(props: any) {
                   color: "#999",
                   fontWeight: "medium",
                   fontSize: "16px",
-                  fontFamily:
-                    '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                  fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                 }}
               >
                 <Link href="#" underline="always" sx={{ color: "#999" }}>
@@ -333,15 +301,9 @@ export default function Page(props: any) {
             </Box>
             <Box>
               <>
-                <Grid
-                  container
-                  spacing={6}
-                  sx={{ p: { xs: "20px 0x", md: "20px 30px" } }}
-                >
+                <Grid container spacing={6} sx={{ p: { xs: "20px 0x", md: "20px 30px" } }}>
                   <Grid item xs={12} md={6} sx={{}}>
-                    <Box
-                      sx={{ textTransform: "uppercase", letterSpacing: "2px" }}
-                    >
+                    <Box sx={{ textTransform: "uppercase", letterSpacing: "2px" }}>
                       <Typography
                         component="h2"
                         sx={{
@@ -352,11 +314,7 @@ export default function Page(props: any) {
                       >
                         {props.product.data.attributes.Name}
                       </Typography>
-                      <Typography
-                        sx={{ fontSize: "18px", fontWeight: "medium" }}
-                      >
-                        SUN GLAZED CERAMIC
-                      </Typography>
+                      <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>SUN GLAZED CERAMIC</Typography>
                       <Typography
                         sx={{
                           mb: "10px",
@@ -372,8 +330,7 @@ export default function Page(props: any) {
                         sx={{
                           mt: "15px",
                           display: "flex",
-                          fontFamily:
-                            '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                          fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                           fontSize: "12px",
                           fontWeight: "medium",
                           flexWrap: "wrap",
@@ -397,39 +354,26 @@ export default function Page(props: any) {
                           },
                         }}
                       >
-                        {props.motif.data.attributes.motif.data.attributes.product_varians.data.map(
-                          (item, index) => {
-                            return (
-                              <Link href="#" underline="none" key={index}>
-                                {item.attributes.Varian}
-                              </Link>
-                            );
-                          }
-                        )}
-                        {props.motif.data.attributes.motif.data.attributes.style_motifs.data.map(
-                          (item, index) => {
-                            return (
-                              <Link
-                                href="#"
-                                underline="none"
-                                key={index}
-                                className="white-link"
-                              >
-                                {item.attributes.Style}
-                              </Link>
-                            );
-                          }
-                        )}
+                        {props.motif.data.attributes.motif.data.attributes.product_varians.data.map((item, index) => {
+                          return (
+                            <Link href="#" underline="none" key={index}>
+                              {item.attributes.Varian}
+                            </Link>
+                          );
+                        })}
+                        {props.motif.data.attributes.motif.data.attributes.style_motifs.data.map((item, index) => {
+                          return (
+                            <Link href="#" underline="none" key={index} className="white-link">
+                              {item.attributes.Style}
+                            </Link>
+                          );
+                        })}
 
                         <Link href="#" underline="none" className="white-link">
-                          {
-                            props.productOnly.data.attributes.surface_finish
-                              .data.attributes.Name
-                          }
+                          {props.productOnly.data.attributes.surface_finish.data.attributes.Name}
                         </Link>
                         <Link href="#" underline="none" className="white-link">
-                          {props.productOnly.data.attributes.tile_color.data
-                            .attributes.Name + " color"}
+                          {props.productOnly.data.attributes.tile_color.data.attributes.Name + " color"}
                         </Link>
                       </Stack>
                     </Box>
@@ -441,11 +385,7 @@ export default function Page(props: any) {
                         pt: "20px",
                       }}
                     >
-                      <Typography
-                        sx={{ fontSize: "16px", fontWeight: "medium" }}
-                      >
-                        {data.Description}
-                      </Typography>
+                      <Typography sx={{ fontSize: "16px", fontWeight: "medium" }}>{data.Description}</Typography>
                       <Stack
                         direction="row"
                         spacing={0}
@@ -523,8 +463,7 @@ export default function Page(props: any) {
                               color: "#fff",
                               borderRadius: "5px",
                               p: "6px 10px 6px 10px",
-                              fontFamily:
-                                '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                              fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                               fontSize: "14px",
                               mb: "5px",
                               display: "flex",
@@ -532,9 +471,7 @@ export default function Page(props: any) {
                               alignItem: "center",
                             }}
                           >
-                            <FileDownloadOutlinedIcon
-                              sx={{ pr: "8px", fontSize: "18px" }}
-                            />
+                            <FileDownloadOutlinedIcon sx={{ pr: "8px", fontSize: "18px" }} />
                             Download Range Overview
                           </Link>
                         </Box>
@@ -566,9 +503,7 @@ export default function Page(props: any) {
                         position: "relative",
                       }}
                     >
-                      <SliderImage
-                        productOnly={props?.productOnly?.data.attributes}
-                      />
+                      <SliderImage productOnly={props?.productOnly?.data.attributes} />
                       {/* <Image src={props?.productOnly?.data.attributes?.Image_Ambience?.data[0].attributes.formats.large.url} fill alt="hero" style={{ objectFit: "cover" }} /> */}
                     </Box>
                     {/* <Typography sx={{ color: "#999", mt: "10px", fontWeight: "" }}>{props.product.data.attributes.Name} 120x60cm</Typography> */}
@@ -666,17 +601,13 @@ export default function Page(props: any) {
                       }}
                     >
                       <Image
-                        src={
-                          props.productOnly.data.attributes?.Image_Tile_Face
-                            .data[0].attributes?.formats.large.url
-                        }
+                        src={props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.formats.large.url}
                         fill
                         alt=""
                         style={{
                           borderRadius: "0px",
                           background: "#e0e0e0",
-                          boxShadow:
-                            "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
+                          boxShadow: "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
                         }}
                       />
                     </Box>
@@ -687,17 +618,13 @@ export default function Page(props: any) {
                         downloadFileAtUrl(imgFileUrl);
                       }}
                       underline="none"
-                      download={
-                        props.productOnly.data.attributes?.Image_Tile_Face
-                          .data[0].attributes?.url
-                      }
+                      download={props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url}
                       sx={{
                         bgcolor: "#000",
                         color: "#fff",
                         borderRadius: "5px",
                         p: "8px 8px 8px 8px",
-                        fontFamily:
-                          '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                        fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                         fontSize: "14px",
                         mb: "5px",
                         display: "flex",
@@ -706,9 +633,7 @@ export default function Page(props: any) {
                         cursor: "pointer",
                       }}
                     >
-                      <FileDownloadOutlinedIcon
-                        sx={{ pr: "8px", fontSize: "18px" }}
-                      />
+                      <FileDownloadOutlinedIcon sx={{ pr: "8px", fontSize: "18px" }} />
                       Download Tile Preview
                     </Link>
                   </Box>
@@ -766,11 +691,8 @@ export default function Page(props: any) {
                           display: "flex",
                         }}
                       >
-                        <Typography
-                          sx={{ fontSize: "26px", fontWeight: "bold" }}
-                        >
-                          {props.productOnly.data.attributes?.Name} -{" "}
-                          {props.productOnly.data.attributes?.Code}
+                        <Typography sx={{ fontSize: "26px", fontWeight: "bold" }}>
+                          {props.productOnly.data.attributes?.Name} - {props.productOnly.data.attributes?.Code}
                         </Typography>
                       </Box>
                       <Typography
@@ -781,13 +703,7 @@ export default function Page(props: any) {
                           mb: "20px",
                         }}
                       >
-                        <NumericFormat
-                          value={153000}
-                          decimalScale={3}
-                          displayType={"text"}
-                          thousandSeparator={true}
-                          prefix={"Rp. "}
-                        />
+                        <NumericFormat value={153000} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
                         /m²
                       </Typography>
                       {/* Rp. {props.productOnly.data.attributes?.Price} */}
@@ -813,14 +729,11 @@ export default function Page(props: any) {
                         },
                         {
                           title: "Finish",
-                          value:
-                            props.productOnly.data.attributes?.surface_finish
-                              .data?.attributes?.Name,
+                          value: props.productOnly.data.attributes?.surface_finish.data?.attributes?.Name,
                         },
                         {
                           title: "Rectified Edge",
-                          value:
-                            props.productOnly.data.attributes?.Rectified.toString(),
+                          value: props.productOnly.data.attributes?.Rectified.toString(),
                         },
                         { title: "Shade Variation", value: "Slight" },
                         { title: "Suitability", value: "Internal Floor" },
@@ -911,7 +824,8 @@ export default function Page(props: any) {
                             >
                               click for full specification
                             </Button> */}
-                            <ModulSpec />
+                            {/* <ModulSpec /> */}
+                            <ModulSpec motif={props?.motif?.data.attributes} />
                           </Box>
                         </Box>
                         <Divider
@@ -961,7 +875,7 @@ export default function Page(props: any) {
                           >
                             click for full packing details
                           </Button> */}
-                            <ModulPacking />
+                            <ModulPacking motif={props?.motif?.data.attributes} />
                           </Box>
                         </Box>
                         <Divider
@@ -1004,11 +918,7 @@ export default function Page(props: any) {
                               my: "8px",
                             }}
                           >
-                            <CircleIcon
-                              color={true ? "success" : "error"}
-                              fontSize="inherit"
-                              sx={{ mt: "2px" }}
-                            />
+                            <CircleIcon color={props.productOnly.data.attributes?.IsInStock ? "success" : "error"} fontSize="inherit" sx={{ mt: "2px" }} />
                             <Typography
                               sx={{
                                 fontSize: "16px",
@@ -1016,7 +926,7 @@ export default function Page(props: any) {
                                 ml: 1,
                               }}
                             >
-                              {true ? "Available" : "Not Available"}
+                              {props.productOnly.data.attributes?.IsInStock ? "Available" : "Not Available"}
                             </Typography>
                           </Box>
                         </Box>
@@ -1032,11 +942,7 @@ export default function Page(props: any) {
                           overflow: "auto",
                         }}
                       >
-                        <Typography
-                          sx={{ fontSize: "22px", fontWeight: "bold" }}
-                        >
-                          Order tiles now
-                        </Typography>
+                        <Typography sx={{ fontSize: "22px", fontWeight: "bold" }}>Order tiles now</Typography>
                         <TableContainer
                           component="div"
                           sx={{
@@ -1054,25 +960,14 @@ export default function Page(props: any) {
                           >
                             <TableHead>
                               <TableRow>
-                                <TableCell sx={{ minWidth: "19%" }}>
-                                  Required
-                                </TableCell>
-                                <TableCell
-                                  sx={{ minWidth: "19%" }}
-                                  align="right"
-                                >
+                                <TableCell sx={{ minWidth: "19%" }}>Required</TableCell>
+                                <TableCell sx={{ minWidth: "19%" }} align="right">
                                   Coverage
                                 </TableCell>
-                                <TableCell
-                                  sx={{ minWidth: "19%" }}
-                                  align="right"
-                                >
+                                <TableCell sx={{ minWidth: "19%" }} align="right">
                                   Box Price
                                 </TableCell>
-                                <TableCell
-                                  sx={{ minWidth: "19%" }}
-                                  align="right"
-                                >
+                                <TableCell sx={{ minWidth: "19%" }} align="right">
                                   Total Price
                                 </TableCell>
                               </TableRow>
@@ -1083,15 +978,9 @@ export default function Page(props: any) {
                                   <Controller
                                     name={"quantityBox"}
                                     control={control}
-                                    render={({
-                                      field: { onChange, value },
-                                      fieldState: { error },
-                                      formState,
-                                    }) => (
+                                    render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
                                       <TextField
-                                        helperText={
-                                          error ? error.message : null
-                                        }
+                                        helperText={error ? error.message : null}
                                         size="small"
                                         error={!!error}
                                         onChange={onChange}
@@ -1106,35 +995,14 @@ export default function Page(props: any) {
                                   />
                                 </TableCell>
                                 <TableCell align="right">
-                                  <NumericFormat
-                                    value={coverage}
-                                    decimalScale={3}
-                                    displayType={"text"}
-                                    thousandSeparator={true}
-                                    prefix={"Rp. "}
-                                  />
+                                  <NumericFormat value={coverage} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
                                   {" /m²"}
                                 </TableCell>
                                 <TableCell align="right">
-                                  <NumericFormat
-                                    value={
-                                      1.44 *
-                                      props.productOnly.data.attributes.Price
-                                    }
-                                    decimalScale={3}
-                                    displayType={"text"}
-                                    thousandSeparator={true}
-                                    prefix={"Rp. "}
-                                  />
+                                  <NumericFormat value={1.44 * props.productOnly.data.attributes.Price} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
                                 </TableCell>
                                 <TableCell align="right">
-                                  <NumericFormat
-                                    value={totalPrice}
-                                    decimalScale={3}
-                                    displayType={"text"}
-                                    thousandSeparator={true}
-                                    prefix={"Rp. "}
-                                  />
+                                  <NumericFormat value={totalPrice} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
                                 </TableCell>
                               </TableRow>
                             </TableBody>
@@ -1316,11 +1184,7 @@ export default function Page(props: any) {
                         position: "relative",
                       }}
                     >
-                      <Image
-                        fill
-                        alt=""
-                        src={`/static/images/${product.attributes?.Image_Tile_Face.data[0].attributes.formats.thumbnail.url}`}
-                      />
+                      <Image fill alt="" src={`/static/images/${product.attributes?.Image_Tile_Face.data[0].attributes.formats.thumbnail.url}`} />
                     </Box>
                     <Box
                       sx={{
@@ -1331,12 +1195,7 @@ export default function Page(props: any) {
                         textAlign: "center",
                       }}
                     >
-                      <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
-                        {
-                          product.product?.attributes?.Image_Tile_Face.data[0]
-                            .attributes.formats.thumbnail.url
-                        }
-                      </Typography>
+                      <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>{product.product?.attributes?.Image_Tile_Face.data[0].attributes.formats.thumbnail.url}</Typography>
                       <Typography
                         sx={{
                           fontsize: "14px",
@@ -1363,13 +1222,10 @@ export default function Page(props: any) {
               width: "100%",
             }}
           >
-            <AltProductRanges
-              alt1={props.alternative1}
-              alt2={props.alternative2}
-              alt3={props.alternative3}
-            />
+            <AltProductRanges alt1={props.alternative1} alt2={props.alternative2} alt3={props.alternative3} />
           </Box>
         </Box>
+        <Footer />
       </>
     </>
   );
@@ -1381,14 +1237,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
       "Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c",
   };
 
-  const res = await fetch(
-    "https://strapi-app-tnshv.ondigitalocean.app/api/products?pagination[page]=0&pagination[pageSize]=999",
-    {
-      headers: {
-        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-      },
-    }
-  );
+  const res = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products?pagination[page]=0&pagination[pageSize]=999", {
+    headers: {
+      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+    },
+  });
 
   const response = await res.json();
 
@@ -1420,79 +1273,49 @@ export const getStaticProps = async ({ params }: any) => {
   // console.log(params);
   console.log();
   console.log(params.id);
-  const responseProduct = await fetch(
-    "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate[motif][populate][products][populate]=*",
-    {
-      headers: {
-        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-      },
-    }
-  );
+  const responseProduct = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + params.id + "?populate[motif][populate][products][populate]=*", {
+    headers: {
+      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+    },
+  });
 
-  const responseMotif = await fetch(
-    "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate[motif][populate]=*",
-    {
-      headers: {
-        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-      },
-    }
-  );
+  const responseMotif = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + params.id + "?populate[motif][populate]=*", {
+    headers: {
+      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+    },
+  });
 
-  const responseAmbience = await fetch(
-    "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate=*",
-    {
-      headers: {
-        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-      },
-    }
-  );
+  const responseAmbience = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + params.id + "?populate=*", {
+    headers: {
+      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+    },
+  });
 
   const product = await responseProduct.json();
   const motif = await responseMotif.json();
   const ambience = await responseAmbience.json();
 
-  const responseAlt1 = await fetch(
-    "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-      1 +
-      "?populate=*",
-    {
-      headers: {
-        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-      },
-    }
-  );
+  const responseAlt1 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" + 1 + "?populate=*", {
+    headers: {
+      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+    },
+  });
 
   const responseAlternative1 = await responseAlt1.json();
 
-  const responseAlt2 = await fetch(
-    "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-      2 +
-      "?populate=*",
-    {
-      headers: {
-        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-      },
-    }
-  );
+  const responseAlt2 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" + 2 + "?populate=*", {
+    headers: {
+      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+    },
+  });
 
   const responseAlternative2 = await responseAlt2.json();
 
-  const responseAlt3 = await fetch(
-    "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-      3 +
-      "?populate=*",
-    {
-      headers: {
-        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-      },
-    }
-  );
+  const responseAlt3 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" + 3 + "?populate=*", {
+    headers: {
+      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+    },
+  });
 
   const responseAlternative3 = await responseAlt3.json();
 

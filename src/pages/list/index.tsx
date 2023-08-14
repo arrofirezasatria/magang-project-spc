@@ -16,6 +16,7 @@ import HoverInProduct from "@components/pages/range/hoverInProduct";
 import ModulProduct from "@components/pages/range/ModulSpec";
 import ModulPacking from "@components/pages/range/modulPacking";
 import SliderImage from "@components/pages/range/SliderImage";
+import Footer from "@components/pages/range/Footer";
 
 const headers = {
   Authorization:
@@ -430,10 +431,8 @@ export default function Index() {
           </Grid>
         </Grid>
       </Container>
-
-      <ModulProduct />
-      <ModulPacking />
-      <SliderImage/>
+      <Footer/>
+      <></>
     </>
   );
 }

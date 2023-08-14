@@ -5,27 +5,82 @@ import axios from "axios";
 import { data } from "cypress/types/jquery";
 import useSWR from "swr";
 import Image from "next/image";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
 import { useState } from "react";
 
-export default function ModulPacking() {
+export default function ModulPacking(props) {
+  console.log("ini modulpacking");
+  console.log(props.motif.motif.data?.attributes.tile_type.data?.attributes.Type);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const tablelocal = [
+
+
+
+  const tableSunGlazedLocal = [
+    {
+      size: "29.8X60",
+      Thickness: "10.1",
+      Piece: "6",
+      Sqmbox: "1.08",
+      approxbox: "19.32",
+      boxpallet: "56",
+      sqmpallet: "60.48",
+      approxpallet: "25.27",
+      weight: "1107.19",
+    },
     {
       size: "60X60",
-      Thickness: "9.70",
+      Thickness: "10.1",
       Piece: "4",
       Sqmbox: "1.44",
-      approxbox: "31.30",
+      approxbox: "28.12",
       boxpallet: "40",
       sqmpallet: "57.60",
       approxpallet: "25.27",
-      weight: "1.277.27",
+      weight: "1150.07",
     },
   ];
-  const tableinternational = [
+  const tableSunGlazedInternational = [
     {
+      size: "29.8X60",
+      Thickness: "10.1",
+      Piece: "6",
+      Sqmbox: "1.08",
+      approxbox: "19.32",
+      boxpallet: "56",
+      sqmpallet: "60.48",
+      approxpallet: "25.27",
+      weight: "1107.19",
+    },
+    {
+      size: "60X60",
+      Thickness: "10.1",
+      Piece: "4",
+      Sqmbox: "1.44",
+      approxbox: "28.12",
+      boxpallet: "40",
+      sqmpallet: "57.60",
+      approxpallet: "25.27",
+      weight: "1150.07",
+    },
+  ];
+  let tableDataLocal, tableDataInternational;
+
+if (props.motif.motif.data?.attributes.tile_type.data?.attributes.Type === "Porcelain") {
+  tableDataLocal = [
+    {
+      size: "30X60",
+      Thickness: "9.70",
+      Piece: "8",
+      Sqmbox: "1.43",
+      approxbox: "31.30",
+      boxpallet: "40",
+      sqmpallet: "57.20",
+      approxpallet: "25.27",
+      weight: "1277.27",
+    },
+        {
       size: "60X60",
       Thickness: "9.70",
       Piece: "4",
@@ -34,22 +89,107 @@ export default function ModulPacking() {
       boxpallet: "40",
       sqmpallet: "57.60",
       approxpallet: "25.27",
-      weight: "1.277.27",
+      weight: "1277.27",
+    },
+    {
+      size: "120X60",
+      Thickness: "11.32",
+      Piece: "4",
+      Sqmbox: "1.44",
+      approxbox: "31.30",
+      boxpallet: "56",
+      sqmpallet: "80.64",
+      approxpallet: "25.27",
+      weight: "1957.27",
     },
   ];
 
+  tableDataInternational = [
+    {
+      size: "30X60",
+      Thickness: "9.70",
+      Piece: "8",
+      Sqmbox: "1.43",
+      approxbox: "31.30",
+      boxpallet: "40",
+      sqmpallet: "57.20",
+      approxpallet: "25.27",
+      weight: "1277.27",
+    },
+    {
+      size: "60X60",
+      Thickness: "9.70",
+      Piece: "4",
+      Sqmbox: "1.44",
+      approxbox: "31.30",
+      boxpallet: "40",
+      sqmpallet: "57.60",
+      approxpallet: "25.27",
+      weight: "1277.27",
+    },
+
+    {
+      size: "120X60",
+      Thickness: "11.30",
+      Piece: "2",
+      Sqmbox: "1.44",
+      approxbox: "34.50",
+      boxpallet: "26",
+      sqmpallet: "37.44",
+      approxpallet: "25.27",
+      weight: "922.27",
+    },
+  ];
+} else if (props.motif.motif.data?.attributes.tile_type.data?.attributes.Type === "Sun Glazed") {
+  tableDataLocal = [
+    {
+      size: "29.8X60",
+      Thickness: "10.1",
+      Piece: "6",
+      Sqmbox: "1.08",
+      approxbox: "19.32",
+      boxpallet: "56",
+      sqmpallet: "60.48",
+      approxpallet: "25.27",
+      weight: "1107.19",
+    },
+    {
+      size: "60X60",
+      Thickness: "10.1",
+      Piece: "4",
+      Sqmbox: "1.44",
+      approxbox: "28.12",
+      boxpallet: "40",
+      sqmpallet: "57.60",
+      approxpallet: "25.27",
+      weight: "1150.07",
+    },
+  ];
+
+  tableDataInternational = [
+
+  ];
+}
+
+  
+
   return (
     <>
-      <Box sx={{
-        // display: "flex",
-        // justifyContent: "center",
-        // mt: "100px",
-        // flexDirection: "column"
-      }}>
+      <Box
+        sx={
+          {
+            // display: "flex",
+            // justifyContent: "center",
+            // mt: "100px",
+            // flexDirection: "column"
+          }
+        }
+      >
         {/* <Button onClick={() => setIsModalOpen(true)} sx={{ width: "300px", backgroundColor: "salmon" }}>
           <Typography>tolong diclick</Typography>
         </Button> */}
-        <Button onClick={() => setIsModalOpen(true)}
+        <Button
+          onClick={() => setIsModalOpen(true)}
           sx={{
             // backgroundColor: "black",
             border: "2px solid black",
@@ -77,7 +217,7 @@ export default function ModulPacking() {
           }}
         >
           <Box sx={{ width: "1200px", border: "1px solid #000", backgroundColor: "white", overflow: "scroll" }}>
-            <Box >
+            <Box>
               <Box sx={{ width: "100%", justifyContent: "space-between", display: "flex", flexDirection: "row", ml: "30px" }}>
                 <Box sx={{ mt: "30px", display: "flex", flexDirection: "row" }}>
                   <Box
@@ -93,7 +233,7 @@ export default function ModulPacking() {
                     <Typography sx={{ fontSize: "21px", color: "black", mx: "15px", fontWeight: "bold", mt: "7px" }}>White Marble</Typography>
                   </Box>
                 </Box>
-                <Box sx={{ mt: "35px", backgroundColor: "black", mr: "50px" }}>
+                <Box sx={{ mt: "35px", backgroundColor: "black", mr: "50px", borderRadius: "10px" }}>
                   <Button onClick={() => setIsModalOpen(false)}>
                     <Typography sx={{ color: "white" }}>Close</Typography>
                     <CloseIcon sx={{ ml: "10px", mt: "3px", color: "white" }} />
@@ -116,7 +256,7 @@ export default function ModulPacking() {
                     fontSize: "16px",
                   }}
                 >
-                  {"Packing Details porcelain local / "}
+                  Packing Details {props.motif.motif.data?.attributes.tile_type.data?.attributes.Type} local {"/ "}
                 </span>
                 <span
                   style={{
@@ -127,7 +267,7 @@ export default function ModulPacking() {
                     fontSize: "16px",
                   }}
                 >
-                  {" detail pengemasan porcelain lokal "}
+                    detail pengemasan {props.motif.motif.data?.attributes.tile_type.data?.attributes.Type} lokal 
                 </span>
               </Box>
 
@@ -149,17 +289,17 @@ export default function ModulPacking() {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {tablelocal.map((item, index) => (
+                        {tableDataLocal.map((item, index) => (
                           <TableRow key={index}>
-                            <TableCell>{item.size}</TableCell>
-                            <TableCell align="center">{item.Thickness}</TableCell>
-                            <TableCell align="center">{item.Piece}</TableCell>
-                            <TableCell>{item.Sqmbox}</TableCell>
-                            <TableCell align="center">{item.approxbox}</TableCell>
-                            <TableCell align="center">{item.boxpallet}</TableCell>
-                            <TableCell align="center">{item.sqmpallet}</TableCell>
-                            <TableCell align="center">{item.approxpallet}</TableCell>
-                            <TableCell align="center">{item.weight}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.size}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.Thickness}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.Piece}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.Sqmbox}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.approxbox}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.boxpallet}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.sqmpallet}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.approxpallet}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.weight}</TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
@@ -183,7 +323,7 @@ export default function ModulPacking() {
                     fontSize: "16px",
                   }}
                 >
-                  {"Packing Details porcelain International / "}
+                  Packing Details {props.motif.motif.data?.attributes.tile_type.data?.attributes.Type} International {"/ "}
                 </span>
                 <span
                   style={{
@@ -194,7 +334,7 @@ export default function ModulPacking() {
                     fontSize: "16px",
                   }}
                 >
-                  {" detail pengemasan porcelain Internasional "}
+                  detail pengemasan {props.motif.motif.data?.attributes.tile_type.data?.attributes.Type} Internasional 
                 </span>
               </Box>
 
@@ -216,17 +356,17 @@ export default function ModulPacking() {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {tableinternational.map((item, index) => (
+                        {tableDataInternational.map((item, index) => (
                           <TableRow key={index}>
-                            <TableCell>{item.size}</TableCell>
-                            <TableCell align="center">{item.Thickness}</TableCell>
-                            <TableCell align="center">{item.Piece}</TableCell>
-                            <TableCell>{item.Sqmbox}</TableCell>
-                            <TableCell align="center">{item.approxbox}</TableCell>
-                            <TableCell align="center">{item.boxpallet}</TableCell>
-                            <TableCell align="center">{item.sqmpallet}</TableCell>
-                            <TableCell align="center">{item.approxpallet}</TableCell>
-                            <TableCell align="center">{item.weight}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.size}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.Thickness}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.Piece}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.Sqmbox}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.approxbox}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.boxpallet}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.sqmpallet}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.approxpallet}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.weight}</TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
