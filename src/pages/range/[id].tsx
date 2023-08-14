@@ -54,7 +54,7 @@ export default function Page(props: any) {
       });
   };
   console.log("ini Avalible iayayysyayyasaasasdasjkl");
-  console.log(props.productOnly.data.attributes?.IsInStock);
+  console.log(props.motif.data.attributes.motif.data.attributes.product_varians.data[0].attributes.Varian);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -720,9 +720,9 @@ export default function Page(props: any) {
                           title: "Code",
                           value: props.productOnly.data.attributes?.Code,
                         },
-                        { title: "Product Varian", value: "-" },
-                        { title: "Dimension", value: "600 x 600 x 10.1mm" },
-                        { title: "Face", value: "12" },
+                        { title: "Product Varian", value: props.motif.data.attributes.motif.data.attributes.product_varians.data[0].attributes.Varian },
+                        { title: "Dimension", value: props.productOnly.data.attributes?.tile_dimension.data?.attributes?.Dimension },
+                        { title: "Face", value: props.productOnly.data.attributes?.N_Face },
                         {
                           title: "Colour",
                           value: props.productOnly.data.attributes?.Motif_Color,
@@ -735,10 +735,10 @@ export default function Page(props: any) {
                           title: "Rectified Edge",
                           value: props.productOnly.data.attributes?.Rectified.toString(),
                         },
-                        { title: "Shade Variation", value: "Slight" },
-                        { title: "Suitability", value: "Internal Floor" },
-                        { title: "Tiles per Box", value: "4" },
-                        { title: "Square Meter per Box", value: "1.44 /m²" },
+                        { title: "Shade Variation", value: props.productOnly.data.attributes?.Shade_Variation },
+                        { title: "Suitability", value: props.productOnly.data.attributes?.tile_suitabilities?.data[0].attributes?.Suitability },
+                        { title: "Tiles per Box", value: props.productOnly.data.attributes?.Tile_Per_Box },
+                        { title: "Square Meter per Box", value: props.productOnly.data.attributes?.SQM_Box },
                         // {
                         //   title: "Technical Specification",
                         //   value: "Glazed Ceramic",
