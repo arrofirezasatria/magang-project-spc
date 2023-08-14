@@ -1,7 +1,29 @@
 import React, { useState } from "react";
 import Radio from "@mui/material/Radio";
-import type { InferGetStaticPropsType, GetStaticProps, GetStaticPaths } from "next";
-import { Box, Button, Grid, Link, List, Stack, Typography, TextField, Table, Paper, TableBody, TableCell, TableContainer, TableHead, TableRow, Divider, Modal } from "@mui/material";
+import type {
+  InferGetStaticPropsType,
+  GetStaticProps,
+  GetStaticPaths,
+} from "next";
+import {
+  Box,
+  Button,
+  Grid,
+  Link,
+  List,
+  Stack,
+  Typography,
+  TextField,
+  Table,
+  Paper,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Divider,
+  Modal,
+} from "@mui/material";
 import AppsBar from "@components/AppsBar";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "store/cartSlice";
@@ -17,17 +39,26 @@ import { url } from "inspector";
 
 export default function SliderImage(props) {
   console.log(props.productOnly);
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(1);
 
   const handleManualNavigation = (slideIndex: number) => {
     setCounter(slideIndex);
   };
-    const sliderData = [
-      {
-        imageUrl: "/static/images/arctic_white_chs12a_white_satin_300x100mm_bathroom_3.jpg__550x715_q85_crop_subsampling-2_upscale.jpg",
-        title: "Arctic White White Satin",
-        dimension: "300x100mm",
-      },
+  const sliderData = [
+    {
+      imageUrl:
+        props?.productOnly?.Image_Ambience?.data[0].attributes.formats.large
+          .url,
+      title: props?.productOnly?.Image_Ambience?.data[0].attributes.name,
+      dimension: props?.productOnly?.tile_dimension.data.attributes.Dimension,
+    },
+    {
+      imageUrl:
+        props?.productOnly?.Image_Ambience?.data[1].attributes.formats.large
+          .url,
+      title: props?.productOnly?.Image_Ambience?.data[1].attributes.name,
+      dimension: props?.productOnly?.tile_dimension.data.attributes.Dimension,
+    },
   ];
 
   return (
@@ -53,9 +84,18 @@ export default function SliderImage(props) {
           }}
         >
           {sliderData.map((slide, index) => (
-            <Box key={index} className="slide" sx={{ width: `${100 / sliderData.length}%` }}>
+            <Box
+              key={index}
+              className="slide"
+              sx={{ width: `${100 / sliderData.length}%` }}
+            >
               <Box sx={{ width: "100%", height: "100%", position: "relative" }}>
-                <Image src={slide.imageUrl} fill alt={""} style={{ objectFit: "cover" }} />
+                <Image
+                  src={slide.imageUrl}
+                  fill
+                  alt={""}
+                  style={{ objectFit: "cover" }}
+                />
               </Box>
             </Box>
           ))}
