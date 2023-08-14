@@ -14,6 +14,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
 
 export default function AppsbarExample() {
+  // @ts-ignore
   const count = useSelector((state) => state.counter.count);
   return (
     <Box sx={{ flexGrow: 1 }}>

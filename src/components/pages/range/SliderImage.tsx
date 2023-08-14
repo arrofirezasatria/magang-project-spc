@@ -38,26 +38,34 @@ import Image from "next/image";
 import { url } from "inspector";
 
 export default function SliderImage(props) {
-  console.log(props.productOnly);
+  // console.log(props.productOnly);
   const [counter, setCounter] = useState(1);
 
   const handleManualNavigation = (slideIndex: number) => {
     setCounter(slideIndex);
   };
+  // const sliderData = [
+  //   {
+  //     imageUrl:
+  //       props?.productOnly?.Image_Ambience?.data[0].attributes.formats.large
+  //         .url,
+  //     title: props?.productOnly?.Image_Ambience?.data[0].attributes.name,
+  //     dimension: props?.productOnly?.tile_dimension.data.attributes.Dimension,
+  //   },
+  //   {
+  //     imageUrl:
+  //       props?.productOnly?.Image_Ambience?.data[1].attributes.formats.large
+  //         .url,
+  //     title: props?.productOnly?.Image_Ambience?.data[1].attributes.name,
+  //     dimension: props?.productOnly?.tile_dimension.data.attributes.Dimension,
+  //   },
+  // ];
+
   const sliderData = [
     {
-      imageUrl:
-        props?.productOnly?.Image_Ambience?.data[0].attributes.formats.large
-          .url,
-      title: props?.productOnly?.Image_Ambience?.data[0].attributes.name,
-      dimension: props?.productOnly?.tile_dimension.data.attributes.Dimension,
-    },
-    {
-      imageUrl:
-        props?.productOnly?.Image_Ambience?.data[1].attributes.formats.large
-          .url,
-      title: props?.productOnly?.Image_Ambience?.data[1].attributes.name,
-      dimension: props?.productOnly?.tile_dimension.data.attributes.Dimension,
+      imageUrl: `https://strapi-rezero-space.sgp1.digitaloceanspaces.com/13fd6c16cacba7232180b118500e60f4.avif`,
+      title: "baronia charcoal dong adj.jpg",
+      dimension: "60x60cm",
     },
   ];
 
@@ -148,7 +156,7 @@ export default function SliderImage(props) {
         }}
       >
         <Typography variant="body1" className="title">
-          {sliderData[counter].title} {sliderData[counter].dimension}
+          {/* {sliderData[counter].title} {sliderData[counter].dimension} */}
         </Typography>
       </Box>
     </>

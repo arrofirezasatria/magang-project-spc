@@ -1,4 +1,24 @@
-import { Box, Container, Grid, Stack, Typography, Button, Modal, FormControl, InputLabel, MenuItem, Select, Link, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Paper } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  Stack,
+  Typography,
+  Button,
+  Modal,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Link,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+  Paper,
+} from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 import axios from "axios";
@@ -25,7 +45,12 @@ export default function ModulSpecSG() {
               mt: "3px",
             }}
           >
-            <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+            <Image
+              src={"/static/images/Plus_or_minus_symbol.svg"}
+              fill
+              alt={""}
+              style={{}}
+            />
           </Box>
           <Typography sx={{ fontSize: "12px" }}>0.3</Typography>
         </Box>
@@ -40,7 +65,12 @@ export default function ModulSpecSG() {
               mt: "3px",
             }}
           >
-            <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+            <Image
+              src={"/static/images/Plus_or_minus_symbol.svg"}
+              fill
+              alt={""}
+              style={{}}
+            />
           </Box>
           <Typography sx={{ fontSize: "12px" }}>0.2</Typography>
         </Box>
@@ -59,7 +89,12 @@ export default function ModulSpecSG() {
               mt: "3px",
             }}
           >
-            <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+            <Image
+              src={"/static/images/Plus_or_minus_symbol.svg"}
+              fill
+              alt={""}
+              style={{}}
+            />
           </Box>
           <Typography sx={{ fontSize: "12px" }}>10</Typography>
         </Box>
@@ -74,7 +109,12 @@ export default function ModulSpecSG() {
               mt: "3px",
             }}
           >
-            <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+            <Image
+              src={"/static/images/Plus_or_minus_symbol.svg"}
+              fill
+              alt={""}
+              style={{}}
+            />
           </Box>
           <Typography sx={{ fontSize: "12px" }}>5</Typography>
         </Box>
@@ -93,7 +133,12 @@ export default function ModulSpecSG() {
               mt: "3px",
             }}
           >
-            <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+            <Image
+              src={"/static/images/Plus_or_minus_symbol.svg"}
+              fill
+              alt={""}
+              style={{}}
+            />
           </Box>
           <Typography sx={{ fontSize: "12px" }}>0.3</Typography>
         </Box>
@@ -108,7 +153,12 @@ export default function ModulSpecSG() {
               mt: "3px",
             }}
           >
-            <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+            <Image
+              src={"/static/images/Plus_or_minus_symbol.svg"}
+              fill
+              alt={""}
+              style={{}}
+            />
           </Box>
           <Typography sx={{ fontSize: "12px" }}>0.2</Typography>
         </Box>
@@ -127,7 +177,12 @@ export default function ModulSpecSG() {
               mt: "3px",
             }}
           >
-            <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+            <Image
+              src={"/static/images/Plus_or_minus_symbol.svg"}
+              fill
+              alt={""}
+              style={{}}
+            />
           </Box>
           <Typography sx={{ fontSize: "12px" }}>0.3</Typography>
         </Box>
@@ -142,7 +197,12 @@ export default function ModulSpecSG() {
               mt: "3px",
             }}
           >
-            <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+            <Image
+              src={"/static/images/Plus_or_minus_symbol.svg"}
+              fill
+              alt={""}
+              style={{}}
+            />
           </Box>
           <Typography sx={{ fontSize: "12px" }}>0.2</Typography>
         </Box>
@@ -189,7 +249,12 @@ export default function ModulSpecSG() {
               mt: "3px",
             }}
           >
-            <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+            <Image
+              src={"/static/images/Plus_or_minus_symbol.svg"}
+              fill
+              alt={""}
+              style={{}}
+            />
           </Box>
           <Typography sx={{ fontSize: "12px" }}>0.4</Typography>
         </Box>
@@ -205,14 +270,22 @@ export default function ModulSpecSG() {
       persen: "%",
       isoukuran: (
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography sx={{ fontSize: "12px", fontStyle: "italic", fontWeight: "bold" }}>E</Typography>
+          <Typography
+            sx={{ fontSize: "12px", fontStyle: "italic", fontWeight: "bold" }}
+          >
+            E
+          </Typography>
           <Typography sx={{ fontSize: "8px", mt: "5px" }}>v</Typography>
           <Typography sx={{ fontSize: "12px" }}>{">10"}</Typography>
         </Box>
       ),
       sunpower: (
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography sx={{ fontSize: "12px", fontStyle: "italic", fontWeight: "bold" }}>E</Typography>
+          <Typography
+            sx={{ fontSize: "12px", fontStyle: "italic", fontWeight: "bold" }}
+          >
+            E
+          </Typography>
           <Typography sx={{ fontSize: "8px", mt: "5px" }}>v</Typography>
           <Typography sx={{ fontSize: "12px" }}>{">10"}</Typography>
         </Box>
@@ -251,12 +324,16 @@ export default function ModulSpecSG() {
       persen: "N/mm2",
       isoukuran: (
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Min 12</Typography>
+          <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+            Min 12
+          </Typography>
         </Box>
       ),
       sunpower: (
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Min 13</Typography>
+          <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+            Min 13
+          </Typography>
         </Box>
       ),
     },
@@ -265,12 +342,16 @@ export default function ModulSpecSG() {
       persen: "",
       isoukuran: (
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Required</Typography>
+          <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+            Required
+          </Typography>
         </Box>
       ),
       sunpower: (
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography sx={{ fontSize: "12px", textAlign: "center" }}>There Must Be No Crazing</Typography>
+          <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+            There Must Be No Crazing
+          </Typography>
         </Box>
       ),
     },
@@ -279,12 +360,16 @@ export default function ModulSpecSG() {
       persen: "",
       isoukuran: (
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Report Abrasion Class And Cycles Passed</Typography>
+          <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+            Report Abrasion Class And Cycles Passed
+          </Typography>
         </Box>
       ),
       sunpower: (
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Min. Class 3 600 Cycles Passed</Typography>
+          <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+            Min. Class 3 600 Cycles Passed
+          </Typography>
         </Box>
       ),
     },
@@ -360,7 +445,14 @@ export default function ModulSpecSG() {
                       position: "relative",
                     }}
                   >
-                    <Image src={"/static/images/bianco_BIA01A_white_marble_matt_600x300mm.jpg.275x275_q85_crop_upscale.jpg"} fill alt={""} style={{}} />
+                    <Image
+                      src={
+                        "/static/images/bianco_BIA01A_white_marble_matt_600x300mm.jpg.275x275_q85_crop_upscale.jpg"
+                      }
+                      fill
+                      alt={""}
+                      style={{}}
+                    />
                   </Box>
                   <Box>
                     <Typography
@@ -376,7 +468,14 @@ export default function ModulSpecSG() {
                     </Typography>
                   </Box>
                 </Box>
-                <Box sx={{ mt: "35px", backgroundColor: "black", mr: "50px", borderRadius: "10px" }}>
+                <Box
+                  sx={{
+                    mt: "35px",
+                    backgroundColor: "black",
+                    mr: "50px",
+                    borderRadius: "10px",
+                  }}
+                >
                   <Button onClick={() => setIsModalOpen(false)}>
                     <Typography sx={{ color: "white" }}>Close</Typography>
                     <CloseIcon sx={{ ml: "10px", mt: "3px", color: "white" }} />
@@ -395,7 +494,8 @@ export default function ModulSpecSG() {
                     style={{
                       color: "black",
                       fontWeight: "bold",
-                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                      fontFamily:
+                        '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
                       textTransform: "uppercase",
                       fontSize: "16px",
                     }}
@@ -406,7 +506,8 @@ export default function ModulSpecSG() {
                     style={{
                       color: "gray",
                       fontWeight: "bold",
-                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                      fontFamily:
+                        '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
                       textTransform: "uppercase",
                       fontSize: "16px",
                     }}
@@ -416,18 +517,27 @@ export default function ModulSpecSG() {
                 </Box>
               </Box>
               <Box>
-                
                 <Box
                   sx={{
                     display: "flex",
-                    flexDirection:"column",
+                    flexDirection: "column",
                     alignItems: "center",
                     mx: "30px",
                     my: "30px",
                   }}
                 >
-                  <Box sx={{backgroundColor:"black", width:"100%"}}>
-                    <Typography sx={{color:"white", textAlign:"center", fontWeight:"bold", letterSpacing:"1px", textTransform:"uppercase"}}>Sun Glazed</Typography>
+                  <Box sx={{ backgroundColor: "black", width: "100%" }}>
+                    <Typography
+                      sx={{
+                        color: "white",
+                        textAlign: "center",
+                        fontWeight: "bold",
+                        letterSpacing: "1px",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Sun Glazed
+                    </Typography>
                   </Box>
                   <TableContainer component={Paper} sx={{}}>
                     <Table>
@@ -472,7 +582,7 @@ export default function ModulSpecSG() {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {table.map((item, index) => (
+                        {/* {table.map((item, index) => (
                           <TableRow key={index}>
                             <TableCell>{item.namanavbar}</TableCell>
                             <TableCell align="center">{item.persen}</TableCell>
@@ -483,7 +593,7 @@ export default function ModulSpecSG() {
                               <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>{item.sunpower}</div>
                             </TableCell>
                           </TableRow>
-                        ))}
+                        ))} */}
                       </TableBody>
                     </Table>
                   </TableContainer>

@@ -441,7 +441,7 @@ export default function ModulPacking(props) {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {tableDataLocal.map((item, index) => (
+                        {/* {tableDataLocal.map((item, index) => (
                           <TableRow key={index}>
                             <TableCell
                               sx={{ textAlign: "center", padding: "8px" }}
@@ -489,7 +489,7 @@ export default function ModulPacking(props) {
                               {item.weight}
                             </TableCell>
                           </TableRow>
-                        ))}
+                        ))} */}
                       </TableBody>
                     </Table>
                   </TableContainer>
@@ -644,7 +644,7 @@ export default function ModulPacking(props) {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {tableDataInternational.map((item, index) => (
+                        {/* {tableDataInternational.map((item, index) => (
                           <TableRow key={index}>
                             <TableCell
                               sx={{ textAlign: "center", padding: "8px" }}
@@ -692,7 +692,7 @@ export default function ModulPacking(props) {
                               {item.weight}
                             </TableCell>
                           </TableRow>
-                        ))}
+                        ))} */}
                       </TableBody>
                     </Table>
                   </TableContainer>

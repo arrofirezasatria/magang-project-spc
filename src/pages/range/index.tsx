@@ -510,7 +510,7 @@ export const getStaticProps = async () => {
 
   const response = await res.json();
 
-  console.log(response);
+  // console.log(response);
   return {
     props: response,
   };

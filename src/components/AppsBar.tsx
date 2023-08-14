@@ -36,7 +36,7 @@ export default function AppsBar() {
   const { toggleDarkMode, darkMode } = useThemeContext();
 
   const theme = useTheme();
-  const { cartItems } = useSelector((state) => state.cart);
+  // const { cartItems } = useSelector((state) => state.cart);
 
   return (
     <AppBar
@@ -70,9 +70,9 @@ export default function AppsBar() {
           disableGutters={true}
           sx={{ display: "flex", flexDirection: "column" }}
         >
-          <Box sx={{ color: "red" }}>
+          {/* <Box sx={{ color: "red" }}>
             <Typography>{cartItems.length}</Typography>
-          </Box>
+          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>

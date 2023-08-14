@@ -1,4 +1,24 @@
-import { Box, Container, Grid, Stack, Typography, Button, Modal, FormControl, InputLabel, MenuItem, Select, Link, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Paper } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  Stack,
+  Typography,
+  Button,
+  Modal,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Link,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+  Paper,
+} from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 import axios from "axios";
@@ -11,12 +31,12 @@ import { useState } from "react";
 
 export default function ModulSpec(props) {
   console.log("ini modulspec");
-  console.log(props.motif.motif.data?.attributes.tile_type.data?.attributes.Type);
+  // console.log(props.motif.motif.data?.attributes.tile_type.data?.attributes.Type);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-
-  const tileType = props.motif.motif.data?.attributes.tile_type.data?.attributes.Type;
+  const tileType =
+    props.motif.motif.data?.attributes.tile_type.data?.attributes.Type;
 
   let tableData: any[];
 
@@ -35,7 +55,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.3</Typography>
           </Box>
@@ -50,7 +75,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.1</Typography>
           </Box>
@@ -69,7 +99,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>5.0</Typography>
           </Box>
@@ -84,7 +119,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>3.0</Typography>
           </Box>
@@ -103,7 +143,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.3</Typography>
           </Box>
@@ -118,7 +163,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.1</Typography>
           </Box>
@@ -137,7 +187,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.3</Typography>
           </Box>
@@ -152,7 +207,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.2</Typography>
           </Box>
@@ -171,7 +231,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.4</Typography>
           </Box>
@@ -186,7 +251,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.2</Typography>
           </Box>
@@ -205,7 +275,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.4</Typography>
           </Box>
@@ -220,7 +295,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.2</Typography>
           </Box>
@@ -239,7 +319,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.4</Typography>
           </Box>
@@ -254,7 +339,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.2</Typography>
           </Box>
@@ -265,14 +355,22 @@ export default function ModulSpec(props) {
         persen: "%",
         isoukuran: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", fontStyle: "italic", fontWeight: "bold" }}>E</Typography>
+            <Typography
+              sx={{ fontSize: "12px", fontStyle: "italic", fontWeight: "bold" }}
+            >
+              E
+            </Typography>
             <Typography sx={{ fontSize: "8px", mt: "5px" }}>v</Typography>
             <Typography sx={{ fontSize: "12px" }}>≤0.5</Typography>
           </Box>
         ),
         sunpower: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", fontStyle: "italic", fontWeight: "bold" }}>E</Typography>
+            <Typography
+              sx={{ fontSize: "12px", fontStyle: "italic", fontWeight: "bold" }}
+            >
+              E
+            </Typography>
             <Typography sx={{ fontSize: "8px", mt: "5px" }}>v</Typography>
             <Typography sx={{ fontSize: "12px" }}>≤0.5</Typography>
           </Box>
@@ -311,12 +409,16 @@ export default function ModulSpec(props) {
         persen: "N/mm2",
         isoukuran: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Minimum 35 individual Minumim</Typography>
+            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+              Minimum 35 individual Minumim
+            </Typography>
           </Box>
         ),
         sunpower: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Minimum 35 individual Minumim</Typography>
+            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+              Minimum 35 individual Minumim
+            </Typography>
           </Box>
         ),
       },
@@ -325,12 +427,16 @@ export default function ModulSpec(props) {
         persen: "",
         isoukuran: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Required</Typography>
+            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+              Required
+            </Typography>
           </Box>
         ),
         sunpower: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>No Crazing</Typography>
+            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+              No Crazing
+            </Typography>
           </Box>
         ),
       },
@@ -339,12 +445,16 @@ export default function ModulSpec(props) {
         persen: "",
         isoukuran: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Report Abrasion Class And Cycles Passed</Typography>
+            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+              Report Abrasion Class And Cycles Passed
+            </Typography>
           </Box>
         ),
         sunpower: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Min. Class 3 600 Cycles Passed</Typography>
+            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+              Min. Class 3 600 Cycles Passed
+            </Typography>
           </Box>
         ),
       },
@@ -364,7 +474,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.3</Typography>
           </Box>
@@ -379,7 +494,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.2</Typography>
           </Box>
@@ -398,7 +518,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>10</Typography>
           </Box>
@@ -413,7 +538,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>5</Typography>
           </Box>
@@ -432,7 +562,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.3</Typography>
           </Box>
@@ -447,7 +582,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.2</Typography>
           </Box>
@@ -466,7 +606,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.3</Typography>
           </Box>
@@ -481,7 +626,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.2</Typography>
           </Box>
@@ -528,7 +678,12 @@ export default function ModulSpec(props) {
                 mt: "3px",
               }}
             >
-              <Image src={"/static/images/Plus_or_minus_symbol.svg"} fill alt={""} style={{}} />
+              <Image
+                src={"/static/images/Plus_or_minus_symbol.svg"}
+                fill
+                alt={""}
+                style={{}}
+              />
             </Box>
             <Typography sx={{ fontSize: "12px" }}>0.4</Typography>
           </Box>
@@ -544,14 +699,22 @@ export default function ModulSpec(props) {
         persen: "%",
         isoukuran: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", fontStyle: "italic", fontWeight: "bold" }}>E</Typography>
+            <Typography
+              sx={{ fontSize: "12px", fontStyle: "italic", fontWeight: "bold" }}
+            >
+              E
+            </Typography>
             <Typography sx={{ fontSize: "8px", mt: "5px" }}>v</Typography>
             <Typography sx={{ fontSize: "12px" }}>{">10"}</Typography>
           </Box>
         ),
         sunpower: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", fontStyle: "italic", fontWeight: "bold" }}>E</Typography>
+            <Typography
+              sx={{ fontSize: "12px", fontStyle: "italic", fontWeight: "bold" }}
+            >
+              E
+            </Typography>
             <Typography sx={{ fontSize: "8px", mt: "5px" }}>v</Typography>
             <Typography sx={{ fontSize: "12px" }}>{">10"}</Typography>
           </Box>
@@ -590,12 +753,16 @@ export default function ModulSpec(props) {
         persen: "N/mm2",
         isoukuran: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Min 12</Typography>
+            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+              Min 12
+            </Typography>
           </Box>
         ),
         sunpower: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Min 13</Typography>
+            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+              Min 13
+            </Typography>
           </Box>
         ),
       },
@@ -604,12 +771,16 @@ export default function ModulSpec(props) {
         persen: "",
         isoukuran: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Required</Typography>
+            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+              Required
+            </Typography>
           </Box>
         ),
         sunpower: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>There Must Be No Crazing</Typography>
+            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+              There Must Be No Crazing
+            </Typography>
           </Box>
         ),
       },
@@ -618,12 +789,16 @@ export default function ModulSpec(props) {
         persen: "",
         isoukuran: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Report Abrasion Class And Cycles Passed</Typography>
+            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+              Report Abrasion Class And Cycles Passed
+            </Typography>
           </Box>
         ),
         sunpower: (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>Min. Class 3 600 Cycles Passed</Typography>
+            <Typography sx={{ fontSize: "12px", textAlign: "center" }}>
+              Min. Class 3 600 Cycles Passed
+            </Typography>
           </Box>
         ),
       },
@@ -703,7 +878,14 @@ export default function ModulSpec(props) {
                       position: "relative",
                     }}
                   >
-                    <Image src={"/static/images/bianco_BIA01A_white_marble_matt_600x300mm.jpg.275x275_q85_crop_upscale.jpg"} fill alt={""} style={{}} />
+                    <Image
+                      src={
+                        "/static/images/bianco_BIA01A_white_marble_matt_600x300mm.jpg.275x275_q85_crop_upscale.jpg"
+                      }
+                      fill
+                      alt={""}
+                      style={{}}
+                    />
                   </Box>
                   <Box>
                     <Typography
@@ -719,7 +901,14 @@ export default function ModulSpec(props) {
                     </Typography>
                   </Box>
                 </Box>
-                <Box sx={{ mt: "35px", backgroundColor: "black", mr: "50px", borderRadius: "10px" }}>
+                <Box
+                  sx={{
+                    mt: "35px",
+                    backgroundColor: "black",
+                    mr: "50px",
+                    borderRadius: "10px",
+                  }}
+                >
                   <Button onClick={() => setIsModalOpen(false)}>
                     <Typography sx={{ color: "white" }}>Close</Typography>
                     <CloseIcon sx={{ ml: "10px", mt: "3px", color: "white" }} />
@@ -738,7 +927,8 @@ export default function ModulSpec(props) {
                     style={{
                       color: "black",
                       fontWeight: "bold",
-                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                      fontFamily:
+                        '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
                       textTransform: "uppercase",
                       fontSize: "16px",
                     }}
@@ -749,7 +939,8 @@ export default function ModulSpec(props) {
                     style={{
                       color: "gray",
                       fontWeight: "bold",
-                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                      fontFamily:
+                        '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
                       textTransform: "uppercase",
                       fontSize: "16px",
                     }}
@@ -769,7 +960,20 @@ export default function ModulSpec(props) {
                   }}
                 >
                   <Box sx={{ backgroundColor: "black", width: "100%" }}>
-                    <Typography sx={{ color: "white", textAlign: "center", fontWeight: "bold", letterSpacing: "1px", textTransform: "uppercase" }}>{props.motif.motif.data?.attributes.tile_type.data?.attributes.Type}</Typography>
+                    <Typography
+                      sx={{
+                        color: "white",
+                        textAlign: "center",
+                        fontWeight: "bold",
+                        letterSpacing: "1px",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {
+                        props.motif.motif.data?.attributes.tile_type.data
+                          ?.attributes.Type
+                      }
+                    </Typography>
                   </Box>
                   <TableContainer component={Paper} sx={{}}>
                     <Table>
@@ -777,8 +981,22 @@ export default function ModulSpec(props) {
                         <TableRow>
                           <TableCell>Nama Navbar</TableCell>
                           <TableCell align="center">Persen</TableCell>
-                          <TableCell sx={{ textAlign: "center", verticalAlign: "middle" }}>Iso 130006</TableCell>
-                          <TableCell sx={{ textAlign: "center", verticalAlign: "middle" }}>Sunpower</TableCell>
+                          <TableCell
+                            sx={{
+                              textAlign: "center",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            Iso 130006
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              textAlign: "center",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            Sunpower
+                          </TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -786,11 +1004,37 @@ export default function ModulSpec(props) {
                           <TableRow key={index}>
                             <TableCell>{item.namanavbar}</TableCell>
                             <TableCell align="center">{item.persen}</TableCell>
-                            <TableCell sx={{ textAlign: "center", verticalAlign: "middle" }}>
-                              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>{item.isoukuran}</div>
+                            <TableCell
+                              sx={{
+                                textAlign: "center",
+                                verticalAlign: "middle",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                }}
+                              >
+                                {item.isoukuran}
+                              </div>
                             </TableCell>
-                            <TableCell sx={{ textAlign: "center", verticalAlign: "middle" }}>
-                              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>{item.sunpower}</div>
+                            <TableCell
+                              sx={{
+                                textAlign: "center",
+                                verticalAlign: "middle",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                }}
+                              >
+                                {item.sunpower}
+                              </div>
                             </TableCell>
                           </TableRow>
                         ))}

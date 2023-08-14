@@ -1,3 +1,9 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "@typescript-eslint/no-explicit-any": "off",
+  "noImplicitAny": false,
+  "rules": {
+    "noImplicitAny": false,
+    "@typescript-eslint/no-explicit-any": "off"
+  }
 }

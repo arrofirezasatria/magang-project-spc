@@ -63,17 +63,19 @@ export default function Page(props: any) {
   const dispatch = useDispatch();
   // props.productOnly;
 
-  const imgFileUrl =
-    props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url;
+  // const imgFileUrl =
+  //   props.productOnly.data.attributes?.Image_Tile_Face?.data[0]?.attributes
+  //     ?.url;
   const downloadFileAtUrl = () => {
     fetch(
-      props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url
+      props.productOnly.data.attributes?.Image_Tile_Face?.data[0]?.attributes
+        ?.url
     )
       .then((response) => response.blob())
       .then((blob) => {
         const blobURL = window.URL.createObjectURL(new Blob([blob]));
         const fileName =
-          props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url
+          props.productOnly.data.attributes?.Image_Tile_Face?.data[0]?.attributes?.url
             .split("/")
             .pop();
         const aTag = document.createElement("a");
@@ -84,11 +86,11 @@ export default function Page(props: any) {
         aTag.remove();
       });
   };
-  console.log("ini Avalible iayayysyayyasaasasdasjkl");
-  console.log(
-    props.motif.data.attributes.motif.data.attributes.product_varians.data[0]
-      .attributes.Varian
-  );
+  // console.log("ini Avalible iayayysyayyasaasasdasjkl");
+  // console.log(
+  //   props.motif.data.attributes.motif.data.attributes.product_varians.data[0]
+  //     .attributes.Varian
+  // );
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -99,8 +101,8 @@ export default function Page(props: any) {
   const products =
     props.product.data.attributes.motif.data.attributes.products.data; // array
 
-  console.log("harga");
-  console.log(props.productOnly.data.attributes.Price);
+  // console.log("harga");
+  // console.log(props.productOnly.data.attributes.Price);
 
   // console.log(props.alternative1);
   // console.log(props.alternative2);
@@ -127,8 +129,9 @@ export default function Page(props: any) {
   //   return () => subscription.unsubscribe();
   // }, [watch]);
 
-  console.log(watch());
+  // console.log(watch());
 
+  // @ts-ignore
   const name = watch("quantityBox");
 
   // const [Evalue, setEvalue] = React.useState("");
@@ -136,10 +139,12 @@ export default function Page(props: any) {
   const [totalPrice, setTotalPrice] = React.useState(0);
 
   React.useEffect(() => {
+    // @ts-ignore
     setCoverage(name * 1.44);
   }, [name]);
 
   React.useEffect(() => {
+    // @ts-ignore
     setTotalPrice(name * 1.44 * 153000);
   }, [name]);
 
@@ -164,7 +169,7 @@ export default function Page(props: any) {
         >
           <Box sx={{ height: "100%", position: "relative" }}>
             <Image
-              src={data.Image_Hero_2880x1138px?.data.attributes.url}
+              src={data.Image_Hero_2880x1138px?.data?.attributes?.url}
               // src={
               //   "/static/images/shelf-lay_white_crop.jpg__2880x0_q85_subsampling-2.jpg"
               // }
@@ -410,7 +415,7 @@ export default function Page(props: any) {
                           },
                         }}
                       >
-                        {props.motif.data.attributes.motif.data.attributes.product_varians.data.map(
+                        {/* {props.motif.data.attributes.motif.data.attributes.product_varians.data.map(
                           (item, index) => {
                             return (
                               <Link href="#" underline="none" key={index}>
@@ -418,7 +423,7 @@ export default function Page(props: any) {
                               </Link>
                             );
                           }
-                        )}
+                        )} */}
                         {props.motif.data.attributes.motif.data.attributes.style_motifs.data.map(
                           (item, index) => {
                             return (
@@ -698,12 +703,13 @@ export default function Page(props: any) {
                   <Box sx={{ my: "20px", width: { xs: "100%", md: "75%" } }}>
                     <Link
                       onClick={() => {
+                        // @ts-ignore
                         downloadFileAtUrl(imgFileUrl);
                       }}
                       underline="none"
                       download={
                         props.productOnly.data.attributes?.Image_Tile_Face
-                          .data[0].attributes?.url
+                          ?.data[0].attributes?.url
                       }
                       sx={{
                         bgcolor: "#000",
@@ -822,7 +828,7 @@ export default function Page(props: any) {
                           title: "Product Varian",
                           value:
                             props.motif.data.attributes.motif.data.attributes
-                              .product_varians.data[0].attributes.Varian,
+                              ?.product_varians?.data[0]?.attributes?.Varian,
                         },
                         {
                           title: "Dimension",
@@ -858,7 +864,7 @@ export default function Page(props: any) {
                           title: "Suitability",
                           value:
                             props.productOnly.data.attributes
-                              ?.tile_suitabilities?.data[0].attributes
+                              ?.tile_suitabilities?.data[0]?.attributes
                               ?.Suitability,
                         },
                         {
@@ -1135,6 +1141,7 @@ export default function Page(props: any) {
                               <TableRow>
                                 <TableCell component="th" scope="row">
                                   <Controller
+                                    // @ts-ignore
                                     name={"quantityBox"}
                                     control={control}
                                     render={({
@@ -1373,11 +1380,11 @@ export default function Page(props: any) {
                         position: "relative",
                       }}
                     >
-                      <Image
+                      {/* <Image
                         fill
                         alt=""
-                        src={`/static/images/${product.attributes?.Image_Tile_Face.data[0].attributes.formats.thumbnail.url}`}
-                      />
+                        src={`/static/images/${product.attributes?.Image_Tile_Face?.data[0]?.attributes.formats.thumbnail.url}`}
+                      /> */}
                     </Box>
                     <Box
                       sx={{
@@ -1390,7 +1397,7 @@ export default function Page(props: any) {
                     >
                       <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
                         {
-                          product.product?.attributes?.Image_Tile_Face.data[0]
+                          product.product?.attributes?.Image_Tile_Face?.data[0]
                             .attributes.formats.thumbnail.url
                         }
                       </Typography>
@@ -1475,8 +1482,8 @@ export const getStaticProps = async ({ params }: any) => {
   // console.log("ini darimana");
   // console.log(params.slug);
   // console.log(params);
-  console.log();
-  console.log(params.id);
+  // console.log();
+  // console.log(params.id);
   const responseProduct = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
       params.id +
