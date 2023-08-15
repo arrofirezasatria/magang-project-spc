@@ -84,11 +84,11 @@ export default function Page(props: any) {
         aTag.remove();
       });
   };
-  console.log("ini Avalible iayayysyayyasaasasdasjkl");
-  console.log(
-    props.motif.data.attributes.motif.data.attributes.product_varians.data[0]
-      .attributes.Varian
-  );
+  // console.log("ini Avalible iayayysyayyasaasasdasjkl");
+  // console.log(
+  //   props.motif.data.attributes.motif.data.attributes.product_varians.data[0]
+  //     .attributes.Varian
+  // );
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -99,8 +99,8 @@ export default function Page(props: any) {
   const products =
     props.product.data.attributes.motif.data.attributes.products.data; // array
 
-  console.log("harga");
-  console.log(props.productOnly.data.attributes.Price);
+  // console.log("harga");
+  // console.log(props.productOnly.data.attributes.Price);
 
   // console.log(props.alternative1);
   // console.log(props.alternative2);
@@ -368,7 +368,11 @@ export default function Page(props: any) {
                       <Typography
                         sx={{ fontSize: "18px", fontWeight: "medium" }}
                       >
-                        SUN GLAZED CERAMIC
+                        {data.tile_type.data === null
+                          ? "Porcelain Tiles"
+                          : data.tile_type.data.attributes.Type === "Sun Glazed"
+                          ? "Sun Glazed Ceramic Tiles"
+                          : "Porcelain Tiles"}
                       </Typography>
                       <Typography
                         sx={{
@@ -457,7 +461,9 @@ export default function Page(props: any) {
                       <Typography
                         sx={{ fontSize: "16px", fontWeight: "medium" }}
                       >
-                        {data.Description}
+                        {data.Description === null
+                          ? "Minim fugiat culpa culpa veniam do tempor aliquip aliquip id amet qui proident. Nostrud sunt aliquip ipsum et voluptate commodo. Ullamco sint quis aliquip do nisi. Do culpa duis deserunt adipisicing. Officia culpa voluptate fugiat veniam laboris excepteur duis. Sunt voluptate reprehenderit tempor aliqua reprehenderit. Culpa deserunt qui sint eiusmod."
+                          : data.Description}
                       </Typography>
                       <Stack
                         direction="row"
@@ -820,9 +826,11 @@ export default function Page(props: any) {
                         },
                         {
                           title: "Product Varian",
-                          value:
-                            props.motif.data.attributes.motif.data.attributes
-                              .product_varians.data[0].attributes.Varian,
+                          value: props.motif.data.attributes.motif.data
+                            .attributes.product_varians?.data[0]
+                            ? props.motif.data.attributes.motif.data.attributes
+                                .product_varians?.data[0].attributes.Varian
+                            : "-",
                         },
                         {
                           title: "Dimension",

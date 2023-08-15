@@ -1,16 +1,8 @@
 import {
   Box,
-  Container,
-  Grid,
-  Stack,
   Typography,
   Button,
   Modal,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Link,
   TableContainer,
   Table,
   TableHead,
@@ -21,16 +13,12 @@ import {
 } from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
-import axios from "axios";
-import { data } from "cypress/types/jquery";
-import useSWR from "swr";
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { useState } from "react";
 
-export default function ModulPacking(props) {
-  console.log("ini modulpacking");
+export default function ModulPacking(props: any) {
   console.log(
     props.motif.motif.data?.attributes.tile_type.data?.attributes.Type
   );
@@ -441,7 +429,7 @@ export default function ModulPacking(props) {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {tableDataLocal.map((item, index) => (
+                        {tableDataLocal?.map((item, index) => (
                           <TableRow key={index}>
                             <TableCell
                               sx={{ textAlign: "center", padding: "8px" }}
@@ -644,7 +632,7 @@ export default function ModulPacking(props) {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {tableDataInternational.map((item, index) => (
+                        {tableDataInternational?.map((item, index) => (
                           <TableRow key={index}>
                             <TableCell
                               sx={{ textAlign: "center", padding: "8px" }}
