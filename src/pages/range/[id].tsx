@@ -1,6 +1,31 @@
 import React from "react";
-import type { InferGetStaticPropsType, GetStaticProps, GetStaticPaths } from "next";
-import { Box, Button, Grid, Link, List, Stack, Typography, TextField, Table, Paper, TableBody, TableCell, TableContainer, TableHead, TableRow, Divider, Modal, Chip } from "@mui/material";
+import type {
+  InferGetStaticPropsType,
+  GetStaticProps,
+  GetStaticPaths,
+} from "next";
+import {
+  Box,
+  Button,
+  Grid,
+  Link,
+  List,
+  Stack,
+  Typography,
+  TextField,
+  Table,
+  Paper,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Divider,
+  Modal,
+  Chip,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import AppsBar from "@components/AppsBar";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "store/cartSlice";
@@ -20,7 +45,7 @@ import "react-medium-image-zoom/dist/styles.css";
 import SliderImage from "@components/pages/range/SliderImage";
 import { NumericFormat } from "react-number-format";
 import CircleIcon from "@mui/icons-material/Circle";
-import Footer from "@components/pages/range/Footer";
+// import Footer from "@components/pages/range/Footer";
 import ModulPackingSG from "@components/pages/range/modulPackingSG";
 
 interface IFormInputs {
@@ -53,6 +78,9 @@ export default function Page(props: any) {
         aTag.remove();
       });
   };
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   console.log("ini Avalible iayayysyayyasaasasdasjkl");
   console.log(props.motif.data.attributes.motif.data.attributes.product_varians.data[0].attributes.Varian);
 
@@ -639,7 +667,7 @@ export default function Page(props: any) {
                   </Box>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <Box>
+                  <Box sx={{ width: '100%', overflow: 'auto' }}>
                     <Box sx={{}}>
                       <Box
                         sx={{
@@ -939,10 +967,15 @@ export default function Page(props: any) {
                           borderRadius: "1px",
                           p: "20px",
                           mt: "20px",
-                          overflow: "auto",
+                          overflow: 'auto',
+                          height: '100%',
                         }}
                       >
-                        <Typography sx={{ fontSize: "22px", fontWeight: "bold" }}>Order tiles now</Typography>
+                        <Typography
+                          sx={{ fontSize: "22px", fontWeight: "bold" }}
+                        >
+                          Order tiles now
+                        </Typography>
                         <TableContainer
                           component="div"
                           sx={{
@@ -958,59 +991,182 @@ export default function Page(props: any) {
                             }}
                             aria-label="simple table"
                           >
-                            <TableHead>
-                              <TableRow>
-                                <TableCell sx={{ minWidth: "19%" }}>Required</TableCell>
-                                <TableCell sx={{ minWidth: "19%" }} align="right">
-                                  Coverage
-                                </TableCell>
-                                <TableCell sx={{ minWidth: "19%" }} align="right">
-                                  Box Price
-                                </TableCell>
-                                <TableCell sx={{ minWidth: "19%" }} align="right">
-                                  Total Price
-                                </TableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              <TableRow>
-                                <TableCell component="th" scope="row">
-                                  <Controller
-                                    name={"quantityBox"}
-                                    control={control}
-                                    render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-                                      <TextField
-                                        helperText={error ? error.message : null}
-                                        size="small"
-                                        error={!!error}
-                                        onChange={onChange}
-                                        type="number"
-                                        // value={}
-                                        fullWidth
-                                        label={"Box"}
-                                        variant="outlined"
-                                        sx={{ width: "100px" }}
+                            {isMobile ? (
+                              <>
+                                <TableRow>
+                                  <TableCell>
+                                    Required:
+                                  </TableCell>
+                                  <TableCell>
+                                    <Controller
+                                      name={"quantityBox"}
+                                      control={control}
+                                      render={({
+                                        field: { onChange, value },
+                                        fieldState: { error },
+                                        formState,
+                                      }) => (
+                                        <TextField
+                                          helperText={
+                                            error ? error.message : null
+                                          }
+                                          size="small"
+                                          error={!!error}
+                                          onChange={onChange}
+                                          type="number"
+                                          // value={}
+                                          fullWidth
+                                          label={"Box"}
+                                          variant="outlined"
+                                          sx={{ width: "100px" }}
+                                        />
+                                      )}
+                                    />
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>
+                                    Coverage:
+                                  </TableCell>
+                                  <TableCell>
+                                    <NumericFormat
+                                      value={coverage}
+                                      decimalScale={3}
+                                      displayType={"text"}
+                                      thousandSeparator={true}
+                                      prefix={"Rp. "}
+                                    />
+                                    {" /m²"}
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>
+                                    Box Price:
+                                  </TableCell>
+                                  <TableCell>
+                                    <NumericFormat
+                                      value={
+                                        1.44 *
+                                        props.productOnly.data.attributes.Price
+                                      }
+                                      decimalScale={3}
+                                      displayType={"text"}
+                                      thousandSeparator={true}
+                                      prefix={"Rp. "}
+                                    />
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>
+                                    Total Price:
+                                  </TableCell>
+                                  <TableCell>
+                                    <NumericFormat
+                                      value={totalPrice}
+                                      decimalScale={3}
+                                      displayType={"text"}
+                                      thousandSeparator={true}
+                                      prefix={"Rp. "}
+                                    />
+                                  </TableCell>
+                                </TableRow>
+                              </>
+                            ) : (
+                              <>
+                                <TableHead>
+                                  <TableRow>
+                                    <TableCell sx={{ minWidth: "19%" }}>
+                                      Required
+                                    </TableCell>
+                                    <TableCell
+                                      sx={{ minWidth: "19%" }}
+                                      align="right"
+                                    >
+                                      Coverage
+                                    </TableCell>
+                                    <TableCell
+                                      sx={{ minWidth: "19%" }}
+                                      align="right"
+                                    >
+                                      Box Price
+                                    </TableCell>
+                                    <TableCell
+                                      sx={{ minWidth: "19%" }}
+                                      align="right"
+                                    >
+                                      Total Price
+                                    </TableCell>
+                                  </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                  <TableRow>
+                                    <TableCell component="th" scope="row">
+                                      <Controller
+                                        name={"quantityBox"}
+                                        control={control}
+                                        render={({
+                                          field: { onChange, value },
+                                          fieldState: { error },
+                                          formState,
+                                        }) => (
+                                          <TextField
+                                            helperText={
+                                              error ? error.message : null
+                                            }
+                                            size="small"
+                                            error={!!error}
+                                            onChange={onChange}
+                                            type="number"
+                                            // value={}
+                                            fullWidth
+                                            label={"Box"}
+                                            variant="outlined"
+                                            sx={{ width: "100px" }}
+                                          />
+                                        )}
                                       />
-                                    )}
-                                  />
-                                </TableCell>
-                                <TableCell align="right">
-                                  <NumericFormat value={coverage} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
-                                  {" /m²"}
-                                </TableCell>
-                                <TableCell align="right">
-                                  <NumericFormat value={1.44 * props.productOnly.data.attributes.Price} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
-                                </TableCell>
-                                <TableCell align="right">
-                                  <NumericFormat value={totalPrice} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
-                                </TableCell>
-                              </TableRow>
-                            </TableBody>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                      <NumericFormat
+                                        value={coverage}
+                                        decimalScale={3}
+                                        displayType={"text"}
+                                        thousandSeparator={true}
+                                        prefix={"Rp. "}
+                                      />
+                                      {" /m²"}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                      <NumericFormat
+                                        value={
+                                          1.44 *
+                                          props.productOnly.data.attributes.Price
+                                        }
+                                        decimalScale={3}
+                                        displayType={"text"}
+                                        thousandSeparator={true}
+                                        prefix={"Rp. "}
+                                      />
+                                    </TableCell>
+                                    <TableCell align="right">
+                                      <NumericFormat
+                                        value={totalPrice}
+                                        decimalScale={3}
+                                        displayType={"text"}
+                                        thousandSeparator={true}
+                                        prefix={"Rp. "}
+                                      />
+                                    </TableCell>
+                                  </TableRow>
+                                </TableBody>
+                              </>
+                            )}
                           </Table>
                         </TableContainer>
                         <Button
                           variant="contained"
                           sx={{
+                            mt: '20px',
                             bgcolor: "#111",
                             width: "100%",
                             borderRadius: "50px",
@@ -1279,11 +1435,16 @@ export const getStaticProps = async ({ params }: any) => {
     },
   });
 
-  const responseMotif = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + params.id + "?populate[motif][populate]=*", {
-    headers: {
-      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-    },
-  });
+  const responseMotif = await fetch(
+    "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
+    params.id +
+    "?populate[motif][populate]=*",
+    {
+      headers: {
+        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+      },
+    }
+  );
 
   const responseAmbience = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + params.id + "?populate=*", {
     headers: {
