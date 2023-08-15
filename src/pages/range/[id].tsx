@@ -23,6 +23,8 @@ import {
   Divider,
   Modal,
   Chip,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import AppsBar from "@components/AppsBar";
 import { addToCart } from "store/cartSlice";
@@ -47,6 +49,7 @@ import { packingDetailsData } from "data/packingDetailsData";
 
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "store/counterSlice";
+// import Footer from "@components/pages/range/Footer";
 
 interface IFormInputs {
   name: string;
@@ -84,11 +87,14 @@ export default function Page(props: any) {
         aTag.remove();
       });
   };
-  // console.log("ini Avalible iayayysyayyasaasasdasjkl");
-  // console.log(
-  //   props.motif.data.attributes.motif.data.attributes.product_varians.data[0]
-  //     .attributes.Varian
-  // );
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  console.log("ini Avalible iayayysyayyasaasasdasjkl");
+  console.log(
+    props.motif.data.attributes.motif.data.attributes.product_varians.data[0]
+      .attributes.Varian
+  );
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -734,7 +740,7 @@ export default function Page(props: any) {
                   </Box>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <Box>
+                  <Box sx={{ width: "100%", overflow: "auto" }}>
                     <Box sx={{}}>
                       <Box
                         sx={{
@@ -1092,8 +1098,14 @@ export default function Page(props: any) {
                           p: "20px",
                           mt: "20px",
                           overflow: "auto",
+                          height: "100%",
                         }}
                       >
+                        <Typography
+                          sx={{ fontSize: "22px", fontWeight: "bold" }}
+                        >
+                          Order tiles now
+                        </Typography>
                         <Typography
                           sx={{ fontSize: "22px", fontWeight: "bold" }}
                         >
@@ -1114,97 +1126,175 @@ export default function Page(props: any) {
                             }}
                             aria-label="simple table"
                           >
-                            <TableHead>
-                              <TableRow>
-                                <TableCell sx={{ minWidth: "19%" }}>
-                                  Required
-                                </TableCell>
-                                <TableCell
-                                  sx={{ minWidth: "19%" }}
-                                  align="right"
-                                >
-                                  Coverage
-                                </TableCell>
-                                <TableCell
-                                  sx={{ minWidth: "19%" }}
-                                  align="right"
-                                >
-                                  Box Price
-                                </TableCell>
-                                <TableCell
-                                  sx={{ minWidth: "19%" }}
-                                  align="right"
-                                >
-                                  Total Price
-                                </TableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              <TableRow>
-                                <TableCell component="th" scope="row">
-                                  <Controller
-                                    name={"quantityBox"}
-                                    control={control}
-                                    render={({
-                                      field: { onChange, value },
-                                      fieldState: { error },
-                                      formState,
-                                    }) => (
-                                      <TextField
-                                        helperText={
-                                          error ? error.message : null
-                                        }
-                                        size="small"
-                                        error={!!error}
-                                        onChange={onChange}
-                                        type="number"
-                                        // value={}
-                                        fullWidth
-                                        label={"Box"}
-                                        variant="outlined"
-                                        sx={{ width: "100px" }}
+                            {isMobile ? (
+                              <>
+                                <TableRow>
+                                  <TableCell>Required:</TableCell>
+                                  <TableCell>
+                                    <Controller
+                                      name={"quantityBox"}
+                                      control={control}
+                                      render={({
+                                        field: { onChange, value },
+                                        fieldState: { error },
+                                        formState,
+                                      }) => (
+                                        <TextField
+                                          helperText={
+                                            error ? error.message : null
+                                          }
+                                          size="small"
+                                          error={!!error}
+                                          onChange={onChange}
+                                          type="number"
+                                          // value={}
+                                          fullWidth
+                                          label={"Box"}
+                                          variant="outlined"
+                                          sx={{ width: "100px" }}
+                                        />
+                                      )}
+                                    />
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Coverage:</TableCell>
+                                  <TableCell>
+                                    <NumericFormat
+                                      value={coverage}
+                                      decimalScale={3}
+                                      displayType={"text"}
+                                      thousandSeparator={true}
+                                      prefix={"Rp. "}
+                                    />
+                                    {" /m²"}
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Box Price:</TableCell>
+                                  <TableCell>
+                                    <NumericFormat
+                                      value={
+                                        1.44 *
+                                        props.productOnly.data.attributes.Price
+                                      }
+                                      decimalScale={3}
+                                      displayType={"text"}
+                                      thousandSeparator={true}
+                                      prefix={"Rp. "}
+                                    />
+                                  </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Total Price:</TableCell>
+                                  <TableCell>
+                                    <NumericFormat
+                                      value={totalPrice}
+                                      decimalScale={3}
+                                      displayType={"text"}
+                                      thousandSeparator={true}
+                                      prefix={"Rp. "}
+                                    />
+                                  </TableCell>
+                                </TableRow>
+                              </>
+                            ) : (
+                              <>
+                                <TableHead>
+                                  <TableRow>
+                                    <TableCell sx={{ minWidth: "19%" }}>
+                                      Required
+                                    </TableCell>
+                                    <TableCell
+                                      sx={{ minWidth: "19%" }}
+                                      align="right"
+                                    >
+                                      Coverage
+                                    </TableCell>
+                                    <TableCell
+                                      sx={{ minWidth: "19%" }}
+                                      align="right"
+                                    >
+                                      Box Price
+                                    </TableCell>
+                                    <TableCell
+                                      sx={{ minWidth: "19%" }}
+                                      align="right"
+                                    >
+                                      Total Price
+                                    </TableCell>
+                                  </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                  <TableRow>
+                                    <TableCell component="th" scope="row">
+                                      <Controller
+                                        name={"quantityBox"}
+                                        control={control}
+                                        render={({
+                                          field: { onChange, value },
+                                          fieldState: { error },
+                                          formState,
+                                        }) => (
+                                          <TextField
+                                            helperText={
+                                              error ? error.message : null
+                                            }
+                                            size="small"
+                                            error={!!error}
+                                            onChange={onChange}
+                                            type="number"
+                                            // value={}
+                                            fullWidth
+                                            label={"Box"}
+                                            variant="outlined"
+                                            sx={{ width: "100px" }}
+                                          />
+                                        )}
                                       />
-                                    )}
-                                  />
-                                </TableCell>
-                                <TableCell align="right">
-                                  <NumericFormat
-                                    value={coverage}
-                                    decimalScale={0}
-                                    displayType={"text"}
-                                    thousandSeparator={true}
-                                    prefix={"Rp. "}
-                                  />
-                                  {" /m²"}
-                                </TableCell>
-                                <TableCell align="right">
-                                  <NumericFormat
-                                    value={
-                                      1.44 *
-                                      props.productOnly.data.attributes.Price
-                                    }
-                                    decimalScale={0}
-                                    displayType={"text"}
-                                    thousandSeparator={true}
-                                    prefix={"Rp. "}
-                                  />
-                                </TableCell>
-                                <TableCell align="right">
-                                  <NumericFormat
-                                    value={totalPrice}
-                                    decimalScale={0}
-                                    displayType={"text"}
-                                    thousandSeparator={true}
-                                    prefix={"Rp. "}
-                                  />
-                                </TableCell>
-                              </TableRow>
-                            </TableBody>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                      <NumericFormat
+                                        value={coverage}
+                                        decimalScale={3}
+                                        displayType={"text"}
+                                        thousandSeparator={true}
+                                        prefix={"Rp. "}
+                                      />
+                                      {" /m²"}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                      <NumericFormat
+                                        value={
+                                          1.44 *
+                                          props.productOnly.data.attributes
+                                            .Price
+                                        }
+                                        decimalScale={3}
+                                        displayType={"text"}
+                                        thousandSeparator={true}
+                                        prefix={"Rp. "}
+                                      />
+                                    </TableCell>
+                                    <TableCell align="right">
+                                      <NumericFormat
+                                        value={totalPrice}
+                                        decimalScale={3}
+                                        displayType={"text"}
+                                        thousandSeparator={true}
+                                        prefix={"Rp. "}
+                                      />
+                                    </TableCell>
+                                  </TableRow>
+                                </TableBody>
+                              </>
+                            )}
                           </Table>
                         </TableContainer>
                         <Button
                           variant="contained"
                           sx={{
+                            mt: "20px",
                             bgcolor: "#111",
                             width: "100%",
                             borderRadius: "50px",
