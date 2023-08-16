@@ -25,8 +25,6 @@ import {
   Chip,
   useMediaQuery,
   useTheme,
-  Tabs,
-  Tab,
 }
   from "@mui/material";
 import AppsBar from "@components/AppsBar";
@@ -52,7 +50,6 @@ import { packingDetailsData } from "data/packingDetailsData";
 
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "store/counterSlice";
-// import Footer from "@components/pages/range/Footer";
 
 interface IFormInputs {
   name: string;
@@ -64,13 +61,11 @@ interface IFormInputs {
 }
 
 export default function Page(props: any) {
-  // console.log(data);
-  // console.log(data.attributes.Price);
   const dispatch = useDispatch();
-  // props.productOnly;
 
   const imgFileUrl =
-    props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url;
+    props.productOnly.data.attributes?.Image_Tile_Face?.data[0]?.attributes
+      ?.url;
   const downloadFileAtUrl = () => {
     fetch(
       props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url
@@ -93,11 +88,6 @@ export default function Page(props: any) {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  console.log("ini Avalible iayayysyayyasaasasdasjkl");
-  console.log(
-    props.motif.data.attributes.motif.data.attributes.product_varians.data[0]
-      .attributes.Varian
-  );
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -107,17 +97,6 @@ export default function Page(props: any) {
   const data = props.motif.data.attributes.motif.data.attributes;
   const products =
     props.product.data.attributes.motif.data.attributes.products.data; // array
-
-  // tab data
-  interface TabPanelProps {
-    children: React.ReactNode;
-    value: number;
-    index: number;
-  }
-
-  const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
-    return <div hidden={value !== index}>{value === index && <Box p={3}>{children}</Box>}</div>;
-  };
 
   // console.log("harga");
   // console.log(props.productOnly.data.attributes.Price);
@@ -149,6 +128,7 @@ export default function Page(props: any) {
 
   console.log(watch());
 
+  // @ts-ignore
   const name = watch("quantityBox");
 
   // const [Evalue, setEvalue] = React.useState("");
@@ -156,10 +136,12 @@ export default function Page(props: any) {
   const [totalPrice, setTotalPrice] = React.useState(0);
 
   React.useEffect(() => {
+    // @ts-ignore
     setCoverage(name * 1.44);
   }, [name]);
 
   React.useEffect(() => {
+    // @ts-ignore
     setTotalPrice(name * 1.44 * 153000);
   }, [name]);
 
@@ -435,6 +417,7 @@ export default function Page(props: any) {
                         }}
                       >
                         {props.motif.data.attributes.motif.data.attributes.product_varians.data.map(
+                          // @ts-ignore
                           (item, index) => {
                             return (
                               <Link href="#" underline="none" key={index}>
@@ -444,6 +427,7 @@ export default function Page(props: any) {
                           }
                         )}
                         {props.motif.data.attributes.motif.data.attributes.style_motifs.data.map(
+                          // @ts-ignore
                           (item, index) => {
                             return (
                               <Link
@@ -742,6 +726,7 @@ export default function Page(props: any) {
                   <Box sx={{ my: "20px", width: { xs: "100%", md: "75%" } }}>
                     <Link
                       onClick={() => {
+                        // @ts-ignore
                         downloadFileAtUrl(imgFileUrl);
                       }}
                       underline="none"
@@ -1164,6 +1149,7 @@ export default function Page(props: any) {
                                   <TableCell>Required:</TableCell>
                                   <TableCell>
                                     <Controller
+                                      // @ts-ignore
                                       name={"quantityBox"}
                                       control={control}
                                       render={({
@@ -1261,6 +1247,7 @@ export default function Page(props: any) {
                                   <TableRow>
                                     <TableCell component="th" scope="row">
                                       <Controller
+                                        // @ts-ignore
                                         name={"quantityBox"}
                                         control={control}
                                         render={({
@@ -1494,48 +1481,53 @@ export default function Page(props: any) {
                 />
               </Box>
               <Grid container spacing={2} sx={{ mt: "44px" }}>
-                {products.map((product, index) => (
-                  <Grid item key={index} xs={6} md={2} sx={{}}>
-                    <Box
-                      sx={{
-                        height: "173px",
-                        width: "auto",
-                        position: "relative",
-                      }}
-                    >
-                      <Image
-                        fill
-                        alt=""
-                        src={`/static/images/${product.attributes?.Image_Tile_Face.data[0].attributes.formats.thumbnail.url}`}
-                      />
-                    </Box>
-                    <Box
-                      sx={{
-                        mt: "7px",
-                        pt: "7px",
-                        pb: "10px",
-                        border: "2px",
-                        textAlign: "center",
-                      }}
-                    >
-                      <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
-                        {
-                          product.product?.attributes?.Image_Tile_Face.data[0]
-                            .attributes.formats.thumbnail.url
-                        }
-                      </Typography>
-                      <Typography
+                {products.map(
+                  // @ts-ignore
+                  (product, index) => (
+                    <Grid item key={index} xs={6} md={2} sx={{}}>
+                      <Box
                         sx={{
-                          fontsize: "14px",
-                          fontWeight: "medium",
-                          color: "#999",
+                          height: "173px",
+                          width: "auto",
+                          position: "relative",
                         }}
                       >
-                        KETERANGAN
-                      </Typography>
-                    </Box>
-                  </Grid>
-                ))}
+                        <Image
+                          fill
+                          alt=""
+                          src={`/static/images/${product.attributes?.Image_Tile_Face.data[0].attributes.formats.thumbnail.url}`}
+                        />
+                      </Box>
+                      <Box
+                        sx={{
+                          mt: "7px",
+                          pt: "7px",
+                          pb: "10px",
+                          border: "2px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{ fontSize: "14px", fontWeight: "bold" }}
+                        >
+                          {
+                            product.product?.attributes?.Image_Tile_Face.data[0]
+                              .attributes.formats.thumbnail.url
+                          }
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontsize: "14px",
+                            fontWeight: "medium",
+                            color: "#999",
+                          }}
+                        >
+                          KETERANGAN
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  )
+                )}
               </Grid>
             </Box>
           </Box>
