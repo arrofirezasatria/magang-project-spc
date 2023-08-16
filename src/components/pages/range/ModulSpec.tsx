@@ -21,6 +21,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { useState } from "react";
 
+// @ts-ignore
 export default function ModulSpec(props) {
   console.log("ini modulspec");
   console.log(

@@ -36,6 +36,7 @@ export default function AppsBar() {
   const { toggleDarkMode, darkMode } = useThemeContext();
 
   const theme = useTheme();
+  // @ts-ignore
   const { cartItems } = useSelector((state) => state.cart);
 
   return (

@@ -4,7 +4,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 export default function Cart() {
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartItems } = useSelector(
+    (state) =>
+      // @ts-ignore
+      state.cart
+  );
   return (
     <div>
       {cartItems.map(

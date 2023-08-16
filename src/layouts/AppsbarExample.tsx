@@ -14,7 +14,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
 
 export default function AppsbarExample() {
-  const count = useSelector((state) => state.counter.count);
+  const count = useSelector(
+    (state) =>
+      // @ts-ignore
+      state.counter.count
+  );
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ backgroundColor: "white" }}>

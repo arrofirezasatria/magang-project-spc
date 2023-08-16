@@ -632,55 +632,85 @@ export default function ModulPacking(props: any) {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {tableDataInternational?.map((item, index) => (
-                          <TableRow key={index}>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.size}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.Thickness}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.Piece}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.Sqmbox}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.approxbox}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.boxpallet}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.sqmpallet}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.approxpallet}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.weight}
-                            </TableCell>
-                          </TableRow>
-                        ))}
+                        {
+                          // @ts-ignore
+                          tableDataInternational?.map((item, index) => (
+                            <TableRow key={index}>
+                              <TableCell
+                                sx={{ textAlign: "center", padding: "8px" }}
+                              >
+                                {
+                                  // @ts-ignore
+                                  item.size
+                                }
+                              </TableCell>
+                              <TableCell
+                                sx={{ textAlign: "center", padding: "8px" }}
+                              >
+                                {
+                                  // @ts-ignore
+                                  item.Thickness
+                                }
+                              </TableCell>
+                              <TableCell
+                                sx={{ textAlign: "center", padding: "8px" }}
+                              >
+                                {
+                                  // @ts-ignore
+                                  item.Piece
+                                }
+                              </TableCell>
+                              <TableCell
+                                sx={{ textAlign: "center", padding: "8px" }}
+                              >
+                                {
+                                  // @ts-ignore
+                                  item.Sqmbox
+                                }
+                              </TableCell>
+                              <TableCell
+                                sx={{ textAlign: "center", padding: "8px" }}
+                              >
+                                {
+                                  // @ts-ignore
+                                  item.approxbox
+                                }
+                              </TableCell>
+                              <TableCell
+                                sx={{ textAlign: "center", padding: "8px" }}
+                              >
+                                {
+                                  // @ts-ignore
+                                  item.boxpallet
+                                }
+                              </TableCell>
+                              <TableCell
+                                sx={{ textAlign: "center", padding: "8px" }}
+                              >
+                                {
+                                  // @ts-ignore
+                                  item.sqmpallet
+                                }
+                              </TableCell>
+                              <TableCell
+                                sx={{ textAlign: "center", padding: "8px" }}
+                              >
+                                {
+                                  // @ts-ignore
+                                  item.approxpallet
+                                }
+                              </TableCell>
+                              <TableCell
+                                sx={{ textAlign: "center", padding: "8px" }}
+                              >
+                                {
+                                  // @ts-ignore
+                                  item.weight
+                                }
+                              </TableCell>
+                            </TableRow>
+                          ))
+                        }
                       </TableBody>
                     </Table>
                   </TableContainer>

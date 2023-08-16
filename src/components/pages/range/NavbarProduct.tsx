@@ -1,4 +1,27 @@
-import { Box, Button, Grid, Tabs, ListItemIcon, AppBar, Typography, ListItemText, ListItemButton, Divider, MenuItem, Toolbar, IconButton, Link, Menu, Popover, FormControl, Collapse, InputLabel, Select, Paper, Tab } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Tabs,
+  ListItemIcon,
+  AppBar,
+  Typography,
+  ListItemText,
+  ListItemButton,
+  Divider,
+  MenuItem,
+  Toolbar,
+  IconButton,
+  Link,
+  Menu,
+  Popover,
+  FormControl,
+  Collapse,
+  InputLabel,
+  Select,
+  Paper,
+  Tab,
+} from "@mui/material";
 // import { GetStaticProps } from "next";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Image from "next/image";
@@ -17,7 +40,8 @@ const headers = {
     "Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c",
 };
 
-const fetcher2 = (url: RequestInfo | URL) => fetch(url, { headers }).then((res) => res.json());
+const fetcher2 = (url: RequestInfo | URL) =>
+  fetch(url, { headers }).then((res) => res.json());
 
 interface TabPanelProps {
   children: React.ReactNode;
@@ -26,7 +50,11 @@ interface TabPanelProps {
 }
 
 const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
-  return <div hidden={value !== index}>{value === index && <Box p={3}>{children}</Box>}</div>;
+  return (
+    <div hidden={value !== index}>
+      {value === index && <Box p={3}>{children}</Box>}
+    </div>
+  );
 };
 
 const productStyles = [
@@ -146,11 +174,33 @@ const DropdownFilter = [
   },
   {
     nama: "Styles",
-    Subitem: ["Stone", "concrete", "Marble", "Wood", "Colours", "White", "Structure", "patern", "Shape", "Speckle", "Mosaic"],
+    Subitem: [
+      "Stone",
+      "concrete",
+      "Marble",
+      "Wood",
+      "Colours",
+      "White",
+      "Structure",
+      "patern",
+      "Shape",
+      "Speckle",
+      "Mosaic",
+    ],
   },
   {
     nama: "Materials",
-    Subitem: ["Glazed Ceramic", "Natural Stone & Glass", "Natural Stone", "Glass", "Ceramic", "Un-Glazed Porcelain", "Glazed Vitrified", "Porcelain", "Glazed Porcelain"],
+    Subitem: [
+      "Glazed Ceramic",
+      "Natural Stone & Glass",
+      "Natural Stone",
+      "Glass",
+      "Ceramic",
+      "Un-Glazed Porcelain",
+      "Glazed Vitrified",
+      "Porcelain",
+      "Glazed Porcelain",
+    ],
   },
   {
     nama: "Colours",
@@ -161,11 +211,25 @@ const DropdownFilter = [
 const NavbarAbout = [
   {
     name: "About Us",
-    Subitems: ["Our Company", "Our Story: A Potted History", "We Make It. Sustainable", "Accreditations and Awards", "Manufacturing Processes"],
+    Subitems: [
+      "Our Company",
+      "Our Story: A Potted History",
+      "We Make It. Sustainable",
+      "Accreditations and Awards",
+      "Manufacturing Processes",
+    ],
   },
   {
     name: "Services",
-    Subitems: ["Color Genie", "Mood Boards", "CPD Suite", "Samples & Merchandising", "Take Note Time Capsule", "Podcast", "Material Lab"],
+    Subitems: [
+      "Color Genie",
+      "Mood Boards",
+      "CPD Suite",
+      "Samples & Merchandising",
+      "Take Note Time Capsule",
+      "Podcast",
+      "Material Lab",
+    ],
   },
   {
     name: "Sectors",
@@ -173,7 +237,13 @@ const NavbarAbout = [
   },
   {
     name: "Projects",
-    Subitems: ["Residential", "Commercial", "Hospitaly & Leisure", "Care & Education", "Spesials"],
+    Subitems: [
+      "Residential",
+      "Commercial",
+      "Hospitaly & Leisure",
+      "Care & Education",
+      "Spesials",
+    ],
   },
   {
     name: "News",
@@ -184,14 +254,20 @@ const NavbarAbout = [
 export default function NavbarProduct() {
   const [activeTab, setActiveTab] = useState(0);
 
-  const handleChangeTab = (event: any, newValue: React.SetStateAction<number>) => {
+  const handleChangeTab = (
+    event: any,
+    newValue: React.SetStateAction<number>
+  ) => {
     setActiveTab(newValue);
   };
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedDropdown, setSelectedDropdown] = useState(null);
 
-  const handleDropdownOpen = (event: { currentTarget: React.SetStateAction<null> }, index: React.SetStateAction<null>) => {
+  const handleDropdownOpen = (
+    event: { currentTarget: React.SetStateAction<null> },
+    index: React.SetStateAction<null>
+  ) => {
     setAnchorEl(event.currentTarget);
     setSelectedDropdown(index);
   };
@@ -298,11 +374,34 @@ export default function NavbarProduct() {
               <Grid container spacing={3}>
                 {item.data.map((product, productIndex) => (
                   <Grid item md={2} key={productIndex}>
-                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                      <Box sx={{ position: "relative", width: "170px", height: "299px" }}>
-                        <Image src={product.imgSrc} fill alt={`Gambar ${productIndex}`} />
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          position: "relative",
+                          width: "170px",
+                          height: "299px",
+                        }}
+                      >
+                        <Image
+                          src={product.imgSrc}
+                          fill
+                          alt={`Gambar ${productIndex}`}
+                        />
                       </Box>
-                      <Typography variant="subtitle1" sx={{ textAlign: "center", width: "170px", marginTop: "8px" }}>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{
+                          textAlign: "center",
+                          width: "170px",
+                          marginTop: "8px",
+                        }}
+                      >
                         {product.text}
                       </Typography>
                     </Box>
@@ -311,22 +410,128 @@ export default function NavbarProduct() {
               </Grid>
             </TabPanel>
           ))}
-          <Box sx={{ width: "100%", display: "flex", justifyContent: "center", mt: "20px" }}>
-            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "1150px", py: "20px", borderTop: "2px dotted #868686" }}>
-              <Link sx={{ textDecoration: "none", display: "flex", flexDirection: "row" }}>
-                <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "medium" }}>View All</Typography>
-                <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "bold" }}>Product Style</Typography>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              mt: "20px",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: "1150px",
+                py: "20px",
+                borderTop: "2px dotted #868686",
+              }}
+            >
+              <Link
+                sx={{
+                  textDecoration: "none",
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                <Typography
+                  sx={{
+                    mr: "5px",
+                    fontSize: "18px",
+                    color: "grey",
+                    fontWeight: "medium",
+                  }}
+                >
+                  View All
+                </Typography>
+                <Typography
+                  sx={{
+                    mr: "5px",
+                    fontSize: "18px",
+                    color: "grey",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Product Style
+                </Typography>
               </Link>
               <Box sx={{ display: "flex", flexDirection: "row" }}>
-                <Link sx={{ textDecoration: "none", display: "flex", flexDirection: "row" }}>
-                  <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "medium" }}>All Ranges</Typography>
-                  <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "medium" }}>-</Typography>
-                  <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "bold" }}>A to Z</Typography>
+                <Link
+                  sx={{
+                    textDecoration: "none",
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      mr: "5px",
+                      fontSize: "18px",
+                      color: "grey",
+                      fontWeight: "medium",
+                    }}
+                  >
+                    All Ranges
+                  </Typography>
+                  <Typography
+                    sx={{
+                      mr: "5px",
+                      fontSize: "18px",
+                      color: "grey",
+                      fontWeight: "medium",
+                    }}
+                  >
+                    -
+                  </Typography>
+                  <Typography
+                    sx={{
+                      mr: "5px",
+                      fontSize: "18px",
+                      color: "grey",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    A to Z
+                  </Typography>
                 </Link>
-                <Link sx={{ textDecoration: "none", display: "flex", flexDirection: "row" }}>
-                  <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "medium" }}>All Ranges</Typography>
-                  <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "medium" }}>-</Typography>
-                  <Typography sx={{ mr: "5px", fontSize: "18px", color: "grey", fontWeight: "bold" }}>New</Typography>
+                <Link
+                  sx={{
+                    textDecoration: "none",
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      mr: "5px",
+                      fontSize: "18px",
+                      color: "grey",
+                      fontWeight: "medium",
+                    }}
+                  >
+                    All Ranges
+                  </Typography>
+                  <Typography
+                    sx={{
+                      mr: "5px",
+                      fontSize: "18px",
+                      color: "grey",
+                      fontWeight: "medium",
+                    }}
+                  >
+                    -
+                  </Typography>
+                  <Typography
+                    sx={{
+                      mr: "5px",
+                      fontSize: "18px",
+                      color: "grey",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    New
+                  </Typography>
                 </Link>
               </Box>
             </Box>
@@ -394,11 +599,53 @@ export default function NavbarProduct() {
     <>
       <Grid sx={{ position: "Fixed", zIndex: "9", width: "100%" }}>
         <Grid display={{ xs: "flex", lg: "none" }} sx={{ width: "100%" }}>
-          <Box sx={{ p: "25px", width: "100%", display: "flex", backgroundColor: "white", height: "50px", position: "absolute", zIndex: "9", opacity: "0.5" }}></Box>
-          <Box display="flex" sx={{ width: "100%", p: "25px", justifyContent: "space-around", zIndex: "10", backgroundColor: isScrolled ? "white" : "white", transition: "background-color 0.3s" }}>
-            <Link display="flex" flexDirection="row" sx={{ height: "49px", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
-              <Button sx={{ width: "150px", height: "50px", position: "relative", mr: "10px" }}>
-                <Image src={"/static/images/Sunpower.png"} fill alt={""} style={{}} />
+          <Box
+            sx={{
+              p: "25px",
+              width: "100%",
+              display: "flex",
+              backgroundColor: "white",
+              height: "50px",
+              position: "absolute",
+              zIndex: "9",
+              opacity: "0.5",
+            }}
+          ></Box>
+          <Box
+            display="flex"
+            sx={{
+              width: "100%",
+              p: "25px",
+              justifyContent: "space-around",
+              zIndex: "10",
+              backgroundColor: isScrolled ? "white" : "white",
+              transition: "background-color 0.3s",
+            }}
+          >
+            <Link
+              display="flex"
+              flexDirection="row"
+              sx={{
+                height: "49px",
+                alignItems: "center",
+                textDecoration: "none",
+                cursor: "pointer",
+              }}
+            >
+              <Button
+                sx={{
+                  width: "150px",
+                  height: "50px",
+                  position: "relative",
+                  mr: "10px",
+                }}
+              >
+                <Image
+                  src={"/static/images/Sunpower.png"}
+                  fill
+                  alt={""}
+                  style={{}}
+                />
               </Button>
             </Link>
             <Button sx={{ color: "black" }} onClick={() => setOpen(!open)}>
@@ -418,7 +665,11 @@ export default function NavbarProduct() {
                   boxShadow: "0px 0px 0px 0px rgba(0,0,0,0.75)",
                 }}
               >
-                <Grid container spacing={0} sx={{ px: "24px", my: 2, mb: "80px" }}>
+                <Grid
+                  container
+                  spacing={0}
+                  sx={{ px: "24px", my: 2, mb: "80px" }}
+                >
                   <Button
                     sx={{
                       p: "6px 8px",
@@ -462,12 +713,33 @@ export default function NavbarProduct() {
                               },
                             },
                           }}
-                          onClick={() => setOrOpen((prev) => (prev === index ? null : index))}
+                          // @ts-ignore
+                          onClick={() =>
+                            setOrOpen(
+                              // @ts-ignore
+                              (prev) => (prev === index ? null : index)
+                            )
+                          }
                         >
                           {filter.name}
-                          {orOpen === index ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+
+                          {
+                            // @ts-ignore
+                            orOpen === index ? (
+                              <KeyboardArrowUpIcon />
+                            ) : (
+                              <KeyboardArrowDownIcon />
+                            )
+                          }
                         </Button>
-                        <Collapse in={orOpen === index} timeout={600} unmountOnExit>
+                        <Collapse
+                          in={
+                            // @ts-ignore
+                            orOpen === index
+                          }
+                          timeout={600}
+                          unmountOnExit
+                        >
                           <Box>
                             {filter.Subitems.map((subitems, subindex) => (
                               <MenuItem
@@ -550,12 +822,31 @@ export default function NavbarProduct() {
                               },
                             },
                           }}
-                          onClick={() => setIsOpen((prev) => (prev === index ? null : index))}
+                          onClick={() =>
+                            setIsOpen(
+                              // @ts-ignore
+                              (prev) => (prev === index ? null : index)
+                            )
+                          }
                         >
                           {filter.nama}
-                          {isOpen === index ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                          {
+                            // @ts-ignore
+                            isOpen === index ? (
+                              <KeyboardArrowUpIcon />
+                            ) : (
+                              <KeyboardArrowDownIcon />
+                            )
+                          }
                         </Button>
-                        <Collapse in={isOpen === index} timeout={600} unmountOnExit>
+                        <Collapse
+                          in={
+                            // @ts-ignore
+                            isOpen === index
+                          }
+                          timeout={600}
+                          unmountOnExit
+                        >
                           <Box>
                             {filter.Subitem.map((subitem, subindex) => (
                               <MenuItem
@@ -587,25 +878,81 @@ export default function NavbarProduct() {
       </Grid>
 
       <Grid>
-        <Box display={{ xs: "none", lg: "flex" }} flexDirection="row" sx={{ position: "fixed", zIndex: "5", width: "100%" }}>
-          <Box sx={{ width: "100%", display: "flex", backgroundColor: "white", height: "80px", position: "absolute", zIndex: "9", opacity: "0" }}></Box>
+        <Box
+          display={{ xs: "none", lg: "flex" }}
+          flexDirection="row"
+          sx={{ position: "fixed", zIndex: "5", width: "100%" }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              backgroundColor: "white",
+              height: "80px",
+              position: "absolute",
+              zIndex: "9",
+              opacity: "0",
+            }}
+          ></Box>
           <Box
             display={{ xs: "none", lg: "flex" }}
             flexDirection="row"
-            sx={{ justifyContent: "space-between", alignItems: "center", width: "100%", height: "80px", position: "relative", zIndex: "10", backgroundColor: isScrolled ? "white" : "transparent", transition: "background-color 0.3s" }}
+            sx={{
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",
+              height: "80px",
+              position: "relative",
+              zIndex: "10",
+              backgroundColor: isScrolled ? "white" : "transparent",
+              transition: "background-color 0.3s",
+            }}
           >
             <Box sx={{ ml: "185px" }}>
-              <Link display="flex" flexDirection="row" sx={{ width: "100%", height: "49px", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
-                <Button sx={{ width: "230px", height: "60px", position: "relative", mr: "10px" }}>
-                  <Image src={"/static/images/Sunpower.png"} fill alt={""} style={{}} />
+              <Link
+                display="flex"
+                flexDirection="row"
+                sx={{
+                  width: "100%",
+                  height: "49px",
+                  alignItems: "center",
+                  textDecoration: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <Button
+                  sx={{
+                    width: "230px",
+                    height: "60px",
+                    position: "relative",
+                    mr: "10px",
+                  }}
+                >
+                  <Image
+                    src={"/static/images/Sunpower.png"}
+                    fill
+                    alt={""}
+                    style={{}}
+                  />
                 </Button>
               </Link>
             </Box>
             <Box sx={{}}>
               <Toolbar sx={{ zIndex: "2", mr: "180px", p: "0", width: "100%" }}>
-                <List component="nav" sx={{ display: "flex", p: "0", justifyContent: "space-between" }}>
+                <List
+                  component="nav"
+                  sx={{
+                    display: "flex",
+                    p: "0",
+                    justifyContent: "space-between",
+                  }}
+                >
                   {logoNavbar.map((item, index) => (
-                    <ListItem key={index} component="li" sx={{ marginRight: "10px", p: "0" }}>
+                    <ListItem
+                      key={index}
+                      component="li"
+                      sx={{ marginRight: "10px", p: "0" }}
+                    >
                       {item.dropdown ? (
                         <Box>
                           <Button
@@ -637,7 +984,10 @@ export default function NavbarProduct() {
                                 transform: "scaleX(1)", // Show the underline on hover
                               },
                             }}
-                            onClick={(event) => handleDropdownOpen(event, index)}
+                            onClick={(event) =>
+                              // @ts-ignore
+                              handleDropdownOpen(event, index)
+                            }
                           >
                             {item.namanavbar}
                           </Button>
