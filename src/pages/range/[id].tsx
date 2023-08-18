@@ -469,8 +469,8 @@ export default function Page(props: any) {
                   pl: { xs: "0", md: "22px" },
                 }}
               >
-                <Zoom>
-                  <Box
+                {/* <Zoom> */}
+                {/* <Box
                     height={
                       props.productOnly.data.attributes?.tile_dimension.data
                         .attributes.Dimension == "60x60cm"
@@ -483,24 +483,26 @@ export default function Page(props: any) {
                       minHeight: "427.500px",
                       position: "relative",
                     }}
-                  >
-                    <Image
-                      src={
-                        props.productOnly.data.attributes?.Image_Tile_Face
-                          .data[0].attributes?.formats.large.url
-                      }
-                      fill
-                      alt=""
-                      style={{
-                        borderRadius: "0px",
-                        background: "#e0e0e0",
-                        boxShadow:
-                          "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
-                        // transform: 'rotate(90deg)',
-                      }}
-                    />
-                  </Box>
-                </Zoom>
+                  > */}
+                <Image
+                  src={
+                    props.productOnly.data.attributes?.Image_Tile_Face.data[0]
+                      .attributes?.formats.large.url
+                  }
+                  // fill
+                  width={800}
+                  height={400}
+                  alt=""
+                  style={{
+                    objectFit: "contain",
+                    borderRadius: "0px",
+                    background: "#e0e0e0",
+                    boxShadow: "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
+                    transform: "rotate(90deg)",
+                  }}
+                />
+                {/* </Box> */}
+                {/* </Zoom> */}
                 <Box sx={{ my: "20px", width: { xs: "100%", md: "75%" } }}>
                   <Link
                     onClick={() => {
