@@ -25,7 +25,8 @@ import {
   Chip,
   useMediaQuery,
   useTheme,
-} from "@mui/material";
+}
+  from "@mui/material";
 import AppsBar from "@components/AppsBar";
 import { addToCart } from "store/cartSlice";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -44,7 +45,7 @@ import "react-medium-image-zoom/dist/styles.css";
 import SliderImage from "@components/pages/range/SliderImage";
 import { NumericFormat } from "react-number-format";
 import CircleIcon from "@mui/icons-material/Circle";
-
+import TheProduct from "@components/pages/range/TheProduct";
 import { packingDetailsData } from "data/packingDetailsData";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -96,6 +97,18 @@ export default function Page(props: any) {
   const data = props.motif.data.attributes.motif.data.attributes;
   const products =
     props.product.data.attributes.motif.data.attributes.products.data; // array
+
+  // console.log("harga");
+  // console.log(props.productOnly.data.attributes.Price);
+
+  // console.log(props.alternative1);
+  // console.log(props.alternative2);
+  // console.log(props.alternative3);
+
+  // console.log(data);
+  // console.log(props.product.data.attributes.motif.data.attributes);
+
+  // const { onChange, onBlur, name, ref } = register("firstName");
 
   const {
     register,
@@ -360,8 +373,8 @@ export default function Page(props: any) {
                         {data.tile_type.data === null
                           ? "Porcelain Tiles"
                           : data.tile_type.data.attributes.Type === "Sun Glazed"
-                          ? "Sun Glazed Ceramic Tiles"
-                          : "Porcelain Tiles"}
+                            ? "Sun Glazed Ceramic Tiles"
+                            : "Porcelain Tiles"}
                       </Typography>
                       <Typography
                         sx={{
@@ -512,6 +525,16 @@ export default function Page(props: any) {
                           }}
                         /> */}
                       </Stack>
+                    </Box>
+                    <Box
+                      sx={{
+                        borderTop: "2px solid #000",
+                        pt: '20px',
+                      }}
+                    >
+                      <Box sx={{ width: "100%" }}>
+                        <TheProduct showp={props.product} />
+                      </Box>
                     </Box>
 
                     <Box
@@ -667,12 +690,19 @@ export default function Page(props: any) {
                   height: "100%",
                 }}
               >
-                <Grid item xs={12} md={6} sx={{ pl: { xs: "0", md: "22px" } }}>
+                <Grid item xs={12} md={6} sx={{
+                  pl: { xs: "0", md: "22px" },
+                }}>
                   <Zoom>
-                    <Box
+                    <Box height={
+                      props.productOnly.data.attributes?.tile_dimension.data.attributes.Dimension == "60x60cm"
+                        ? "auto"
+                        : "600px"
+                    }
                       sx={{
                         width: { xs: "100%", md: "75%" },
-                        height: "427.500px",
+                        maxWidth: '100%',
+                        minHeight: "427.500px",
                         position: "relative",
                       }}
                     >
@@ -688,6 +718,7 @@ export default function Page(props: any) {
                           background: "#e0e0e0",
                           boxShadow:
                             "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
+                          // transform: 'rotate(90deg)',
                         }}
                       />
                     </Box>
@@ -821,7 +852,7 @@ export default function Page(props: any) {
                           value: props.motif.data.attributes.motif.data
                             .attributes.product_varians?.data[0]
                             ? props.motif.data.attributes.motif.data.attributes
-                                .product_varians?.data[0].attributes.Varian
+                              .product_varians?.data[0].attributes.Varian
                             : "-",
                         },
                         {
@@ -1570,8 +1601,8 @@ export const getStaticProps = async ({ params }: any) => {
   console.log(params.id);
   const responseProduct = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate[motif][populate][products][populate]=*",
+    params.id +
+    "?populate[motif][populate][products][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1581,8 +1612,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseMotif = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate[motif][populate]=*",
+    params.id +
+    "?populate[motif][populate]=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1592,8 +1623,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAmbience = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/products/" +
-      params.id +
-      "?populate=*",
+    params.id +
+    "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1607,8 +1638,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt1 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-      1 +
-      "?populate=*",
+    1 +
+    "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1620,8 +1651,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt2 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-      2 +
-      "?populate=*",
+    2 +
+    "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
@@ -1633,8 +1664,8 @@ export const getStaticProps = async ({ params }: any) => {
 
   const responseAlt3 = await fetch(
     "https://strapi-app-tnshv.ondigitalocean.app/api/motifs/" +
-      3 +
-      "?populate=*",
+    3 +
+    "?populate=*",
     {
       headers: {
         Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
