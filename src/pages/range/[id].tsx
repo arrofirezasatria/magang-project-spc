@@ -62,9 +62,9 @@ interface IFormInputs {
 export default function Page(props: any) {
   const dispatch = useDispatch();
 
-  const imgFileUrl =
-    props.productOnly.data.attributes?.Image_Tile_Face?.data[0]?.attributes
-      ?.url;
+  // const imgFileUrl =
+  //   props.productOnly.data.attributes?.Image_Tile_Face?.data[0]?.attributes
+  //     ?.url;
   const downloadFileAtUrl = () => {
     fetch(
       props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url
@@ -696,7 +696,7 @@ export default function Page(props: any) {
                     <Link
                       onClick={() => {
                         // @ts-ignore
-                        downloadFileAtUrl(imgFileUrl);
+                        // downloadFileAtUrl(imgFileUrl);
                       }}
                       underline="none"
                       download={
