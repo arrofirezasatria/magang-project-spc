@@ -20,7 +20,7 @@ import Image from "next/image";
 import FeaturedProducts from "@components/pages/range/FeaturedProducts";
 import HeroProducts from "@components/pages/range/HeroProducts";
 import Description from "@components/pages/range/DescriptionProducts";
-import AltProductRanges from "@components/pages/range/altProductRanges";
+import AltProductRanges from "@components/pages/range/AltProductRanges";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useState } from "react";
 import NavbarProduct from "@components/pages/range/NavbarProduct";

@@ -4,30 +4,35 @@ import Image from "next/image";
 import { transform } from "cypress/types/lodash";
 
 export default function AltProductRanges(props: any) {
-  console.log(props.alt1)
-  console.log(props.alt2)
-  console.log(props.alt3)
-  console.log(props.alt1.data.attributes?.Image_Thumbnail_350px.data.attributes?.url)
+  console.log(props.alt1);
+  console.log(props.alt2);
+  console.log(props.alt3);
+  console.log(
+    props.alt1.data.attributes?.Image_Thumbnail_350px.data.attributes?.url
+  );
 
   let articleRecomendation = [];
 
   articleRecomendation.push({
     name: props.alt1.data.attributes.Name,
     description: props.alt1.data.attributes.Description,
-    image: props.alt1.data.attributes?.Image_Thumbnail_350px.data.attributes?.url,
+    image:
+      props.alt1.data.attributes?.Image_Thumbnail_350px.data.attributes?.url,
   });
 
   articleRecomendation.push({
     name: props.alt2.data.attributes.Name,
     description: props.alt2.data.attributes.Description,
-    image: props.alt2.data.attributes?.Image_Thumbnail_350px.data.attributes?.url,
+    image:
+      props.alt2.data.attributes?.Image_Thumbnail_350px.data.attributes?.url,
   });
 
   articleRecomendation.push({
     name: props.alt3.data.attributes.Name,
     description: props.alt3.data.attributes.Description,
-    image: props.alt3.data.attributes?.Image_Thumbnail_350px.data.attributes?.url,
-  })
+    image:
+      props.alt3.data.attributes?.Image_Thumbnail_350px.data.attributes?.url,
+  });
 
   return (
     <>
@@ -77,7 +82,7 @@ export default function AltProductRanges(props: any) {
             sx={{
               px: { xs: "0px", md: "20px" },
               // width: "100%",
-              flexBasis: '33.3333%',
+              flexBasis: "33.3333%",
               mb: { xs: "20px", md: "0px" },
             }}
           >
@@ -89,7 +94,13 @@ export default function AltProductRanges(props: any) {
                   position: "relative",
                   display: "flex",
                   justifyContent: "center",
-                  boxShadow: ["0 1px 1px rgba(0,0,0,0.1)", "0 2px 2px rgba(0,0,0,0.1)", "0 4px 4px rgba(0,0,0,0.1)", "0 8px 8px rgba(0,0,0,0.1)", "0 16px 16px rgba(0,0,0,0.1)"],
+                  boxShadow: [
+                    "0 1px 1px rgba(0,0,0,0.1)",
+                    "0 2px 2px rgba(0,0,0,0.1)",
+                    "0 4px 4px rgba(0,0,0,0.1)",
+                    "0 8px 8px rgba(0,0,0,0.1)",
+                    "0 16px 16px rgba(0,0,0,0.1)",
+                  ],
                   overflow: "hidden",
                   "&:hover .poster::before": {
                     bottom: "0px",
@@ -118,7 +129,8 @@ export default function AltProductRanges(props: any) {
                       bottom: "-50%",
                       width: "100%",
                       height: "100%",
-                      background: "linear-gradient(0deg, #000000c0 50%, transparent)",
+                      background:
+                        "linear-gradient(0deg, #000000c0 50%, transparent)",
                       transition: "0.5s",
                       zIndex: "1",
                       display: { xs: "none", md: "block" },
@@ -141,7 +153,7 @@ export default function AltProductRanges(props: any) {
                 <Box
                   className="details"
                   sx={{
-                    width: '100%',
+                    width: "100%",
                     position: "absolute",
                     bottom: "-30%",
                     p: "20px",
@@ -151,38 +163,42 @@ export default function AltProductRanges(props: any) {
                     display: { xs: "none", md: "block" },
                   }}
                 >
-                  <Box sx={{ width: '100%' }}>
+                  <Box sx={{ width: "100%" }}>
                     <Typography
                       component="h3"
                       sx={{
-                        letterSpacing: '1px',
+                        letterSpacing: "1px",
                         fontSize: "24px",
                         fontWeight: "bold",
                         color: "#fff",
-                        textShadow: '0 0 5px rgba(0,0,0,.3)',
+                        textShadow: "0 0 5px rgba(0,0,0,.3)",
                       }}
                     >
                       {articleRecomendation.name}
                     </Typography>
-                    <Box className='description-wrap' sx={{
-                      my: "20px",
-                      px: "15px",
-                      display: 'flex',
-                      flexDirection: 'row',
-                    }}>
+                    <Box
+                      className="description-wrap"
+                      sx={{
+                        my: "20px",
+                        px: "15px",
+                        display: "flex",
+                        flexDirection: "row",
+                      }}
+                    >
                       <Typography
                         component="p"
                         sx={{
-                          letterSpacing: '1px',
-                          wordBreak: 'break-word',
-                          display: '-webkit-box',
-                          WebkitBoxOrient: 'vertical',
-                          WebkitLineClamp: '3',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
+                          letterSpacing: "1px",
+                          wordBreak: "break-word",
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: "3",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
                           fontSize: "16px",
                           color: "#fff",
-                          transition: "max-height .25s ease-in-out,margin .25s ease-in-out,opacity .25s linear",
+                          transition:
+                            "max-height .25s ease-in-out,margin .25s ease-in-out,opacity .25s linear",
                           opacity: "0",
                         }}
                       >
@@ -192,11 +208,12 @@ export default function AltProductRanges(props: any) {
                     <Typography
                       component="p"
                       sx={{
-                        letterSpacing: '1px',
+                        letterSpacing: "1px",
                         fontSize: "20px",
                         color: "#fff",
                         textDecoration: "underline",
-                        transition: "max-height .25s ease-in-out,margin .25s ease-in-out,opacity .25s linear",
+                        transition:
+                          "max-height .25s ease-in-out,margin .25s ease-in-out,opacity .25s linear",
                         opacity: "0",
                       }}
                     >
@@ -208,7 +225,7 @@ export default function AltProductRanges(props: any) {
             </Link>
           </Grid>
         ))}
-      </Grid >
+      </Grid>
     </>
   );
 }
