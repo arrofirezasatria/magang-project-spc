@@ -66,27 +66,41 @@ interface IFormInputs {
 export default function Page(props: any) {
   const dispatch = useDispatch();
 
+  // const imgFileUrl = props.productOnly.data.attributes?.Image_Tile_Face?.data[0]?.attributes?.url;
+
+  // const downloadFileAtUrl = () => {
+  //   fetch(props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url)
+  //     .then((response) => response.blob())
+  //     .then((blob) => {
+  //       const blobURL = window.URL.createObjectURL(new Blob([blob]));
+  //       const fileName = props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url.split("/").pop();
+  //       const aTag = document.createElement("a");
+  //       aTag.href = blobURL;
+  //       aTag.setAttribute("download", fileName);
+  //       document.body.appendChild(aTag);
+  //       aTag.click();
+  //       aTag.remove();
+  //     });
+  // };
   const imgFileUrl =
-    props.productOnly.data.attributes?.Image_Tile_Face?.data[0]?.attributes
+    props.productOnly.data.attributes.Image_Tile_Face?.data?.[0]?.attributes
       ?.url;
+
   const downloadFileAtUrl = () => {
-    fetch(
-      props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url
-    )
-      .then((response) => response.blob())
-      .then((blob) => {
-        const blobURL = window.URL.createObjectURL(new Blob([blob]));
-        const fileName =
-          props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url
-            .split("/")
-            .pop();
-        const aTag = document.createElement("a");
-        aTag.href = blobURL;
-        aTag.setAttribute("download", fileName);
-        document.body.appendChild(aTag);
-        aTag.click();
-        aTag.remove();
-      });
+    if (imgFileUrl) {
+      fetch(imgFileUrl)
+        .then((response) => response.blob())
+        .then((blob) => {
+          const blobURL = window.URL.createObjectURL(new Blob([blob]));
+          const fileName = imgFileUrl.split("/").pop();
+          const aTag = document.createElement("a");
+          aTag.href = blobURL;
+          aTag.setAttribute("download", fileName);
+          document.body.appendChild(aTag);
+          aTag.click();
+          aTag.remove();
+        });
+    }
   };
 
   const theme = useTheme();
@@ -156,7 +170,10 @@ export default function Page(props: any) {
     <>
       <>
         <HeroProducts
-          imageHero={data.Image_Hero_2880x1138px?.data.attributes.url}
+          imageHero={
+            props.motif.data.attributes.motif.data.attributes
+              .Image_Hero_2880x1138px.data?.attributes.url
+          }
           nameMotif={data.Name}
           NColor={data.N_Color}
           NDimension={data.N_Dimension}
@@ -262,14 +279,15 @@ export default function Page(props: any) {
                       )}
 
                       <Link href="#" underline="none" className="white-link">
-                        {
-                          props.productOnly.data.attributes.surface_finish.data
-                            .attributes.Name
-                        }
+                        {props.productOnly.data.attributes.surface_finish?.data
+                          ?.attributes?.Name || "No Input data"}
                       </Link>
                       <Link href="#" underline="none" className="white-link">
-                        {props.productOnly.data.attributes.tile_color.data
-                          .attributes.Name + " color"}
+                        {props.productOnly.data.attributes.tile_color?.data
+                          ?.attributes?.Name
+                          ? props.productOnly.data.attributes.tile_color.data
+                              .attributes.Name + " color"
+                          : "No Input data"}
                       </Link>
                     </Stack>
                   </Box>
@@ -469,8 +487,8 @@ export default function Page(props: any) {
                   pl: { xs: "0", md: "22px" },
                 }}
               >
-                {/* <Zoom> */}
-                {/* <Box
+                <Zoom>
+                  <Box
                     height={
                       props.productOnly.data.attributes?.tile_dimension.data
                         .attributes.Dimension == "60x60cm"
@@ -483,44 +501,52 @@ export default function Page(props: any) {
                       minHeight: "427.500px",
                       position: "relative",
                     }}
-                  > */}
-                <Image
-                  src={
-                    props.productOnly.data.attributes?.Image_Tile_Face.data[0]
-                      .attributes?.formats.large.url
-                  }
-                  // fill
-                  width={800}
-                  height={400}
-                  alt=""
-                  style={{
-                    objectFit: "contain",
-                    borderRadius: "0px",
-                    background: "#e0e0e0",
-                    boxShadow: "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
-                    transform: "rotate(90deg)",
-                  }}
-                />
-                {/* </Box> */}
-                {/* </Zoom> */}
+                  >
+                    {/* <Image
+                      src={props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.formats.large.url}
+                      fill
+                      alt=""
+                      style={{
+                        borderRadius: "0px",
+                        background: "#e0e0e0",
+                        boxShadow: "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
+                        // transform: 'rotate(90deg)',
+                      }}
+                    /> */}
+                    {props.productOnly.data.attributes.Image_Tile_Face.data ? (
+                      <Image
+                        src={
+                          props.productOnly.data.attributes.Image_Tile_Face
+                            .data[0]?.attributes?.formats?.large?.url
+                        }
+                        fill
+                        alt=""
+                        style={{
+                          borderRadius: "0px",
+                          background: "#e0e0e0",
+                          boxShadow:
+                            "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
+                        }}
+                      />
+                    ) : (
+                      <Box>No tile face image available</Box>
+                    )}
+                  </Box>
+                </Zoom>
                 <Box sx={{ my: "20px", width: { xs: "100%", md: "75%" } }}>
-                  <Link
+                  {/* <Link
                     onClick={() => {
                       // @ts-ignore
                       // downloadFileAtUrl(imgFileUrl);
                     }}
                     underline="none"
-                    download={
-                      props.productOnly.data.attributes?.Image_Tile_Face.data[0]
-                        .attributes?.url
-                    }
+                    download={props.productOnly.data.attributes?.Image_Tile_Face.data[0].attributes?.url}
                     sx={{
                       bgcolor: "#000",
                       color: "#fff",
                       borderRadius: "5px",
                       p: "8px 8px 8px 8px",
-                      fontFamily:
-                        '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                       fontSize: "14px",
                       mb: "5px",
                       display: "flex",
@@ -529,11 +555,40 @@ export default function Page(props: any) {
                       cursor: "pointer",
                     }}
                   >
-                    <FileDownloadOutlinedIcon
-                      sx={{ pr: "8px", fontSize: "18px" }}
-                    />
+                    <FileDownloadOutlinedIcon sx={{ pr: "8px", fontSize: "18px" }} />
                     Download Tile Preview
-                  </Link>
+                  </Link> */}
+
+                  {imgFileUrl ? (
+                    <Link
+                      onClick={() => {
+                        downloadFileAtUrl();
+                      }}
+                      underline="none"
+                      download={imgFileUrl}
+                      sx={{
+                        bgcolor: "#000",
+                        color: "#fff",
+                        borderRadius: "5px",
+                        p: "8px 8px 8px 8px",
+                        fontFamily:
+                          '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                        fontSize: "14px",
+                        mb: "5px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <FileDownloadOutlinedIcon
+                        sx={{ pr: "8px", fontSize: "18px" }}
+                      />
+                      Download Tile Preview
+                    </Link>
+                  ) : (
+                    <Box>No download face image available</Box>
+                  )}
                 </Box>
               </Grid>
               <Grid item xs={12} md={6}>
@@ -627,11 +682,13 @@ export default function Page(props: any) {
                       },
                       {
                         title: "Product Varian",
-                        value: props.motif.data.attributes.motif.data.attributes
-                          .product_varians?.data[0]
-                          ? props.motif.data.attributes.motif.data.attributes
-                              .product_varians?.data[0].attributes.Varian
-                          : "-",
+                        value:
+                          props.motif.data.attributes.motif.data.attributes
+                            .product_varians?.data?.length > 0
+                            ? props.motif.data.attributes.motif.data.attributes.product_varians?.data
+                                .map((item: any) => item.attributes.Varian)
+                                .join(", ")
+                            : "-",
                       },
                       {
                         title: "Dimension",
@@ -661,13 +718,15 @@ export default function Page(props: any) {
                       {
                         title: "Shade Variation",
                         value:
-                          props.productOnly.data.attributes?.Shade_Variation,
+                          props.productOnly.data.attributes?.Shade_Variation ||
+                          "-",
                       },
                       {
                         title: "Suitability",
                         value:
-                          props.productOnly.data.attributes?.tile_suitabilities
-                            ?.data[0].attributes?.Suitability,
+                          props.productOnly.data.attributes?.tile_suitabilities?.data
+                            ?.map((item: any) => item.attributes.Suitability)
+                            ?.join(", ") || "-",
                       },
                       {
                         title: "Tiles per Box",
@@ -888,9 +947,6 @@ export default function Page(props: any) {
                       <Typography sx={{ fontSize: "22px", fontWeight: "bold" }}>
                         Order tiles now
                       </Typography>
-                      <Typography sx={{ fontSize: "22px", fontWeight: "bold" }}>
-                        Order tiles now
-                      </Typography>
                       <TableContainer
                         component="div"
                         sx={{
@@ -1098,202 +1154,6 @@ export default function Page(props: any) {
           </Box>
         </ProductLayout>
 
-        <Box
-          className="product-wrap-grey"
-          // sx={{ display: "flex", bgcolor: "#F5F5F5" }}
-          sx={{ display: "none", bgcolor: "#F5F5F5" }}
-        >
-          <Box
-            className="product-container"
-            sx={{
-              maxWidth: "1200px",
-              padding: { xs: "20px 15px", md: "20px 30px" },
-              margin: "0 auto",
-              width: "100%",
-            }}
-          >
-            <Box sx={{ py: "40px", px: { xs: 0, md: 4 } }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  position: "relative",
-                }}
-              >
-                <Typography
-                  component="h2"
-                  sx={{
-                    fontSize: "27px",
-                    fontWeight: "bold",
-                    mb: "15px",
-                    letterSpacing: "2px",
-                  }}
-                >
-                  THE PRODUCTS
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  mb: "15px",
-                  pb: "30px",
-                  position: "relative",
-                  "& .MuiTypography-root": {
-                    fontSize: "16px",
-                    fontWeight: "medium",
-                  },
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    mx: "20px",
-                    position: "relative",
-                  }}
-                >
-                  {/* <Image
-                    src="/static/icons/icon-colour-black.svg"
-                    alt="Colors Icon"
-                    width={25}
-                    height={25}
-                  /> */}
-                  <Typography
-                    variant="h2"
-                    sx={{
-                      mx: "5px",
-                    }}
-                  >
-                    {/* {N_Color} */}
-                  </Typography>
-
-                  <Typography variant="h2" sx={{}}>
-                    Colors
-                  </Typography>
-                </Box>
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    mx: "20px",
-                    position: "relative",
-                  }}
-                >
-                  {/* <Image
-                    src="/static/icons/icon-size-black.svg"
-                    alt="Sizes Icon"
-                    width={25}
-                    height={25}
-                  /> */}
-                  <Typography
-                    variant="h2"
-                    sx={{
-                      mx: "5px",
-                    }}
-                  >
-                    {/* {N_Dimension} */}
-                  </Typography>
-
-                  <Typography variant="h2" sx={{}}>
-                    Sizes
-                  </Typography>
-                </Box>
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    mx: "20px",
-                    position: "relative",
-                  }}
-                >
-                  {/* <Image
-                    src="/static/icons/icon-finish-black.svg"
-                    alt="Finish Icon"
-                    width={25}
-                    height={25}
-                  /> */}
-                  <Typography
-                    variant="h2"
-                    sx={{
-                      mx: "5px",
-                    }}
-                  >
-                    {/* {N_Finish} */}
-                  </Typography>
-
-                  <Typography variant="h2" sx={{}}>
-                    Finish
-                  </Typography>
-                </Box>
-                <Box
-                  component="span"
-                  sx={{
-                    position: "absolute",
-                    bottom: "0",
-                    left: "50%",
-                    width: "100px",
-                    height: "2px",
-                    backgroundColor: "black",
-                    transform: "translateX(-50%)",
-                    content: "''",
-                  }}
-                />
-              </Box>
-              <Grid container spacing={2} sx={{ mt: "44px" }}>
-                {products.map(
-                  // @ts-ignore
-                  (product, index) => (
-                    <Grid item key={index} xs={6} md={2} sx={{}}>
-                      <Box
-                        sx={{
-                          height: "173px",
-                          width: "auto",
-                          position: "relative",
-                        }}
-                      >
-                        <Image
-                          fill
-                          alt=""
-                          src={`/static/images/${product.attributes?.Image_Tile_Face.data[0].attributes.formats.thumbnail.url}`}
-                        />
-                      </Box>
-                      <Box
-                        sx={{
-                          mt: "7px",
-                          pt: "7px",
-                          pb: "10px",
-                          border: "2px",
-                          textAlign: "center",
-                        }}
-                      >
-                        <Typography
-                          sx={{ fontSize: "14px", fontWeight: "bold" }}
-                        >
-                          {
-                            product.product?.attributes?.Image_Tile_Face.data[0]
-                              .attributes.formats.thumbnail.url
-                          }
-                        </Typography>
-                        <Typography
-                          sx={{
-                            fontsize: "14px",
-                            fontWeight: "medium",
-                            color: "#999",
-                          }}
-                        >
-                          KETERANGAN
-                        </Typography>
-                      </Box>
-                    </Grid>
-                  )
-                )}
-              </Grid>
-            </Box>
-          </Box>
-        </Box>
         <Box className="product-wrap-white" sx={{ display: "flex" }}>
           <Box
             className="product-container"

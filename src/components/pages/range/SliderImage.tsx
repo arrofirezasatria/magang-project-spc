@@ -3,6 +3,7 @@ import Radio from "@mui/material/Radio";
 import { Box, Typography } from "@mui/material";
 
 import Image from "next/image";
+import { AnyAction } from "@reduxjs/toolkit";
 
 export default function SliderImage(props: any) {
   console.log(props.productOnly);
@@ -19,28 +20,36 @@ export default function SliderImage(props: any) {
   const handleManualNavigation = (slideIndex: number) => {
     setCounter(slideIndex);
   };
-  const sliderData = [
-    {
-      imageUrl: props?.productOnly?.Image_Ambience?.data
-        ? props?.productOnly?.Image_Ambience?.data[0].attributes.formats.large
-            .url
-        : "https://strapi-rezero-space.sgp1.digitaloceanspaces.com/69091a26ae11473d26e7d5be4be902fa.avif",
-      title: props?.productOnly?.Image_Ambience?.data
-        ? props?.productOnly?.Image_Ambience?.data[0].attributes.name
-        : "",
-      dimension: props?.productOnly?.tile_dimension.data.attributes.Dimension,
-    },
-    {
-      imageUrl: props?.productOnly?.Image_Ambience?.data
-        ? props?.productOnly?.Image_Ambience?.data[1]?.attributes.formats.large
-            .url
-        : "https://strapi-rezero-space.sgp1.digitaloceanspaces.com/69091a26ae11473d26e7d5be4be902fa.avif",
-      title: props?.productOnly?.Image_Ambience?.data
-        ? props?.productOnly?.Image_Ambience?.data[1]?.attributes.name
-        : "",
-      dimension: props?.productOnly?.tile_dimension.data.attributes.Dimension,
-    },
-  ];
+  // const sliderData = [
+  //   {
+  //     imageUrl: props?.productOnly?.Image_Ambience?.data
+  //       ? props?.productOnly?.Image_Ambience?.data[0].attributes.formats.large
+  //           .url
+  //       : "https://strapi-rezero-space.sgp1.digitaloceanspaces.com/69091a26ae11473d26e7d5be4be902fa.avif",
+  //     title: props?.productOnly?.Image_Ambience?.data
+  //       ? props?.productOnly?.Image_Ambience?.data[0].attributes.alternativeText
+  //       : "",
+  //   },
+  //   {
+  //     imageUrl: props?.productOnly?.Image_Ambience?.data
+  //       ? props?.productOnly?.Image_Ambience?.data[1]?.attributes.formats.large
+  //           .url
+  //       : "https://strapi-rezero-space.sgp1.digitaloceanspaces.com/69091a26ae11473d26e7d5be4be902fa.avif",
+  //     title: props?.productOnly?.Image_Ambience?.data
+  //       ? props?.productOnly?.Image_Ambience?.data[1]?.attributes.name
+  //       : "",
+  //   },
+  // ];
+  const imageAmbienceData = props?.productOnly?.Image_Ambience?.data || [];
+
+  const sliderData = imageAmbienceData.map((image: any, index: any) => {
+    return {
+      imageUrl:
+        image.attributes.formats.large?.url ||
+        "https://strapi-rezero-space.sgp1.digitaloceanspaces.com/69091a26ae11473d26e7d5be4be902fa.avif",
+      title: image.attributes.alternativeText || "No Title data",
+    };
+  });
 
   return (
     <>
@@ -64,9 +73,9 @@ export default function SliderImage(props: any) {
             transform: `translateX(-${counter * (100 / sliderData.length)}%)`,
           }}
         >
-          {sliderData
+          {/* {sliderData
             .slice(0, props?.productOnly?.Image_Ambience?.data.length)
-            .map((slide, index) => (
+            .map((slide:any, index:any) => (
               <Box
                 key={index}
                 className="slide"
@@ -83,7 +92,31 @@ export default function SliderImage(props: any) {
                   />
                 </Box>
               </Box>
-            ))}
+            ))} */}
+          {props?.productOnly?.Image_Ambience?.data ? (
+            sliderData.map((slide: any, index: any) => (
+              <Box
+                key={index}
+                className="slide"
+                sx={{ width: `${100 / sliderData.length}%` }}
+              >
+                <Box
+                  sx={{ width: "100%", height: "100%", position: "relative" }}
+                >
+                  <Image
+                    src={slide.imageUrl}
+                    fill
+                    alt=""
+                    style={{ objectFit: "cover" }}
+                  />
+                </Box>
+              </Box>
+            ))
+          ) : (
+            <Box className="slide">
+              <Typography>No images available.</Typography>
+            </Box>
+          )}
         </Box>
 
         <Box
@@ -98,29 +131,29 @@ export default function SliderImage(props: any) {
             backgroundColor: "rgba(0,0,0,.15)",
           }}
         >
-          {sliderData
-            .slice(0, props?.productOnly?.Image_Ambience?.data.length)
-            .map((_, index) => (
-              <Radio
-                key={index}
-                id={`radio${index}`}
-                name="manualNavigation"
-                className="manual-btn"
-                checked={counter === index}
-                onChange={() => handleManualNavigation(index)}
-                sx={{
-                  appearance: "none",
-                  outline: "none",
-                  width: "16px",
-                  height: "16px",
-                  ml: "5px",
-                  borderRadius: "50%",
-                  color: "white !important",
-                  cursor: "pointer",
-                  marginRight: "5px",
-                }}
-              />
-            ))}
+          {props?.productOnly?.Image_Ambience?.data
+            ? sliderData.map((_: any, index: any) => (
+                <Radio
+                  key={index}
+                  id={`radio${index}`}
+                  name="manualNavigation"
+                  className="manual-btn"
+                  checked={counter === index}
+                  onChange={() => handleManualNavigation(index)}
+                  sx={{
+                    appearance: "none",
+                    outline: "none",
+                    width: "16px",
+                    height: "16px",
+                    ml: "5px",
+                    borderRadius: "50%",
+                    color: "white !important",
+                    cursor: "pointer",
+                    marginRight: "5px",
+                  }}
+                />
+              ))
+            : null}
         </Box>
 
         {/* Fixed Typography below the slider */}
@@ -135,7 +168,8 @@ export default function SliderImage(props: any) {
         }}
       >
         <Typography variant="body1" className="title">
-          {sliderData[counter].title} {sliderData[counter].dimension}
+          {sliderData[counter]?.title || "No Title"}
+          {/* {sliderData[counter].dimension} */}
         </Typography>
       </Box>
     </>
