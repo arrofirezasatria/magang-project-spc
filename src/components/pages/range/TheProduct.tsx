@@ -49,21 +49,13 @@ export default function TheProduct(props: any) {
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Box
                   sx={{
-                    minWidth: "40px",
-                    minHeight: "40px",
+                    minWidth: "42px",
+                    minHeight: "42px",
                     position: "relative",
                     border: "0.1px solid #cdc",
                   }}
                 >
-                  {/* <Image
-                    src={item.attributes?.Image_Tile_Face.data[0].attributes?.formats.thumbnail.url}
-                    alt=""
-                    fill
-                    style={{
-                      objectFit: "cover",
-                    }}
-                  /> */}
-                  {item.attributes.Image_Tile_Face.data ? (
+                  {item.attributes.Image_Tile_Face.data && (
                     <Image
                       src={
                         item.attributes?.Image_Tile_Face.data[0].attributes
@@ -72,22 +64,21 @@ export default function TheProduct(props: any) {
                       fill
                       alt=""
                       style={{
-                        borderRadius: "0px",
-                        background: "#e0e0e0",
-                        boxShadow:
-                          "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
+                        border: "1px solid lightGray",
                       }}
                     />
-                  ) : (
-                    <Box>Tidak ada gambar</Box>
                   )}
                 </Box>
                 <Box sx={{ ml: "10px" }}>
-                  <Typography sx={{ fontSize: "12px", fontWeight: "medium" }}>
+                  <Typography sx={{ fontSize: "12px", fontWeight: "bold" }}>
                     {item.attributes?.Name}
                   </Typography>
                   <Typography
-                    sx={{ fontSize: "12px", fontWeight: "400", color: "#111" }}
+                    sx={{
+                      fontSize: "12px",
+                      fontWeight: "400",
+                      color: "#808080",
+                    }}
                   >
                     {item.attributes?.tile_dimension.data.attributes?.Dimension}
                   </Typography>

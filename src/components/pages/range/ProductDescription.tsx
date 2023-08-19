@@ -161,7 +161,7 @@ export default function ProductDescription({ props, data }: any) {
           <Box
             sx={{
               borderTop: "2px solid #000",
-              mt: "13px",
+              mt: "20px",
               pt: "20px",
               display: "flex",
               justifyContent: "space-between",
