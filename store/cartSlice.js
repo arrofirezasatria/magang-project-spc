@@ -3,7 +3,30 @@ import { createSlice } from "@reduxjs/toolkit";
 export const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    cartItems: [],
+    cartItems: [
+      {
+        id: 1,
+        code: "gs12370",
+        name: "Lasa Bianca",
+        dimension: "30x60cm",
+        imageSrc:
+          "https://strapi-rezero-space.sgp1.digitaloceanspaces.com/5a942cde164d74474510b44140a35bbc.webp",
+        quantity: 5,
+        pricePerBox: 300000,
+        priceTotal: 1500000,
+      },
+      {
+        id: 2,
+        code: "gs12370",
+        name: "Lasa Bianca",
+        dimension: "30x60cm",
+        imageSrc:
+          "https://strapi-rezero-space.sgp1.digitaloceanspaces.com/a1b4ac4d518697d8ae6d688493fbdbad.webp",
+        quantity: 5,
+        pricePerBox: 300000,
+        priceTotal: 1500000,
+      },
+    ],
   },
   reducers: {
     addToCart: (state, action) => {
