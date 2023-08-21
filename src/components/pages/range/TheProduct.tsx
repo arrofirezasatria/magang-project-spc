@@ -25,10 +25,13 @@ const fetcher2 = (url: RequestInfo | URL) =>
   fetch(url, { headers }).then((res) => res.json());
 
 export default function TheProduct(props: any) {
-  console.log(props.showp);
+  console.log(props.showProducts);
+  console.log(props.showHightlight); //show last path
+
+
 
   const showTheProduct =
-    props.showp.data.attributes?.motif.data.attributes?.products;
+    props.showProducts.data.attributes?.motif.data.attributes?.products;
 
   return (
     <>
@@ -46,48 +49,57 @@ export default function TheProduct(props: any) {
         <Grid container spacing={0}>
           {showTheProduct.data.map((item: any, index: any) => (
             <Grid item key={index} xs={12} md={6} sx={{ mt: "10px" }}>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Box
-                  sx={{
-                    minWidth: "42px",
-                    minHeight: "42px",
-                    position: "relative",
-                    border: "0.1px solid #cdc",
-                  }}
-                >
-                  {item.attributes.Image_Tile_Face.data && (
-                    <Image
-                      src={
-                        item.attributes?.Image_Tile_Face.data[0].attributes
-                          ?.formats.thumbnail.url
-                      }
-                      fill
-                      alt=""
-                      style={{
-                        border: "1px solid lightGray",
-                      }}
-                    />
-                  )}
-                </Box>
-                <Box sx={{ ml: "10px" }}>
-                  <Typography sx={{ fontSize: "12px", fontWeight: "bold" }}>
-                    {item.attributes?.Name}
-                  </Typography>
-                  <Typography
+              <Link underline="none" href={item.id.toString() == props.showHightlight ? "#" : `/range/${item.id}`}>
+                <Box sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  bgcolor: item.id.toString() == props.showHightlight ? 'grey' : 'none',
+                  borderBottom: item.id.toString() == props.showHightlight ? "4px solid #14b9b9" : 'none',
+                }}>
+                  <Box
                     sx={{
-                      fontSize: "12px",
-                      fontWeight: "400",
-                      color: "#808080",
+                      minWidth: "42px",
+                      minHeight: "42px",
+                      position: "relative",
+                      border: item.id.toString() == props.showHightlight ? "none" : "1px solid #cdcdcd",
+                      m: '4px 0 0 4px'
                     }}
                   >
-                    {item.attributes?.tile_dimension.data.attributes?.Dimension}
-                  </Typography>
+                    {item.attributes.Image_Tile_Face.data && (
+                      <Image
+                        src={
+                          item.attributes?.Image_Tile_Face.data[0].attributes
+                            ?.formats.thumbnail.url
+                        }
+                        fill
+                        alt=""
+                      />
+                    )}
+                  </Box>
+                  <Box sx={{ ml: "10px" }}>
+                    <Typography sx={{
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                      color: item.id.toString() == props.showHightlight ? '#fff' : '#000',
+                    }}>
+                      {item.attributes?.Name}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "12px",
+                        fontWeight: "400",
+                        color: item.id.toString() == props.showHightlight ? '#ededed' : '#808080',
+                      }}
+                    >
+                      {item.attributes?.tile_dimension.data.attributes?.Dimension}
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
+              </Link>
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </Box >
     </>
   );
 }

@@ -12,7 +12,9 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import CircleIcon from "@mui/icons-material/Circle";
 
-export default function ProductDescription({ props, data }: any) {
+export default function ProductDescription({ props, data, hightlight }: any) {
+  const pathSegments = hightlight.asPath.split('/');
+  const idPath = pathSegments[pathSegments.length - 1];
   return (
     <>
       <Grid
@@ -41,8 +43,8 @@ export default function ProductDescription({ props, data }: any) {
               {data.tile_type.data === null
                 ? "Porcelain Tiles"
                 : data.tile_type.data.attributes.Type === "Sun Glazed"
-                ? "Sun Glazed Ceramic Tiles"
-                : "Porcelain Tiles"}
+                  ? "Sun Glazed Ceramic Tiles"
+                  : "Porcelain Tiles"}
             </Typography>
             <Typography
               sx={{
@@ -118,7 +120,7 @@ export default function ProductDescription({ props, data }: any) {
                 {props.productOnly.data.attributes.tile_color?.data?.attributes
                   ?.Name
                   ? props.productOnly.data.attributes.tile_color.data.attributes
-                      .Name + " color"
+                    .Name + " color"
                   : "No Input data"}
               </Link>
             </Stack>
@@ -131,7 +133,16 @@ export default function ProductDescription({ props, data }: any) {
               pt: "20px",
             }}
           >
-            <Typography sx={{ fontSize: "16px", fontWeight: "medium" }}>
+            <Typography sx={{
+              fontSize: "16px",
+              fontWeight: "medium",
+              wordBreak: "break-word",
+              display: "-webkit-box",
+              WebkitBoxOrient: "vertical",
+              WebkitLineClamp: "5",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}>
               {data.Description === null
                 ? "Minim fugiat culpa culpa veniam do tempor aliquip aliquip id amet qui proident. Nostrud sunt aliquip ipsum et voluptate commodo. Ullamco sint quis aliquip do nisi. Do culpa duis deserunt adipisicing. Officia culpa voluptate fugiat veniam laboris excepteur duis. Sunt voluptate reprehenderit tempor aliqua reprehenderit. Culpa deserunt qui sint eiusmod."
                 : data.Description}
@@ -154,7 +165,10 @@ export default function ProductDescription({ props, data }: any) {
             }}
           >
             <Box sx={{ width: "100%" }}>
-              <TheProduct showp={props.product} />
+              <TheProduct
+                showProducts={props.product}
+                showHightlight={idPath}
+              />
             </Box>
           </Box>
 
