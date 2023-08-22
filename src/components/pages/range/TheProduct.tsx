@@ -28,8 +28,6 @@ export default function TheProduct(props: any) {
   console.log(props.showProducts);
   console.log(props.showHightlight); //show last path
 
-
-
   const showTheProduct =
     props.showProducts.data.attributes?.motif.data.attributes?.products;
 
@@ -49,20 +47,38 @@ export default function TheProduct(props: any) {
         <Grid container spacing={0}>
           {showTheProduct.data.map((item: any, index: any) => (
             <Grid item key={index} xs={12} md={6} sx={{ mt: "10px" }}>
-              <Link underline="none" href={item.id.toString() == props.showHightlight ? "#" : `/range/${item.id}`}>
-                <Box sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  bgcolor: item.id.toString() == props.showHightlight ? 'grey' : 'none',
-                  borderBottom: item.id.toString() == props.showHightlight ? "4px solid #14b9b9" : 'none',
-                }}>
+              <Link
+                underline="none"
+                href={
+                  item.id.toString() == props.showHightlight
+                    ? "#"
+                    : `/range/${item.id}`
+                }
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    bgcolor:
+                      item.id.toString() == props.showHightlight
+                        ? "grey"
+                        : "none",
+                    borderBottom:
+                      item.id.toString() == props.showHightlight
+                        ? "4px solid #14b9b9"
+                        : "none",
+                  }}
+                >
                   <Box
                     sx={{
                       minWidth: "42px",
                       minHeight: "42px",
                       position: "relative",
-                      border: item.id.toString() == props.showHightlight ? "none" : "1px solid #cdcdcd",
-                      m: '4px 0 0 4px'
+                      border:
+                        item.id.toString() == props.showHightlight
+                          ? "none"
+                          : "1px solid #cdcdcd",
+                      m: "4px 0 4px 4px",
                     }}
                   >
                     {item.attributes.Image_Tile_Face.data && (
@@ -77,21 +93,32 @@ export default function TheProduct(props: any) {
                     )}
                   </Box>
                   <Box sx={{ ml: "10px" }}>
-                    <Typography sx={{
-                      fontSize: "12px",
-                      fontWeight: "bold",
-                      color: item.id.toString() == props.showHightlight ? '#fff' : '#000',
-                    }}>
+                    <Typography
+                      sx={{
+                        fontSize: "12px",
+                        fontWeight: "bold",
+                        color:
+                          item.id.toString() == props.showHightlight
+                            ? "#fff"
+                            : "#000",
+                      }}
+                    >
                       {item.attributes?.Name}
                     </Typography>
                     <Typography
                       sx={{
                         fontSize: "12px",
                         fontWeight: "400",
-                        color: item.id.toString() == props.showHightlight ? '#ededed' : '#808080',
+                        color:
+                          item.id.toString() == props.showHightlight
+                            ? "#ededed"
+                            : "#808080",
                       }}
                     >
-                      {item.attributes?.tile_dimension.data.attributes?.Dimension}
+                      {
+                        item.attributes?.tile_dimension.data.attributes
+                          ?.Dimension
+                      }
                     </Typography>
                   </Box>
                 </Box>
@@ -99,7 +126,7 @@ export default function TheProduct(props: any) {
             </Grid>
           ))}
         </Grid>
-      </Box >
+      </Box>
     </>
   );
 }

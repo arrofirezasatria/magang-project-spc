@@ -76,16 +76,23 @@ export default function ProductSpecification({ props, data }: any) {
   const [totalPrice, setTotalPrice] = React.useState(0);
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
+    console.log("something");
     console.log(props);
-
+    console.log(
+      props.productOnly.data.attributes.Image_Tile_Face.data[0].attributes
+        .formats.thumbnail.url
+    );
     dispatch(
       addToCart({
-        id: 1,
+        id: props.product.data.id,
         code: "gs12370",
-        name: "Lasa Bianca",
-        dimension: "30x60cm",
+        name: props.productOnly.data.attributes.Name,
+        dimension:
+          props.productOnly.data.attributes.tile_dimension.data.attributes
+            .Dimension,
         imageSrc:
-          "https://strapi-rezero-space.sgp1.digitaloceanspaces.com/a1b4ac4d518697d8ae6d688493fbdbad.webp",
+          props.productOnly.data.attributes.Image_Tile_Face.data[0].attributes
+            .formats.thumbnail.url,
         quantity: 5,
         pricePerBox: 300000,
         priceTotal: 1500000,
