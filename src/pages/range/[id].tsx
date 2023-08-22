@@ -87,21 +87,6 @@ export default function Page(props: any) {
         <AddressProduct />
         <ProductDescription props={props} data={data} hightlight={idRouter} />
 
-        <Box sx={{ display: "none" }}>
-          <AppsBar />
-          <Box>{data.attributes?.Slug}</Box>
-          <Typography>Product name : {data.attributes?.Name}</Typography>
-          <Typography>Price : {data.attributes?.Price}</Typography>
-          {/* <Button
-            onClick={() => {
-              console.log("somethinsadasd");
-              dispatch(increment());
-            }}
-          >
-            add to Cart
-          </Button> */}
-          {/* <CartButton addToCart={"add to cart"} /> */}
-        </Box>
         <ProductSpecification props={props} data={data} />
       </ProductLayout>
       <AltProductRanges

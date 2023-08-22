@@ -1,47 +1,21 @@
-import {
-  Box,
-  Button,
-  Grid,
-  Tabs,
-  ListItemIcon,
-  AppBar,
-  Typography,
-  ListItemText,
-  ListItemButton,
-  Divider,
-  MenuItem,
-  Toolbar,
-  IconButton,
-  Link,
-  Menu,
-  Popover,
-  FormControl,
-  Collapse,
-  InputLabel,
-  Select,
-  Paper,
-  Tab,
-} from "@mui/material";
+import { Box, Button, Grid, Tabs, AppBar, Typography, Divider, MenuItem, Toolbar, Link, Popover, Collapse, Tab, Grow, IconButton, Stack } from "@mui/material";
 // import { GetStaticProps } from "next";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Image from "next/image";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import SearchIcon from "@mui/icons-material/Search";
-import LockPersonIcon from "@mui/icons-material/LockPerson";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import zIndex from "@mui/material/styles/zIndex";
 import React, { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { useSelector } from "react-redux";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
 const headers = {
   Authorization:
     "Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c",
 };
 
-const fetcher2 = (url: RequestInfo | URL) =>
-  fetch(url, { headers }).then((res) => res.json());
+const fetcher2 = (url: RequestInfo | URL) => fetch(url, { headers }).then((res) => res.json());
 
 interface TabPanelProps {
   children: React.ReactNode;
@@ -50,11 +24,7 @@ interface TabPanelProps {
 }
 
 const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
-  return (
-    <div hidden={value !== index}>
-      {value === index && <Box p={3}>{children}</Box>}
-    </div>
-  );
+  return <div hidden={value !== index}>{value === index && <Box p={3}>{children}</Box>}</div>;
 };
 
 const productStyles = [
@@ -174,33 +144,11 @@ const DropdownFilter = [
   },
   {
     nama: "Styles",
-    Subitem: [
-      "Stone",
-      "concrete",
-      "Marble",
-      "Wood",
-      "Colours",
-      "White",
-      "Structure",
-      "patern",
-      "Shape",
-      "Speckle",
-      "Mosaic",
-    ],
+    Subitem: ["Stone", "concrete", "Marble", "Wood", "Colours", "White", "Structure", "patern", "Shape", "Speckle", "Mosaic"],
   },
   {
     nama: "Materials",
-    Subitem: [
-      "Glazed Ceramic",
-      "Natural Stone & Glass",
-      "Natural Stone",
-      "Glass",
-      "Ceramic",
-      "Un-Glazed Porcelain",
-      "Glazed Vitrified",
-      "Porcelain",
-      "Glazed Porcelain",
-    ],
+    Subitem: ["Glazed Ceramic", "Natural Stone & Glass", "Natural Stone", "Glass", "Ceramic", "Un-Glazed Porcelain", "Glazed Vitrified", "Porcelain", "Glazed Porcelain"],
   },
   {
     nama: "Colours",
@@ -211,25 +159,11 @@ const DropdownFilter = [
 const NavbarAbout = [
   {
     name: "About Us",
-    Subitems: [
-      "Our Company",
-      "Our Story: A Potted History",
-      "We Make It. Sustainable",
-      "Accreditations and Awards",
-      "Manufacturing Processes",
-    ],
+    Subitems: ["Our Company", "Our Story: A Potted History", "We Make It. Sustainable", "Accreditations and Awards", "Manufacturing Processes"],
   },
   {
     name: "Services",
-    Subitems: [
-      "Color Genie",
-      "Mood Boards",
-      "CPD Suite",
-      "Samples & Merchandising",
-      "Take Note Time Capsule",
-      "Podcast",
-      "Material Lab",
-    ],
+    Subitems: ["Color Genie", "Mood Boards", "CPD Suite", "Samples & Merchandising", "Take Note Time Capsule", "Podcast", "Material Lab"],
   },
   {
     name: "Sectors",
@@ -237,13 +171,7 @@ const NavbarAbout = [
   },
   {
     name: "Projects",
-    Subitems: [
-      "Residential",
-      "Commercial",
-      "Hospitaly & Leisure",
-      "Care & Education",
-      "Spesials",
-    ],
+    Subitems: ["Residential", "Commercial", "Hospitaly & Leisure", "Care & Education", "Spesials"],
   },
   {
     name: "News",
@@ -252,22 +180,21 @@ const NavbarAbout = [
 ];
 
 export default function NavbarProduct() {
+  const count = useSelector(
+    (state) =>
+      // @ts-ignore
+      state.counter.count
+  );
   const [activeTab, setActiveTab] = useState(0);
 
-  const handleChangeTab = (
-    event: any,
-    newValue: React.SetStateAction<number>
-  ) => {
+  const handleChangeTab = (event: any, newValue: React.SetStateAction<number>) => {
     setActiveTab(newValue);
   };
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedDropdown, setSelectedDropdown] = useState(null);
 
-  const handleDropdownOpen = (
-    event: { currentTarget: React.SetStateAction<null> },
-    index: React.SetStateAction<null>
-  ) => {
+  const handleDropdownOpen = (event: { currentTarget: React.SetStateAction<null> }, index: React.SetStateAction<null>) => {
     setAnchorEl(event.currentTarget);
     setSelectedDropdown(index);
   };
@@ -319,18 +246,28 @@ export default function NavbarProduct() {
       namanavbar: "About",
       dropdown: (
         <Box sx={{ p: "25px" }}>
-          <MenuItem>Our Company</MenuItem>
-          <MenuItem>Our Story: A Potted History</MenuItem>
-          <MenuItem>We Make It. Sustainable</MenuItem>
-          <MenuItem>Accreditations and Awards</MenuItem>
-          <MenuItem>Manufacturing Processes</MenuItem>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Our Company</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Our Story: A Potted History</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>We Make It. Sustainable</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Accreditations and Awards</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Manufacturing Processes</MenuItem>
+          </Link>
         </Box>
       ),
     },
     {
       namanavbar: "Product",
       dropdown: (
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: "1200px" }}>
           <Tabs
             value={activeTab}
             onChange={handleChangeTab}
@@ -339,7 +276,7 @@ export default function NavbarProduct() {
               width: "100%",
               display: "flex",
               flexDirection: "row",
-              backgroundColor: "#e6e6e6",
+              backgroundColor: "#dcdcdc",
               "& .MuiTabs-indicator": {
                 backgroundColor: "black", // Change the underline color to black
               },
@@ -348,9 +285,8 @@ export default function NavbarProduct() {
             {productData.map((item, index) => (
               <Tab
                 sx={{
-                  backgroundColor: "#e6e6e6",
                   width: "1160px",
-                  color: "grey",
+                  color: "#989898",
                   textAlign: "center",
                   typography: {
                     fontWeight: "bold", // Change the fontWeight value as needed
@@ -374,164 +310,35 @@ export default function NavbarProduct() {
               <Grid container spacing={3}>
                 {item.data.map((product, productIndex) => (
                   <Grid item md={2} key={productIndex}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          position: "relative",
-                          width: "170px",
-                          height: "299px",
-                        }}
-                      >
-                        <Image
-                          src={product.imgSrc}
-                          fill
-                          alt={`Gambar ${productIndex}`}
-                        />
+                    <Link href="#" sx={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none" }}>
+                      <Box sx={{ position: "relative", width: "170px", height: "299px" }}>
+                        <Image src={product.imgSrc} fill alt={`Gambar ${productIndex}`} />
                       </Box>
-                      <Typography
-                        variant="subtitle1"
-                        sx={{
-                          textAlign: "center",
-                          width: "170px",
-                          marginTop: "8px",
-                        }}
-                      >
+                      <Typography variant="subtitle1" sx={{ textAlign: "center", fontSize: "14px", width: "170px", marginTop: "8px", color: "black" }}>
                         {product.text}
                       </Typography>
-                    </Box>
+                    </Link>
                   </Grid>
                 ))}
               </Grid>
             </TabPanel>
           ))}
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              mt: "20px",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: "1150px",
-                py: "20px",
-                borderTop: "2px dotted #868686",
-              }}
-            >
-              <Link
-                sx={{
-                  textDecoration: "none",
-                  display: "flex",
-                  flexDirection: "row",
-                }}
-              >
-                <Typography
-                  sx={{
-                    mr: "5px",
-                    fontSize: "18px",
-                    color: "grey",
-                    fontWeight: "medium",
-                  }}
-                >
-                  View All
-                </Typography>
-                <Typography
-                  sx={{
-                    mr: "5px",
-                    fontSize: "18px",
-                    color: "grey",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Product Style
-                </Typography>
+          <Box sx={{ width: "100%", display: "flex", justifyContent: "center", mt: "20px" }}>
+            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "1150px", py: "20px", borderTop: "2px dotted #868686" }}>
+              <Link sx={{ textDecoration: "none", display: "flex", flexDirection: "row" }}>
+                <Typography sx={{ mr: "5px", fontSize: "14px", color: "#989898", fontWeight: "medium" }}>View All</Typography>
+                <Typography sx={{ mr: "5px", fontSize: "14px", color: "#989898", fontWeight: "bold" }}>Product Style</Typography>
               </Link>
               <Box sx={{ display: "flex", flexDirection: "row" }}>
-                <Link
-                  sx={{
-                    textDecoration: "none",
-                    display: "flex",
-                    flexDirection: "row",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      mr: "5px",
-                      fontSize: "18px",
-                      color: "grey",
-                      fontWeight: "medium",
-                    }}
-                  >
-                    All Ranges
-                  </Typography>
-                  <Typography
-                    sx={{
-                      mr: "5px",
-                      fontSize: "18px",
-                      color: "grey",
-                      fontWeight: "medium",
-                    }}
-                  >
-                    -
-                  </Typography>
-                  <Typography
-                    sx={{
-                      mr: "5px",
-                      fontSize: "18px",
-                      color: "grey",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    A to Z
-                  </Typography>
+                <Link sx={{ textDecoration: "none", display: "flex", flexDirection: "row" }}>
+                  <Typography sx={{ mr: "5px", fontSize: "14px", color: "#989898", fontWeight: "medium" }}>All Ranges</Typography>
+                  <Typography sx={{ mr: "5px", fontSize: "14px", color: "#989898", fontWeight: "medium" }}>-</Typography>
+                  <Typography sx={{ mr: "5px", fontSize: "14px", color: "#989898", fontWeight: "bold" }}>A to Z</Typography>
                 </Link>
-                <Link
-                  sx={{
-                    textDecoration: "none",
-                    display: "flex",
-                    flexDirection: "row",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      mr: "5px",
-                      fontSize: "18px",
-                      color: "grey",
-                      fontWeight: "medium",
-                    }}
-                  >
-                    All Ranges
-                  </Typography>
-                  <Typography
-                    sx={{
-                      mr: "5px",
-                      fontSize: "18px",
-                      color: "grey",
-                      fontWeight: "medium",
-                    }}
-                  >
-                    -
-                  </Typography>
-                  <Typography
-                    sx={{
-                      mr: "5px",
-                      fontSize: "18px",
-                      color: "grey",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    New
-                  </Typography>
+                <Link sx={{ textDecoration: "none", display: "flex", flexDirection: "row" }}>
+                  <Typography sx={{ mr: "5px", fontSize: "16px", color: "#989898", fontWeight: "medium" }}>All Ranges</Typography>
+                  <Typography sx={{ mr: "5px", fontSize: "16px", color: "#989898", fontWeight: "medium" }}>-</Typography>
+                  <Typography sx={{ mr: "5px", fontSize: "16px", color: "#989898", fontWeight: "bold" }}>New</Typography>
                 </Link>
               </Box>
             </Box>
@@ -543,13 +350,27 @@ export default function NavbarProduct() {
       namanavbar: "Services",
       dropdown: (
         <Box sx={{ p: "25px" }}>
-          <MenuItem>Color Genie</MenuItem>
-          <MenuItem>Mood Boards</MenuItem>
-          <MenuItem>CPD Suite</MenuItem>
-          <MenuItem>Samples & Merchandising</MenuItem>
-          <MenuItem>Take Note Time Capsule</MenuItem>
-          <MenuItem>Podcast</MenuItem>
-          <MenuItem>Material Lab</MenuItem>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Color Genie</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Mood Boards</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>CPD Suite</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Samples & Merchandising</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Take Note Time Capsule</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Podcast</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Material Lab</MenuItem>
+          </Link>
         </Box>
       ),
     },
@@ -557,8 +378,12 @@ export default function NavbarProduct() {
       namanavbar: "Sector",
       dropdown: (
         <Box sx={{ p: "25px" }}>
-          <MenuItem>Residential</MenuItem>
-          <MenuItem>Commersial</MenuItem>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Residential</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Commersial</MenuItem>
+          </Link>
         </Box>
       ),
     },
@@ -566,14 +391,28 @@ export default function NavbarProduct() {
       namanavbar: "Project",
       dropdown: (
         <Box sx={{ p: "25px" }}>
-          <MenuItem>Residential</MenuItem>
-          <MenuItem>Commersial</MenuItem>
-          <MenuItem>CPD Suite</MenuItem>
-          <MenuItem>Hospitaly & Leisure</MenuItem>
-          <MenuItem>Care & Education</MenuItem>
-          <MenuItem>Specials</MenuItem>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Residential</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Commersial</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>CPD Suite</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Hospitaly & Leisure</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Care & Education</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Specials</MenuItem>
+          </Link>
           <Divider />
-          <MenuItem>Show All</MenuItem>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Show All</MenuItem>
+          </Link>
         </Box>
       ),
     },
@@ -581,12 +420,22 @@ export default function NavbarProduct() {
       namanavbar: "News",
       dropdown: (
         <Box sx={{ p: "25px" }}>
-          <MenuItem>Company</MenuItem>
-          <MenuItem>Inspiration</MenuItem>
-          <MenuItem>Product</MenuItem>
-          <MenuItem>Colaboration</MenuItem>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Company</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Inspiration</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Product</MenuItem>
+          </Link>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Colaboration</MenuItem>
+          </Link>
           <Divider />
-          <MenuItem>Show All</MenuItem>
+          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>Show All</MenuItem>
+          </Link>
         </Box>
       ),
     },
@@ -597,55 +446,13 @@ export default function NavbarProduct() {
 
   return (
     <>
-      <Grid sx={{ position: "Fixed", zIndex: "9", width: "100%" }}>
+      {/* Tampilan mobile navbar */}
+      <Grid sx={{ position: "static", zIndex: "9", width: "100%" }}>
         <Grid display={{ xs: "flex", lg: "none" }} sx={{ width: "100%" }}>
-          <Box
-            sx={{
-              p: "25px",
-              width: "100%",
-              display: "flex",
-              backgroundColor: "white",
-              height: "50px",
-              position: "absolute",
-              zIndex: "9",
-              opacity: "0.5",
-            }}
-          ></Box>
-          <Box
-            display="flex"
-            sx={{
-              width: "100%",
-              p: "25px",
-              justifyContent: "space-around",
-              zIndex: "10",
-              backgroundColor: isScrolled ? "white" : "white",
-              transition: "background-color 0.3s",
-            }}
-          >
-            <Link
-              display="flex"
-              flexDirection="row"
-              sx={{
-                height: "49px",
-                alignItems: "center",
-                textDecoration: "none",
-                cursor: "pointer",
-              }}
-            >
-              <Button
-                sx={{
-                  width: "150px",
-                  height: "50px",
-                  position: "relative",
-                  mr: "10px",
-                }}
-              >
-                <Image
-                  src={"/static/images/Sunpower.png"}
-                  fill
-                  alt={""}
-                  style={{}}
-                />
+          <Box display="flex" sx={{ width: "100%", p: "25px", justifyContent: "space-around", zIndex: "10", backgroundColor: isScrolled ? "white" : "white", transition: "background-color 0.3s" }}>
+            <Link display="flex" flexDirection="row" sx={{ height: "49px", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
+              <Button sx={{ width: "150px", height: "50px", position: "relative", mr: "10px" }}>
+                <Image src={"/static/images/Sunpower.png"} fill alt={""} style={{}} />
               </Button>
             </Link>
             <Button sx={{ color: "black" }} onClick={() => setOpen(!open)}>
@@ -654,22 +461,20 @@ export default function NavbarProduct() {
           </Box>
         </Grid>
         <Grid display={{ xs: "flex", lg: "none" }} sx={{ width: "100%" }}>
-          <Box>
+          <Box sx={{ height: "100%" }}>
             {open && (
               <Box
                 sx={{
                   backgroundColor: "White",
-                  position: "absolute ",
+                  position: "absolute",
                   width: "100%",
                   zIndex: "2",
                   boxShadow: "0px 0px 0px 0px rgba(0,0,0,0.75)",
+                  overflowY: "scroll",
+                  height: "100vh", // Use viewport height unit
                 }}
               >
-                <Grid
-                  container
-                  spacing={0}
-                  sx={{ px: "24px", my: 2, mb: "80px" }}
-                >
+                <Grid container spacing={0} sx={{ px: "24px", my: 2, mb: "80px" }}>
                   <Button
                     sx={{
                       p: "6px 8px",
@@ -688,6 +493,32 @@ export default function NavbarProduct() {
                   >
                     Home
                   </Button>
+
+                  <Stack
+                    sx={{
+                      alignItems: "center",
+                      flexDirection: "row",
+                      p: "6px 8px",
+                      fontWeight: "Medium",
+                      textTransform: "capitalize",
+                      color: "black",
+                      letterSpacing: 0.5,
+                      fontSize: "16px",
+                      display: "flex",
+                      width: "100%",
+                      borderBottom: "1px solid #999",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Box display="flex" flexDirection="row" alignItems="center">
+                      <Button sx={{ color: "black", p: "0px", minWidth: "0px", typography: { fontSize: "16px", fontWeight: "medium", textTransform: "capitalize" } }}>Cart</Button>
+                      <Typography sx={{ color: "black", fontWeight: "medium", lineHeight: "10px", ml: "10px", fontSize: "16px" }}>( {count} )</Typography>
+                    </Box>
+                    <IconButton sx={{ p: "0px" }}>
+                      <ShoppingCartOutlinedIcon fontSize="medium" style={{ color: "black" }} />
+                    </IconButton>
+                  </Stack>
+
                   {NavbarAbout.map((filter, index) => (
                     <Grid item key={index} xs={12} md={12}>
                       <Box sx={{}}>
@@ -705,12 +536,6 @@ export default function NavbarProduct() {
                               alignItems: "center",
                               width: "100%",
                               justifyContent: "space-between",
-                              "&:hover": {
-                                color: "black",
-                              },
-                              "&.Mui-selected": {
-                                color: "black",
-                              },
                             },
                           }}
                           // @ts-ignore
@@ -725,11 +550,7 @@ export default function NavbarProduct() {
 
                           {
                             // @ts-ignore
-                            orOpen === index ? (
-                              <KeyboardArrowUpIcon />
-                            ) : (
-                              <KeyboardArrowDownIcon />
-                            )
+                            orOpen === index ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
                           }
                         </Button>
                         <Collapse
@@ -832,11 +653,7 @@ export default function NavbarProduct() {
                           {filter.nama}
                           {
                             // @ts-ignore
-                            isOpen === index ? (
-                              <KeyboardArrowUpIcon />
-                            ) : (
-                              <KeyboardArrowDownIcon />
-                            )
+                            isOpen === index ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
                           }
                         </Button>
                         <Collapse
@@ -877,186 +694,157 @@ export default function NavbarProduct() {
         </Grid>
       </Grid>
 
-      <Grid>
+      <Box display={{ xs: "none", lg: "flex" }} flexDirection="row" sx={{ position: "static", zIndex: "5", width: "100%" }}>
+        <Box sx={{ width: "100%", display: "flex", height: "80px", position: "absolute", zIndex: "9", opacity: "0" }}></Box>
         <Box
           display={{ xs: "none", lg: "flex" }}
           flexDirection="row"
-          sx={{ position: "fixed", zIndex: "5", width: "100%" }}
+          sx={{
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+            height: "80px",
+            position: "relative",
+            zIndex: "10",
+
+            // backgroundColor: isScrolled ? "white" : "transparent", transition: "background-color 0.3s"
+          }}
         >
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              backgroundColor: "white",
-              height: "80px",
-              position: "absolute",
-              zIndex: "9",
-              opacity: "0",
-            }}
-          ></Box>
-          <Box
-            display={{ xs: "none", lg: "flex" }}
-            flexDirection="row"
-            sx={{
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-              height: "80px",
-              position: "relative",
-              zIndex: "10",
-              backgroundColor: isScrolled ? "white" : "transparent",
-              transition: "background-color 0.3s",
-            }}
-          >
-            <Box sx={{ ml: "185px" }}>
-              <Link
-                display="flex"
-                flexDirection="row"
-                sx={{
-                  width: "100%",
-                  height: "49px",
-                  alignItems: "center",
-                  textDecoration: "none",
-                  cursor: "pointer",
-                }}
-              >
-                <Button
-                  sx={{
-                    width: "230px",
-                    height: "60px",
-                    position: "relative",
-                    mr: "10px",
-                  }}
-                >
-                  <Image
-                    src={"/static/images/Sunpower.png"}
-                    fill
-                    alt={""}
-                    style={{}}
-                  />
-                </Button>
-              </Link>
-            </Box>
-            <Box sx={{}}>
-              <Toolbar sx={{ zIndex: "2", mr: "180px", p: "0", width: "100%" }}>
-                <List
-                  component="nav"
-                  sx={{
-                    display: "flex",
-                    p: "0",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  {logoNavbar.map((item, index) => (
-                    <ListItem
-                      key={index}
-                      component="li"
-                      sx={{ marginRight: "10px", p: "0" }}
-                    >
-                      {item.dropdown ? (
-                        <Box>
-                          <Button
-                            sx={{
-                              py: "10px",
-                              px: "20px",
-                              position: "relative",
-                              typography: {
-                                letterSpacing: 2, // Use a number for letter spacing
-                                color: isScrolled ? "black" : "white",
-                                transition: "color 0.3s",
-                                "&:hover": {
-                                  color: "black",
-                                },
-                              },
-                              "&::after": {
-                                content: '""',
-                                position: "absolute",
-                                bottom: 0,
-                                left: 0,
-                                width: "100%",
-                                height: "2px",
-                                backgroundColor: "black",
-                                transform: "scaleX(0)", // Start with no underline
-                                transformOrigin: "left", // Underline origin from left
-                                transition: "transform 0.2s ease-out", // Add a smooth transition for the underline
-                              },
-                              "&:hover::after": {
-                                transform: "scaleX(1)", // Show the underline on hover
-                              },
-                            }}
-                            onClick={(event) =>
-                              // @ts-ignore
-                              handleDropdownOpen(event, index)
-                            }
-                          >
-                            {item.namanavbar}
-                          </Button>
-                          <Popover
-                            id={`dropdown-${index}`}
-                            open={selectedDropdown === index}
-                            anchorEl={anchorEl}
-                            onClose={handleDropdownClose}
-                            anchorOrigin={{
-                              vertical: "bottom",
-                              horizontal: "left",
-                            }}
-                            transformOrigin={{
-                              vertical: "top",
-                              horizontal: "left",
-                            }}
-                            PaperProps={{
-                              sx: {
-                                mt: "17px",
-                                p: "0",
-                              },
-                            }}
-                          >
-                            {item.dropdown}
-                          </Popover>
-                        </Box>
-                      ) : (
+          <Box sx={{ ml: "185px" }}>
+            <Link display="flex" flexDirection="row" sx={{ width: "100%", height: "49px", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
+              <Button sx={{ width: "160px", height: "52px", position: "relative", mr: "10px" }}>
+                <Image src={"/static/images/Sunpower.png"} fill alt={""} style={{}} />
+              </Button>
+            </Link>
+          </Box>
+          <Box sx={{}}>
+            <Toolbar sx={{ zIndex: "2", mr: "180px", p: "0", width: "" }}>
+              <List component="nav" sx={{ display: "flex", p: "0", justifyContent: "space-between" }}>
+                {logoNavbar.map((item, index) => (
+                  <ListItem key={index} component="li" sx={{ marginRight: "10px", p: "0" }}>
+                    {item.dropdown ? (
+                      <Box>
                         <Button
                           sx={{
                             py: "10px",
-
                             px: "20px",
                             position: "relative",
                             typography: {
-                              letterSpacing: 2, // Use a number for letter spacing
-                              color: isScrolled ? "black" : "white",
+                              letterSpacing: 1,
+                              color: isScrolled ? "black" : "black",
                               transition: "color 0.3s",
+                              fontSize: "12px",
+                              fontWeight: "bold",
                               "&:hover": {
                                 color: "black",
                               },
-                            }, // Add position relative to allow positioning of ::after pseudo-element
+                              "&.selected": {
+                                // Add this block for selected style
+                                color: "black",
+                                "&::after": {
+                                  transform: "scaleX(1)", // Show the underline when selected
+                                },
+                              },
+                            },
                             "&::after": {
                               content: '""',
                               position: "absolute",
                               bottom: 0,
                               left: 0,
                               width: "100%",
-                              height: "2px",
+                              height: "3px",
                               backgroundColor: "black",
-                              transform: "scaleX(0)", // Start with no underline
-                              transformOrigin: "left", // Underline origin from left
-                              transition: "transform 0.2s ease-out", // Add a smooth transition for the underline
+                              transform: "scaleX(0)",
+                              transformOrigin: "left",
+                              transition: "transform 0.2s ease-out",
                             },
-                            "&:hover::after": {
-                              transform: "scaleX(1)", // Show the underline on hover
+                            "&.selected::after": {
+                              // Add this block for selected style
+                              transform: "scaleX(1)", // Show the underline when selected
                             },
                           }}
+                          // @ts-ignore
+                          onClick={(event) => handleDropdownOpen(event, index)}
+                          className={selectedDropdown === index ? "selected" : ""}
                         >
                           {item.namanavbar}
                         </Button>
-                      )}
-                    </ListItem>
-                  ))}
-                </List>
-              </Toolbar>
-            </Box>
+
+                        <Popover
+                          id={`dropdown-${index}`}
+                          open={selectedDropdown === index}
+                          anchorEl={anchorEl}
+                          onClose={handleDropdownClose}
+                          anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "left",
+                          }}
+                          transformOrigin={{
+                            vertical: "top",
+                            horizontal: "left",
+                          }}
+                          TransitionComponent={Grow} // Use the Grow transition
+                          TransitionProps={{ timeout: 400, style: { transitionDelay: "100ms" } }} // Add a delay and adjust the timeout as needed
+                          PaperProps={{
+                            sx: {
+                              mt: "17px",
+                              p: "0",
+                              borderRadius: "10px",
+                            },
+                          }}
+                        >
+                          {item.dropdown}
+                        </Popover>
+                      </Box>
+                    ) : (
+                      <Button
+                        sx={{
+                          py: "10px",
+                          px: "20px",
+                          position: "relative",
+                          typography: {
+                            letterSpacing: 2, // Use a number for letter spacing
+                            color: isScrolled ? "black" : "black",
+                            transition: "color 0.3s",
+                            fontSize: "12px",
+                            fontWeight: "bold",
+                            "&:hover": {
+                              color: "black",
+                            },
+                          }, // Add position relative to allow positioning of ::after pseudo-element
+                          "&::after": {
+                            content: '""',
+                            position: "absolute",
+                            bottom: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "2px",
+                            backgroundColor: "black",
+                            transform: "scaleX(0)", // Start with no underline
+                            transformOrigin: "left", // Underline origin from left
+                            transition: "transform 0.2s ease-out", // Add a smooth transition for the underline
+                          },
+                          "&:hover::after": {
+                            transform: "scaleX(1)", // Show the underline on hover
+                          },
+                        }}
+                      >
+                        {item.namanavbar}
+                      </Button>
+                    )}
+                  </ListItem>
+                ))}
+                <Stack direction={"row"} display={"flex"} alignItems={"center"}>
+                  <IconButton>
+                    <ShoppingCartOutlinedIcon fontSize="medium" style={{ color: "black" }} />
+                  </IconButton>
+                  <Typography sx={{ color: "black", fontWeight: "bold" }}>{count}</Typography>
+                </Stack>
+              </List>
+            </Toolbar>
           </Box>
         </Box>
-      </Grid>
+      </Box>
     </>
   );
 }
