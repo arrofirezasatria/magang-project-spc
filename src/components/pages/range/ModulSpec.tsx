@@ -13,9 +13,6 @@ import {
 } from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
-import axios from "axios";
-import { data } from "cypress/types/jquery";
-import useSWR from "swr";
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -25,7 +22,8 @@ import { useState } from "react";
 export default function ModulSpec(props) {
   console.log("ini modulspec");
   console.log(
-    props.motif.motif.data?.attributes.tile_type.data?.attributes.Type
+    props.name.Name
+
   );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -800,7 +798,7 @@ export default function ModulSpec(props) {
     ];
   } else {
     // Nilai tileType tidak cocok dengan kondisi yang diharapkan
-    tableData = []; // Atur nilai default atau kosong
+    tableData = []; // Atur nil ai default atau kosong
   }
 
   return (
@@ -851,14 +849,14 @@ export default function ModulSpec(props) {
               width: "1200px",
               border: "1px solid #000",
               backgroundColor: "white",
-              overflow: "scroll",
-              height: "650px",
+              overflow: "hidden",
+
+              
             }}
           >
             <Box>
               <Box
                 sx={{
-                  width: "100%",
                   justifyContent: "space-between",
                   display: "flex",
                   flexDirection: "row",
@@ -875,7 +873,7 @@ export default function ModulSpec(props) {
                   >
                     <Image
                       src={
-                        "/static/images/bianco_BIA01A_white_marble_matt_600x300mm.jpg.275x275_q85_crop_upscale.jpg"
+                        props.name.Image_Tile_Face.data[0]?.attributes?.formats?.large?.url
                       }
                       fill
                       alt={""}
@@ -891,8 +889,7 @@ export default function ModulSpec(props) {
                         fontWeight: "bold",
                         mt: "7px",
                       }}
-                    >
-                      White Marble
+                    >{props.name.Name}
                     </Typography>
                   </Box>
                 </Box>
@@ -900,11 +897,11 @@ export default function ModulSpec(props) {
                   sx={{
                     mt: "35px",
                     backgroundColor: "black",
-                    mr: "50px",
+                    mr: "30px",
                     borderRadius: "10px",
                   }}
                 >
-                  <Button onClick={() => setIsModalOpen(false)}>
+                  <Button onClick={() => setIsModalOpen(false)} sx={{}}>
                     <Typography sx={{ color: "white" }}>Close</Typography>
                     <CloseIcon sx={{ ml: "10px", mt: "3px", color: "white" }} />
                   </Button>
@@ -970,11 +967,11 @@ export default function ModulSpec(props) {
                       }
                     </Typography>
                   </Box>
-                  <TableContainer component={Paper} sx={{}}>
-                    <Table>
+                  <TableContainer component={Paper} sx={{maxHeight:"70vh"}}>
+                    <Table sx={{height:"90%",overflow:"scroll"}}>
                       <TableHead>
                         <TableRow>
-                          <TableCell>Nama Navbar</TableCell>
+                          <TableCell>Description</TableCell>
                           <TableCell align="center">Persen</TableCell>
                           <TableCell
                             sx={{
