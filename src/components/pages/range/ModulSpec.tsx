@@ -849,16 +849,14 @@ export default function ModulSpec(props) {
               width: "1200px",
               border: "1px solid #000",
               backgroundColor: "white",
-              overflow: "",
-              height: "100%",
-              maxHeight: '100vh'
+              overflow: "hidden",
+
               
             }}
           >
             <Box>
               <Box
                 sx={{
-                  width: "100%",
                   justifyContent: "space-between",
                   display: "flex",
                   flexDirection: "row",
@@ -899,11 +897,11 @@ export default function ModulSpec(props) {
                   sx={{
                     mt: "35px",
                     backgroundColor: "black",
-                    mr: "50px",
+                    mr: "30px",
                     borderRadius: "10px",
                   }}
                 >
-                  <Button onClick={() => setIsModalOpen(false)}>
+                  <Button onClick={() => setIsModalOpen(false)} sx={{}}>
                     <Typography sx={{ color: "white" }}>Close</Typography>
                     <CloseIcon sx={{ ml: "10px", mt: "3px", color: "white" }} />
                   </Button>
@@ -969,8 +967,8 @@ export default function ModulSpec(props) {
                       }
                     </Typography>
                   </Box>
-                  <TableContainer component={Paper} sx={{ }}>
-                    <Table>
+                  <TableContainer component={Paper} sx={{maxHeight:"70vh"}}>
+                    <Table sx={{height:"90%",overflow:"scroll"}}>
                       <TableHead>
                         <TableRow>
                           <TableCell>Description</TableCell>

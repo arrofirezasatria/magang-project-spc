@@ -211,14 +211,12 @@ export default function ModulPacking(props: any) {
               width: "1200px",
               border: "1px solid #000",
               backgroundColor: "white",
-              overflow: "scroll",
-              height: "100%",
+              overflow: "hidden",
             }}
           >
             <Box>
               <Box
                 sx={{
-                  width: "100%",
                   justifyContent: "space-between",
                   display: "flex",
                   flexDirection: "row",
@@ -253,7 +251,7 @@ export default function ModulPacking(props: any) {
                   sx={{
                     mt: "35px",
                     backgroundColor: "black",
-                    mr: "50px",
+                    mr: "30px",
                     borderRadius: "10px",
                   }}
                 >

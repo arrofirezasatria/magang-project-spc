@@ -452,7 +452,7 @@ export default function ProductSpecification({ props, data }: any) {
                         flexBasis: "50%",
                       }}
                     >
-                      <ModulSpec motif={props?.motif?.data.attributes} />
+                      <ModulSpec motif={props?.motif?.data.attributes} name={props.productOnly.data.attributes} />
                     </Box>
                   </Box>
                   <Divider
@@ -485,7 +485,7 @@ export default function ProductSpecification({ props, data }: any) {
                         flexBasis: "50%",
                       }}
                     >
-                      <ModulPacking motif={props?.motif?.data.attributes} />
+                      <ModulPacking motif={props?.motif?.data.attributes} name={props.productOnly.data.attributes} />
                     </Box>
                   </Box>
                   <Divider

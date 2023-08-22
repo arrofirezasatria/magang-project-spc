@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Tabs, AppBar, Typography, Divider, MenuItem, Toolbar, Link, Popover, Collapse, Tab, Grow, IconButton, Stack } from "@mui/material";
+import { Box, Container, Button, Grid, Tabs, AppBar, Typography, Divider, MenuItem, Toolbar, Link, Popover, Collapse, Tab, Grow, IconButton, Stack, Drawer, TextField } from "@mui/material";
 // import { GetStaticProps } from "next";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Image from "next/image";
@@ -9,6 +9,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useSelector } from "react-redux";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import CloseIcon from "@mui/icons-material/Close";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import { NumericFormat } from "react-number-format";
 
 const headers = {
   Authorization:
@@ -226,6 +230,20 @@ export default function NavbarProduct() {
   useEffect(() => {
     setIsScrolled(scrollPosition > 100);
   }, [scrollPosition]);
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
+  const isCartExist = false;
+
+  const cart = useSelector(
+    (state) =>
+      // @ts-ignore
+      state.cart.cartItems
+  );
 
   const productData = [
     {
@@ -447,255 +465,254 @@ export default function NavbarProduct() {
   return (
     <>
       {/* Tampilan mobile navbar */}
-      <Grid sx={{ position: "static", zIndex: "9", width: "100%" }}>
-        <Grid display={{ xs: "flex", lg: "none" }} sx={{ width: "100%" }}>
-          <Box display="flex" sx={{ width: "100%", p: "25px", justifyContent: "space-around", zIndex: "10", backgroundColor: isScrolled ? "white" : "white", transition: "background-color 0.3s" }}>
-            <Link display="flex" flexDirection="row" sx={{ height: "49px", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
-              <Button sx={{ width: "150px", height: "50px", position: "relative", mr: "10px" }}>
-                <Image src={"/static/images/Sunpower.png"} fill alt={""} style={{}} />
+
+      <Container>
+        <Grid sx={{ position: "static", zIndex: "9", width: "100%" }}>
+          <Grid display={{ xs: "flex", lg: "none" }} sx={{ width: "100%" }}>
+            <Box display="flex" sx={{ width: "100%", py: "25px", justifyContent: "space-between", zIndex: "10", backgroundColor: isScrolled ? "white" : "white", transition: "background-color 0.3s" }}>
+              <Link display="flex" flexDirection="row" sx={{ height: "49px", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
+                <Button sx={{ width: "150px", height: "50px", position: "relative", mr: "10px" }}>
+                  <Image src={"/static/images/Sunpower.png"} fill alt={""} style={{}} />
+                </Button>
+              </Link>
+              <Button sx={{ color: "black" }} onClick={() => setOpen(!open)}>
+                <MenuIcon />
               </Button>
-            </Link>
-            <Button sx={{ color: "black" }} onClick={() => setOpen(!open)}>
-              <MenuIcon />
-            </Button>
-          </Box>
-        </Grid>
-        <Grid display={{ xs: "flex", lg: "none" }} sx={{ width: "100%" }}>
-          <Box sx={{ height: "100%" }}>
-            {open && (
-              <Box
-                sx={{
-                  backgroundColor: "White",
-                  position: "absolute",
-                  width: "100%",
-                  zIndex: "2",
-                  boxShadow: "0px 0px 0px 0px rgba(0,0,0,0.75)",
-                  overflowY: "scroll",
-                  height: "100vh", // Use viewport height unit
-                }}
-              >
-                <Grid container spacing={0} sx={{ px: "24px", my: 2, mb: "80px" }}>
-                  <Button
-                    sx={{
-                      p: "6px 8px",
-                      fontWeight: "Medium",
-                      borderRadius: "0",
-                      textTransform: "capitalize",
-                      color: "black",
-                      letterSpacing: 0.5,
-                      fontSize: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      width: "100%",
-                      justifyContent: "space-between",
-                      borderBottom: "1px solid #999",
-                    }}
-                  >
-                    Home
-                  </Button>
+            </Box>
+          </Grid>
+          <Grid display={{ xs: "flex", lg: "none" }} sx={{ width: "100%" }}>
+            <Box sx={{ height: "100%" }}>
+              {open && (
+                <Box
+                  sx={{
+                    backgroundColor: "White",
+                    width: "100%",
+                    zIndex: "2",
+                    boxShadow: "0px 0px 0px 0px rgba(0,0,0,0.75)",
+                    overflowY: "scroll",
+                    height: "100%", // Use viewport height unit
+                  }}
+                >
+                  <Grid container spacing={0} sx={{ px: "24px", my: 2, mb: "80px" }}>
+                    <Button
+                      sx={{
+                        p: "6px 8px",
+                        fontWeight: "Medium",
+                        borderRadius: "0",
+                        textTransform: "capitalize",
+                        color: "black",
+                        letterSpacing: 0.5,
+                        fontSize: "16px",
+                        display: "flex",
+                        alignItems: "center",
+                        width: "100%",
+                        justifyContent: "space-between",
+                        borderBottom: "1px solid #999",
+                      }}
+                    >
+                      Home
+                    </Button>
 
-                  <Stack
-                    sx={{
-                      alignItems: "center",
-                      flexDirection: "row",
-                      p: "6px 8px",
-                      fontWeight: "Medium",
-                      textTransform: "capitalize",
-                      color: "black",
-                      letterSpacing: 0.5,
-                      fontSize: "16px",
-                      display: "flex",
-                      width: "100%",
-                      borderBottom: "1px solid #999",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Box display="flex" flexDirection="row" alignItems="center">
-                      <Button sx={{ color: "black", p: "0px", minWidth: "0px", typography: { fontSize: "16px", fontWeight: "medium", textTransform: "capitalize" } }}>Cart</Button>
-                      <Typography sx={{ color: "black", fontWeight: "medium", lineHeight: "10px", ml: "10px", fontSize: "16px" }}>( {count} )</Typography>
-                    </Box>
-                    <IconButton sx={{ p: "0px" }}>
-                      <ShoppingCartOutlinedIcon fontSize="medium" style={{ color: "black" }} />
-                    </IconButton>
-                  </Stack>
-
-                  {NavbarAbout.map((filter, index) => (
-                    <Grid item key={index} xs={12} md={12}>
-                      <Box sx={{}}>
-                        <Button
-                          sx={{
-                            typography: {
-                              fontWeight: "Medium",
-                              textTransform: "Capitalize",
-                              borderRadius: "0",
-                              color: "black",
-                              fontSize: "16px",
-                              letterSpacing: 0.5,
-                              borderBottom: "1px solid #999",
-                              display: "flex",
-                              alignItems: "center",
-                              width: "100%",
-                              justifyContent: "space-between",
-                            },
-                          }}
-                          // @ts-ignore
-                          onClick={() =>
-                            setOrOpen(
-                              // @ts-ignore
-                              (prev) => (prev === index ? null : index)
-                            )
-                          }
-                        >
-                          {filter.name}
-
-                          {
-                            // @ts-ignore
-                            orOpen === index ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
-                          }
-                        </Button>
-                        <Collapse
-                          in={
-                            // @ts-ignore
-                            orOpen === index
-                          }
-                          timeout={600}
-                          unmountOnExit
-                        >
-                          <Box>
-                            {filter.Subitems.map((subitems, subindex) => (
-                              <MenuItem
-                                sx={{
-                                  backgroundColor: "White",
-                                  color: "grey",
-                                  "&:hover": {
-                                    fontWeight: "medium",
-                                    color: "#000",
-                                    cursor: "pointer",
-                                  },
-                                }}
-                                key={subindex}
-                                value={subitems}
-                              >
-                                {subitems}
-                              </MenuItem>
-                            ))}
-                          </Box>
-                        </Collapse>
+                    <Stack
+                      sx={{
+                        alignItems: "center",
+                        flexDirection: "row",
+                        p: "6px 8px",
+                        fontWeight: "Medium",
+                        textTransform: "capitalize",
+                        color: "black",
+                        letterSpacing: 0.5,
+                        fontSize: "16px",
+                        display: "flex",
+                        width: "100%",
+                        borderBottom: "1px solid #999",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Box display="flex" flexDirection="row" alignItems="center">
+                        <Button sx={{ color: "black", p: "0px", minWidth: "0px", typography: { fontSize: "16px", fontWeight: "medium", textTransform: "capitalize" } }}>Cart</Button>
+                        <Typography sx={{ color: "black", fontWeight: "medium", lineHeight: "10px", ml: "10px", fontSize: "16px" }}>( {count} )</Typography>
                       </Box>
-                    </Grid>
-                  ))}
-                  <Button
-                    sx={{
-                      p: "6px 8px",
-                      fontWeight: "Medium",
-                      color: "black",
-                      borderRadius: "0",
-                      textTransform: "capitalize",
-                      letterSpacing: 0.5,
-                      fontSize: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      width: "100%",
-                      justifyContent: "space-between",
-                      borderBottom: "1px solid #999",
-                    }}
-                  >
-                    Contact
-                  </Button>
-                  <Typography
-                    sx={{
-                      p: "6px 8px",
-                      mt: "40px",
-                      fontWeight: "medium",
-                      fontSize: "16px",
-                      color: "#999999",
-                      letterSpacing: 1,
-                      display: "flex",
-                      alignItems: "center",
-                      width: "100%",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    Product
-                  </Typography>
-                  {DropdownFilter.map((filter, index) => (
-                    <Grid item key={index} xs={12} md={12}>
-                      <Box sx={{}}>
-                        <Button
-                          sx={{
-                            typography: {
-                              fontWeight: "medium",
-                              color: "black",
-                              letterSpacing: 0.5,
-                              fontSize: "16px",
-                              display: "flex",
-                              alignItems: "center",
-                              textTransform: "capitalize",
-                              borderRadius: "0",
-                              borderBottom: "1px solid #999",
-                              width: "100%",
-                              justifyContent: "space-between",
-                              "&:hover": {
-                                color: "black",
-                              },
-                              "&.Mui-selected": {
-                                color: "black",
-                              },
-                            },
-                          }}
-                          onClick={() =>
-                            setIsOpen(
-                              // @ts-ignore
-                              (prev) => (prev === index ? null : index)
-                            )
-                          }
-                        >
-                          {filter.nama}
-                          {
-                            // @ts-ignore
-                            isOpen === index ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
-                          }
-                        </Button>
-                        <Collapse
-                          in={
-                            // @ts-ignore
-                            isOpen === index
-                          }
-                          timeout={600}
-                          unmountOnExit
-                        >
-                          <Box>
-                            {filter.Subitem.map((subitem, subindex) => (
-                              <MenuItem
-                                sx={{
-                                  backgroundColor: "White",
-                                  color: "grey",
-                                  "&:hover": {
-                                    fontWeight: "medium",
-                                    color: "#000",
-                                    cursor: "pointer",
-                                  },
-                                }}
-                                key={subindex}
-                                value={subitem}
-                              >
-                                {subitem}
-                              </MenuItem>
-                            ))}
-                          </Box>
-                        </Collapse>
-                      </Box>
-                    </Grid>
-                  ))}
-                </Grid>
-              </Box>
-            )}
-          </Box>
-        </Grid>
-      </Grid>
+                      <IconButton sx={{ p: "0px" }}>
+                        <ShoppingCartOutlinedIcon fontSize="medium" style={{ color: "black" }} />
+                      </IconButton>
+                    </Stack>
 
-      <Box display={{ xs: "none", lg: "flex" }} flexDirection="row" sx={{ position: "static", zIndex: "5", width: "100%" }}>
-        <Box sx={{ width: "100%", display: "flex", height: "80px", position: "absolute", zIndex: "9", opacity: "0" }}></Box>
+                    {NavbarAbout.map((filter, index) => (
+                      <Grid item key={index} xs={12} md={12}>
+                        <Box sx={{}}>
+                          <Button
+                            sx={{
+                              typography: {
+                                fontWeight: "Medium",
+                                textTransform: "Capitalize",
+                                borderRadius: "0",
+                                color: "black",
+                                fontSize: "16px",
+                                letterSpacing: 0.5,
+                                borderBottom: "1px solid #999",
+                                display: "flex",
+                                alignItems: "center",
+                                width: "100%",
+                                justifyContent: "space-between",
+                              },
+                            }}
+                            // @ts-ignore
+                            onClick={() =>
+                              setOrOpen(
+                                // @ts-ignore
+                                (prev) => (prev === index ? null : index)
+                              )
+                            }
+                          >
+                            {filter.name}
+
+                            {
+                              // @ts-ignore
+                              orOpen === index ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
+                            }
+                          </Button>
+                          <Collapse
+                            in={
+                              // @ts-ignore
+                              orOpen === index
+                            }
+                            timeout={600}
+                            unmountOnExit
+                          >
+                            <Box>
+                              {filter.Subitems.map((subitems, subindex) => (
+                                <MenuItem
+                                  sx={{
+                                    backgroundColor: "White",
+                                    color: "grey",
+                                    "&:hover": {
+                                      fontWeight: "medium",
+                                      color: "#000",
+                                      cursor: "pointer",
+                                    },
+                                  }}
+                                  key={subindex}
+                                  value={subitems}
+                                >
+                                  {subitems}
+                                </MenuItem>
+                              ))}
+                            </Box>
+                          </Collapse>
+                        </Box>
+                      </Grid>
+                    ))}
+                    <Button
+                      sx={{
+                        p: "6px 8px",
+                        fontWeight: "Medium",
+                        color: "black",
+                        borderRadius: "0",
+                        textTransform: "capitalize",
+                        letterSpacing: 0.5,
+                        fontSize: "16px",
+                        display: "flex",
+                        alignItems: "center",
+                        width: "100%",
+                        justifyContent: "space-between",
+                        borderBottom: "1px solid #999",
+                      }}
+                    >
+                      Contact
+                    </Button>
+                    <Typography
+                      sx={{
+                        p: "6px 8px",
+                        mt: "40px",
+                        fontWeight: "medium",
+                        fontSize: "16px",
+                        color: "#999999",
+                        letterSpacing: 1,
+                        display: "flex",
+                        alignItems: "center",
+                        width: "100%",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      Product
+                    </Typography>
+                    {DropdownFilter.map((filter, index) => (
+                      <Grid item key={index} xs={12} md={12}>
+                        <Box sx={{}}>
+                          <Button
+                            sx={{
+                              typography: {
+                                fontWeight: "medium",
+                                color: "black",
+                                letterSpacing: 0.5,
+                                fontSize: "16px",
+                                display: "flex",
+                                alignItems: "center",
+                                textTransform: "capitalize",
+                                borderRadius: "0",
+                                borderBottom: "1px solid #999",
+                                width: "100%",
+                                justifyContent: "space-between",
+                                "&:hover": {
+                                  color: "black",
+                                },
+                                "&.Mui-selected": {
+                                  color: "black",
+                                },
+                              },
+                            }}
+                            onClick={() =>
+                              setIsOpen(
+                                // @ts-ignore
+                                (prev) => (prev === index ? null : index)
+                              )
+                            }
+                          >
+                            {filter.nama}
+                            {
+                              // @ts-ignore
+                              isOpen === index ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
+                            }
+                          </Button>
+                          <Collapse
+                            in={
+                              // @ts-ignore
+                              isOpen === index
+                            }
+                            timeout={600}
+                            unmountOnExit
+                          >
+                            <Box>
+                              {filter.Subitem.map((subitem, subindex) => (
+                                <MenuItem
+                                  sx={{
+                                    backgroundColor: "White",
+                                    color: "grey",
+                                    "&:hover": {
+                                      fontWeight: "medium",
+                                      color: "#000",
+                                      cursor: "pointer",
+                                    },
+                                  }}
+                                  key={subindex}
+                                  value={subitem}
+                                >
+                                  {subitem}
+                                </MenuItem>
+                              ))}
+                            </Box>
+                          </Collapse>
+                        </Box>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
+              )}
+            </Box>
+          </Grid>
+        </Grid>
+
         <Box
           display={{ xs: "none", lg: "flex" }}
           flexDirection="row"
@@ -710,7 +727,7 @@ export default function NavbarProduct() {
             // backgroundColor: isScrolled ? "white" : "transparent", transition: "background-color 0.3s"
           }}
         >
-          <Box sx={{ ml: "185px" }}>
+          <Box sx={{}}>
             <Link display="flex" flexDirection="row" sx={{ width: "100%", height: "49px", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
               <Button sx={{ width: "160px", height: "52px", position: "relative", mr: "10px" }}>
                 <Image src={"/static/images/Sunpower.png"} fill alt={""} style={{}} />
@@ -718,7 +735,7 @@ export default function NavbarProduct() {
             </Link>
           </Box>
           <Box sx={{}}>
-            <Toolbar sx={{ zIndex: "2", mr: "180px", p: "0", width: "" }}>
+            <Toolbar sx={{ zIndex: "2", p: "0", width: "" }}>
               <List component="nav" sx={{ display: "flex", p: "0", justifyContent: "space-between" }}>
                 {logoNavbar.map((item, index) => (
                   <ListItem key={index} component="li" sx={{ marginRight: "10px", p: "0" }}>
@@ -727,7 +744,7 @@ export default function NavbarProduct() {
                         <Button
                           sx={{
                             py: "10px",
-                            px: "20px",
+                            px: "10px",
                             position: "relative",
                             typography: {
                               letterSpacing: 1,
@@ -800,7 +817,7 @@ export default function NavbarProduct() {
                       <Button
                         sx={{
                           py: "10px",
-                          px: "20px",
+                          px: "10px",
                           position: "relative",
                           typography: {
                             letterSpacing: 2, // Use a number for letter spacing
@@ -835,16 +852,216 @@ export default function NavbarProduct() {
                   </ListItem>
                 ))}
                 <Stack direction={"row"} display={"flex"} alignItems={"center"}>
-                  <IconButton>
+                  <IconButton onClick={toggleDrawer}>
                     <ShoppingCartOutlinedIcon fontSize="medium" style={{ color: "black" }} />
                   </IconButton>
                   <Typography sx={{ color: "black", fontWeight: "bold" }}>{count}</Typography>
                 </Stack>
+                <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer}>
+                  <Box
+                    sx={{
+                      px: "1.5rem",
+                      pt: "1.5rem",
+                      minWidth: "390px",
+                      boxSizing: "border-box",
+                      width: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        flexGrow: 1,
+                      }}
+                    >
+                      <Typography sx={{ fontWeight: "bold", fontSize: "16px" }}>My Cart</Typography>
+                      <IconButton onClick={toggleDrawer}>
+                        <CloseIcon />
+                      </IconButton>
+                    </Box>
+                  </Box>
+                  {true ? (
+                    <>
+                      <List
+                        sx={{
+                          p: "1rem",
+                          overflow: "auto",
+                          flexGrow: "1",
+                        }}
+                      >
+                        {cart.map((item, index) => {
+                          return (
+                            // <Stack key={index}>
+                            //   <Typography>{item.id}</Typography>
+                            //   <Typography>{item.code}</Typography>
+                            //   <Typography>{item.name}</Typography> SUDAH
+                            //   <Typography>{item.dimension}</Typography> SUDAH
+                            //   <Typography>{item.quantity}</Typography>
+                            //   <Typography>{item.pricePerBox}</Typography> SUDAH
+                            //   <Typography>{item.priceTotal}</Typography>
+                            //   <Typography>{item.imageSrc}</Typography>
+                            // </Stack>
+                            <ListItem key={index} sx={{ borderBottom: "1px solid #ededed", py: "1rem" }}>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                                  width: "100%",
+                                }}
+                              >
+                                <Box sx={{ display: "flex" }}>
+                                  <Box>
+                                    <IconButton
+                                      sx={{
+                                        position: "absolute",
+                                        zIndex: 999,
+                                        width: "15px",
+                                        height: "15px",
+                                        bgcolor: "#DC362E",
+                                        ml: "55px",
+                                        mt: "-0.3rem",
+                                        textAlign: "center",
+                                        "&:hover": {
+                                          bgcolor: "#ff3333",
+                                        },
+                                      }}
+                                    >
+                                      <CloseIcon sx={{ fontSize: "15px", color: "#fff" }} />
+                                    </IconButton>
+                                    <Box
+                                      sx={{
+                                        width: "65px",
+                                        height: "65px",
+                                        border: "1px solid #ededed",
+                                        borderRadius: "0.375rem",
+                                        position: "relative",
+                                      }}
+                                    >
+                                      <Image src={item.imageSrc} fill alt="" />
+                                    </Box>
+                                  </Box>
+                                  <Box
+                                    sx={{
+                                      ml: "16px",
+                                      overflowWrap: "break-word",
+                                      flexWrap: "wrap",
+                                      maxWidth: "130px",
+                                    }}
+                                  >
+                                    <Typography sx={{ fontSize: "16px", fontWeight: "medium" }}>{item.name}</Typography>
+                                    <Typography sx={{ fontSize: "14px", color: "#737373" }}>{item.dimension}</Typography>
+                                  </Box>
+                                </Box>
+                                <Box>
+                                  <Typography sx={{ fontSize: "14px" }}>
+                                    <NumericFormat
+                                      // value={item.pricePerBox * item.quantity}
+                                      value={item.priceTotal}
+                                      decimalScale={3}
+                                      displayType={"text"}
+                                      thousandSeparator={true}
+                                      prefix={"Rp. "}
+                                    />
+                                  </Typography>
+                                  <Box
+                                    display="flex"
+                                    alignItems="center"
+                                    sx={{
+                                      border: "1px solid #999",
+                                      borderRadius: "9999px",
+                                      justifyContent: "space-between",
+                                    }}
+                                  >
+                                    <IconButton
+                                    // onClick={() => handleDecrement(index)}
+                                    >
+                                      <RemoveIcon sx={{ fontSize: "15px" }} />
+                                    </IconButton>
+                                    <TextField
+                                      sx={{
+                                        width: "24px",
+                                        "& .MuiInputBase-input": {
+                                          textAlign: "center",
+                                          fontSize: "14px",
+                                        },
+                                        "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button": {
+                                          appearance: "none",
+                                        },
+                                      }}
+                                      type="number"
+                                      value={item.quantity}
+                                      // onChange={(event) => handleChange(event, index)}
+                                      variant="standard"
+                                      InputProps={{
+                                        disableUnderline: true,
+                                      }}
+                                      size="small"
+                                    />
+                                    <IconButton
+                                    // onClick={() => handleIncrement(index)}
+                                    >
+                                      <AddIcon sx={{ fontSize: "15px" }} />
+                                    </IconButton>
+                                  </Box>
+                                </Box>
+                              </Box>
+                            </ListItem>
+                          );
+                        })}
+                      </List>
+                      <Box sx={{ p: "1.5rem" }}>
+                        <Box
+                          sx={{
+                            py: "1rem",
+                            "& .cart-calc": {
+                              display: "flex",
+                              justifyContent: "space-between",
+                              pb: "0.25rem",
+                              mb: "0.75rem",
+                              borderBottom: "1px solid #ededed",
+                            },
+                          }}
+                        >
+                          <Box className="cart-calc">
+                            <Typography>Taxes</Typography>
+                            <Typography>Rp. 123.123.123</Typography>
+                          </Box>
+                          <Box className="cart-calc">
+                            <Typography>Shipping</Typography>
+                            <Typography>Calculated at checkout</Typography>
+                          </Box>
+                          <Box className="cart-calc">
+                            <Typography>Total</Typography>
+                            <Typography>Rp. 123.123.123.123</Typography>
+                          </Box>
+                        </Box>
+                      </Box>
+                    </>
+                  ) : (
+                    <>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          width: "100%",
+                          mt: "5rem",
+                        }}
+                      >
+                        <ShoppingCartOutlinedIcon sx={{ fontSize: "4rem" }} />
+                        <Typography sx={{ fontSize: "1.5rem", fontWeight: "bold" }}>Your cart is empty</Typography>
+                      </Box>
+                    </>
+                  )}
+                </Drawer>
               </List>
             </Toolbar>
           </Box>
         </Box>
-      </Box>
+      </Container>
     </>
   );
 }
