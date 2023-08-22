@@ -46,7 +46,7 @@ export default function TheProduct(props: any) {
         </Typography>
         <Grid container spacing={0}>
           {showTheProduct.data.map((item: any, index: any) => (
-            <Grid item key={index} xs={12} md={6} sx={{ mt: "10px" }}>
+            <Grid item key={index} xs={12} md={6} sx={{ mt: "10px", pr: '24px' }}>
               <Link
                 underline="none"
                 href={
@@ -54,6 +54,12 @@ export default function TheProduct(props: any) {
                     ? "#"
                     : `/range/${item.id}`
                 }
+                sx={{
+                  cursor:
+                    item.id.toString() == props.showHightlight
+                      ? "default"
+                      : "",
+                }}
               >
                 <Box
                   sx={{
@@ -65,7 +71,7 @@ export default function TheProduct(props: any) {
                         : "none",
                     borderBottom:
                       item.id.toString() == props.showHightlight
-                        ? "4px solid #14b9b9"
+                        ? "4px solid #3aad6c"
                         : "none",
                   }}
                 >
@@ -92,19 +98,35 @@ export default function TheProduct(props: any) {
                       />
                     )}
                   </Box>
-                  <Box sx={{ ml: "10px" }}>
-                    <Typography
-                      sx={{
-                        fontSize: "12px",
-                        fontWeight: "bold",
-                        color:
+                  <Box sx={{ ml: "10px", width: '100%' }}>
+                    <Box display='flex' sx={{ justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                      <Typography
+                        sx={{
+                          fontSize: "12px",
+                          fontWeight: "bold",
+                          color:
+                            item.id.toString() == props.showHightlight
+                              ? "#fff"
+                              : "#000",
+                        }}
+                      >
+                        {item.attributes?.Name}
+                      </Typography>
+                      <Box sx={{
+                        bgcolor: '#3aad6c',
+                        borderRadius: '5px',
+                        p: '2px',
+                        width: '50px',
+                        textAlign: 'center',
+                        mr: '5px',
+                        display:
                           item.id.toString() == props.showHightlight
-                            ? "#fff"
-                            : "#000",
-                      }}
-                    >
-                      {item.attributes?.Name}
-                    </Typography>
+                            ? "block"
+                            : "none",
+                      }}>
+                        <Typography sx={{ fontSize: '12px', color: '#fff', fontWeight: 'medium' }}>Current</Typography>
+                      </Box>
+                    </Box>
                     <Typography
                       sx={{
                         fontSize: "12px",
