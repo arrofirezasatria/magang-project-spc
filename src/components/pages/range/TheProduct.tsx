@@ -6,12 +6,12 @@ import {
   Divider,
   MenuItem,
   Toolbar,
-  Link,
   Popover,
   Collapse,
 } from "@mui/material";
 // import { GetStaticProps } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import zIndex from "@mui/material/styles/zIndex";
 import React, { useEffect, useState } from "react";
 import CircleIcon from "@mui/icons-material/Circle";
@@ -48,13 +48,12 @@ export default function TheProduct(props: any) {
           {showTheProduct.data.map((item: any, index: any) => (
             <Grid item key={index} xs={12} md={6} sx={{ mt: "10px", pr: '24px' }}>
               <Link
-                underline="none"
                 href={
                   item.id.toString() == props.showHightlight
                     ? "#"
                     : `/range/${item.id}`
                 }
-                sx={{
+                style={{
                   cursor:
                     item.id.toString() == props.showHightlight
                       ? "default"
@@ -65,6 +64,7 @@ export default function TheProduct(props: any) {
                   sx={{
                     display: "flex",
                     alignItems: "center",
+                    overflow: 'auto',
                     bgcolor:
                       item.id.toString() == props.showHightlight
                         ? "grey"
