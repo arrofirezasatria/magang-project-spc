@@ -1,16 +1,4 @@
-import {
-  Box,
-  Typography,
-  Button,
-  Modal,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell,
-  Paper,
-} from "@mui/material";
+import { Box, Typography, Button, Modal, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Paper } from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 import Image from "next/image";
@@ -19,9 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 
 export default function ModulPacking(props: any) {
-  console.log(
-    props.motif.motif.data?.attributes.tile_type.data?.attributes.Type
-  );
+  console.log(props.motif.motif.data?.attributes.tile_type.data?.attributes.Type);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -75,10 +61,7 @@ export default function ModulPacking(props: any) {
   ];
   let tableDataLocal, tableDataInternational;
 
-  if (
-    props.motif.motif.data?.attributes.tile_type.data?.attributes.Type ===
-    "Porcelain"
-  ) {
+  if (props.motif.motif.data?.attributes.tile_type.data?.attributes.Type === "Porcelain") {
     tableDataLocal = [
       {
         size: "30X60",
@@ -151,10 +134,7 @@ export default function ModulPacking(props: any) {
         weight: "922.27",
       },
     ];
-  } else if (
-    props.motif.motif.data?.attributes.tile_type.data?.attributes.Type ===
-    "Sun Glazed"
-  ) {
+  } else if (props.motif.motif.data?.attributes.tile_type.data?.attributes.Type === "Sun Glazed") {
     tableDataLocal = [
       {
         size: "29.8X60",
@@ -231,13 +211,12 @@ export default function ModulPacking(props: any) {
               width: "1200px",
               border: "1px solid #000",
               backgroundColor: "white",
-              overflow: "scroll",
+              overflow: "hidden",
             }}
           >
             <Box>
               <Box
                 sx={{
-                  width: "100%",
                   justifyContent: "space-between",
                   display: "flex",
                   flexDirection: "row",
@@ -252,14 +231,7 @@ export default function ModulPacking(props: any) {
                       position: "relative",
                     }}
                   >
-                    <Image
-                      src={
-                        "/static/images/bianco_BIA01A_white_marble_matt_600x300mm.jpg.275x275_q85_crop_upscale.jpg"
-                      }
-                      fill
-                      alt={""}
-                      style={{}}
-                    />
+                    <Image src={props.name.Image_Tile_Face.data[0]?.attributes?.formats?.large?.url} fill alt={""} style={{}} />
                   </Box>
                   <Box>
                     <Typography
@@ -271,7 +243,7 @@ export default function ModulPacking(props: any) {
                         mt: "7px",
                       }}
                     >
-                      White Marble
+                      {props.name.Name}
                     </Typography>
                   </Box>
                 </Box>
@@ -279,7 +251,7 @@ export default function ModulPacking(props: any) {
                   sx={{
                     mt: "35px",
                     backgroundColor: "black",
-                    mr: "50px",
+                    mr: "30px",
                     borderRadius: "10px",
                   }}
                 >
@@ -300,35 +272,23 @@ export default function ModulPacking(props: any) {
                   style={{
                     color: "black",
                     fontWeight: "bold",
-                    fontFamily:
-                      '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                    fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
                     textTransform: "uppercase",
                     fontSize: "16px",
                   }}
                 >
-                  Packing Details{" "}
-                  {
-                    props.motif.motif.data?.attributes.tile_type.data
-                      ?.attributes.Type
-                  }{" "}
-                  local {"/ "}
+                  Packing Details {props.motif.motif.data?.attributes.tile_type.data?.attributes.Type} local {"/ "}
                 </span>
                 <span
                   style={{
                     color: "gray",
                     fontWeight: "bold",
-                    fontFamily:
-                      '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                    fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
                     textTransform: "uppercase",
                     fontSize: "16px",
                   }}
                 >
-                  detail pengemasan{" "}
-                  {
-                    props.motif.motif.data?.attributes.tile_type.data
-                      ?.attributes.Type
-                  }{" "}
-                  lokal
+                  detail pengemasan {props.motif.motif.data?.attributes.tile_type.data?.attributes.Type} lokal
                 </span>
               </Box>
 
@@ -431,51 +391,15 @@ export default function ModulPacking(props: any) {
                       <TableBody>
                         {tableDataLocal?.map((item, index) => (
                           <TableRow key={index}>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.size}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.Thickness}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.Piece}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.Sqmbox}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.approxbox}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.boxpallet}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.sqmpallet}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.approxpallet}
-                            </TableCell>
-                            <TableCell
-                              sx={{ textAlign: "center", padding: "8px" }}
-                            >
-                              {item.weight}
-                            </TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.size}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.Thickness}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.Piece}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.Sqmbox}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.approxbox}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.boxpallet}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.sqmpallet}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.approxpallet}</TableCell>
+                            <TableCell sx={{ textAlign: "center", padding: "8px" }}>{item.weight}</TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
@@ -488,57 +412,37 @@ export default function ModulPacking(props: any) {
                   mr: { xs: "27px" },
                   mt: "60px",
                   ml: "30px",
-                  display:
-                    props.motif.motif.data?.attributes.tile_type.data
-                      ?.attributes.Type === "Porcelain"
-                      ? "flex"
-                      : "none ",
+                  display: props.motif.motif.data?.attributes.tile_type.data?.attributes.Type === "Porcelain" ? "" : "none ",
                 }}
               >
                 <span
                   style={{
                     color: "black",
                     fontWeight: "bold",
-                    fontFamily:
-                      '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                    fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
                     textTransform: "uppercase",
                     fontSize: "16px",
                   }}
                 >
-                  Packing Details{" "}
-                  {
-                    props.motif.motif.data?.attributes.tile_type.data
-                      ?.attributes.Type
-                  }{" "}
-                  International {"/ "}
+                  Packing Details {props.motif.motif.data?.attributes.tile_type.data?.attributes.Type} International {"/ "}
                 </span>
                 <span
                   style={{
                     color: "gray",
                     fontWeight: "bold",
-                    fontFamily:
-                      '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                    fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
                     textTransform: "uppercase",
                     fontSize: "16px",
                   }}
                 >
-                  detail pengemasan{" "}
-                  {
-                    props.motif.motif.data?.attributes.tile_type.data
-                      ?.attributes.Type
-                  }{" "}
-                  Internasional
+                  detail pengemasan {props.motif.motif.data?.attributes.tile_type.data?.attributes.Type} Internasional
                 </span>
               </Box>
 
               <Box>
                 <Box
                   sx={{
-                    display:
-                      props.motif.motif.data?.attributes.tile_type.data
-                        ?.attributes.Type === "Porcelain"
-                        ? "flex"
-                        : "none ",
+                    display: props.motif.motif.data?.attributes.tile_type.data?.attributes.Type === "Porcelain" ? "flex" : "none ",
                     alignItems: "center",
                     mx: "30px",
                     my: "30px",
@@ -636,73 +540,55 @@ export default function ModulPacking(props: any) {
                           // @ts-ignore
                           tableDataInternational?.map((item, index) => (
                             <TableRow key={index}>
-                              <TableCell
-                                sx={{ textAlign: "center", padding: "8px" }}
-                              >
+                              <TableCell sx={{ textAlign: "center", padding: "8px" }}>
                                 {
                                   // @ts-ignore
                                   item.size
                                 }
                               </TableCell>
-                              <TableCell
-                                sx={{ textAlign: "center", padding: "8px" }}
-                              >
+                              <TableCell sx={{ textAlign: "center", padding: "8px" }}>
                                 {
                                   // @ts-ignore
                                   item.Thickness
                                 }
                               </TableCell>
-                              <TableCell
-                                sx={{ textAlign: "center", padding: "8px" }}
-                              >
+                              <TableCell sx={{ textAlign: "center", padding: "8px" }}>
                                 {
                                   // @ts-ignore
                                   item.Piece
                                 }
                               </TableCell>
-                              <TableCell
-                                sx={{ textAlign: "center", padding: "8px" }}
-                              >
+                              <TableCell sx={{ textAlign: "center", padding: "8px" }}>
                                 {
                                   // @ts-ignore
                                   item.Sqmbox
                                 }
                               </TableCell>
-                              <TableCell
-                                sx={{ textAlign: "center", padding: "8px" }}
-                              >
+                              <TableCell sx={{ textAlign: "center", padding: "8px" }}>
                                 {
                                   // @ts-ignore
                                   item.approxbox
                                 }
                               </TableCell>
-                              <TableCell
-                                sx={{ textAlign: "center", padding: "8px" }}
-                              >
+                              <TableCell sx={{ textAlign: "center", padding: "8px" }}>
                                 {
                                   // @ts-ignore
                                   item.boxpallet
                                 }
                               </TableCell>
-                              <TableCell
-                                sx={{ textAlign: "center", padding: "8px" }}
-                              >
+                              <TableCell sx={{ textAlign: "center", padding: "8px" }}>
                                 {
                                   // @ts-ignore
                                   item.sqmpallet
                                 }
                               </TableCell>
-                              <TableCell
-                                sx={{ textAlign: "center", padding: "8px" }}
-                              >
+                              <TableCell sx={{ textAlign: "center", padding: "8px" }}>
                                 {
                                   // @ts-ignore
                                   item.approxpallet
                                 }
                               </TableCell>
-                              <TableCell
-                                sx={{ textAlign: "center", padding: "8px" }}
-                              >
+                              <TableCell sx={{ textAlign: "center", padding: "8px" }}>
                                 {
                                   // @ts-ignore
                                   item.weight

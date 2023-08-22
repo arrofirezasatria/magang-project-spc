@@ -1,21 +1,9 @@
-import {
-  AppBar,
-  Box,
-  Button,
-  Container,
-  IconButton,
-  Stack,
-  Toolbar,
-  Typography,
-  Drawer,
-  List,
-  ListItem,
-  TextField,
-} from "@mui/material";
+import { AppBar, Box, Button, Container, IconButton, Stack, Toolbar, Typography, Drawer, List, ListItem, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { NumericFormat } from "react-number-format";
 import Image from "next/image";
 import MenuIcon from "@mui/icons-material/Menu";
+import NavbarProduct from "@components/pages/range/NavbarProduct";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -46,31 +34,20 @@ export default function AppsbarExample() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ backgroundColor: "white" }}>
+      <AppBar position="relative" sx={{ backgroundColor: "white" }}>
         <Container>
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              aria-label="menu"
-              sx={{ mr: 2, color: "black" }}
-            >
+          {/* <Toolbar>
+            <IconButton size="large" edge="start" aria-label="menu" sx={{ mr: 2, color: "black" }}>
               <MenuIcon />
             </IconButton>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, color: "black" }}
-            >
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: "black" }}>
               News
             </Typography>
             <Stack direction={"row"} display={"flex"} alignItems={"center"}>
               <Button onClick={toggleDrawer} sx={{ color: "black" }}>
                 Cart
               </Button>
-              <Typography sx={{ color: "black", fontWeight: "bold" }}>
-                {count}
-              </Typography>
+              <Typography sx={{ color: "black", fontWeight: "bold" }}>{count}</Typography>
             </Stack>
           </Toolbar>
           <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer}>
@@ -93,9 +70,7 @@ export default function AppsbarExample() {
                   flexGrow: 1,
                 }}
               >
-                <Typography sx={{ fontWeight: "bold", fontSize: "16px" }}>
-                  My Cart
-                </Typography>
+                <Typography sx={{ fontWeight: "bold", fontSize: "16px" }}>My Cart</Typography>
                 <IconButton onClick={toggleDrawer}>
                   <CloseIcon />
                 </IconButton>
@@ -122,9 +97,7 @@ export default function AppsbarExample() {
                       //   <Typography>{item.priceTotal}</Typography>
                       //   <Typography>{item.imageSrc}</Typography>
                       // </Stack>
-                      <ListItem
-                        sx={{ borderBottom: "1px solid #ededed", py: "1rem" }}
-                      >
+                      <ListItem key={index} sx={{ borderBottom: "1px solid #ededed", py: "1rem" }}>
                         <Box
                           sx={{
                             display: "flex",
@@ -143,23 +116,21 @@ export default function AppsbarExample() {
                                   bgcolor: "#DC362E",
                                   ml: "55px",
                                   mt: "-0.3rem",
-                                  textAlign: 'center',
+                                  textAlign: "center",
                                   "&:hover": {
                                     bgcolor: "#ff3333",
                                   },
                                 }}
                               >
-                                <CloseIcon
-                                  sx={{ fontSize: "15px", color: "#fff" }}
-                                />
+                                <CloseIcon sx={{ fontSize: "15px", color: "#fff" }} />
                               </IconButton>
                               <Box
                                 sx={{
                                   width: "65px",
                                   height: "65px",
-                                  border: '1px solid #ededed',
+                                  border: "1px solid #ededed",
                                   borderRadius: "0.375rem",
-                                  position: 'relative',
+                                  position: "relative",
                                 }}
                               >
                                 <Image src={item.imageSrc} fill alt="" />
@@ -173,16 +144,8 @@ export default function AppsbarExample() {
                                 maxWidth: "130px",
                               }}
                             >
-                              <Typography
-                                sx={{ fontSize: "16px", fontWeight: "medium" }}
-                              >
-                                {item.name}
-                              </Typography>
-                              <Typography
-                                sx={{ fontSize: "14px", color: "#737373" }}
-                              >
-                                {item.dimension}
-                              </Typography>
+                              <Typography sx={{ fontSize: "16px", fontWeight: "medium" }}>{item.name}</Typography>
+                              <Typography sx={{ fontSize: "14px", color: "#737373" }}>{item.dimension}</Typography>
                             </Box>
                           </Box>
                           <Box>
@@ -217,8 +180,7 @@ export default function AppsbarExample() {
                                     textAlign: "center",
                                     fontSize: "14px",
                                   },
-                                  "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                  {
+                                  "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button": {
                                     appearance: "none",
                                   },
                                 }}
@@ -283,14 +245,13 @@ export default function AppsbarExample() {
                   }}
                 >
                   <ShoppingCartOutlinedIcon sx={{ fontSize: "4rem" }} />
-                  <Typography sx={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-                    Your cart is empty
-                  </Typography>
+                  <Typography sx={{ fontSize: "1.5rem", fontWeight: "bold" }}>Your cart is empty</Typography>
                 </Box>
               </>
             )}
-          </Drawer>
+          </Drawer> */}
         </Container>
+        <NavbarProduct />
       </AppBar>
     </Box>
   );
