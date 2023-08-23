@@ -1,7 +1,6 @@
 import { Box, Link, Grid, Typography } from "@mui/material";
 import React from "react";
 import Image from "next/image";
-import { transform } from "cypress/types/lodash";
 
 export default function AltProductRanges() {
   const productRangesImg = ["alt-product-ranges.jpg", "alt-product-ranges.jpg", "alt-product-ranges.jpg"];

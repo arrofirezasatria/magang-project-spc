@@ -11,54 +11,7 @@ export default function ModulPacking(props: any) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const tableSunGlazedLocal = [
-    {
-      size: "29.8X60",
-      Thickness: "10.1",
-      Piece: "6",
-      Sqmbox: "1.08",
-      approxbox: "19.32",
-      boxpallet: "56",
-      sqmpallet: "60.48",
-      approxpallet: "25.27",
-      weight: "1107.19",
-    },
-    {
-      size: "60X60",
-      Thickness: "10.1",
-      Piece: "4",
-      Sqmbox: "1.44",
-      approxbox: "28.12",
-      boxpallet: "40",
-      sqmpallet: "57.60",
-      approxpallet: "25.27",
-      weight: "1150.07",
-    },
-  ];
-  const tableSunGlazedInternational = [
-    {
-      size: "29.8X60",
-      Thickness: "10.1",
-      Piece: "6",
-      Sqmbox: "1.08",
-      approxbox: "19.32",
-      boxpallet: "56",
-      sqmpallet: "60.48",
-      approxpallet: "25.27",
-      weight: "1107.19",
-    },
-    {
-      size: "60X60",
-      Thickness: "10.1",
-      Piece: "4",
-      Sqmbox: "1.44",
-      approxbox: "28.12",
-      boxpallet: "40",
-      sqmpallet: "57.60",
-      approxpallet: "25.27",
-      weight: "1150.07",
-    },
-  ];
+
   let tableDataLocal, tableDataInternational;
 
   if (props.motif.motif.data?.attributes.tile_type.data?.attributes.Type === "Porcelain") {
@@ -166,29 +119,17 @@ export default function ModulPacking(props: any) {
   return (
     <>
       <Box
-        sx={
-          {
-            // display: "flex",
-            // justifyContent: "center",
-            // mt: "100px",
-            // flexDirection: "column"
-          }
-        }
       >
-        {/* <Button onClick={() => setIsModalOpen(true)} sx={{ width: "300px", backgroundColor: "salmon" }}>
-          <Typography>tolong diclick</Typography>
-        </Button> */}
         <Button
           onClick={() => setIsModalOpen(true)}
           sx={{
-            // backgroundColor: "black",
             border: "2px solid black",
             my: "8px",
             height: "28px",
             typography: {
-              fontWeight: "medium", // Change the fontWeight value as needed
+              fontWeight: "medium", 
               color: "black",
-              letterSpacing: 1, // Use a number for letter spacing
+              letterSpacing: 1, 
               fontSize: "14px",
               textTransform: "lowercase",
             },
@@ -199,7 +140,6 @@ export default function ModulPacking(props: any) {
         <Modal
           open={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          // Styling for the modal
           sx={{
             display: "flex",
             alignItems: "center",
@@ -211,7 +151,8 @@ export default function ModulPacking(props: any) {
               width: "1200px",
               border: "1px solid #000",
               backgroundColor: "white",
-              overflow: "hidden",
+              overflow: "scroll",
+              height:"100vh"
             }}
           >
             <Box>

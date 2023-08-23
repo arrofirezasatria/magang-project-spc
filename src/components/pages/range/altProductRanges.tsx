@@ -94,7 +94,6 @@ export default function AltProductRanges(props: any) {
               md={4}
               sx={{
                 px: { xs: "0px", md: "20px" },
-                // width: "100%",
                 flexBasis: "33.3333%",
                 mb: { xs: "20px", md: "0px" },
               }}
@@ -120,7 +119,6 @@ export default function AltProductRanges(props: any) {
                     },
                     "&:hover .poster img": {
                       transform: "translateY(-50px)",
-                      // filter: { xs: "blur(0)", md: "blur(1px)" },
                     },
                     "&:hover .details": {
                       bottom: "0px",
