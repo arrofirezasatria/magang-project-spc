@@ -352,10 +352,18 @@ export default function productExample() {
           </TableContainer>
           <Box sx={{ display: { xs: 'block', sm: 'flex' }, justifyContent: 'space-between', mt: '40px' }}>
             <Box display={{ xs: 'block', sm: 'flex' }}>
-              <Box sx={{ p: '5px 15px', border: '2px solid #000', borderRadius: '5px', mb: { xs: '16px', sm: '0' } }}>
+              <Box sx={{ p: '5px 15px', border: '2px solid #000', borderRadius: '5px', mb: { xs: '16px', sm: '0' }, textAlign: 'center' }}>
                 <Typography>Continue Browsing</Typography>
               </Box>
-              <Box sx={{ p: '5px 15px', border: '2px solid #000', borderRadius: '5px', display: 'flex', ml: { xs: '0', sm: '16px' }, mb: { xs: '16px', sm: '0' } }}>
+              <Box sx={{
+                p: '5px 15px',
+                border: '2px solid #000',
+                borderRadius: '5px',
+                display: 'flex',
+                ml: { xs: '0', sm: '16px' },
+                mb: { xs: '16px', sm: '0' },
+                justifyContent: 'center'
+              }}>
                 <CloseIcon sx={{ mr: '5px' }} />
                 <Typography>Clear Basket</Typography>
               </Box>
