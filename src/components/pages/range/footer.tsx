@@ -1,7 +1,6 @@
-import { Box, Container, Grid, Stack, Typography, Button, FormControl, InputLabel, MenuItem, Select, Link, List, ListItem, Popover, TextField } from "@mui/material";
+import { Box, Container, Grid, Stack, Typography, Button,  Link, TextField } from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
-import axios from "axios";
 import Image from "next/image";
 
 import { useState } from "react";
@@ -20,18 +19,7 @@ export default function Footer() {
       },
     },
   });
-  // const information = [
-  //   {
-  //     name: "information",
-  //     Subitems: ["About Our Company", "Careers", "Environment", "Technical Support", "Download"],
-  //   },
-  // ];
-  // const customerService = [
-  //   {
-  //     name: "customer Service",
-  //     Subitems: ["Terms of Use", "Cookies Notice", "Privacy Policy", "Privacy Settings", "Accessibility", "Contact Us"],
-  //   },
-  // ];
+
   const resources = [
     {
       name: "Resources",
@@ -153,7 +141,6 @@ export default function Footer() {
         <Box sx={{ backgroundColor: "#f6f6f6", py: "30px", borderTop: "1px solid #bfbfbf" }}>
           <Container sx={{ maxWidth: "1200px", overflow: "hidden" }}>
             <Grid container spacing={{ xs: 3, sm: 3, md: 0, lg: 0 }} sx={{ display: "flex", justifyContent: "space-between" }}>
-              {/* Logo and copyright */}
               <Grid item xs={12} md={1.4}>
                 <Box display="flex" flexDirection="column">
                   <Button sx={{ width: "120px", height: "43px"}}>
@@ -162,7 +149,6 @@ export default function Footer() {
                 </Box>
               </Grid>
 
-              {/* Information section */}
               <Grid item xs={6} sm={6} md={1}>
                 {resources.map((filter, index) => (
                   <Stack key={index} spacing={0}>
@@ -378,12 +364,12 @@ export default function Footer() {
                       InputProps={{
                         style: {
                           height: "0px",
-                          fontSize: "12px", // Ubah ukuran font kecil
+                          fontSize: "12px", 
                           borderRadius: "2px",
                         },
                       }}
                       InputLabelProps={{
-                        style: { fontSize: "12px" }, // Ubah ukuran font label kecil
+                        style: { fontSize: "12px" }, 
                       }}
                       sx={{
                         width: "100%",

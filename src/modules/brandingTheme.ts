@@ -80,6 +80,26 @@ export const getDesignTokens = (mode: string | null) => {
       // },
     },
     typography: {
+      body1_medium: {
+        fontSize: 16,
+        fontWeight: 500,
+        fontFamily:'--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+      },
+      body1_bold: {
+        fontSize: 16,
+        fontWeight: 700,
+        fontFamily:'--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+      },
+      body1_bold18: {
+        fontSize: 18,
+        fontWeight: 700,
+        fontFamily:'--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+      },
+      body1_medium18: {
+        fontSize: 18,
+        fontWeight: 500,
+        fontFamily:'--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+      },
       fontFamily: [...systemFont].join(","),
     },
     components: {},

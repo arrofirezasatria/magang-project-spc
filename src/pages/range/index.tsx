@@ -5,7 +5,6 @@ import {
   Stack,
   Typography,
   Button,
-  Link,
   FormControl,
   Select,
   MenuItem,
@@ -14,11 +13,8 @@ import {
 // import { GetStaticProps } from "next";
 import React from "react";
 import axios from "axios";
-import { data } from "cypress/types/jquery";
 import useSWR from "swr";
 import Image from "next/image";
-import AppsContainer from "@layouts/AppsContainer";
-import FeaturedProducts from "@components/pages/range/FeaturedProducts";
 import HoverInProduct from "@components/pages/range/hoverInProduct";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useState } from "react";

@@ -797,8 +797,7 @@ export default function ModulSpec(props) {
       },
     ];
   } else {
-    // Nilai tileType tidak cocok dengan kondisi yang diharapkan
-    tableData = []; // Atur nil ai default atau kosong
+    tableData = []; 
   }
 
   return (
@@ -806,27 +805,20 @@ export default function ModulSpec(props) {
       <Box
         sx={
           {
-            // display: "flex",
-            // justifyContent: "center",
-            // mt: "100px",
-            // flexDirection: "column"
           }
         }
       >
-        {/* <Button onClick={() => setIsModalOpen(true)} sx={{ width: "300px", backgroundColor: "salmon" }}>
-          <Typography>tolong diclick</Typography>
-        </Button> */}
+        
         <Button
           onClick={() => setIsModalOpen(true)}
           sx={{
-            // backgroundColor: "black",
             border: "2px solid black",
             my: "8px",
             height: "28px",
             typography: {
-              fontWeight: "medium", // Change the fontWeight value as needed
+              fontWeight: "medium", 
               color: "black",
-              letterSpacing: 1, // Use a number for letter spacing
+              letterSpacing: 1, 
               fontSize: { sm: "16px", xs: "12px" },
               textTransform: "lowercase",
             },
@@ -837,7 +829,6 @@ export default function ModulSpec(props) {
         <Modal
           open={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          // Styling for the modal
           sx={{
             display: "flex",
             alignItems: "center",
@@ -849,9 +840,8 @@ export default function ModulSpec(props) {
               width: "1200px",
               border: "1px solid #000",
               backgroundColor: "white",
-              overflow: "hidden",
-
-              
+              height:"100vh",
+              overflow: "scroll",
             }}
           >
             <Box>

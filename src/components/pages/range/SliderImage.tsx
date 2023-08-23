@@ -13,33 +13,10 @@ export default function SliderImage(props: any) {
       : 0
   );
 
-  // React.useEffect(() => {
-  //   setCounter(props?.productOnly?.Image_Ambience?.data.length - 1);
-  // }, []);
-
   const handleManualNavigation = (slideIndex: number) => {
     setCounter(slideIndex);
   };
-  // const sliderData = [
-  //   {
-  //     imageUrl: props?.productOnly?.Image_Ambience?.data
-  //       ? props?.productOnly?.Image_Ambience?.data[0].attributes.formats.large
-  //           .url
-  //       : "https://strapi-rezero-space.sgp1.digitaloceanspaces.com/69091a26ae11473d26e7d5be4be902fa.avif",
-  //     title: props?.productOnly?.Image_Ambience?.data
-  //       ? props?.productOnly?.Image_Ambience?.data[0].attributes.alternativeText
-  //       : "",
-  //   },
-  //   {
-  //     imageUrl: props?.productOnly?.Image_Ambience?.data
-  //       ? props?.productOnly?.Image_Ambience?.data[1]?.attributes.formats.large
-  //           .url
-  //       : "https://strapi-rezero-space.sgp1.digitaloceanspaces.com/69091a26ae11473d26e7d5be4be902fa.avif",
-  //     title: props?.productOnly?.Image_Ambience?.data
-  //       ? props?.productOnly?.Image_Ambience?.data[1]?.attributes.name
-  //       : "",
-  //   },
-  // ];
+
   const imageAmbienceData = props?.productOnly?.Image_Ambience?.data || [];
 
   const sliderData = imageAmbienceData.map((image: any, index: any) => {
@@ -73,26 +50,6 @@ export default function SliderImage(props: any) {
             transform: `translateX(-${counter * (100 / sliderData.length)}%)`,
           }}
         >
-          {/* {sliderData
-            .slice(0, props?.productOnly?.Image_Ambience?.data.length)
-            .map((slide:any, index:any) => (
-              <Box
-                key={index}
-                className="slide"
-                sx={{ width: `${100 / sliderData.length}%` }}
-              >
-                <Box
-                  sx={{ width: "100%", height: "100%", position: "relative" }}
-                >
-                  <Image
-                    src={slide.imageUrl}
-                    fill
-                    alt={""}
-                    style={{ objectFit: "cover" }}
-                  />
-                </Box>
-              </Box>
-            ))} */}
           {props?.productOnly?.Image_Ambience?.data ? (
             sliderData.map((slide: any, index: any) => (
               <Box
@@ -156,7 +113,6 @@ export default function SliderImage(props: any) {
             : null}
         </Box>
 
-        {/* Fixed Typography below the slider */}
       </Box>
       <Box
         sx={{

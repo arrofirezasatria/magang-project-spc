@@ -3,8 +3,6 @@ import React from "react";
 import SliderImage from "./SliderImage";
 import TheProduct from "./TheProduct";
 import Image from "next/image";
-
-// Icon
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -13,15 +11,11 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import CircleIcon from "@mui/icons-material/Circle";
 
 export default function ProductDescription({ props, data, hightlight }: any) {
-  const pathSegments = hightlight.asPath.split('/');
+  const pathSegments = hightlight.asPath.split("/");
   const idPath = pathSegments[pathSegments.length - 1];
   return (
     <>
-      <Grid
-        container
-        spacing={6}
-        sx={{ p: { xs: "20px 0x", md: "20px 30px" } }}
-      >
+      <Grid container spacing={6} sx={{ p: { xs: "20px 0x", md: "20px 30px" } }}>
         <Grid item xs={12} md={6} sx={{}}>
           <Box
             sx={{
@@ -39,13 +33,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
             >
               {props.product.data.attributes.Name}
             </Typography>
-            <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>
-              {data.tile_type.data === null
-                ? "Porcelain Tiles"
-                : data.tile_type.data.attributes.Type === "Sun Glazed"
-                  ? "Sun Glazed Ceramic Tiles"
-                  : "Porcelain Tiles"}
-            </Typography>
+            <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>{data.tile_type.data === null ? "Porcelain Tiles" : data.tile_type.data.attributes.Type === "Sun Glazed" ? "Sun Glazed Ceramic Tiles" : "Porcelain Tiles"}</Typography>
             <Typography
               sx={{
                 mb: "10px",
@@ -61,8 +49,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
               sx={{
                 mt: "15px",
                 display: "flex",
-                fontFamily:
-                  '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                 fontSize: "12px",
                 fontWeight: "medium",
                 flexWrap: "wrap",
@@ -100,12 +87,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                 // @ts-ignore
                 (item, index) => {
                   return (
-                    <Link
-                      href="#"
-                      underline="none"
-                      key={index}
-                      className="white-link"
-                    >
+                    <Link href="#" underline="none" key={index} className="white-link">
                       {item.attributes.Style}
                     </Link>
                   );
@@ -113,15 +95,10 @@ export default function ProductDescription({ props, data, hightlight }: any) {
               )}
 
               <Link href="#" underline="none" className="white-link">
-                {props.productOnly.data.attributes.surface_finish?.data
-                  ?.attributes?.Name || "No Input data"}
+                {props.productOnly.data.attributes.surface_finish?.data?.attributes?.Name || "No Input data"}
               </Link>
               <Link href="#" underline="none" className="white-link">
-                {props.productOnly.data.attributes.tile_color?.data?.attributes
-                  ?.Name
-                  ? props.productOnly.data.attributes.tile_color.data.attributes
-                    .Name + " color"
-                  : "No Input data"}
+                {props.productOnly.data.attributes.tile_color?.data?.attributes?.Name ? props.productOnly.data.attributes.tile_color.data.attributes.Name + " color" : "No Input data"}
               </Link>
             </Stack>
           </Box>
@@ -133,16 +110,18 @@ export default function ProductDescription({ props, data, hightlight }: any) {
               pt: "20px",
             }}
           >
-            <Typography sx={{
-              fontSize: "16px",
-              fontWeight: "medium",
-              wordBreak: "break-word",
-              display: "-webkit-box",
-              WebkitBoxOrient: "vertical",
-              WebkitLineClamp: "5",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}>
+            <Typography
+              sx={{
+                fontSize: "16px",
+                fontWeight: "medium",
+                wordBreak: "break-word",
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: "5",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
               {data.Description === null
                 ? "Minim fugiat culpa culpa veniam do tempor aliquip aliquip id amet qui proident. Nostrud sunt aliquip ipsum et voluptate commodo. Ullamco sint quis aliquip do nisi. Do culpa duis deserunt adipisicing. Officia culpa voluptate fugiat veniam laboris excepteur duis. Sunt voluptate reprehenderit tempor aliqua reprehenderit. Culpa deserunt qui sint eiusmod."
                 : data.Description}
@@ -165,10 +144,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
             }}
           >
             <Box sx={{ width: "100%" }}>
-              <TheProduct
-                showProducts={props.product}
-                showHightlight={idPath}
-              />
+              <TheProduct showProducts={props.product} showHightlight={idPath} />
             </Box>
           </Box>
 
@@ -191,8 +167,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                     color: "#fff",
                     borderRadius: "5px",
                     p: "6px 10px 6px 10px",
-                    fontFamily:
-                      '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                    fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                     fontSize: "14px",
                     mb: "5px",
                     display: "flex",
@@ -200,9 +175,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                     alignItem: "center",
                   }}
                 >
-                  <FileDownloadOutlinedIcon
-                    sx={{ pr: "8px", fontSize: "18px" }}
-                  />
+                  <FileDownloadOutlinedIcon sx={{ pr: "8px", fontSize: "18px" }} />
                   Download Range Overview
                 </Link>
               </Box>
@@ -215,13 +188,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
             </Box>
             <Box>
               <Link href="#">
-                <Image
-                  alt=""
-                  src="https://www.johnson-tiles.com/static/img/outlet-buy.svg"
-                  width={0}
-                  height={0}
-                  style={{ width: "130px", height: "auto" }}
-                />
+                <Image alt="" src="https://www.johnson-tiles.com/static/img/outlet-buy.svg" width={0} height={0} style={{ width: "130px", height: "auto" }} />
               </Link>
             </Box>
           </Box>
