@@ -99,7 +99,6 @@ export default function ProductSpecification({ props, data }: any) {
             position: "relative",
             py: "30px",
             textAlign: "center",
-            backgroundColor: "#f5f5f5",
           }}
         >
           <Typography
@@ -133,7 +132,6 @@ export default function ProductSpecification({ props, data }: any) {
         sx={{
           display: "flex",
           justifyContent: "center",
-          bgcolor: "#f5f5f5",
         }}
       >
         <Grid
@@ -157,7 +155,12 @@ export default function ProductSpecification({ props, data }: any) {
           >
             <Zoom>
               <Box
-                height={props.productOnly.data.attributes?.tile_dimension.data.attributes.Dimension == "60x60cm" ? "auto" : "600px"}
+                height={
+                  props.productOnly.data.attributes?.tile_dimension.data
+                    .attributes.Dimension == "60x60cm"
+                    ? "auto"
+                    : { xs: "auto", sm: "600px" }
+                }
                 sx={{
                   width: { xs: "100%", md: "75%" },
                   maxWidth: "100%",
@@ -173,7 +176,8 @@ export default function ProductSpecification({ props, data }: any) {
                     style={{
                       borderRadius: "0px",
                       background: "#e0e0e0",
-                      boxShadow: "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
+                      boxShadow:
+                        "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
                     }}
                   />
                 ) : (
@@ -315,11 +319,16 @@ export default function ProductSpecification({ props, data }: any) {
                   },
                   {
                     title: "Rectified Edge",
-                    value: props.productOnly.data.attributes?.Rectified.toString(),
+                    value:
+                      props.productOnly.data.attributes?.Rectified.toString() == 'true'
+                        ? 'Yes'
+                        : 'No'
                   },
                   {
                     title: "Shade Variation",
-                    value: props.productOnly.data.attributes?.Shade_Variation || "-",
+                    value:
+                      props.productOnly.data.attributes?.Shade_Variation ||
+                      "-",
                   },
                   {
                     title: "Suitability",
@@ -540,7 +549,16 @@ export default function ProductSpecification({ props, data }: any) {
                           <TableRow>
                             <TableCell>Box Price:</TableCell>
                             <TableCell>
-                              <NumericFormat value={1.44 * props.productOnly.data.attributes.Price} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
+                              <NumericFormat
+                                value={
+                                  1.44 *
+                                  props.productOnly.data.attributes.Price
+                                }
+                                decimalScale={3}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                prefix={"Rp. "}
+                              />
                             </TableCell>
                           </TableRow>
                           <TableRow>
@@ -554,14 +572,25 @@ export default function ProductSpecification({ props, data }: any) {
                         <>
                           <TableHead>
                             <TableRow>
-                              <TableCell sx={{ minWidth: "19%" }}>Required</TableCell>
-                              <TableCell sx={{ minWidth: "19%" }} align="right">
+                              <TableCell sx={{ minWidth: "19%" }}>
+                                Required
+                              </TableCell>
+                              <TableCell
+                                sx={{ minWidth: "19%" }}
+                                align="right"
+                              >
                                 Coverage
                               </TableCell>
-                              <TableCell sx={{ minWidth: "19%" }} align="right">
+                              <TableCell
+                                sx={{ minWidth: "19%" }}
+                                align="right"
+                              >
                                 Box Price
                               </TableCell>
-                              <TableCell sx={{ minWidth: "19%" }} align="right">
+                              <TableCell
+                                sx={{ minWidth: "19%" }}
+                                align="right"
+                              >
                                 Total Price
                               </TableCell>
                             </TableRow>
@@ -575,7 +604,9 @@ export default function ProductSpecification({ props, data }: any) {
                                   control={control}
                                   render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
                                     <TextField
-                                      helperText={error ? error.message : null}
+                                      helperText={
+                                        error ? error.message : null
+                                      }
                                       size="small"
                                       error={!!error}
                                       onChange={onChange}

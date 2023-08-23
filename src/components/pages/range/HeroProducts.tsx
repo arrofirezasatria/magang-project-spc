@@ -27,6 +27,7 @@ export default function HeroProducts(props: any) {
         height: "70vh",
         minHeight: "400px",
         maxHeight: "680px",
+        minWidth: '375px',
         width: "100%",
         color: "white",
       }}
@@ -73,7 +74,7 @@ export default function HeroProducts(props: any) {
             >
               {props.nameMotif}
             </Typography>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: 'center' }}>
               {stats.map((item, index) => {
                 return (
                   <>

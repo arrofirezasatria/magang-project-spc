@@ -15,6 +15,7 @@ import Link from "next/link";
 import zIndex from "@mui/material/styles/zIndex";
 import React, { useEffect, useState } from "react";
 import CircleIcon from "@mui/icons-material/Circle";
+import { packingDetailsData } from "data/packingDetailsData";
 
 const headers = {
   Authorization:
@@ -44,13 +45,13 @@ export default function TheProduct(props: any) {
         >
           RELATED PRODUCTS:
         </Typography>
-        <Grid container spacing={0}>
+        <Grid container columnSpacing={2}>
           {showTheProduct.data.map((item: any, index: any) => (
-            <Grid item key={index} xs={12} md={6} sx={{ mt: "10px", pr: '24px' }}>
+            <Grid item key={index} xs={12} md={6} sx={{ mt: "10px" }}>
               <Link
                 href={
                   item.id.toString() == props.showHightlight
-                    ? "#"
+                    ? `/range/${props.showHightlight}`
                     : `/range/${item.id}`
                 }
                 style={{
@@ -58,13 +59,14 @@ export default function TheProduct(props: any) {
                     item.id.toString() == props.showHightlight
                       ? "default"
                       : "",
+                  textDecoration: 'none',
                 }}
               >
                 <Box
                   sx={{
                     display: "flex",
                     alignItems: "center",
-                    overflow: 'auto',
+                    overflow: 'hidden',
                     bgcolor:
                       item.id.toString() == props.showHightlight
                         ? "grey"
@@ -104,6 +106,7 @@ export default function TheProduct(props: any) {
                         sx={{
                           fontSize: "12px",
                           fontWeight: "bold",
+                          letterSpacing: '0.5px',
                           color:
                             item.id.toString() == props.showHightlight
                               ? "#fff"
@@ -115,22 +118,28 @@ export default function TheProduct(props: any) {
                       <Box sx={{
                         bgcolor: '#3aad6c',
                         borderRadius: '5px',
-                        p: '2px',
-                        width: '50px',
+                        p: '4px',
+                        width: '45px',
                         textAlign: 'center',
-                        mr: '5px',
+                        mr: '4px',
                         display:
                           item.id.toString() == props.showHightlight
                             ? "block"
                             : "none",
                       }}>
-                        <Typography sx={{ fontSize: '12px', color: '#fff', fontWeight: 'medium' }}>Current</Typography>
+                        <Typography sx={{
+                          fontSize: '10px',
+                          color: '#fff',
+                          fontWeight: '500',
+                          lineHeight: '1.5'
+                        }}>Current</Typography>
                       </Box>
                     </Box>
                     <Typography
                       sx={{
                         fontSize: "12px",
                         fontWeight: "400",
+                        letterSpacing: '0.5px',
                         color:
                           item.id.toString() == props.showHightlight
                             ? "#ededed"
