@@ -15,30 +15,43 @@ export const cartSlice = createSlice({
         pricePerBox: 300000,
         priceTotal: 1500000,
       },
-      {
-        id: 2,
-        code: "gs12370",
-        name: "Lasa Bianca",
-        dimension: "30x60cm",
-        imageSrc:
-          "https://strapi-rezero-space.sgp1.digitaloceanspaces.com/a1b4ac4d518697d8ae6d688493fbdbad.webp",
-        quantity: 5,
-        pricePerBox: 300000,
-        priceTotal: 1500000,
-      },
     ],
+    totalSQM: 0,
+    totalPrice: 0,
   },
   reducers: {
     addToCart: (state, action) => {
-      state.cartItems.push(action.payload);
-      // state.cartItems = action.payload;
-      // const item = state.cartItems.find((p) => p.id === action.payload.id);
-      // if (item) {
-      //   item.quantity++;
-      //   item.attributes.price = item.oneQuantityPrice * item.quantity;
-      // } else {
-      //   state.cartItems.push({ ...action.payload, quantity: 1 });
-      // }
+      const item = state.cartItems.find((p) => p.id === action.payload.id);
+
+      if (item) {
+        // If product is in cart
+
+        //add current quantity and price total and also all total price.
+        item.quantity += action.payload.quantity;
+        item.priceTotal += action.payload.priceTotal;
+
+        state.totalPrice += action.payload.priceTotal;
+      } else {
+        // If product is not in cart
+
+        //push to cartItems state
+        state.cartItems.push(action.payload);
+
+        state.totalPrice += action.payload.priceTotal;
+      }
+    },
+    removeItemFromCart: (state, action) => {
+      //Make array with removed item throufh filter
+      const cartItemsWithRemovedItem = state.cartItems.filter(
+        (item) => item.id !== action.payload.id
+      );
+
+      state.cartItems = cartItemsWithRemovedItem;
+    },
+    dropCart: () => {
+      state.cartItems = [];
+      state.totalPrice = 0;
+      state.totalSQM = 0;
     },
     updateCart: (state, action) => {
       state.cartItems = state.cartItems.map((p) => {
@@ -60,6 +73,7 @@ export const cartSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addToCart, updateCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, updateCart, removeFromCart, removeItemFromCart } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;
