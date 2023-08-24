@@ -147,7 +147,7 @@ export default function NavbarProduct() {
             onChange={handleChangeTab}
             variant="fullWidth"
             centered
-            
+
             sx={{
               width: "100%",
               display: "flex",
@@ -155,7 +155,7 @@ export default function NavbarProduct() {
               backgroundColor: "#dcdcdc",
               "& .MuiTabs-indicator": {
                 backgroundColor: "black",
-                minWidth:"360px"
+                minWidth: "360px"
               },
             }}
           >
@@ -373,10 +373,10 @@ export default function NavbarProduct() {
                       }}
                     >
                       <Box display="flex" flexDirection="row" alignItems="center">
-                        <Button sx={{ p: "0px", color:"black",minWidth: "0px", fontSize: "16px", fontWeight: "medium", typography: { textTransform: "capitalize" } }} onClick={toggleDrawer}>
+                        <Button sx={{ p: "0px", color: "black", minWidth: "0px", fontSize: "16px", fontWeight: "medium", typography: { textTransform: "capitalize" } }} onClick={toggleDrawer}>
                           Cart
                         </Button>
-                        <Typography sx={{ fontSize: "16",fontWeight: "medium",lineHeight: "10px", ml: "10px" }}>
+                        <Typography sx={{ fontSize: "16", fontWeight: "medium", lineHeight: "10px", ml: "10px" }}>
                           ( {count} )
                         </Typography>
                       </Box>
@@ -707,12 +707,17 @@ export default function NavbarProduct() {
                   </IconButton>
                   <Typography variant="body1_bold" sx={{ color: "black" }}>{count}</Typography>
                 </Stack>
-                <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer}>
+                <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer} sx={{
+                  '& .MuiPaper-root': {
+                    width: '100%',
+                    maxWidth: { xs: '100%', sm: "390px" },
+                  },
+                }}>
                   <Box
                     sx={{
                       px: "1.5rem",
                       pt: "1.5rem",
-                      minWidth: "390px",
+                      minWidth: { xs: '100vw', sm: "390px" },
                       boxSizing: "border-box",
                       width: "100%",
                       display: "flex",
@@ -741,7 +746,7 @@ export default function NavbarProduct() {
                           overflow: "auto",
                           flexGrow: "1",
                         }}
-                        // @ts-ignore
+                      // @ts-ignore
                       >
                         {cart.map((item: any, index: any) => {
                           return (
@@ -779,6 +784,7 @@ export default function NavbarProduct() {
                                         border: "1px solid #ededed",
                                         borderRadius: "0.375rem",
                                         position: "relative",
+                                        overflow: 'hidden',
                                       }}
                                     >
                                       <Image src={item.imageSrc} fill alt="" />
@@ -856,16 +862,17 @@ export default function NavbarProduct() {
                         >
                           <Box className="cart-calc">
                             <Typography>Taxes</Typography>
-                            <Typography>Rp. 123.123.123</Typography>
+                            <Typography sx={{ fontWeight: 'bold' }}>Rp. 123.123.123</Typography>
                           </Box>
                           <Box className="cart-calc">
                             <Typography>Shipping</Typography>
-                            <Typography>Calculated at checkout</Typography>
+                            <Typography sx={{ color: '#737373' }}>Calculated at checkout</Typography>
                           </Box>
                           <Box className="cart-calc">
                             <Typography>Total</Typography>
-                            <Typography>Rp. 123.123.123.123</Typography>
+                            <Typography sx={{ fontWeight: 'bold' }}>Rp. 123.123.123.123</Typography>
                           </Box>
+                          <CartButton checkout={'checkout'} />
                         </Box>
                       </Box>
                     </>
