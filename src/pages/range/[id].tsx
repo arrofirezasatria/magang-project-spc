@@ -41,11 +41,12 @@ export default function Page(props: any) {
         <AddressProduct />
         <ProductDescription props={props} data={data} hightlight={idRouter} />
       </ProductLayout>
-      <ProductLayout backgroundColor={'#f5f5f5'}>
+      <ProductLayout backgroundColor={'#f5f5f5'} minWidth={'1200px'}>
         <ProductSpecification props={props} data={data} />
       </ProductLayout>
       <ProductLayout>
         <AltProductRanges
+          minWidth={'1200px'}
           alt1={props.alternative1}
           alt2={props.alternative2}
           alt3={props.alternative3}
