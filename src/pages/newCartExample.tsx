@@ -17,6 +17,7 @@ import {
   TextField,
   IconButton,
   Divider,
+  createTheme,
 } from "@mui/material";
 import swr from "swr";
 import Image from "next/image";
@@ -31,7 +32,6 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CloseIcon from "@mui/icons-material/Close";
 import ProductLayout from "@layouts/ProductLayout";
-import { useSelector } from "react-redux";
 
 const headers = {
   Authorization:
@@ -42,16 +42,47 @@ const fetcher2 = (url: RequestInfo | URL) =>
   fetch(url, { headers }).then((res) => res.json());
 // axios.get(url, { headers }).then((res) => res.data())
 
-export default function ProductExample() {
+export default function productExample() {
   const { data, error, isLoading, isValidating } = swr(
     `https://strapi-app-tnshv.ondigitalocean.app/api/products/93?populate[motif][populate][products][populate]=*`,
     fetcher2
   );
 
   // table breakpoint
-  const theme = useTheme();
+  // const theme = useTheme();
+  const theme = createTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 1000,
+        lg: 1200,
+        xl: 1536,
+      },
+    },
+  });
+
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+  // table data content
+  // const initialCartData = [
+  //   {
+  //     img: data?.data?.attributes?.Image_Tile_Face.data[0].attributes?.formats.thumbnail.url,
+  //     quantity: 3,
+  //     code: data?.data?.attributes?.Code,
+  //     description: data?.data?.attributes?.Name + ' - ' + data?.data?.attributes?.tile_dimension.data.attributes?.Dimension,
+  //     boxPrice: 'Rp. 123.123.123',
+  //     totalPrice: 'Rp. 123.123.123'
+  //   },
+  //   {
+  //     img: data?.data?.attributes?.Image_Tile_Face.data[0].attributes?.formats.thumbnail.url,
+  //     quantity: 5,
+  //     code: 'DEF456',
+  //     description: 'Product GHIJKL' + ' - ' + '120x120cm',
+  //     boxPrice: 'Rp. 123.123.123',
+  //     totalPrice: 'Rp. 123.123.123'
+  //   },
+  // ];
   const headers = [
     null,
     "range name",
@@ -62,6 +93,31 @@ export default function ProductExample() {
     "total price",
     null,
   ];
+
+  // const [cartData, setData] = useState(initialCartData);
+
+  // const handleIncrement = (index) => {
+  //   const newData = [...cartData];
+  //   newData[index].quantity += 1;
+  //   setData(newData);
+  // };
+
+  // const handleDecrement = (index) => {
+  //   if (cartData[index].quantity > 0) {
+  //     const newData = [...cartData];
+  //     newData[index].quantity -= 1;
+  //     setData(newData);
+  //   }
+  // };
+
+  // const handleChange = (event, index) => {
+  //   const newValue = parseInt(event.target.value);
+  //   if (!isNaN(newValue)) {
+  //     const newData = [...cartData];
+  //     newData[index].quantity = newValue;
+  //     setData(newData);
+  //   }
+  // };
 
   if (isLoading) {
     console.log("masih loading");
@@ -85,19 +141,19 @@ export default function ProductExample() {
     throw new Error("Function not implemented.");
   }
 
-  const cart = useSelector(
-    (state) =>
-      // @ts-ignore
-      state.cart.cartItems
-  );
-
   return (
     <>
       <Box sx={{ height: "64px" }}></Box>
       <ProductLayout backgroundColor="#f2f1f0">
+        {/* <Box className='cart-wrap' sx={{ bgcolor: '#f2f1f0', display: 'inline-block', width: '100%', height: '100%' }}>
+        <Box className='cart-content' sx={{
+          margin: '0 auto',
+          maxWidth: '1200px',
+          padding: '40px 30px',
+        }}> */}
         <Box
           className="cart"
-          sx={{ width: "100%", my: { xs: "0", md: "20px" } }}
+          sx={{ my: { xs: "0", md: "20px" }, p: { xs: "20px 20px", md: "20px 30px" } }}
         >
           <Typography component="h1" sx={{ fontWeight: "medium" }}>
             My cart {"(2)"}
@@ -277,9 +333,9 @@ export default function ProductExample() {
                                     textAlign: "center",
                                   },
                                   "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                    {
-                                      appearance: "none",
-                                    },
+                                  {
+                                    appearance: "none",
+                                  },
                                 }}
                                 type="number"
                                 value={5}
@@ -399,9 +455,9 @@ export default function ProductExample() {
                                       textAlign: "center",
                                     },
                                     "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                      {
-                                        appearance: "none",
-                                      },
+                                    {
+                                      appearance: "none",
+                                    },
                                   }}
                                   type="number"
                                   value={5}
@@ -465,48 +521,87 @@ export default function ProductExample() {
           </TableContainer>
           <Box
             sx={{
-              display: { xs: "block", sm: "flex" },
+              display: { xs: "block", md: "flex" },
               justifyContent: "space-between",
               mt: "40px",
             }}
           >
-            <Box display={{ xs: "block", sm: "flex" }}>
-              <Box
-                sx={{
-                  p: "5px 15px",
-                  border: "2px solid #000",
-                  borderRadius: "5px",
-                  mb: { xs: "16px", sm: "0" },
-                  textAlign: "center",
-                }}
-              >
-                <Typography>Continue Browsing</Typography>
+            <Box display={{ xs: "block", md: "flex" }} sx={{
+              gap: 2
+            }}>
+              <Box>
+                <Button
+                  size="small"
+                  sx={{
+                    width: { xs: "100%", md: "auto" },
+                    height: '40px',
+                    color: '#000',
+                    border: "2px solid #000",
+                    borderRadius: "5px",
+                    mb: { xs: "1em", lg: "0" },
+                    textAlign: "center",
+                    px: '16px',
+                  }}
+                >
+                  Continue Browsing
+                </Button>
               </Box>
-              <Box
-                sx={{
-                  p: "5px 15px",
-                  border: "2px solid #000",
-                  borderRadius: "5px",
-                  display: "flex",
-                  ml: { xs: "0", sm: "16px" },
-                  mb: { xs: "16px", sm: "0" },
-                  justifyContent: "center",
-                }}
-              >
-                <CloseIcon sx={{ mr: "5px" }} />
-                <Typography>Clear Basket</Typography>
+              <Box>
+                <Button
+                  size="small"
+                  sx={{
+                    width: { xs: "100%", md: "auto" },
+                    height: '40px',
+                    border: "2px solid #000",
+                    borderRadius: "5px",
+                    display: "flex",
+                    mb: { xs: "1em", lg: "0" },
+                    justifyContent: "center",
+                    color: '#000',
+                    px: '16px',
+                  }}
+                >
+                  <CloseIcon sx={{ mr: "5px" }} />
+                  Clear Basket
+                </Button>
               </Box>
             </Box>
-            <Box
-              sx={{
-                p: "5px 15px",
-                border: "2px solid #000",
-                borderRadius: "5px",
-                bgcolor: "#000",
-                textAlign: "center",
-              }}
-            >
-              <Typography sx={{ color: "#fff" }}>Checkout</Typography>
+            <Box>
+              <Grid container columnSpacing={2} sx={{
+                display: { xs: 'block', md: 'flex' }
+              }}>
+                <Grid item sx={{ pr: '16px', borderRight: { xs: '0', md: '1px solid #3d3935' }, mb: '1em' }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Box>
+                      <Typography sx={{ fontSize: '16px', pr: '20px' }}>
+                        Total:
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>
+                        Rp. 123.123.123.123
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Typography sx={{ fontSize: '12px', mt: '10px', textAlign: 'center' }}>Tax & shipping rates are calculated during checkout</Typography>
+                </Grid>
+                <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Button
+                    size="small"
+                    sx={{
+                      width: { xs: "100%", md: "auto" },
+                      height: '40px',
+                      color: '#fff',
+                      bgcolor: '#000',
+                      px: '16px',
+                      '&:hover': {
+                        bgcolor: '#111'
+                      },
+                    }}>
+                    Checkout
+                  </Button>
+                </Grid>
+              </Grid>
             </Box>
           </Box>
           <Box sx={{ mt: "40px" }}>
@@ -519,7 +614,7 @@ export default function ProductExample() {
             </Typography>
           </Box>
         </Box>
-      </ProductLayout>
+      </ProductLayout >
     </>
   );
 }
