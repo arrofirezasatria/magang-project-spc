@@ -171,9 +171,17 @@ export default function ProductSpecification({ props, data }: any) {
                       : { xs: "auto", sm: "715px" }
                   }
                   sx={{
-                    width: "100%",
-                    minWidth: "100%",
-                    minHeight: "427.500px",
+                    width: { xs: "100%", md: "80%" },
+                    minHeight:
+                      props.productOnly.data.attributes?.tile_dimension.data
+                        .attributes.Dimension == "60x60cm"
+                        ? "none"
+                        : "100%",
+                    maxHeight:
+                      props.productOnly.data.attributes?.tile_dimension.data
+                        .attributes.Dimension == "60x60cm"
+                        ? "427.500px"
+                        : "none",
                     position: "relative",
                     aspectRatio: '1 / 1'
                   }}

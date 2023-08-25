@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 
-export default function ProductLayout({ children, backgroundColor, minWidth }: any) {
+export default function ProductLayout({ children, backgroundColor }: any) {
   return (
     <Box className="product-wrap-white" sx={{ display: "flex", bgcolor: backgroundColor, minWidth: '375px' }}>
       <Box
@@ -9,7 +9,6 @@ export default function ProductLayout({ children, backgroundColor, minWidth }: a
         sx={{
           width: '100%',
           maxWidth: "1200px",
-          minWidth: { minWidth },
           padding: { xs: "20px 15px", md: "20px 30px" },
           margin: "0 auto",
         }}
