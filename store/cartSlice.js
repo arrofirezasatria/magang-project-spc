@@ -4,17 +4,17 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState: {
     cartItems: [
-      {
-        id: 1,
-        code: "gs12370",
-        name: "Lasa Bianca",
-        dimension: "30x60cm",
-        imageSrc:
-          "https://strapi-rezero-space.sgp1.digitaloceanspaces.com/5a942cde164d74474510b44140a35bbc.webp",
-        quantity: 5,
-        pricePerBox: 300000,
-        priceTotal: 1500000,
-      },
+      // {
+      //   id: 1,
+      //   code: "gs12370",
+      //   name: "Lasa Bianca",
+      //   dimension: "30x60cm",
+      //   imageSrc:
+      //     "https://strapi-rezero-space.sgp1.digitaloceanspaces.com/5a942cde164d74474510b44140a35bbc.webp",
+      //   quantity: 5,
+      //   pricePerBox: 300000,
+      //   priceTotal: 1500000,
+      // },
     ],
     totalSQM: 0,
     totalPrice: 0,
@@ -57,7 +57,9 @@ export const cartSlice = createSlice({
         (item) => item.id !== action.payload.id
       );
 
-      state.totalPrice -= state.cartItems.find;
+      state.totalPrice -= state.cartItems.find(
+        (p) => p.id === action.payload.id
+      ).priceTotal;
 
       state.cartItems = cartItemsWithRemovedItem;
     },

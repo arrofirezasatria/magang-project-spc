@@ -112,6 +112,11 @@ export default function productExample() {
       // @ts-ignore
       state.cart.cartItems
   );
+  const totalPrice = useSelector(
+    (state) =>
+      // @ts-ignore
+      state.cart.totalPrice
+  );
 
   console.log(cart);
 
@@ -518,6 +523,9 @@ export default function productExample() {
                         color: "#000",
                         px: "16px",
                       }}
+                      onClick={() => {
+                        dispatch(dropCart());
+                      }}
                     >
                       <CloseIcon sx={{ mr: "5px" }} />
                       Clear Basket
@@ -548,7 +556,14 @@ export default function productExample() {
                         <Typography
                           sx={{ fontSize: "20px", fontWeight: "bold" }}
                         >
-                          Rp. 123.123.123.123
+                          <NumericFormat
+                            // value={item.pricePerBox * item.quantity}
+                            value={totalPrice}
+                            decimalScale={3}
+                            displayType={"text"}
+                            thousandSeparator={true}
+                            prefix={"Rp. "}
+                          />
                         </Typography>
                       </Box>
                     </Box>

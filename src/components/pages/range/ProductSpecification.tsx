@@ -752,10 +752,7 @@ export default function ProductSpecification({ props, data }: any) {
                           bgcolor: "#222",
                         },
                       }}
-                      onClick={() => {
-                        // dispatch(increment());
-                        handleSubmit(onSubmit);
-                      }}
+                      onClick={() => handleSubmit(onSubmit)}
                     >
                       Add to Cart
                     </Button>
