@@ -44,6 +44,7 @@ import {
   newsNavbar,
 } from "data/navbarHeader/Navbar";
 import { useTheme } from "@mui/material/styles";
+import CartButton from "@components/common/CartButton";
 
 const headers = {
   Authorization:
@@ -1010,7 +1011,7 @@ export default function NavbarProduct() {
                           overflow: "auto",
                           flexGrow: "1",
                         }}
-                        // @ts-ignore
+                      // @ts-ignore
                       >
                         {cart.map((item: any, index: any) => {
                           return (
@@ -1113,9 +1114,9 @@ export default function NavbarProduct() {
                                           fontSize: "14px",
                                         },
                                         "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                          {
-                                            appearance: "none",
-                                          },
+                                        {
+                                          appearance: "none",
+                                        },
                                       }}
                                       type="number"
                                       value={item.quantity}
@@ -1166,7 +1167,7 @@ export default function NavbarProduct() {
                               Rp. 123.123.123.123
                             </Typography>
                           </Box>
-                          {/* <CartButton checkout={'checkout'} /> */}
+                          <CartButton checkout={'checkout'} />
                         </Box>
                       </Box>
                     </>
