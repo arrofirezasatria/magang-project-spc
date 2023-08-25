@@ -145,12 +145,6 @@ export default function productExample() {
     <>
       <Box sx={{ height: "64px" }}></Box>
       <ProductLayout backgroundColor="#f2f1f0">
-        {/* <Box className='cart-wrap' sx={{ bgcolor: '#f2f1f0', display: 'inline-block', width: '100%', height: '100%' }}>
-        <Box className='cart-content' sx={{
-          margin: '0 auto',
-          maxWidth: '1200px',
-          padding: '40px 30px',
-        }}> */}
         <Box
           className="cart"
           sx={{ my: { xs: "0", md: "20px" }, p: { xs: "20px 20px", md: "20px 30px" } }}
@@ -276,6 +270,8 @@ export default function productExample() {
                             </Box>
                             <IconButton
                               sx={{
+                                width: '40px',
+                                height: '40px',
                                 "&:hover": {
                                   bgcolor: "#fcebeb",
                                 },
@@ -526,85 +522,140 @@ export default function productExample() {
               mt: "40px",
             }}
           >
-            <Box display={{ xs: "block", md: "flex" }} sx={{
-              gap: 2
-            }}>
-              <Box>
-                <Button
-                  size="small"
-                  sx={{
-                    width: { xs: "100%", md: "auto" },
-                    height: '40px',
-                    color: '#000',
-                    border: "2px solid #000",
-                    borderRadius: "5px",
-                    mb: { xs: "1em", lg: "0" },
-                    textAlign: "center",
-                    px: '16px',
-                  }}
-                >
-                  Continue Browsing
-                </Button>
-              </Box>
-              <Box>
-                <Button
-                  size="small"
-                  sx={{
-                    width: { xs: "100%", md: "auto" },
-                    height: '40px',
-                    border: "2px solid #000",
-                    borderRadius: "5px",
-                    display: "flex",
-                    mb: { xs: "1em", lg: "0" },
-                    justifyContent: "center",
-                    color: '#000',
-                    px: '16px',
-                  }}
-                >
-                  <CloseIcon sx={{ mr: "5px" }} />
-                  Clear Basket
-                </Button>
-              </Box>
-            </Box>
-            <Box>
-              <Grid container columnSpacing={2} sx={{
-                display: { xs: 'block', md: 'flex' }
-              }}>
-                <Grid item sx={{ pr: '16px', borderRight: { xs: '0', md: '1px solid #3d3935' }, mb: '1em' }}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Box>
-                      <Typography sx={{ fontSize: '16px', pr: '20px' }}>
-                        Total:
-                      </Typography>
+            <Grid container columnSpacing={4}>
+              <Grid item xs={12} md={6}>
+                <Box display={{ xs: "block", md: "flex" }} sx={{
+                  gap: 2
+                }}>
+                  <Box>
+                    <Button
+                      size="small"
+                      sx={{
+                        width: { xs: "100%", md: "auto" },
+                        height: '40px',
+                        color: '#000',
+                        border: "2px solid #000",
+                        borderRadius: "5px",
+                        mb: { xs: "1em", lg: "0" },
+                        textAlign: "center",
+                        px: '16px',
+                      }}
+                    >
+                      Continue Browsing
+                    </Button>
+                  </Box>
+                  <Box>
+                    <Button
+                      size="small"
+                      sx={{
+                        width: { xs: "100%", md: "auto" },
+                        height: '40px',
+                        border: "2px solid #000",
+                        borderRadius: "5px",
+                        display: "flex",
+                        mb: { xs: "1em", lg: "0" },
+                        justifyContent: "center",
+                        color: '#000',
+                        px: '16px',
+                      }}
+                    >
+                      <CloseIcon sx={{ mr: "5px" }} />
+                      Clear Basket
+                    </Button>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={6} sx={{ display: { xs: 'block', md: 'flex' }, justifyContent: 'end' }}>
+                <Box sx={{ mb: { xs: '1em', md: '0' }, width: '100%' }}>
+                  <Box sx={{ mb: { xs: '1em', md: '0' } }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Box>
+                        <Typography sx={{ fontSize: '20px', pr: '20px' }}>
+                          Total:
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>
+                          Rp. 123.123.123.123
+                        </Typography>
+                      </Box>
                     </Box>
-                    <Box>
-                      <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>
-                        Rp. 123.123.123.123
-                      </Typography>
+                    <Typography sx={{ fontSize: '12px', mt: '10px', textAlign: 'end' }}>Tax & shipping rates are calculated during checkout</Typography>
+                  </Box>
+                  <Box className='cart-form' sx={{ display: 'flex', flexDirection: 'column', width: '100%', mt: '36px', gap: '10px', mb: '1em' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <Typography sx={{ fontWeight: 'bold', fontSize: '18px' }}>Contact</Typography>
+                      <TextField
+                        size='small'
+                        required
+                        id="outlined-required"
+                        label="Name"
+                        sx={{ flexGrow: 1 }}
+                      />
+                      <TextField
+                        size='small'
+                        type="email"
+                        required
+                        fullWidth
+                        id="demo-helper-text-aligned"
+                        label="Email"
+                      />
+                      <TextField
+                        size='small'
+                        type="phone"
+                        required
+                        fullWidth
+                        helperText="Please enter your email and mobile phone number"
+                        id="demo-helper-text-aligned"
+                        label="Phone Number"
+                      />
+                    </Box>
+                    <Box sx={{ gap: '10px', display: 'flex', flexDirection: 'column', }}>
+                      <Typography sx={{ fontWeight: 'bold', fontSize: '18px', }}>Shipping Address</Typography>
+                      <TextField
+                        size='small'
+                        required
+                        id="outlined-required"
+                        label="Address"
+                        sx={{ flexGrow: 1 }}
+                      />
+                      <TextField
+                        size='small'
+                        required
+                        id="outlined-required"
+                        label="City"
+                        sx={{ flexGrow: 1 }}
+                      />
+                      <TextField
+                        size='small'
+                        required
+                        id="outlined-required"
+                        label="State"
+                        sx={{ flexGrow: 1 }}
+                      />
                     </Box>
                   </Box>
-                  <Typography sx={{ fontSize: '12px', mt: '10px', textAlign: 'center' }}>Tax & shipping rates are calculated during checkout</Typography>
-                </Grid>
-                <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Button
-                    size="small"
-                    sx={{
-                      width: { xs: "100%", md: "auto" },
-                      height: '40px',
-                      color: '#fff',
-                      bgcolor: '#000',
-                      px: '16px',
-                      '&:hover': {
-                        bgcolor: '#111'
-                      },
-                    }}>
-                    Checkout
-                  </Button>
-                </Grid>
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Button
+                      size="small"
+                      sx={{
+                        width: "100%",
+                        height: '40px',
+                        color: '#fff',
+                        bgcolor: '#000',
+                        px: '16px',
+                        '&:hover': {
+                          bgcolor: '#111'
+                        },
+                      }}>
+                      Checkout
+                    </Button>
+                  </Box>
+                </Box>
               </Grid>
-            </Box>
+            </Grid>
           </Box>
-          <Box sx={{ mt: "40px" }}>
+          <Box sx={{ mt: "50px" }}>
             <Typography>
               To reduce the environmental impact our free samples are provided
               as 100x100mm cuts.
