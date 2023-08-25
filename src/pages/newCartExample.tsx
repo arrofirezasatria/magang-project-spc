@@ -32,6 +32,8 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CloseIcon from "@mui/icons-material/Close";
 import ProductLayout from "@layouts/ProductLayout";
+import { useDispatch, useSelector } from "react-redux";
+import { dropCart } from "store/cartSlice";
 
 const headers = {
   Authorization:
@@ -43,6 +45,7 @@ const fetcher2 = (url: RequestInfo | URL) =>
 // axios.get(url, { headers }).then((res) => res.data())
 
 export default function productExample() {
+  const dispatch = useDispatch();
   const { data, error, isLoading, isValidating } = swr(
     `https://strapi-app-tnshv.ondigitalocean.app/api/products/93?populate[motif][populate][products][populate]=*`,
     fetcher2
@@ -93,47 +96,6 @@ export default function productExample() {
     "total price",
     null,
   ];
-
-  // const [cartData, setData] = useState(initialCartData);
-
-  // const handleIncrement = (index) => {
-  //   const newData = [...cartData];
-  //   newData[index].quantity += 1;
-  //   setData(newData);
-  // };
-
-  // const handleDecrement = (index) => {
-  //   if (cartData[index].quantity > 0) {
-  //     const newData = [...cartData];
-  //     newData[index].quantity -= 1;
-  //     setData(newData);
-  //   }
-  // };
-
-  // const handleChange = (event, index) => {
-  //   const newValue = parseInt(event.target.value);
-  //   if (!isNaN(newValue)) {
-  //     const newData = [...cartData];
-  //     newData[index].quantity = newValue;
-  //     setData(newData);
-  //   }
-  // };
-
-  if (isLoading) {
-    console.log("masih loading");
-  }
-
-  if (isValidating) {
-    console.log("masih validating");
-  }
-
-  if (error) {
-    console.log("error");
-  }
-
-  if (data) {
-    console.log(data);
-  }
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     index: any
@@ -141,16 +103,31 @@ export default function productExample() {
     throw new Error("Function not implemented.");
   }
 
+  const handleClearbasket = () => {
+    dispatch(dropCart());
+  };
+
+  const cart = useSelector(
+    (state) =>
+      // @ts-ignore
+      state.cart.cartItems
+  );
+
+  console.log(cart);
+
   return (
     <>
       <Box sx={{ height: "64px" }}></Box>
       <ProductLayout backgroundColor="#f2f1f0">
         <Box
           className="cart"
-          sx={{ my: { xs: "0", md: "20px" }, p: { xs: "20px 20px", md: "20px 30px" } }}
+          sx={{
+            my: { xs: "0", md: "20px" },
+            p: { xs: "20px 20px", md: "20px 30px" },
+          }}
         >
           <Typography component="h1" sx={{ fontWeight: "medium" }}>
-            My cart {"(2)"}
+            My Cart {`(${cart.length})`}
           </Typography>
           <TableContainer
             sx={{
@@ -170,189 +147,187 @@ export default function productExample() {
               {isMobile ? (
                 <>
                   <Box className="cart-mobile">
-                    {data?.data?.attributes?.motif.data.attributes?.products.data.map(
-                      (item, index) => (
+                    {cart.map((item, index) => (
+                      <Box
+                        className="cart-row"
+                        key={index}
+                        sx={{
+                          my: "1rem",
+                          py: "1rem",
+                        }}
+                      >
                         <Box
-                          className="cart-row"
-                          key={index}
                           sx={{
-                            my: "1rem",
-                            py: "1rem",
+                            display: "flex",
+                            justifyContent: "space-between",
                           }}
                         >
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                            <Box sx={{ width: "100%", display: "flex" }}>
-                              <Box
+                          <Box sx={{ width: "100%", display: "flex" }}>
+                            <Box
+                              sx={{
+                                width: "60px",
+                                height: "60px",
+                                aspectRatio: "1 / 1",
+                                position: "relative",
+                              }}
+                            >
+                              <Image
+                                src={
+                                  item.attributes.Image_Tile_Face.data[0]
+                                    .attributes.formats.thumbnail.url
+                                }
+                                alt=""
+                                fill
+                              />
+                            </Box>
+                            <Box
+                              sx={{
+                                pl: "1rem",
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "2px",
+                              }}
+                            >
+                              <Typography
                                 sx={{
-                                  width: "60px",
-                                  height: "60px",
-                                  aspectRatio: "1 / 1",
-                                  position: "relative",
+                                  fontSize: "16px",
+                                  lineHeight: "1.5em",
+                                  fontWeight: "500",
                                 }}
                               >
-                                <Image
-                                  src={
-                                    item.attributes.Image_Tile_Face.data[0]
-                                      .attributes.formats.thumbnail.url
-                                  }
-                                  alt=""
-                                  fill
-                                />
-                              </Box>
-                              <Box
-                                sx={{
-                                  pl: "1rem",
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  gap: "2px",
-                                }}
-                              >
+                                {item.attributes.Name}
+                              </Typography>
+                              <Box display="flex">
                                 <Typography
                                   sx={{
-                                    fontSize: "16px",
+                                    fontSize: "12px",
                                     lineHeight: "1.5em",
-                                    fontWeight: "500",
+                                    fontWeight: "400",
                                   }}
                                 >
-                                  {item.attributes.Name}
+                                  {item.attributes.Code}
                                 </Typography>
-                                <Box display="flex">
-                                  <Typography
-                                    sx={{
-                                      fontSize: "12px",
-                                      lineHeight: "1.5em",
-                                      fontWeight: "400",
-                                    }}
-                                  >
-                                    {item.attributes.Code}
-                                  </Typography>
-                                  <Divider
-                                    orientation="vertical"
-                                    flexItem
-                                    sx={{ mx: "10px" }}
-                                  />
-                                  <Typography
-                                    sx={{
-                                      fontSize: "12px",
-                                      lineHeight: "1.5em",
-                                    }}
-                                  >
-                                    {
-                                      item.attributes.tile_dimension.data
-                                        .attributes.Dimension
-                                    }
-                                  </Typography>
-                                </Box>
-                                <Box>
-                                  <Typography
-                                    sx={{
-                                      fontSize: "14px",
-                                      lineHeight: "1.25em",
-                                    }}
-                                  >
-                                    <NumericFormat
-                                      // value={item.pricePerBox * item.quantity}
-                                      value={item.attributes.Price}
-                                      decimalScale={3}
-                                      displayType={"text"}
-                                      thousandSeparator={true}
-                                      prefix={"Rp. "}
-                                    />{" "}
-                                    / Box
-                                  </Typography>
-                                </Box>
+                                <Divider
+                                  orientation="vertical"
+                                  flexItem
+                                  sx={{ mx: "10px" }}
+                                />
+                                <Typography
+                                  sx={{
+                                    fontSize: "12px",
+                                    lineHeight: "1.5em",
+                                  }}
+                                >
+                                  {
+                                    item.attributes.tile_dimension.data
+                                      .attributes.Dimension
+                                  }
+                                </Typography>
+                              </Box>
+                              <Box>
+                                <Typography
+                                  sx={{
+                                    fontSize: "14px",
+                                    lineHeight: "1.25em",
+                                  }}
+                                >
+                                  <NumericFormat
+                                    // value={item.pricePerBox * item.quantity}
+                                    value={item.attributes.Price}
+                                    decimalScale={3}
+                                    displayType={"text"}
+                                    thousandSeparator={true}
+                                    prefix={"Rp. "}
+                                  />{" "}
+                                  / Box
+                                </Typography>
                               </Box>
                             </Box>
-                            <IconButton
-                              sx={{
-                                width: '40px',
-                                height: '40px',
-                                "&:hover": {
-                                  bgcolor: "#fcebeb",
-                                },
-                              }}
-                              onClick={() => handleDelete(index)}
-                            >
-                              <DeleteForeverIcon sx={{ color: "#DC362E" }} />
-                            </IconButton>
                           </Box>
-                          <Box
-                            display="flex"
+                          <IconButton
                             sx={{
-                              justifyContent: "space-between",
-                              alignItems: " center",
+                              width: "40px",
+                              height: "40px",
+                              "&:hover": {
+                                bgcolor: "#fcebeb",
+                              },
+                            }}
+                            onClick={() => handleDelete(index)}
+                          >
+                            <DeleteForeverIcon sx={{ color: "#DC362E" }} />
+                          </IconButton>
+                        </Box>
+                        <Box
+                          display="flex"
+                          sx={{
+                            justifyContent: "space-between",
+                            alignItems: " center",
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              fontSize: "16px",
+                              lineHeight: "1.25em",
+                              fontWeight: "bold",
                             }}
                           >
-                            <Typography
-                              sx={{
-                                fontSize: "16px",
-                                lineHeight: "1.25em",
-                                fontWeight: "bold",
-                              }}
+                            <NumericFormat
+                              // value={item.pricePerBox * item.quantity}
+                              value={item.attributes.Price * 5}
+                              decimalScale={3}
+                              displayType={"text"}
+                              thousandSeparator={true}
+                              prefix={"Rp. "}
+                            />
+                          </Typography>
+                          <Box
+                            display="flex"
+                            alignItems="center"
+                            sx={{
+                              width: "120px",
+                              height: "40px",
+                              p: "5px",
+                              // border: '1px solid #999',
+                              // borderRadius: '5px',
+                            }}
+                          >
+                            <IconButton
+                              onClick={() => handleDecrement(index)}
+                              size="small"
                             >
-                              <NumericFormat
-                                // value={item.pricePerBox * item.quantity}
-                                value={item.attributes.Price * 5}
-                                decimalScale={3}
-                                displayType={"text"}
-                                thousandSeparator={true}
-                                prefix={"Rp. "}
-                              />
-                            </Typography>
-                            <Box
-                              display="flex"
-                              alignItems="center"
+                              <RemoveIcon />
+                            </IconButton>
+                            <TextField
                               sx={{
-                                width: "120px",
-                                height: "40px",
-                                p: "5px",
-                                // border: '1px solid #999',
-                                // borderRadius: '5px',
-                              }}
-                            >
-                              <IconButton
-                                onClick={() => handleDecrement(index)}
-                                size="small"
-                              >
-                                <RemoveIcon />
-                              </IconButton>
-                              <TextField
-                                sx={{
-                                  m: "dense",
-                                  "& .MuiInputBase-input": {
-                                    fontWeight: "medium",
-                                    textAlign: "center",
-                                  },
-                                  "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
+                                m: "dense",
+                                "& .MuiInputBase-input": {
+                                  fontWeight: "medium",
+                                  textAlign: "center",
+                                },
+                                "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
                                   {
                                     appearance: "none",
                                   },
-                                }}
-                                type="number"
-                                value={5}
-                                onChange={(event) => handleChange(event, index)}
-                                variant="standard"
-                                InputProps={{
-                                  disableUnderline: true,
-                                }}
-                                size="small"
-                              />
-                              <IconButton
-                                onClick={() => handleIncrement(index)}
-                                size="small"
-                              >
-                                <AddIcon />
-                              </IconButton>
-                            </Box>
+                              }}
+                              type="number"
+                              value={5}
+                              onChange={(event) => handleChange(event, index)}
+                              variant="standard"
+                              InputProps={{
+                                disableUnderline: true,
+                              }}
+                              size="small"
+                            />
+                            <IconButton
+                              onClick={() => handleIncrement(index)}
+                              size="small"
+                            >
+                              <AddIcon />
+                            </IconButton>
                           </Box>
                         </Box>
-                      )
-                    )}
+                      </Box>
+                    ))}
                   </Box>
                 </>
               ) : (
@@ -381,135 +356,117 @@ export default function productExample() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {data?.data?.attributes?.motif.data.attributes?.products.data.map(
-                      (row, index) => (
-                        <TableRow
-                          key={index}
-                          sx={{
-                            "& .MuiTableCell-root": {
-                              fontWeight: "medium",
-                              fontSize: "1rem",
-                              letterSpacing: "0.5px",
-                            },
-                          }}
-                        >
-                          <TableCell align="left">
+                    {cart.map((row, index) => (
+                      <TableRow
+                        key={index}
+                        sx={{
+                          "& .MuiTableCell-root": {
+                            fontWeight: "medium",
+                            fontSize: "1rem",
+                            letterSpacing: "0.5px",
+                          },
+                        }}
+                      >
+                        <TableCell align="left">
+                          <Box
+                            sx={{
+                              width: "60px",
+                              height: "60px",
+                              position: "relative",
+                              aspectRatio: "1 / 1",
+                            }}
+                          >
+                            <Image src={row.imageSrc} alt="" fill />
+                          </Box>
+                        </TableCell>
+                        <TableCell align="left">{row.name}</TableCell>
+                        <TableCell align="left">{row.dimension}</TableCell>
+                        <TableCell align="left">{row.code}</TableCell>
+                        <TableCell align="left">
+                          <Box display="flex" alignItems="center">
                             <Box
+                              display="flex"
+                              alignItems="center"
                               sx={{
-                                width: "60px",
-                                height: "60px",
-                                position: "relative",
-                                aspectRatio: "1 / 1",
+                                width: "120px",
+                                height: "40px",
+                                p: "5px",
+                                // border: '1px solid #999',
+                                // borderRadius: '5px',
                               }}
                             >
-                              <Image
-                                src={
-                                  row.attributes.Image_Tile_Face.data[0]
-                                    .attributes.formats.thumbnail.url
-                                }
-                                alt=""
-                                fill
-                              />
-                            </Box>
-                          </TableCell>
-                          <TableCell align="left">
-                            {row.attributes.Name}
-                          </TableCell>
-                          <TableCell align="left">
-                            {
-                              row.attributes.tile_dimension.data.attributes
-                                .Dimension
-                            }
-                          </TableCell>
-                          <TableCell align="left">
-                            {row.attributes.Code}
-                          </TableCell>
-                          <TableCell align="left">
-                            <Box display="flex" alignItems="center">
-                              <Box
-                                display="flex"
-                                alignItems="center"
-                                sx={{
-                                  width: "120px",
-                                  height: "40px",
-                                  p: "5px",
-                                  // border: '1px solid #999',
-                                  // borderRadius: '5px',
-                                }}
+                              <IconButton
+                                // onClick={() => handleDecrement(index)}
+                                size="small"
+                                // sx={{ display: "none" }}
                               >
-                                <IconButton
-                                  onClick={() => handleDecrement(index)}
-                                  size="small"
-                                >
-                                  <RemoveIcon />
-                                </IconButton>
-                                <TextField
-                                  sx={{
-                                    m: "dense",
-                                    "& .MuiInputBase-input": {
-                                      fontWeight: "medium",
-                                      textAlign: "center",
-                                    },
-                                    "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
+                                <RemoveIcon />
+                              </IconButton>
+                              <TextField
+                                sx={{
+                                  m: "dense",
+                                  "& .MuiInputBase-input": {
+                                    fontWeight: "medium",
+                                    textAlign: "center",
+                                  },
+                                  "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
                                     {
                                       appearance: "none",
                                     },
-                                  }}
-                                  type="number"
-                                  value={5}
-                                  onChange={(event) =>
-                                    handleChange(event, index)
-                                  }
-                                  variant="standard"
-                                  InputProps={{
-                                    disableUnderline: true,
-                                  }}
-                                  size="small"
-                                />
-                                <IconButton
-                                  onClick={() => handleIncrement(index)}
-                                  size="small"
-                                >
-                                  <AddIcon />
-                                </IconButton>
-                              </Box>
+                                }}
+                                type="number"
+                                value={row.quantity}
+                                onChange={(event) => handleChange(event, index)}
+                                variant="standard"
+                                InputProps={{
+                                  disableUnderline: true,
+                                }}
+                                size="small"
+                              />
+                              <IconButton
+                                // onClick={() => handleIncrement(index)}
+                                size="small"
+                                // sx={{ display: "none" }}
+                              >
+                                <AddIcon />
+                              </IconButton>
                             </Box>
-                          </TableCell>
-                          <TableCell align="left">
-                            <NumericFormat
-                              // value={item.pricePerBox * item.quantity}
-                              value={row.attributes.Price}
-                              decimalScale={3}
-                              displayType={"text"}
-                              thousandSeparator={true}
-                              prefix={"Rp. "}
-                            />
-                          </TableCell>
-                          <TableCell align="left">
-                            <NumericFormat
-                              // value={item.pricePerBox * item.quantity}
-                              value={row.attributes.Price * 5}
-                              decimalScale={3}
-                              displayType={"text"}
-                              thousandSeparator={true}
-                              prefix={"Rp. "}
-                            />
-                          </TableCell>
-                          <TableCell align="left">
-                            <IconButton
-                              sx={{
-                                "&:hover": {
-                                  bgcolor: "#fcebeb",
-                                },
-                              }}
-                              onClick={() => handleDelete(index)}
-                            >
-                              <DeleteForeverIcon sx={{ color: "#DC362E" }} />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                      )
-                    )}
+                          </Box>
+                        </TableCell>
+                        <TableCell align="left">
+                          <NumericFormat
+                            // value={item.pricePerBox * item.quantity}
+                            value={row.pricePerBox}
+                            decimalScale={3}
+                            displayType={"text"}
+                            thousandSeparator={true}
+                            prefix={"Rp. "}
+                          />
+                        </TableCell>
+                        <TableCell align="left">
+                          <NumericFormat
+                            // value={item.pricePerBox * item.quantity}
+                            value={row.pricePerBox}
+                            decimalScale={3}
+                            displayType={"text"}
+                            thousandSeparator={true}
+                            prefix={"Rp. "}
+                          />
+                        </TableCell>
+                        <TableCell align="left">
+                          <IconButton
+                            sx={{
+                              "&:hover": {
+                                bgcolor: "#fcebeb",
+                              },
+                            }}
+                            onClick={() => handleDelete(index)}
+                          >
+                            <DeleteForeverIcon sx={{ color: "#DC362E" }} />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </>
               )}
@@ -524,21 +481,24 @@ export default function productExample() {
           >
             <Grid container columnSpacing={4}>
               <Grid item xs={12} md={6}>
-                <Box display={{ xs: "block", md: "flex" }} sx={{
-                  gap: 2
-                }}>
+                <Box
+                  display={{ xs: "block", md: "flex" }}
+                  sx={{
+                    gap: 2,
+                  }}
+                >
                   <Box>
                     <Button
                       size="small"
                       sx={{
                         width: { xs: "100%", md: "auto" },
-                        height: '40px',
-                        color: '#000',
+                        height: "40px",
+                        color: "#000",
                         border: "2px solid #000",
                         borderRadius: "5px",
                         mb: { xs: "1em", lg: "0" },
                         textAlign: "center",
-                        px: '16px',
+                        px: "16px",
                       }}
                     >
                       Continue Browsing
@@ -549,14 +509,14 @@ export default function productExample() {
                       size="small"
                       sx={{
                         width: { xs: "100%", md: "auto" },
-                        height: '40px',
+                        height: "40px",
                         border: "2px solid #000",
                         borderRadius: "5px",
                         display: "flex",
                         mb: { xs: "1em", lg: "0" },
                         justifyContent: "center",
-                        color: '#000',
-                        px: '16px',
+                        color: "#000",
+                        px: "16px",
                       }}
                     >
                       <CloseIcon sx={{ mr: "5px" }} />
@@ -565,35 +525,69 @@ export default function productExample() {
                   </Box>
                 </Box>
               </Grid>
-              <Grid item xs={12} md={6} sx={{ display: { xs: 'block', md: 'flex' }, justifyContent: 'end' }}>
-                <Box sx={{ mb: { xs: '1em', md: '0' }, width: '100%' }}>
-                  <Box sx={{ mb: { xs: '1em', md: '0' } }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Grid
+                item
+                xs={12}
+                md={6}
+                sx={{
+                  display: { xs: "block", md: "flex" },
+                  justifyContent: "end",
+                }}
+              >
+                <Box sx={{ mb: { xs: "1em", md: "0" }, width: "100%" }}>
+                  <Box sx={{ mb: { xs: "1em", md: "0" } }}>
+                    <Box
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
                       <Box>
-                        <Typography sx={{ fontSize: '20px', pr: '20px' }}>
+                        <Typography sx={{ fontSize: "20px", pr: "20px" }}>
                           Total:
                         </Typography>
                       </Box>
                       <Box>
-                        <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>
+                        <Typography
+                          sx={{ fontSize: "20px", fontWeight: "bold" }}
+                        >
                           Rp. 123.123.123.123
                         </Typography>
                       </Box>
                     </Box>
-                    <Typography sx={{ fontSize: '12px', mt: '10px', textAlign: 'end' }}>Tax & shipping rates are calculated during checkout</Typography>
+                    <Typography
+                      sx={{ fontSize: "12px", mt: "10px", textAlign: "end" }}
+                    >
+                      Tax & shipping rates are calculated during checkout
+                    </Typography>
                   </Box>
-                  <Box className='cart-form' sx={{ display: 'flex', flexDirection: 'column', width: '100%', mt: '36px', gap: '10px', mb: '1em' }}>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      <Typography sx={{ fontWeight: 'bold', fontSize: '18px' }}>Contact</Typography>
+                  <Box
+                    className="cart-form"
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "100%",
+                      mt: "36px",
+                      gap: "10px",
+                      mb: "1em",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "10px",
+                      }}
+                    >
+                      <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
+                        Contact
+                      </Typography>
                       <TextField
-                        size='small'
+                        size="small"
                         required
                         id="outlined-required"
                         label="Name"
                         sx={{ flexGrow: 1 }}
                       />
                       <TextField
-                        size='small'
+                        size="small"
                         type="email"
                         required
                         fullWidth
@@ -601,7 +595,7 @@ export default function productExample() {
                         label="Email"
                       />
                       <TextField
-                        size='small'
+                        size="small"
                         type="phone"
                         required
                         fullWidth
@@ -610,24 +604,32 @@ export default function productExample() {
                         label="Phone Number"
                       />
                     </Box>
-                    <Box sx={{ gap: '10px', display: 'flex', flexDirection: 'column', }}>
-                      <Typography sx={{ fontWeight: 'bold', fontSize: '18px', }}>Shipping Address</Typography>
+                    <Box
+                      sx={{
+                        gap: "10px",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
+                        Shipping Address
+                      </Typography>
                       <TextField
-                        size='small'
+                        size="small"
                         required
                         id="outlined-required"
                         label="Address"
                         sx={{ flexGrow: 1 }}
                       />
                       <TextField
-                        size='small'
+                        size="small"
                         required
                         id="outlined-required"
                         label="City"
                         sx={{ flexGrow: 1 }}
                       />
                       <TextField
-                        size='small'
+                        size="small"
                         required
                         id="outlined-required"
                         label="State"
@@ -635,19 +637,20 @@ export default function productExample() {
                       />
                     </Box>
                   </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Button
                       size="small"
                       sx={{
                         width: "100%",
-                        height: '40px',
-                        color: '#fff',
-                        bgcolor: '#000',
-                        px: '16px',
-                        '&:hover': {
-                          bgcolor: '#111'
+                        height: "40px",
+                        color: "#fff",
+                        bgcolor: "#000",
+                        px: "16px",
+                        "&:hover": {
+                          bgcolor: "#111",
                         },
-                      }}>
+                      }}
+                    >
                       Checkout
                     </Button>
                   </Box>
@@ -665,7 +668,7 @@ export default function productExample() {
             </Typography>
           </Box>
         </Box>
-      </ProductLayout >
+      </ProductLayout>
     </>
   );
 }

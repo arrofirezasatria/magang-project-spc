@@ -1,10 +1,10 @@
 import { Button } from "@mui/material";
 import { increment } from "store/counterSlice";
 
-
 export default function CartButton(props: any) {
-  console.log(props.addToCart);
-  console.log(props.checkout);
+  // console.log(props.addToCart);
+  // console.log(props.checkout);
+  const { checkout, ...rest } = props;
 
   return (
     <>
@@ -16,17 +16,15 @@ export default function CartButton(props: any) {
           width: "100%",
           borderRadius: "50px",
           fontSize: "16px",
-          letterSpacing: '1px',
+          letterSpacing: "1px",
           "&:hover": {
             bgcolor: "#222",
           },
         }}
-        onClick={() => {
-          // dispatch(increment());
-        }}
+        {...rest}
       >
         {props.addToCart ? props.addToCart : props.checkout}
       </Button>
     </>
   );
-};
+}

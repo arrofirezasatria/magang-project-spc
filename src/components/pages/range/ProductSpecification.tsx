@@ -77,28 +77,25 @@ export default function ProductSpecification({ props, data }: any) {
   const [totalPrice, setTotalPrice] = React.useState(0);
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    // console.log("something");
-    // console.log(props);
-    // console.log(
-    //   props.productOnly.data.attributes.Image_Tile_Face.data[0].attributes
-    //     .formats.thumbnail.url
-    // );
-    dispatch(
-      addToCart({
-        id: props.product.data.id,
-        code: "gs12370",
-        name: props.productOnly.data.attributes.Name,
-        dimension:
-          props.productOnly.data.attributes.tile_dimension.data.attributes
-            .Dimension,
-        imageSrc:
-          props.productOnly.data.attributes.Image_Tile_Face.data[0].attributes
-            .formats.thumbnail.url,
-        quantity: 5,
-        pricePerBox: 300000,
-        priceTotal: 1500000,
-      })
-    );
+    {
+      data.quantity !== "" &&
+        dispatch(
+          addToCart({
+            id: props.product.data.id,
+            code: "gs12370",
+            name: props.productOnly.data.attributes.Name,
+            dimension:
+              props.productOnly.data.attributes.tile_dimension.data.attributes
+                .Dimension,
+            imageSrc:
+              props.productOnly.data.attributes.Image_Tile_Face.data[0]
+                .attributes.formats.thumbnail.url,
+            quantity: data.quantity !== null ? data.quantity : 0,
+            pricePerBox: 300000,
+            priceTotal: totalPrice,
+          })
+        );
+    }
   };
 
   React.useEffect(() => {
@@ -122,9 +119,9 @@ export default function ProductSpecification({ props, data }: any) {
               display: "flex",
               justifyContent: "center",
               position: "relative",
-              pt: '20px',
+              pt: "20px",
               pb: "30px",
-              mb: '40px',
+              mb: "40px",
               textAlign: "center",
             }}
           >
@@ -156,8 +153,8 @@ export default function ProductSpecification({ props, data }: any) {
         <Box
           className="product-highlight"
           sx={{
-            width: '100%',
-            pt: '30px',
+            width: "100%",
+            pt: "30px",
           }}
         >
           <Grid container spacing={6} sx={{ pb: "30px" }}>
@@ -183,22 +180,23 @@ export default function ProductSpecification({ props, data }: any) {
                         ? "427.500px"
                         : "none",
                     position: "relative",
-                    aspectRatio: '1 / 1'
+                    aspectRatio: "1 / 1",
                   }}
                 >
                   {props.productOnly.data.attributes.Image_Tile_Face.data ? (
                     <Image
                       src={
-                        props.productOnly.data.attributes.Image_Tile_Face.data[0]
-                          ?.attributes?.formats?.large?.url
+                        props.productOnly.data.attributes.Image_Tile_Face
+                          .data[0]?.attributes?.formats?.large?.url
                       }
                       fill
                       alt=""
                       style={{
                         borderRadius: "0px",
                         background: "#e0e0e0",
-                        boxShadow: "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
-                        objectFit: 'cover',
+                        boxShadow:
+                          "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
+                        objectFit: "cover",
                       }}
                     />
                   ) : (
@@ -206,7 +204,9 @@ export default function ProductSpecification({ props, data }: any) {
                   )}
                 </Box>
               </Zoom>
-              <Box sx={{ my: "20px", display: 'flex', justifyContent: 'center' }}>
+              <Box
+                sx={{ my: "20px", display: "flex", justifyContent: "center" }}
+              >
                 {imgFileUrl ? (
                   <Link
                     onClick={() => {
@@ -333,8 +333,8 @@ export default function ProductSpecification({ props, data }: any) {
                         props.motif.data.attributes.motif.data.attributes
                           .product_varians?.data?.length > 0
                           ? props.motif.data.attributes.motif.data.attributes.product_varians?.data
-                            .map((item: any) => item.attributes.Varian)
-                            .join(", ")
+                              .map((item: any) => item.attributes.Varian)
+                              .join(", ")
                           : "-",
                     },
                     {
@@ -361,14 +361,15 @@ export default function ProductSpecification({ props, data }: any) {
                       title: "Rectified Edge",
                       value:
                         props.productOnly.data.attributes?.Rectified.toString() ==
-                          "true"
+                        "true"
                           ? "Yes"
                           : "No",
                     },
                     {
                       title: "Shade Variation",
                       value:
-                        props.productOnly.data.attributes?.Shade_Variation || "-",
+                        props.productOnly.data.attributes?.Shade_Variation ||
+                        "-",
                     },
                     {
                       title: "Suitability",
@@ -622,7 +623,8 @@ export default function ProductSpecification({ props, data }: any) {
                               <TableCell>
                                 <NumericFormat
                                   value={
-                                    1.44 * props.productOnly.data.attributes.Price
+                                    props.productOnly.data.attributes.SQM_Box *
+                                    props.productOnly.data.attributes.Price
                                   }
                                   decimalScale={3}
                                   displayType={"text"}
@@ -651,13 +653,22 @@ export default function ProductSpecification({ props, data }: any) {
                                 <TableCell sx={{ minWidth: "19%" }}>
                                   Required
                                 </TableCell>
-                                <TableCell sx={{ minWidth: "19%" }} align="right">
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
                                   Coverage
                                 </TableCell>
-                                <TableCell sx={{ minWidth: "19%" }} align="right">
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
                                   Box Price
                                 </TableCell>
-                                <TableCell sx={{ minWidth: "19%" }} align="right">
+                                <TableCell
+                                  sx={{ minWidth: "19%" }}
+                                  align="right"
+                                >
                                   Total Price
                                 </TableCell>
                               </TableRow>
@@ -675,7 +686,9 @@ export default function ProductSpecification({ props, data }: any) {
                                       formState,
                                     }) => (
                                       <TextField
-                                        helperText={error ? error.message : null}
+                                        helperText={
+                                          error ? error.message : null
+                                        }
                                         size="small"
                                         error={!!error}
                                         onChange={onChange}
@@ -726,6 +739,7 @@ export default function ProductSpecification({ props, data }: any) {
                       </Table>
                     </TableContainer>
                     <button onClick={handleSubmit(onSubmit)}>suubmit</button>
+                    <Link href="/range">to Product list</Link>
                     <Button
                       variant="contained"
                       sx={{

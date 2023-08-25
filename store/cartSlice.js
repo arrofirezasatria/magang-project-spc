@@ -27,7 +27,7 @@ export const cartSlice = createSlice({
         // If product is in cart
 
         //add current quantity and price total and also all total price.
-        item.quantity += action.payload.quantity;
+        item.quantity += parseInt(action.payload.quantity);
         item.priceTotal += action.payload.priceTotal;
 
         state.totalPrice += action.payload.priceTotal;
@@ -41,7 +41,7 @@ export const cartSlice = createSlice({
           name: action.payload.name,
           dimension: action.payload.dimension,
           imageSrc: action.payload.imageSrc,
-          quantity: action.payload.quantity,
+          quantity: parseInt(action.payload.quantity),
           pricePerBox: 300000,
           priceTotal: action.payload.priceTotal,
         });
@@ -50,14 +50,18 @@ export const cartSlice = createSlice({
       }
     },
     removeItemFromCart: (state, action) => {
+      console.log();
+
       //Make array with removed item throufh filter
       const cartItemsWithRemovedItem = state.cartItems.filter(
         (item) => item.id !== action.payload.id
       );
 
+      state.totalPrice -= state.cartItems.find;
+
       state.cartItems = cartItemsWithRemovedItem;
     },
-    dropCart: () => {
+    dropCart: (state) => {
       state.cartItems = [];
       state.totalPrice = 0;
       state.totalSQM = 0;
@@ -82,7 +86,12 @@ export const cartSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addToCart, updateCart, removeFromCart, removeItemFromCart } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  updateCart,
+  removeFromCart,
+  removeItemFromCart,
+  dropCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

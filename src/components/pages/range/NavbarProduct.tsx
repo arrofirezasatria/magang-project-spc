@@ -27,7 +27,7 @@ import ListItem from "@mui/material/ListItem";
 import React, { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
@@ -44,7 +44,9 @@ import {
   newsNavbar,
 } from "data/navbarHeader/Navbar";
 import { useTheme } from "@mui/material/styles";
+import { dropCart, removeItemFromCart } from "store/cartSlice";
 import CartButton from "@components/common/CartButton";
+import { useRouter } from "next/router";
 
 const headers = {
   Authorization:
@@ -95,6 +97,7 @@ const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
 // ];
 
 export default function NavbarProduct() {
+  const router = useRouter();
   const count = useSelector(
     (state) =>
       // @ts-ignore
@@ -159,6 +162,13 @@ export default function NavbarProduct() {
       // @ts-ignore
       state.cart.cartItems
   );
+
+  const totalPrice = useSelector(
+    (state) =>
+      // @ts-ignore
+      state.cart.totalPrice
+  );
+
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
@@ -444,6 +454,12 @@ export default function NavbarProduct() {
     },
   ];
 
+  const dispatch = useDispatch();
+
+  const handleClearbasket = () => {
+    dispatch(dropCart());
+  };
+
   return (
     <>
       <Container>
@@ -582,7 +598,7 @@ export default function NavbarProduct() {
                             ml: "10px",
                           }}
                         >
-                          ( {count} )
+                          ( {cart.length} )
                         </Typography>
                       </Box>
                       <IconButton sx={{ p: "0px" }}>
@@ -964,7 +980,7 @@ export default function NavbarProduct() {
                     />
                   </IconButton>
                   <Typography variant="body1_bold" sx={{ color: "black" }}>
-                    {count}
+                    {cart.length}
                   </Typography>
                 </Stack>
                 <Drawer
@@ -1011,7 +1027,7 @@ export default function NavbarProduct() {
                           overflow: "auto",
                           flexGrow: "1",
                         }}
-                      // @ts-ignore
+                        // @ts-ignore
                       >
                         {cart.map((item: any, index: any) => {
                           return (
@@ -1045,6 +1061,12 @@ export default function NavbarProduct() {
                                           bgcolor: "#ff3333",
                                         },
                                       }}
+                                      onClick={() => {
+                                        console.log("somethng");
+                                        dispatch(
+                                          removeItemFromCart({ id: item.id })
+                                        );
+                                      }}
                                     >
                                       <CloseIcon
                                         sx={{ fontSize: "15px", color: "#fff" }}
@@ -1060,7 +1082,12 @@ export default function NavbarProduct() {
                                         overflow: "hidden",
                                       }}
                                     >
-                                      <Image src={item.imageSrc} fill alt="" />
+                                      <Image
+                                        src={item.imageSrc}
+                                        fill
+                                        alt=""
+                                        objectFit="cover"
+                                      />
                                     </Box>
                                   </Box>
                                   <Box
@@ -1114,9 +1141,9 @@ export default function NavbarProduct() {
                                           fontSize: "14px",
                                         },
                                         "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                        {
-                                          appearance: "none",
-                                        },
+                                          {
+                                            appearance: "none",
+                                          },
                                       }}
                                       type="number"
                                       value={item.quantity}
@@ -1149,7 +1176,7 @@ export default function NavbarProduct() {
                             },
                           }}
                         >
-                          <Box className="cart-calc">
+                          {/* <Box className="cart-calc">
                             <Typography>Taxes</Typography>
                             <Typography sx={{ fontWeight: "bold" }}>
                               Rp. 123.123.123
@@ -1160,14 +1187,23 @@ export default function NavbarProduct() {
                             <Typography sx={{ color: "#737373" }}>
                               Calculated at checkout
                             </Typography>
-                          </Box>
+                          </Box> */}
                           <Box className="cart-calc">
                             <Typography>Total</Typography>
                             <Typography sx={{ fontWeight: "bold" }}>
-                              Rp. 123.123.123.123
+                              <NumericFormat
+                                value={totalPrice}
+                                decimalScale={3}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                prefix={"Rp. "}
+                              />
                             </Typography>
                           </Box>
-                          <CartButton checkout={'checkout'} />
+                          <CartButton
+                            checkout={"checkout"}
+                            onClick={() => router.push("/newCartExample")}
+                          />
                         </Box>
                       </Box>
                     </>
@@ -1191,6 +1227,9 @@ export default function NavbarProduct() {
                       </Box>
                     </>
                   )}
+                  <button onClick={() => handleClearbasket()}>
+                    clear basket
+                  </button>
                 </Drawer>
               </List>
             </Toolbar>
