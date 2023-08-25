@@ -31,6 +31,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CloseIcon from "@mui/icons-material/Close";
 import ProductLayout from "@layouts/ProductLayout";
+import { useSelector } from "react-redux";
 
 const headers = {
   Authorization:
@@ -41,7 +42,7 @@ const fetcher2 = (url: RequestInfo | URL) =>
   fetch(url, { headers }).then((res) => res.json());
 // axios.get(url, { headers }).then((res) => res.data())
 
-export default function productExample() {
+export default function ProductExample() {
   const { data, error, isLoading, isValidating } = swr(
     `https://strapi-app-tnshv.ondigitalocean.app/api/products/93?populate[motif][populate][products][populate]=*`,
     fetcher2
@@ -51,25 +52,6 @@ export default function productExample() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  // table data content
-  // const initialCartData = [
-  //   {
-  //     img: data?.data?.attributes?.Image_Tile_Face.data[0].attributes?.formats.thumbnail.url,
-  //     quantity: 3,
-  //     code: data?.data?.attributes?.Code,
-  //     description: data?.data?.attributes?.Name + ' - ' + data?.data?.attributes?.tile_dimension.data.attributes?.Dimension,
-  //     boxPrice: 'Rp. 123.123.123',
-  //     totalPrice: 'Rp. 123.123.123'
-  //   },
-  //   {
-  //     img: data?.data?.attributes?.Image_Tile_Face.data[0].attributes?.formats.thumbnail.url,
-  //     quantity: 5,
-  //     code: 'DEF456',
-  //     description: 'Product GHIJKL' + ' - ' + '120x120cm',
-  //     boxPrice: 'Rp. 123.123.123',
-  //     totalPrice: 'Rp. 123.123.123'
-  //   },
-  // ];
   const headers = [
     null,
     "range name",
@@ -80,31 +62,6 @@ export default function productExample() {
     "total price",
     null,
   ];
-
-  // const [cartData, setData] = useState(initialCartData);
-
-  // const handleIncrement = (index) => {
-  //   const newData = [...cartData];
-  //   newData[index].quantity += 1;
-  //   setData(newData);
-  // };
-
-  // const handleDecrement = (index) => {
-  //   if (cartData[index].quantity > 0) {
-  //     const newData = [...cartData];
-  //     newData[index].quantity -= 1;
-  //     setData(newData);
-  //   }
-  // };
-
-  // const handleChange = (event, index) => {
-  //   const newValue = parseInt(event.target.value);
-  //   if (!isNaN(newValue)) {
-  //     const newData = [...cartData];
-  //     newData[index].quantity = newValue;
-  //     setData(newData);
-  //   }
-  // };
 
   if (isLoading) {
     console.log("masih loading");
@@ -128,16 +85,16 @@ export default function productExample() {
     throw new Error("Function not implemented.");
   }
 
+  const cart = useSelector(
+    (state) =>
+      // @ts-ignore
+      state.cart.cartItems
+  );
+
   return (
     <>
       <Box sx={{ height: "64px" }}></Box>
       <ProductLayout backgroundColor="#f2f1f0">
-        {/* <Box className='cart-wrap' sx={{ bgcolor: '#f2f1f0', display: 'inline-block', width: '100%', height: '100%' }}>
-        <Box className='cart-content' sx={{
-          margin: '0 auto',
-          maxWidth: '1200px',
-          padding: '40px 30px',
-        }}> */}
         <Box
           className="cart"
           sx={{ width: "100%", my: { xs: "0", md: "20px" } }}

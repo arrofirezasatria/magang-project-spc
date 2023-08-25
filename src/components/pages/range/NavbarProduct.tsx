@@ -1,4 +1,24 @@
-import { Box, Container, Button, Grid, Tabs, AppBar, Typography, Divider, MenuItem, Toolbar, Link, Popover, Collapse, Tab, Grow, IconButton, Stack, Drawer, TextField } from "@mui/material";
+import {
+  Box,
+  Container,
+  Button,
+  Grid,
+  Tabs,
+  AppBar,
+  Typography,
+  Divider,
+  MenuItem,
+  Toolbar,
+  Link,
+  Popover,
+  Collapse,
+  Tab,
+  Grow,
+  IconButton,
+  Stack,
+  Drawer,
+  TextField,
+} from "@mui/material";
 // import { GetStaticProps } from "next";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Image from "next/image";
@@ -13,16 +33,25 @@ import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { NumericFormat } from "react-number-format";
-import { DropdownFilter, navbarMobile, productData, aboutNavbar, serviceNavbar, sectorNavbar, projectNavbar, newsNavbar } from "data/navbarHeader/Navbar";
-import { useTheme } from '@mui/material/styles';
-
+import {
+  DropdownFilter,
+  navbarMobile,
+  productData,
+  aboutNavbar,
+  serviceNavbar,
+  sectorNavbar,
+  projectNavbar,
+  newsNavbar,
+} from "data/navbarHeader/Navbar";
+import { useTheme } from "@mui/material/styles";
 
 const headers = {
   Authorization:
     "Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c",
 };
 
-const fetcher2 = (url: RequestInfo | URL) => fetch(url, { headers }).then((res) => res.json());
+const fetcher2 = (url: RequestInfo | URL) =>
+  fetch(url, { headers }).then((res) => res.json());
 
 interface TabPanelProps {
   children: React.ReactNode;
@@ -31,8 +60,13 @@ interface TabPanelProps {
 }
 
 const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
-  return <div hidden={value !== index}>{value === index && <Box p={3}>{children}</Box>}</div>;
+  return (
+    <div hidden={value !== index}>
+      {value === index && <Box p={3}>{children}</Box>}
+    </div>
+  );
 };
+
 //   {
 //     imgSrc: "/static/images/stylestone.jpg",
 //     text: "Stone",
@@ -67,14 +101,20 @@ export default function NavbarProduct() {
   );
   const [activeTab, setActiveTab] = useState(0);
 
-  const handleChangeTab = (event: any, newValue: React.SetStateAction<number>) => {
+  const handleChangeTab = (
+    event: any,
+    newValue: React.SetStateAction<number>
+  ) => {
     setActiveTab(newValue);
   };
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedDropdown, setSelectedDropdown] = useState(null);
 
-  const handleDropdownOpen = (event: { currentTarget: React.SetStateAction<null> }, index: React.SetStateAction<null>) => {
+  const handleDropdownOpen = (
+    event: { currentTarget: React.SetStateAction<null> },
+    index: React.SetStateAction<null>
+  ) => {
     setAnchorEl(event.currentTarget);
     setSelectedDropdown(index);
   };
@@ -131,7 +171,11 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {aboutNavbar.map((item, index) => (
-            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
+            <Link
+              key={index}
+              href={item.href}
+              sx={{ textDecoration: "none", color: "black" }}
+            >
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
@@ -147,7 +191,6 @@ export default function NavbarProduct() {
             onChange={handleChangeTab}
             variant="fullWidth"
             centered
-
             sx={{
               width: "100%",
               display: "flex",
@@ -155,7 +198,7 @@ export default function NavbarProduct() {
               backgroundColor: "#dcdcdc",
               "& .MuiTabs-indicator": {
                 backgroundColor: "black",
-                minWidth: "360px"
+                minWidth: "360px",
               },
             }}
           >
@@ -186,11 +229,38 @@ export default function NavbarProduct() {
               <Grid container spacing={3}>
                 {item.data.map((product, productIndex) => (
                   <Grid item md={2} key={productIndex}>
-                    <Link href="#" sx={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none" }}>
-                      <Box sx={{ position: "relative", width: "170px", height: "299px" }}>
-                        <Image src={product.imgSrc} fill alt={`Gambar ${productIndex}`} />
+                    <Link
+                      href="#"
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        textDecoration: "none",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          position: "relative",
+                          width: "170px",
+                          height: "299px",
+                        }}
+                      >
+                        <Image
+                          src={product.imgSrc}
+                          fill
+                          alt={`Gambar ${productIndex}`}
+                        />
                       </Box>
-                      <Typography variant="subtitle1" sx={{ textAlign: "center", fontSize: "14px", width: "170px", marginTop: "8px", color: "black" }}>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{
+                          textAlign: "center",
+                          fontSize: "14px",
+                          width: "170px",
+                          marginTop: "8px",
+                          color: "black",
+                        }}
+                      >
                         {product.text}
                       </Typography>
                     </Link>
@@ -199,36 +269,94 @@ export default function NavbarProduct() {
               </Grid>
             </TabPanel>
           ))}
-          <Box sx={{ width: "100%", display: "flex", justifyContent: "center", mt: "20px" }}>
-            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "1150px", py: "20px", borderTop: "2px dotted #868686" }}>
-              <Link sx={{ textDecoration: "none", display: "flex", flexDirection: "row" }}>
-                <Typography variant="body1_medium" sx={{ mr: "5px", color: "#989898" }}>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              mt: "20px",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: "1150px",
+                py: "20px",
+                borderTop: "2px dotted #868686",
+              }}
+            >
+              <Link
+                sx={{
+                  textDecoration: "none",
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                <Typography
+                  variant="body1_medium"
+                  sx={{ mr: "5px", color: "#989898" }}
+                >
                   View All
                 </Typography>
-                <Typography variant="body1_bold" sx={{ mr: "5px", color: "#989898" }}>
+                <Typography
+                  variant="body1_bold"
+                  sx={{ mr: "5px", color: "#989898" }}
+                >
                   Product Style
                 </Typography>
               </Link>
               <Box sx={{ display: "flex", flexDirection: "row" }}>
-                <Link sx={{ textDecoration: "none", display: "flex", flexDirection: "row" }}>
-                  <Typography variant="body1_medium" sx={{ mr: "5px", color: "#989898" }}>
+                <Link
+                  sx={{
+                    textDecoration: "none",
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                >
+                  <Typography
+                    variant="body1_medium"
+                    sx={{ mr: "5px", color: "#989898" }}
+                  >
                     All Ranges
                   </Typography>
-                  <Typography variant="body1_medium" sx={{ mr: "5px", color: "#989898" }}>
+                  <Typography
+                    variant="body1_medium"
+                    sx={{ mr: "5px", color: "#989898" }}
+                  >
                     -
                   </Typography>
-                  <Typography variant="body1_bold" sx={{ mr: "5px", color: "#989898" }}>
+                  <Typography
+                    variant="body1_bold"
+                    sx={{ mr: "5px", color: "#989898" }}
+                  >
                     A to Z
                   </Typography>
                 </Link>
-                <Link sx={{ textDecoration: "none", display: "flex", flexDirection: "row" }}>
-                  <Typography variant="body1_medium" sx={{ mr: "5px", color: "#989898" }}>
+                <Link
+                  sx={{
+                    textDecoration: "none",
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                >
+                  <Typography
+                    variant="body1_medium"
+                    sx={{ mr: "5px", color: "#989898" }}
+                  >
                     All Ranges
                   </Typography>
-                  <Typography variant="body1_medium" sx={{ mr: "5px", color: "#989898" }}>
+                  <Typography
+                    variant="body1_medium"
+                    sx={{ mr: "5px", color: "#989898" }}
+                  >
                     -
                   </Typography>
-                  <Typography variant="body1_bold" sx={{ mr: "5px", color: "#989898" }}>
+                  <Typography
+                    variant="body1_bold"
+                    sx={{ mr: "5px", color: "#989898" }}
+                  >
                     New
                   </Typography>
                 </Link>
@@ -243,7 +371,11 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {serviceNavbar.map((item, index) => (
-            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
+            <Link
+              key={index}
+              href={item.href}
+              sx={{ textDecoration: "none", color: "black" }}
+            >
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
@@ -255,7 +387,11 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {sectorNavbar.map((item, index) => (
-            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
+            <Link
+              key={index}
+              href={item.href}
+              sx={{ textDecoration: "none", color: "black" }}
+            >
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
@@ -267,7 +403,11 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {projectNavbar.map((item, index) => (
-            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
+            <Link
+              key={index}
+              href={item.href}
+              sx={{ textDecoration: "none", color: "black" }}
+            >
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
@@ -283,7 +423,11 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {newsNavbar.map((item, index) => (
-            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
+            <Link
+              key={index}
+              href={item.href}
+              sx={{ textDecoration: "none", color: "black" }}
+            >
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
@@ -305,10 +449,41 @@ export default function NavbarProduct() {
         {/* Tampilan mobile navbar */}
         <Grid sx={{ position: "static", zIndex: "9", width: "100%" }}>
           <Grid display={{ xs: "flex", lg: "none" }} sx={{ width: "100%" }}>
-            <Box display="flex" sx={{ width: "100%", py: "20px", justifyContent: "space-between", zIndex: "10", backgroundColor: isScrolled ? "white" : "white", transition: "background-color 0.3s" }}>
-              <Link display="flex" flexDirection="row" sx={{ height: "49px", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
-                <Button sx={{ width: "150px", height: "50px", position: "relative", mr: "10px" }}>
-                  <Image src={"/static/images/Sunpower.png"} fill alt={""} style={{}} />
+            <Box
+              display="flex"
+              sx={{
+                width: "100%",
+                py: "20px",
+                justifyContent: "space-between",
+                zIndex: "10",
+                backgroundColor: isScrolled ? "white" : "white",
+                transition: "background-color 0.3s",
+              }}
+            >
+              <Link
+                display="flex"
+                flexDirection="row"
+                sx={{
+                  height: "49px",
+                  alignItems: "center",
+                  textDecoration: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <Button
+                  sx={{
+                    width: "150px",
+                    height: "50px",
+                    position: "relative",
+                    mr: "10px",
+                  }}
+                >
+                  <Image
+                    src={"/static/images/Sunpower.png"}
+                    fill
+                    alt={""}
+                    style={{}}
+                  />
                 </Button>
               </Link>
               <IconButton
@@ -319,7 +494,11 @@ export default function NavbarProduct() {
                 }}
                 onClick={() => setOpen(!open)}
               >
-                {open ? <CloseIcon sx={{ fontSize: "30px" }} /> : <MenuIcon sx={{ fontSize: "30px" }} />}
+                {open ? (
+                  <CloseIcon sx={{ fontSize: "30px" }} />
+                ) : (
+                  <MenuIcon sx={{ fontSize: "30px" }} />
+                )}
               </IconButton>
             </Box>
           </Grid>
@@ -336,7 +515,11 @@ export default function NavbarProduct() {
                     height: "98vh",
                   }}
                 >
-                  <Grid container spacing={0} sx={{ px: "24px", my: 2, mb: "80px" }}>
+                  <Grid
+                    container
+                    spacing={0}
+                    sx={{ px: "24px", my: 2, mb: "80px" }}
+                  >
                     <Button
                       sx={{
                         fontSize: "16px",
@@ -372,16 +555,41 @@ export default function NavbarProduct() {
                         justifyContent: "space-between",
                       }}
                     >
-                      <Box display="flex" flexDirection="row" alignItems="center">
-                        <Button sx={{ p: "0px", color: "black", minWidth: "0px", fontSize: "16px", fontWeight: "medium", typography: { textTransform: "capitalize" } }} onClick={toggleDrawer}>
+                      <Box
+                        display="flex"
+                        flexDirection="row"
+                        alignItems="center"
+                      >
+                        <Button
+                          sx={{
+                            p: "0px",
+                            color: "black",
+                            minWidth: "0px",
+                            fontSize: "16px",
+                            fontWeight: "medium",
+                            typography: { textTransform: "capitalize" },
+                          }}
+                          onClick={toggleDrawer}
+                        >
                           Cart
                         </Button>
-                        <Typography sx={{ fontSize: "16", fontWeight: "medium", lineHeight: "10px", ml: "10px" }}>
+                        <Typography
+                          sx={{
+                            fontSize: "16",
+                            fontWeight: "medium",
+                            lineHeight: "10px",
+                            ml: "10px",
+                          }}
+                        >
                           ( {count} )
                         </Typography>
                       </Box>
                       <IconButton sx={{ p: "0px" }}>
-                        <ShoppingCartOutlinedIcon fontSize="medium" style={{ color: "black" }} onClick={toggleDrawer} />
+                        <ShoppingCartOutlinedIcon
+                          fontSize="medium"
+                          style={{ color: "black" }}
+                          onClick={toggleDrawer}
+                        />
                       </IconButton>
                     </Stack>
 
@@ -417,7 +625,11 @@ export default function NavbarProduct() {
 
                             {
                               // @ts-ignore
-                              orOpen === index ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
+                              orOpen === index ? (
+                                <KeyboardArrowUpIcon />
+                              ) : (
+                                <KeyboardArrowDownIcon />
+                              )
                             }
                           </Button>
                           <Collapse
@@ -519,7 +731,11 @@ export default function NavbarProduct() {
                             {filter.nama}
                             {
                               // @ts-ignore
-                              isOpen === index ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
+                              isOpen === index ? (
+                                <KeyboardArrowUpIcon />
+                              ) : (
+                                <KeyboardArrowDownIcon />
+                              )
                             }
                           </Button>
                           <Collapse
@@ -577,17 +793,50 @@ export default function NavbarProduct() {
           }}
         >
           <Box sx={{}}>
-            <Link display="flex" flexDirection="row" sx={{ width: "100%", height: "49px", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
-              <Button sx={{ width: "160px", height: "52px", position: "relative", mr: "10px" }}>
-                <Image src={"/static/images/Sunpower.png"} fill alt={""} style={{}} />
+            <Link
+              display="flex"
+              flexDirection="row"
+              sx={{
+                width: "100%",
+                height: "49px",
+                alignItems: "center",
+                textDecoration: "none",
+                cursor: "pointer",
+              }}
+            >
+              <Button
+                sx={{
+                  width: "160px",
+                  height: "52px",
+                  position: "relative",
+                  mr: "10px",
+                }}
+              >
+                <Image
+                  src={"/static/images/Sunpower.png"}
+                  fill
+                  alt={""}
+                  style={{}}
+                />
               </Button>
             </Link>
           </Box>
           <Box sx={{}}>
             <Toolbar sx={{ zIndex: "2", p: "0", width: "" }}>
-              <List component="nav" sx={{ display: "flex", p: "0", justifyContent: "space-between" }}>
+              <List
+                component="nav"
+                sx={{
+                  display: "flex",
+                  p: "0",
+                  justifyContent: "space-between",
+                }}
+              >
                 {logoNavbar.map((item, index) => (
-                  <ListItem key={index} component="li" sx={{ marginRight: "10px", p: "0" }}>
+                  <ListItem
+                    key={index}
+                    component="li"
+                    sx={{ marginRight: "10px", p: "0" }}
+                  >
                     {item.dropdown ? (
                       <Box>
                         <Button
@@ -632,7 +881,9 @@ export default function NavbarProduct() {
                           }}
                           // @ts-ignore
                           onClick={(event) => handleDropdownOpen(event, index)}
-                          className={selectedDropdown === index ? "selected" : ""}
+                          className={
+                            selectedDropdown === index ? "selected" : ""
+                          }
                         >
                           {item.namanavbar}
                         </Button>
@@ -651,7 +902,10 @@ export default function NavbarProduct() {
                             horizontal: "left",
                           }}
                           TransitionComponent={Grow}
-                          TransitionProps={{ timeout: 400, style: { transitionDelay: "100ms" } }}
+                          TransitionProps={{
+                            timeout: 400,
+                            style: { transitionDelay: "100ms" },
+                          }}
                           PaperProps={{
                             sx: {
                               mt: "17px",
@@ -703,21 +957,31 @@ export default function NavbarProduct() {
                 ))}
                 <Stack direction={"row"} display={"flex"} alignItems={"center"}>
                   <IconButton onClick={toggleDrawer}>
-                    <ShoppingCartOutlinedIcon fontSize="medium" style={{ color: "black" }} />
+                    <ShoppingCartOutlinedIcon
+                      fontSize="medium"
+                      style={{ color: "black" }}
+                    />
                   </IconButton>
-                  <Typography variant="body1_bold" sx={{ color: "black" }}>{count}</Typography>
+                  <Typography variant="body1_bold" sx={{ color: "black" }}>
+                    {count}
+                  </Typography>
                 </Stack>
-                <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer} sx={{
-                  '& .MuiPaper-root': {
-                    width: '100%',
-                    maxWidth: { xs: '100%', sm: "390px" },
-                  },
-                }}>
+                <Drawer
+                  anchor="right"
+                  open={drawerOpen}
+                  onClose={toggleDrawer}
+                  sx={{
+                    "& .MuiPaper-root": {
+                      width: "100%",
+                      maxWidth: { xs: "100%", sm: "390px" },
+                    },
+                  }}
+                >
                   <Box
                     sx={{
                       px: "1.5rem",
                       pt: "1.5rem",
-                      minWidth: { xs: '100vw', sm: "390px" },
+                      minWidth: { xs: "100vw", sm: "390px" },
                       boxSizing: "border-box",
                       width: "100%",
                       display: "flex",
@@ -732,7 +996,7 @@ export default function NavbarProduct() {
                         flexGrow: 1,
                       }}
                     >
-                      <Typography variant="body1_bold" >My Cart</Typography>
+                      <Typography variant="body1_bold">My Cart</Typography>
                       <IconButton onClick={toggleDrawer}>
                         <CloseIcon />
                       </IconButton>
@@ -746,11 +1010,17 @@ export default function NavbarProduct() {
                           overflow: "auto",
                           flexGrow: "1",
                         }}
-                      // @ts-ignore
+                        // @ts-ignore
                       >
                         {cart.map((item: any, index: any) => {
                           return (
-                            <ListItem key={index} sx={{ borderBottom: "1px solid #ededed", py: "1rem" }}>
+                            <ListItem
+                              key={index}
+                              sx={{
+                                borderBottom: "1px solid #ededed",
+                                py: "1rem",
+                              }}
+                            >
                               <Box
                                 sx={{
                                   display: "flex",
@@ -775,7 +1045,9 @@ export default function NavbarProduct() {
                                         },
                                       }}
                                     >
-                                      <CloseIcon sx={{ fontSize: "15px", color: "#fff" }} />
+                                      <CloseIcon
+                                        sx={{ fontSize: "15px", color: "#fff" }}
+                                      />
                                     </IconButton>
                                     <Box
                                       sx={{
@@ -784,7 +1056,7 @@ export default function NavbarProduct() {
                                         border: "1px solid #ededed",
                                         borderRadius: "0.375rem",
                                         position: "relative",
-                                        overflow: 'hidden',
+                                        overflow: "hidden",
                                       }}
                                     >
                                       <Image src={item.imageSrc} fill alt="" />
@@ -798,13 +1070,28 @@ export default function NavbarProduct() {
                                       maxWidth: "130px",
                                     }}
                                   >
-                                    <Typography variant="body1_medium" sx={{}}>{item.name}</Typography>
-                                    <Typography sx={{ fontSize: "14px", color: "#737373" }}>{item.dimension}</Typography>
+                                    <Typography variant="body1_medium" sx={{}}>
+                                      {item.name}
+                                    </Typography>
+                                    <Typography
+                                      sx={{
+                                        fontSize: "14px",
+                                        color: "#737373",
+                                      }}
+                                    >
+                                      {item.dimension}
+                                    </Typography>
                                   </Box>
                                 </Box>
                                 <Box>
                                   <Typography sx={{ fontSize: "14px" }}>
-                                    <NumericFormat value={item.priceTotal} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
+                                    <NumericFormat
+                                      value={item.priceTotal}
+                                      decimalScale={3}
+                                      displayType={"text"}
+                                      thousandSeparator={true}
+                                      prefix={"Rp. "}
+                                    />
                                   </Typography>
                                   <Box
                                     display="flex"
@@ -825,9 +1112,10 @@ export default function NavbarProduct() {
                                           textAlign: "center",
                                           fontSize: "14px",
                                         },
-                                        "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button": {
-                                          appearance: "none",
-                                        },
+                                        "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
+                                          {
+                                            appearance: "none",
+                                          },
                                       }}
                                       type="number"
                                       value={item.quantity}
@@ -862,17 +1150,23 @@ export default function NavbarProduct() {
                         >
                           <Box className="cart-calc">
                             <Typography>Taxes</Typography>
-                            <Typography sx={{ fontWeight: 'bold' }}>Rp. 123.123.123</Typography>
+                            <Typography sx={{ fontWeight: "bold" }}>
+                              Rp. 123.123.123
+                            </Typography>
                           </Box>
                           <Box className="cart-calc">
                             <Typography>Shipping</Typography>
-                            <Typography sx={{ color: '#737373' }}>Calculated at checkout</Typography>
+                            <Typography sx={{ color: "#737373" }}>
+                              Calculated at checkout
+                            </Typography>
                           </Box>
                           <Box className="cart-calc">
                             <Typography>Total</Typography>
-                            <Typography sx={{ fontWeight: 'bold' }}>Rp. 123.123.123.123</Typography>
+                            <Typography sx={{ fontWeight: "bold" }}>
+                              Rp. 123.123.123.123
+                            </Typography>
                           </Box>
-                          <CartButton checkout={'checkout'} />
+                          {/* <CartButton checkout={'checkout'} /> */}
                         </Box>
                       </Box>
                     </>
@@ -888,7 +1182,11 @@ export default function NavbarProduct() {
                         }}
                       >
                         <ShoppingCartOutlinedIcon sx={{ fontSize: "4rem" }} />
-                        <Typography sx={{ fontSize: "1.5rem", fontWeight: "bold" }}>Your cart is empty</Typography>
+                        <Typography
+                          sx={{ fontSize: "1.5rem", fontWeight: "bold" }}
+                        >
+                          Your cart is empty
+                        </Typography>
                       </Box>
                     </>
                   )}

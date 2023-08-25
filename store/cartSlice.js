@@ -35,7 +35,16 @@ export const cartSlice = createSlice({
         // If product is not in cart
 
         //push to cartItems state
-        state.cartItems.push(action.payload);
+        state.cartItems.push({
+          id: action.payload.id,
+          code: action.payload.code,
+          name: action.payload.name,
+          dimension: action.payload.dimension,
+          imageSrc: action.payload.imageSrc,
+          quantity: action.payload.quantity,
+          pricePerBox: 300000,
+          priceTotal: action.payload.priceTotal,
+        });
 
         state.totalPrice += action.payload.priceTotal;
       }
