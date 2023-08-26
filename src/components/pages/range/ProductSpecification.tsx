@@ -83,7 +83,7 @@ export default function ProductSpecification({ props, data }: any) {
         dispatch(
           addToCart({
             id: props.product.data.id,
-            code: "gs12370",
+            code: props.productOnly.data.attributes.Code,
             name: props.productOnly.data.attributes.Name,
             dimension:
               props.productOnly.data.attributes.tile_dimension.data.attributes
@@ -92,7 +92,9 @@ export default function ProductSpecification({ props, data }: any) {
               props.productOnly.data.attributes.Image_Tile_Face.data[0]
                 .attributes.formats.thumbnail.url,
             quantity: data.quantity !== null ? data.quantity : 0,
-            pricePerBox: 300000,
+            pricePerBox:
+              props.productOnly.data.attributes.SQM_Box *
+              props.productOnly.data.attributes.Price,
             priceTotal: totalPrice,
           })
         );
@@ -715,7 +717,8 @@ export default function ProductSpecification({ props, data }: any) {
                                 <TableCell align="right">
                                   <NumericFormat
                                     value={
-                                      1.44 *
+                                      props.productOnly.data.attributes
+                                        .SQM_Box *
                                       props.productOnly.data.attributes.Price
                                     }
                                     decimalScale={3}
@@ -739,8 +742,6 @@ export default function ProductSpecification({ props, data }: any) {
                         )}
                       </Table>
                     </TableContainer>
-                    <button onClick={handleSubmit(onSubmit)}>suubmit</button>
-                    <Link href="/range">to Product list</Link>
                     <Button
                       variant="contained"
                       sx={{

@@ -33,7 +33,8 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CloseIcon from "@mui/icons-material/Close";
 import ProductLayout from "@layouts/ProductLayout";
 import { useDispatch, useSelector } from "react-redux";
-import { dropCart } from "store/cartSlice";
+import { dropCart, removeItemFromCart } from "store/cartSlice";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 const headers = {
   Authorization:
@@ -44,7 +45,16 @@ const fetcher2 = (url: RequestInfo | URL) =>
   fetch(url, { headers }).then((res) => res.json());
 // axios.get(url, { headers }).then((res) => res.data())
 
-export default function NewCartExample() {
+export default function ProductExample() {
+  type Inputs = {
+    name: string;
+    email: string;
+    number: string;
+    address: string;
+    city: string;
+    state: string;
+  };
+
   const dispatch = useDispatch();
   const { data, error, isLoading, isValidating } = swr(
     `https://strapi-app-tnshv.ondigitalocean.app/api/products/93?populate[motif][populate][products][populate]=*`,
@@ -64,6 +74,15 @@ export default function NewCartExample() {
       },
     },
   });
+
+  const {
+    register,
+    watch,
+    formState: { errors },
+    handleSubmit,
+    control,
+    reset,
+  } = useForm<Inputs>();
 
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -112,13 +131,69 @@ export default function NewCartExample() {
       // @ts-ignore
       state.cart.cartItems
   );
+
   const totalPrice = useSelector(
     (state) =>
       // @ts-ignore
       state.cart.totalPrice
   );
 
-  console.log(cart);
+  // console.log(cart);
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log("masuk sini");
+    console.log(data);
+
+    // const isi = {
+    //   name: data.name,
+    //   company: data.company,
+    //   phoneNumber: data.phoneNumber,
+    //   email: data.email,
+    //   category: data.category,
+    //   comment: data.comment,
+    //   subscribeNewsletter: data.subscribeNewsletter,
+    //   date: new Date(),
+    // };
+
+    const isi: any = {
+      name: data.name,
+      company: "'",
+      phoneNumber: data.number,
+      email: data.email,
+      address: data.address,
+      category: "Pembelian",
+      comment: JSON.stringify(cart),
+      subscribeNewsletter: "",
+      date: new Date(),
+    };
+
+    const formBody = Object.keys(isi)
+      .map(
+        (key) => encodeURIComponent(key) + "=" + encodeURIComponent(isi[key])
+      )
+      .join("&");
+
+    const res = await fetch("/api/mailjet", {
+      body: formBody,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      method: "POST",
+    });
+
+    // toast.success("Berhasil Mengirim");
+
+    console.log(res);
+
+    reset({
+      name: "",
+      email: "",
+      number: "",
+      address: "",
+      city: "",
+      state: "",
+    });
+  };
 
   return (
     <>
@@ -312,9 +387,9 @@ export default function NewCartExample() {
                                   textAlign: "center",
                                 },
                                 "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                {
-                                  appearance: "none",
-                                },
+                                  {
+                                    appearance: "none",
+                                  },
                               }}
                               type="number"
                               value={5}
@@ -406,7 +481,7 @@ export default function NewCartExample() {
                               <IconButton
                                 // onClick={() => handleDecrement(index)}
                                 size="small"
-                              // sx={{ display: "none" }}
+                                // sx={{ display: "none" }}
                               >
                                 <RemoveIcon />
                               </IconButton>
@@ -418,9 +493,9 @@ export default function NewCartExample() {
                                     textAlign: "center",
                                   },
                                   "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                  {
-                                    appearance: "none",
-                                  },
+                                    {
+                                      appearance: "none",
+                                    },
                                 }}
                                 type="number"
                                 value={row.quantity}
@@ -434,7 +509,7 @@ export default function NewCartExample() {
                               <IconButton
                                 // onClick={() => handleIncrement(index)}
                                 size="small"
-                              // sx={{ display: "none" }}
+                                // sx={{ display: "none" }}
                               >
                                 <AddIcon />
                               </IconButton>
@@ -454,7 +529,7 @@ export default function NewCartExample() {
                         <TableCell align="left">
                           <NumericFormat
                             // value={item.pricePerBox * item.quantity}
-                            value={row.pricePerBox}
+                            value={row.priceTotal}
                             decimalScale={3}
                             displayType={"text"}
                             thousandSeparator={true}
@@ -468,8 +543,9 @@ export default function NewCartExample() {
                                 bgcolor: "#fcebeb",
                               },
                             }}
-                            // onClick={() => handleDelete(index)}
-                            // handleDelete tidak ada
+                            onClick={() =>
+                              dispatch(removeItemFromCart({ id: row.id }))
+                            }
                           >
                             <DeleteForeverIcon sx={{ color: "#DC362E" }} />
                           </IconButton>
@@ -598,29 +674,69 @@ export default function NewCartExample() {
                       <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
                         Contact
                       </Typography>
-                      <TextField
-                        size="small"
-                        required
-                        id="outlined-required"
-                        label="Name"
-                        sx={{ flexGrow: 1 }}
+                      <Controller
+                        // @ts-ignore
+                        name={"name"}
+                        control={control}
+                        render={({
+                          field: { onChange, value },
+                          fieldState: { error },
+                          formState,
+                        }) => (
+                          <TextField
+                            helperText={error ? error.message : null}
+                            size="small"
+                            required
+                            id="outlined-required"
+                            error={!!error}
+                            onChange={onChange}
+                            fullWidth
+                            label={"Name"}
+                            variant="outlined"
+                          />
+                        )}
                       />
-                      <TextField
-                        size="small"
-                        type="email"
-                        required
-                        fullWidth
-                        id="demo-helper-text-aligned"
-                        label="Email"
+                      <Controller
+                        // @ts-ignore
+                        name={"email"}
+                        control={control}
+                        render={({
+                          field: { onChange, value },
+                          fieldState: { error },
+                          formState,
+                        }) => (
+                          <TextField
+                            helperText={error ? error.message : null}
+                            size="small"
+                            required
+                            error={!!error}
+                            onChange={onChange}
+                            fullWidth
+                            label={"Email"}
+                            variant="outlined"
+                          />
+                        )}
                       />
-                      <TextField
-                        size="small"
-                        type="phone"
-                        required
-                        fullWidth
-                        helperText="Please enter your email and mobile phone number"
-                        id="demo-helper-text-aligned"
-                        label="Phone Number"
+                      <Controller
+                        // @ts-ignore
+                        name={"number"}
+                        control={control}
+                        render={({
+                          field: { onChange, value },
+                          fieldState: { error },
+                          formState,
+                        }) => (
+                          <TextField
+                            helperText={error ? error.message : null}
+                            size="small"
+                            required
+                            error={!!error}
+                            onChange={onChange}
+                            fullWidth
+                            label={"Phone Number"}
+                            variant="outlined"
+                          />
+                        )}
                       />
                     </Box>
                     <Box
@@ -633,26 +749,28 @@ export default function NewCartExample() {
                       <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
                         Shipping Address
                       </Typography>
-                      <TextField
-                        size="small"
-                        required
-                        id="outlined-required"
-                        label="Address"
-                        sx={{ flexGrow: 1 }}
-                      />
-                      <TextField
-                        size="small"
-                        required
-                        id="outlined-required"
-                        label="City"
-                        sx={{ flexGrow: 1 }}
-                      />
-                      <TextField
-                        size="small"
-                        required
-                        id="outlined-required"
-                        label="State"
-                        sx={{ flexGrow: 1 }}
+                      <Controller
+                        // @ts-ignore
+                        name={"address"}
+                        control={control}
+                        render={({
+                          field: { onChange, value },
+                          fieldState: { error },
+                          formState,
+                        }) => (
+                          <TextField
+                            helperText={error ? error.message : null}
+                            size="small"
+                            required
+                            multiline
+                            rows={2}
+                            error={!!error}
+                            onChange={onChange}
+                            fullWidth
+                            label={"Address"}
+                            variant="outlined"
+                          />
+                        )}
                       />
                     </Box>
                   </Box>
@@ -669,6 +787,7 @@ export default function NewCartExample() {
                           bgcolor: "#111",
                         },
                       }}
+                      onClick={handleSubmit(onSubmit)}
                     >
                       Checkout
                     </Button>

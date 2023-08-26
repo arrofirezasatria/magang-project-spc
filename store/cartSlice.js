@@ -42,7 +42,7 @@ export const cartSlice = createSlice({
           dimension: action.payload.dimension,
           imageSrc: action.payload.imageSrc,
           quantity: parseInt(action.payload.quantity),
-          pricePerBox: 300000,
+          pricePerBox: action.payload.pricePerBox,
           priceTotal: action.payload.priceTotal,
         });
 
