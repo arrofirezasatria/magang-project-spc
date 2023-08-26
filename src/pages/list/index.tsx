@@ -17,7 +17,6 @@ import axios from "axios";
 import { data } from "cypress/types/jquery";
 import useSWR from "swr";
 import Image from "next/image";
-import FeaturedProducts from "@components/pages/range/FeaturedProducts";
 import HeroProducts from "@components/pages/range/HeroProducts";
 import Description from "@components/pages/range/DescriptionProducts";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -175,7 +174,6 @@ export default function Index() {
       <HeroProducts />
       <Container>
         <Description />
-        <FeaturedProducts />
         <Grid>
           <Box
             sx={{
