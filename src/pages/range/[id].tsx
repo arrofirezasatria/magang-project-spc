@@ -1,6 +1,6 @@
 import React from "react";
 import type { GetStaticPaths } from "next";
-import AltProductRanges from "@components/pages/range/AltProductRanges";
+import AltProductRanges from "@components/pages/range/altProductRanges";
 import "react-medium-image-zoom/dist/styles.css";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";

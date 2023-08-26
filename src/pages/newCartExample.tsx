@@ -44,7 +44,7 @@ const fetcher2 = (url: RequestInfo | URL) =>
   fetch(url, { headers }).then((res) => res.json());
 // axios.get(url, { headers }).then((res) => res.data())
 
-export default function productExample() {
+export default function NewCartExample() {
   const dispatch = useDispatch();
   const { data, error, isLoading, isValidating } = swr(
     `https://strapi-app-tnshv.ondigitalocean.app/api/products/93?populate[motif][populate][products][populate]=*`,
@@ -152,7 +152,7 @@ export default function productExample() {
               {isMobile ? (
                 <>
                   <Box className="cart-mobile">
-                    {cart.map((item, index) => (
+                    {cart.map((item: any, index: any) => (
                       <Box
                         className="cart-row"
                         key={index}
@@ -257,7 +257,8 @@ export default function productExample() {
                                 bgcolor: "#fcebeb",
                               },
                             }}
-                            onClick={() => handleDelete(index)}
+                            // onClick={() => handleDelete(index)}
+                            // handleDelete tidak ada
                           >
                             <DeleteForeverIcon sx={{ color: "#DC362E" }} />
                           </IconButton>
@@ -297,7 +298,8 @@ export default function productExample() {
                             }}
                           >
                             <IconButton
-                              onClick={() => handleDecrement(index)}
+                              // onClick={() => handleDecrement(index)}
+                              // handleDelete tidak ada
                               size="small"
                             >
                               <RemoveIcon />
@@ -310,9 +312,9 @@ export default function productExample() {
                                   textAlign: "center",
                                 },
                                 "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                  {
-                                    appearance: "none",
-                                  },
+                                {
+                                  appearance: "none",
+                                },
                               }}
                               type="number"
                               value={5}
@@ -324,7 +326,8 @@ export default function productExample() {
                               size="small"
                             />
                             <IconButton
-                              onClick={() => handleIncrement(index)}
+                              // onClick={() => handleIncrement(index)}
+                              // handleDelete tidak ada
                               size="small"
                             >
                               <AddIcon />
@@ -361,7 +364,7 @@ export default function productExample() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {cart.map((row, index) => (
+                    {cart.map((row: any, index: any) => (
                       <TableRow
                         key={index}
                         sx={{
@@ -403,7 +406,7 @@ export default function productExample() {
                               <IconButton
                                 // onClick={() => handleDecrement(index)}
                                 size="small"
-                                // sx={{ display: "none" }}
+                              // sx={{ display: "none" }}
                               >
                                 <RemoveIcon />
                               </IconButton>
@@ -415,9 +418,9 @@ export default function productExample() {
                                     textAlign: "center",
                                   },
                                   "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                    {
-                                      appearance: "none",
-                                    },
+                                  {
+                                    appearance: "none",
+                                  },
                                 }}
                                 type="number"
                                 value={row.quantity}
@@ -431,7 +434,7 @@ export default function productExample() {
                               <IconButton
                                 // onClick={() => handleIncrement(index)}
                                 size="small"
-                                // sx={{ display: "none" }}
+                              // sx={{ display: "none" }}
                               >
                                 <AddIcon />
                               </IconButton>
@@ -465,7 +468,8 @@ export default function productExample() {
                                 bgcolor: "#fcebeb",
                               },
                             }}
-                            onClick={() => handleDelete(index)}
+                            // onClick={() => handleDelete(index)}
+                            // handleDelete tidak ada
                           >
                             <DeleteForeverIcon sx={{ color: "#DC362E" }} />
                           </IconButton>

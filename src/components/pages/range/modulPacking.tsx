@@ -11,6 +11,7 @@ export default function ModulPacking(props: any) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const imageUrl = props.name.Image_Tile_Face.data?.[0]?.attributes?.formats?.large?.url || "/No data";
 
   let tableDataLocal, tableDataInternational;
 
@@ -172,7 +173,7 @@ export default function ModulPacking(props: any) {
                       position: "relative",
                     }}
                   >
-                    <Image src={props.name.Image_Tile_Face.data[0]?.attributes?.formats?.large?.url} fill alt={""} style={{}} />
+                    <Image src={imageUrl} fill alt={""} style={{}} />
                   </Box>
                   <Box>
                     <Typography

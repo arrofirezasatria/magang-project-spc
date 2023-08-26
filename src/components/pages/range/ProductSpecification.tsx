@@ -78,6 +78,7 @@ export default function ProductSpecification({ props, data }: any) {
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
     {
+      // @ts-ignore
       data.quantity !== "" &&
         dispatch(
           addToCart({
@@ -333,8 +334,8 @@ export default function ProductSpecification({ props, data }: any) {
                         props.motif.data.attributes.motif.data.attributes
                           .product_varians?.data?.length > 0
                           ? props.motif.data.attributes.motif.data.attributes.product_varians?.data
-                              .map((item: any) => item.attributes.Varian)
-                              .join(", ")
+                            .map((item: any) => item.attributes.Varian)
+                            .join(", ")
                           : "-",
                     },
                     {
@@ -361,7 +362,7 @@ export default function ProductSpecification({ props, data }: any) {
                       title: "Rectified Edge",
                       value:
                         props.productOnly.data.attributes?.Rectified.toString() ==
-                        "true"
+                          "true"
                           ? "Yes"
                           : "No",
                     },
@@ -752,7 +753,7 @@ export default function ProductSpecification({ props, data }: any) {
                           bgcolor: "#222",
                         },
                       }}
-                      onClick={() => handleSubmit(onSubmit)}
+                      onClick={handleSubmit(onSubmit)}
                     >
                       Add to Cart
                     </Button>

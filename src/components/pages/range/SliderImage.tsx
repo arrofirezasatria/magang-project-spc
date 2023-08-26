@@ -7,11 +7,12 @@ import { AnyAction } from "@reduxjs/toolkit";
 
 export default function SliderImage(props: any) {
   console.log(props.productOnly);
-  const [counter, setCounter] = useState(
-    props?.productOnly?.Image_Ambience?.data
-      ? props?.productOnly?.Image_Ambience?.data.length - 1
-      : 0
-  );
+  // const [counter, setCounter] = useState(
+  //   props?.productOnly?.Image_Ambience?.data
+  //     ? props?.productOnly?.Image_Ambience?.data.length - 1
+  //     : 0
+  // );
+  const [counter, setCounter] = useState(0);
 
   const handleManualNavigation = (slideIndex: number) => {
     setCounter(slideIndex);

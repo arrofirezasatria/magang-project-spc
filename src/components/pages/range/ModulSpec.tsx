@@ -27,7 +27,7 @@ export default function ModulSpec(props) {
   );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const imageUrl = props.name.Image_Tile_Face.data?.[0]?.attributes?.formats?.large?.url || "/No data";
   const tileType =
     props.motif.motif.data?.attributes.tile_type.data?.attributes.Type;
 
@@ -863,7 +863,7 @@ export default function ModulSpec(props) {
                   >
                     <Image
                       src={
-                        props.name.Image_Tile_Face.data[0]?.attributes?.formats?.large?.url
+                        imageUrl
                       }
                       fill
                       alt={""}

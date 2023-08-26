@@ -1,12 +1,19 @@
-import React from 'react'
-import { Box, Stack, Typography, Button, colors, List, ListItem, Grid, Link, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Paper, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
+import React, { useState } from 'react'
+import {
+  Box, Typography, Button, Grid, Link, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Select, MenuItem, InputLabel, FormControl, useMediaQuery, TextField, IconButton, Autocomplete,
+} from "@mui/material";
 import swr from 'swr'
 import Image from "next/image";
 import { url } from 'inspector';
 import axios from "axios";
-import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
 import { title } from 'process';
 import { Controller } from 'react-hook-form';
+import { props } from 'cypress/types/bluebird';
+import { NumericFormat } from 'react-number-format';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useTheme } from '@mui/material/styles';
 
 const headers = {
   Authorization:
@@ -17,11 +24,98 @@ const fetcher2 = (url: RequestInfo | URL) =>
   fetch(url, { headers }).then((res) => res.json());
 // axios.get(url, { headers }).then((res) => res.data())
 
-export default function productExample() {
+export default function CartExample() {
   const { data, error, isLoading, isValidating } = swr(
     `https://strapi-app-tnshv.ondigitalocean.app/api/products/65?populate=*`,
     fetcher2
   );
+
+  // table breakpoint
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  // table data content
+  const initialCartData = [
+    {
+      img: data?.data?.attributes?.Image_Tile_Face.data[0].attributes?.formats.thumbnail.url,
+      quantity: 3,
+      code: data?.data?.attributes?.Code,
+      description: data?.data?.attributes?.Name + ' - ' + data?.data?.attributes?.tile_dimension.data.attributes?.Dimension,
+      boxPrice: 'Rp. 123.123.123',
+      totalPrice: 'Rp. 123.123.123'
+    },
+    {
+      img: data?.data?.attributes?.Image_Tile_Face.data[0].attributes?.formats.thumbnail.url,
+      quantity: 5,
+      code: 'DEF456',
+      description: 'Product GHIJKL' + ' - ' + '120x120cm',
+      boxPrice: 'Rp. 123.123.123',
+      totalPrice: 'Rp. 123.123.123'
+    },
+  ];
+  const headers = [null, 'quantity', 'code', 'description', 'box price', 'total price'];
+
+  // select country
+  const countries = [
+    { code: 'AD', label: 'Andorra', phone: '376' },
+    {
+      code: 'AE',
+      label: 'United Arab Emirates',
+      phone: '971',
+    },
+    { code: 'AF', label: 'Afghanistan', phone: '93' },
+    {
+      code: 'AG',
+      label: 'Antigua and Barbuda',
+      phone: '1-268',
+    },
+    { code: 'AI', label: 'Anguilla', phone: '1-264' },
+    { code: 'AL', label: 'Albania', phone: '355' },
+    { code: 'AM', label: 'Armenia', phone: '374' },
+    { code: 'AO', label: 'Angola', phone: '244' },
+    { code: 'AQ', label: 'Antarctica', phone: '672' },
+    { code: 'AR', label: 'Argentina', phone: '54' },
+    { code: 'AS', label: 'American Samoa', phone: '1-684' },
+    { code: 'AT', label: 'Austria', phone: '43' },
+  ];
+
+  // select address
+  const address = [
+    { label: 'Dummy 1', city: 'City 1' },
+    { label: 'Dummy 2', city: 'City 2' },
+    { label: 'Dummy 3', city: 'City 3' },
+    { label: 'Dummy 4', city: 'City 4' },
+    { label: 'Dummy 5', city: 'City 5' },
+    { label: 'Dummy 6', city: 'City 6' },
+  ];
+  const [cartData, setData] = useState(initialCartData);
+
+  const handleIncrement = (index : any) => {
+    const newData = [...cartData];
+    newData[index].quantity += 1;
+    setData(newData);
+  };
+
+  const handleDecrement = (index : any) => {
+    if (cartData[index].quantity > 0) {
+      const newData = [...cartData];
+      newData[index].quantity -= 1;
+      setData(newData);
+    }
+  };
+
+  const handleChange = (event : any , index : any) => {
+    const newValue = parseInt(event.target.value);
+    if (!isNaN(newValue)) {
+      const newData = [...cartData];
+      newData[index].quantity = newValue;
+      setData(newData);
+    }
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
 
   const { Name } = data?.data?.attributes || {};
   const { Description, N_Finish, N_Color, N_Dimension } = data?.data?.attributes?.motif?.data?.attributes || {};
@@ -43,229 +137,379 @@ export default function productExample() {
   }
   return (
     <>
-      <Box className='section-gray' sx={{
-        bgcolor: '#f8f9fa',
-        color: '#4b4b5a',
-        fontSize: '16px',
-        fontWeight: '400',
-        lineHeight: '1.5',
-        textRendering: 'optimizeLegibility',
-        pt: '40px'
+      <Box className='cart-wrap' sx={{
+        px: { xs: '20px', md: '40px' },
+        m: '0 auto',
       }}>
         <Box className='cart-container' sx={{
-          maxWidth: '1180px',
-          m: '0 auto',
-          p: '0 20px',
+          my: '40px',
+          '& .MuiTypography-root': {
+            color: '#3d3935'
+          },
         }}>
-          <Box className='cart'>
-            <Typography component='h1' sx={{
-              fontSize: '36px',
-              fontWeight: 500,
-              lineHeight: '1.2777777778',
-              m: '0.67em 0',
-            }}>Shopping Basket ({2} items)</Typography>
-            <Box className='cart-alert' sx={{
-              m: '20px 20px 20px 0',
-              p: '20px 0',
-              border: '1px solid #ffdb67',
-              borderRadius: '10px',
-              bgcolor: '#fff3cd',
-              display: 'flex',
-              color: '#856404',
-              alignItems: 'center'
+          <Typography component='h1' sx={{
+            fontSize: '32px',
+            fontWeight: 'bold',
+            lineHeight: '40px',
+            mb: '.67em'
+          }}>
+            Shopping Cart
+          </Typography>
+          <Typography component='p' sx={{
+            fontSize: '16px',
+            fontWeight: 'medium',
+            mb: '40px',
+            display: { xs: 'none', md: 'block' }
+          }}>
+            <Link href='#print' onClick={handlePrint} sx={{
+              color: '#3d3935',
+              textDecorationColor: '#3d3935',
+              '&:hover': {
+                color: '#000',
+                textDecorationColor: '#000',
+              },
             }}>
-              <ErrorOutlineOutlinedIcon sx={{ fontSize: '50px', px: '15px' }} />
-              <Box>
-                <Typography component='h2' sx={{
-                  fontWeight: 'bold',
-                  fontSize: '22px',
-                }}>
-                  Have you forgetten anything?
-                </Typography>
-                <Typography component='p' sx={{
-                  fontWeight: 400,
-                  fontSize: '16px',
-                }}>
-                  We also stock a range of adhesives, grouts and tools.
-                </Typography>
+              Print Your Cart
+            </Link>
+          </Typography>
+          <Box className='cart-heading' sx={{ display: 'flex', alignItems: 'center' }}>
+            <Image src='/static/icons/box-icon.svg' alt='' width={50} height={50} />
+            <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
+              <Typography sx={{
+                m: '0 16px 0 24px',
+                fontSize: '24px',
+                lineHeight: '32px',
+                fontWeight: 'bold'
+
+              }}>Items</Typography>
+              <Typography sx={{ fontSize: '16px', color: '#3d3935' }}>2 Items - Rp. 123.123.123</Typography>
+            </Box>
+          </Box>
+          <TableContainer sx={{
+            mt: { xs: '0', sm: '20px' },
+            borderRadius: '5px',
+            borderBottom: '1px solid #dee2e6',
+            '@media print': {
+              width: '100%',
+            },
+          }}>
+            <Table
+              sx={{
+                width: "100%",
+                borderCollapse: "collapse",
+              }}
+              aria-label="simple table"
+            >
+              {isMobile ? (
+                <>
+                  <Box className='cart-mobile'>
+                    {initialCartData.map((item, index) => (
+                      <Box key={index} className='cart-row' sx={{
+                        my: '1rem',
+                        py: '1rem',
+                      }}>
+                        <Box sx={{ width: '100%', display: 'flex', mb: '16px' }}>
+                          <Box sx={{
+                            width: 'auto',
+                            height: 'auto',
+                            minWidth: '140px',
+                            minHeight: '140px',
+                            aspectRatio: '1 / 1',
+                            position: 'relative',
+                          }}>
+                            <Image src={item.img} alt='' fill />
+                          </Box>
+                          <Box sx={{ pl: '1rem', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                            <Typography sx={{ fontSize: '12px', lineHeight: '1.5em' }}>{item.code}</Typography>
+                            <Typography sx={{ fontSize: '18px', lineHeight: '1.5em', fontWeight: '500' }}>{item.description}</Typography>
+                            <Box>
+                              <Typography sx={{ fontSize: '12px', lineHeight: '1.25em' }}>
+                                Rp. 123.123 each
+                              </Typography>
+                              <Typography sx={{ fontSize: '16px', lineHeight: '1.25em', fontWeight: 'bold' }}>
+                                Rp. 123.123.123
+                              </Typography>
+                            </Box>
+                          </Box>
+                        </Box>
+                        <Box display="flex" alignItems="center">
+                          <Box display="flex" alignItems="center" sx={{
+                            width: '100%',
+                            p: '5px',
+                            border: '1px solid #999',
+                            borderRadius: '5px',
+                            maxWidth: '130px',
+                          }}>
+                            <IconButton onClick={() => handleDecrement(index)}>
+                              <RemoveIcon />
+                            </IconButton>
+                            <TextField sx={{
+                              '& .MuiInputBase-input': {
+                                textAlign: 'center',
+                              },
+                              '& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button': {
+                                appearance: 'none'
+                              },
+                            }}
+                              type="number"
+                              value={item.quantity}
+                              onChange={(event) => handleChange(event, index)}
+                              variant="standard"
+                              InputProps={{
+                                disableUnderline: true,
+                              }}
+                              size='small'
+                            />
+                            <IconButton onClick={() => handleIncrement(index)}>
+                              <AddIcon />
+                            </IconButton>
+                          </Box>
+                          <Typography sx={{ px: '16px', fontSize: '16px' }}>Box</Typography>
+                          <IconButton sx={{
+                            '&:hover': {
+                              bgcolor: '#fcebeb'
+                            },
+                          }}
+                            // onClick={() => handleDelete(index)} 
+                            // {tidak ada handleDelete}
+                          >
+                            <DeleteForeverIcon sx={{ color: '#DC362E', }} />
+                          </IconButton>
+                        </Box>
+                      </Box>
+                    ))}
+                  </Box>
+                </>
+              ) : (
+                <>
+                  <TableHead>
+                    <TableRow>
+                      {headers.map((item, index) => (
+                        <TableCell
+                          key={index}
+                          align="left"
+                          sx={{
+                            backgroundColor: 'black',
+                            color: 'white',
+                            textTransform: 'capitalize'
+                          }}
+                        >
+                          {item}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {initialCartData.map((row, index) => (
+                      <TableRow key={index}>
+                        <TableCell align="left">
+                          <Box sx={{
+                            width: '100%',
+                            height: 'auto',
+                            minWidth: '140px',
+                            minHeight: '140px',
+                            position: 'relative',
+                            aspectRatio: '1 / 1',
+                            '@media print': {
+                              minHeight: '100px',
+                              minWidth: '100px',
+                            },
+                          }}>
+                            <Image src={row.img} alt='' fill />
+                          </Box>
+                        </TableCell>
+                        <TableCell align="left">
+                          <Box display="flex" alignItems="center">
+                            <Box display="flex" alignItems="center" sx={{
+                              width: '120px',
+                              p: '5px',
+                              border: '1px solid #999',
+                              borderRadius: '5px',
+                              '@media print': {
+                                display: 'none',
+                              },
+                            }}>
+                              <IconButton onClick={() => handleDecrement(index)}>
+                                <RemoveIcon />
+                              </IconButton>
+                              <TextField sx={{
+                                '& .MuiInputBase-input': {
+                                  textAlign: 'center',
+                                },
+                                '& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button': {
+                                  appearance: 'none'
+                                },
+                              }}
+                                type="number"
+                                value={row.quantity}
+                                onChange={(event) => handleChange(event, index)}
+                                variant="standard"
+                                InputProps={{
+                                  disableUnderline: true,
+                                }}
+                                size='small'
+                              />
+                              <IconButton onClick={() => handleIncrement(index)}>
+                                <AddIcon />
+                              </IconButton>
+                            </Box>
+                            <Typography sx={{
+                              fontSize: '16px',
+                              display: 'none',
+                              '@media print': {
+                                display: 'block',
+                              },
+                            }}>{row.quantity}</Typography>
+                            <Typography sx={{ px: '16px', fontSize: '16px' }}>Box</Typography>
+                            <IconButton sx={{
+                              '&:hover': {
+                                bgcolor: '#fcebeb'
+                              },
+                              '@media print': {
+                                display: 'none',
+                              },
+                            }}
+                              // onClick={() => handleDelete(index)}
+                              // {tidak ada handleDelete}
+                            >
+                              <DeleteForeverIcon sx={{ color: '#ff3333', }} />
+                            </IconButton>
+                          </Box>
+                        </TableCell>
+                        <TableCell align="left" sx={{ fontSize: '16px' }}>{row.code}</TableCell>
+                        <TableCell align="left" sx={{ fontSize: '16px' }}>{row.description}</TableCell>
+                        <TableCell align="left" sx={{ fontSize: '16px' }}>{row.boxPrice}</TableCell>
+                        <TableCell align="left" sx={{ fontSize: '16px' }}>{row.totalPrice}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </>
+              )}
+            </Table>
+          </TableContainer>
+          <Box className='cart-summary-wrap' sx={{
+            display: 'flex',
+            width: '100%'
+          }}>
+            <Box className='cart-form' sx={{ display: 'flex', flexDirection: 'column', width: '100%', mt: '36px', flexBasis: '70%', gap: '10px' }}>
+              <Box sx={{}}>
+                <Typography sx={{ fontWeight: 'bold', fontSize: '18px', mb: '10px' }}>Contact</Typography>
+                <TextField
+                  size='small'
+                  fullWidth
+                  helperText="Please enter your email or mobile phone number"
+                  id="demo-helper-text-aligned"
+                  label="Email or mobile phone number"
+                />
+              </Box>
+
+              <Box sx={{ gap: '10px', display: 'flex', flexDirection: 'column', }}>
+                <Typography sx={{ fontWeight: 'bold', fontSize: '18px', }}>Shipping Address</Typography>
+                <Autocomplete
+                  size='small'
+                  disablePortal
+                  id="combo-box-demo"
+                  options={countries}
+                  renderInput={(params) => <TextField {...params} label="Country" />}
+                />
+                <Box sx={{ display: 'flex', width: '100%', gap: '10px' }}>
+                  <TextField
+                    size='small'
+                    label="First Name (optional)"
+                    sx={{ flexGrow: 1 }}
+                  />
+                  <TextField
+                    size='small'
+                    required
+                    id="outlined-required"
+                    label="Last Name"
+                    sx={{ flexGrow: 1 }}
+                  />
+                </Box>
+                <Autocomplete
+                  size='small'
+                  disablePortal
+                  id="combo-box-demo"
+                  options={address}
+                  renderInput={(params) => <TextField {...params} label="Address (Google Map API)" />}
+                />
+                <TextField
+                  fullWidth
+                  size='small'
+                  label="Apartment, suite, etc. (optional)"
+                />
+                <Box sx={{ display: 'flex', width: '100%', gap: '10px' }}>
+                  <TextField
+                    size='small'
+                    required
+                    id="outlined-required"
+                    label="City"
+                    sx={{ flexBasis: '33.333%' }}
+                  />
+                  <Autocomplete
+                    size='small'
+                    disablePortal
+                    id="combo-box-demo"
+                    options={countries}
+                    sx={{ flexBasis: '33.333%' }}
+                    renderInput={(params) => <TextField {...params} label="State" />}
+                  />
+                  <TextField
+                    size='small'
+                    required
+                    id="outlined-required"
+                    label="Zip Code"
+                    sx={{ flexBasis: '33.333%' }}
+                  />
+                </Box>
               </Box>
             </Box>
-            <Box className='cart-action' sx={{
-              textTransform: 'uppercase',
+            <Grid container spacing={0} className='cart-summary' sx={{
               display: 'flex',
-              justifyContent: 'space-between',
-              my: '20px',
-              '& .MuiLink-root': {
-                fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"'
-              }
+              mt: '36px',
+              alignItems: 'center',
+              justifyContent: 'end',
+              height: '100%'
             }}>
-              <Link underline='none' sx={{
-                p: '15px 25px 11px',
-                bgcolor: '#dee2e6',
-                borderRadius: '25px'
-              }}>
-                Continue Shopping
-              </Link>
-              <Link underline='none' sx={{
-                p: '15px 25px 11px',
-                bgcolor: '#14b9b9',
-                borderRadius: '25px',
-                color: '#fff'
-              }}>
-                Go to Checkout
-              </Link>
-            </Box>
-            {data && data?.data?.attributes?.Image_Tile_Face?.data.map((item: any, index: React.Key | null | undefined) => {
-              return (
-                <Box key={index} className='cart-item' sx={{
-                  display: 'flex',
-                  p: '20px'
-                }}>
-                  <Box className='item-image' sx={{
-                    position: 'relative',
-                    flexBasis: '20%',
-                    width: 'auto',
-                    height: '220px',
-                  }}>
-                    <Link>
-                      <Image src={item.attributes?.formats?.thumbnail?.url} fill alt='' />
-                    </Link>
-                  </Box>
-                  <Box className='item-detail' sx={{
-                    flexBasis: '30%',
-                    p: '0 20px'
-                  }}>
-                    <Typography component='h2' sx={{ fontSize: '22px', fontWeight: 'bold' }}>{Name}</Typography>
-                    <Typography component='p' sx={{
-                      fontSize: '16px',
-                      fontWeight: 'medium',
-                      my: '16px',
-                      display: '-webkit-box',
-                      WebkitBoxOrient: 'vertical',
-                      WebkitLineClamp: '3',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                    }}>
-                      {Description}
+              <Grid item sx={{ pr: '30px', borderRight: { xs: '0', md: '1px solid #3d3935' } }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Box>
+                    <Typography sx={{ fontSize: '16px', pr: '20px' }}>
+                      Subtotal:
                     </Typography>
-                    <Grid
-                      container
-                      spacing={0}
-                      sx={{
-                        width: '100%',
-                        '& .MuiTypography-root': {
-                          color: '#8b8b8e',
-                          fontWeight: 'medium'
-                        }
-                      }}>
-
-                      {[
-                        { title: "Colour", value: "RED" },
-                        { title: "Dimension", value: "600 x 600 x 10.1mm" },
-                        { title: "Finish", value: "Glossy" },
-
-                      ].map((item, index) => {
-                        return (
-                          <>
-                            <Grid key={index} item sx={{ flexBasis: '50%' }}>
-                              <Typography variant='body1' sx={{ fontSize: '16px' }}>
-                                {item.title} :
-                              </Typography>
-                            </Grid>
-                            <Grid item sx={{ flexBasis: '50%' }}>
-                              <Typography variant='body1' sx={{ fontSize: '16px' }}>
-                                {item.value}
-                              </Typography>
-                            </Grid>
-                          </>
-                        );
-                      })}
-                    </Grid>
                   </Box>
                   <Box>
-
-                    <TableContainer sx={{
-                      border: '1px solid #999',
-                      borderRadius: '10px',
-                      flexBasis: '50%'
-                    }}>
-                      <Table
-                        sx={{
-                          width: "100%",
-                          fontSize: "14px",
-                          borderCollapse: "collapse",
-                          mt: "20px",
-                        }}
-                        aria-label="simple table"
-                      >
-                        <TableHead>
-                          <TableRow>
-                            <TableCell sx={{ minWidth: "19%" }}>Number of Box</TableCell>
-                            <TableCell sx={{ minWidth: "19%" }} align="right">
-                              Coverage
-                            </TableCell>
-                            <TableCell sx={{ minWidth: "19%" }} align="right">
-                              Box Price
-                            </TableCell>
-                            <TableCell sx={{ minWidth: "19%" }} align="right">
-                              Total Price
-                            </TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          <TableRow>
-                            <TableCell component="th" scope="row">
-                              {/* <Controller
-                              name={"quantityBox"}
-                              control={control}
-                              render={({
-                                field: { onChange, value },
-                                fieldState: { error },
-                                formState,
-                              }) => ( */}
-                              <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                                <Select
-                                  labelId="demo-select-small-label"
-                                  id="demo-select-small"
-                                  sx={{
-                                    width: '100%',
-                                    '& .MuiSelect-select': {
-                                      p: '4px !important'
-                                    },
-                                  }}
-                                >
-                                  <MenuItem value={0}>1 Box</MenuItem>
-                                  <MenuItem value={10}>2 Box</MenuItem>
-                                  <MenuItem value={20}>3 Box</MenuItem>
-                                  <MenuItem value={30}>4 Box</MenuItem>
-                                </Select>
-                              </FormControl>
-                              {/* )}
-                            /> */}
-                            </TableCell>
-                            <TableCell align="right">
-                              {/* {coverage + " "}/m² */}
-                            </TableCell>
-                            <TableCell align="right">
-                              {/* {1.44 * data.attributes?.Price} */}
-                            </TableCell>
-                            <TableCell align="right">
-                              {/* {"Rp. " + totalPrice}  */}
-                            </TableCell>
-                          </TableRow>
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
-                    <Box>
-                      <Link sx={{
-                        bgcolor: '#dee2e6',
-                        borderRadius: '12px'
-                      }}>Remove</Link>
-                    </Box>
+                    <Typography sx={{ fontSize: '16px', fontWeight: 'medium' }}>
+                      Rp. 123.123.123
+                    </Typography>
                   </Box>
                 </Box>
-              );
-            })}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Box>
+                    <Typography sx={{ fontSize: '16px', pr: '20px' }}>
+                      Sale total:
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>
+                      Rp. 123.123.123.123
+                    </Typography>
+                  </Box>
+                </Box>
+                <Typography sx={{ fontSize: '12px', mt: '10px', textAlign: 'center' }}>Tax & shipping rates are calculated during checkout</Typography>
+              </Grid>
+              <Grid item sx={{ pl: '20px', display: 'flex' }}>
+                <Button sx={{
+                  color: '#fff',
+                  bgcolor: '#3d3935',
+                  '&:hover': {
+                    bgcolor: '#000'
+                  },
+                }}>
+                  Checkout
+                </Button>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </Box>
