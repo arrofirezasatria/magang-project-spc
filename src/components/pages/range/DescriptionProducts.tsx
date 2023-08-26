@@ -8,21 +8,6 @@ export default function DescriptionProducts() {
     <>
       <Grid sx={{}}>
           <Box
-            display="flex"
-            flexDirection="row"
-            sx={{
-              fontSize: "16px",
-              color: "#999999",
-              margin: { xs: "30px 0", md: "40px 30px" },
-            }}
-          >
-            <Typography sx={{ marginRight: "11px" }}>Product</Typography>
-            <Typography sx={{ marginRight: "11px" }}>&gt;</Typography>
-            <Typography sx={{ marginRight: "11px" }}>Product Style</Typography>
-            <Typography sx={{ marginRight: "11px" }}>&gt;</Typography>
-            <Typography>Concrete</Typography>
-          </Box>
-          <Box
             sx={{
               margin: { xs: "0", md: "0 30px" },
               textAlign: "left",
