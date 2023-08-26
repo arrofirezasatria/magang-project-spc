@@ -797,7 +797,7 @@ export default function ModulSpec(props) {
       },
     ];
   } else {
-    tableData = []; 
+    tableData = [];
   }
 
   return (
@@ -808,7 +808,6 @@ export default function ModulSpec(props) {
           }
         }
       >
-        
         <Button
           onClick={() => setIsModalOpen(true)}
           sx={{
@@ -816,15 +815,30 @@ export default function ModulSpec(props) {
             my: "8px",
             height: "28px",
             typography: {
-              fontWeight: "medium", 
+              fontWeight: "medium",
               color: "black",
-              letterSpacing: 1, 
+              letterSpacing: 1,
               fontSize: { sm: "16px", xs: "12px" },
               textTransform: "lowercase",
             },
           }}
         >
-          click for full specification
+          <Typography sx={{
+            display: { xs:"flex",sm:"flex",md: "flex", lg: "none" }, fontWeight: "medium",
+            color: "black",
+            letterSpacing: 1,
+            fontSize: "14px",
+            textTransform: "lowercase",
+          }}>View</Typography>
+          <Typography sx={{
+            display: { xs:"none",sm:"none",md: "none", lg: "flex" },
+            fontWeight: "medium",
+            color: "black",
+            letterSpacing: 1,
+            fontSize: "14px",
+            textTransform: "lowercase",
+          }}>click for full specification</Typography>
+
         </Button>
         <Modal
           open={isModalOpen}
@@ -840,7 +854,7 @@ export default function ModulSpec(props) {
               width: "1200px",
               border: "1px solid #000",
               backgroundColor: "white",
-              height:"100vh",
+              height: "100vh",
               overflow: "scroll",
             }}
           >
@@ -957,8 +971,8 @@ export default function ModulSpec(props) {
                       }
                     </Typography>
                   </Box>
-                  <TableContainer component={Paper} sx={{maxHeight:"70vh"}}>
-                    <Table sx={{height:"90%",overflow:"scroll"}}>
+                  <TableContainer component={Paper} sx={{ maxHeight: "70vh" }}>
+                    <Table sx={{ height: "90%", overflow: "scroll" }}>
                       <TableHead>
                         <TableRow>
                           <TableCell>Description</TableCell>

@@ -11,7 +11,7 @@ export default function ModulPacking(props: any) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const imageUrl = props.name.Image_Tile_Face.data?.[0]?.attributes?.formats?.large?.url || "/No data";
+  const imageUrl = props.name.Image_Tile_Face.data?.[0]?.attributes?.formats?.large?.url || "Nodata";
 
   let tableDataLocal, tableDataInternational;
 
@@ -128,15 +128,29 @@ export default function ModulPacking(props: any) {
             my: "8px",
             height: "28px",
             typography: {
-              fontWeight: "medium", 
+              fontWeight: "medium",
               color: "black",
-              letterSpacing: 1, 
+              letterSpacing: 1,
               fontSize: "14px",
               textTransform: "lowercase",
             },
           }}
         >
-          click for full packing details
+          <Typography sx={{
+             display: { xs:"flex",sm:"flex",md: "flex", lg: "none" }, fontWeight: "medium",
+            color: "black",
+            letterSpacing: 1,
+            fontSize: "14px",
+            textTransform: "lowercase",
+          }}>View</Typography>
+          <Typography sx={{
+            display: { xs:"none",sm:"none",md: "none", lg: "flex" },
+            fontWeight: "medium",
+            color: "black",
+            letterSpacing: 1,
+            fontSize: "14px",
+            textTransform: "lowercase",
+          }}>click for full packing details</Typography>
         </Button>
         <Modal
           open={isModalOpen}
@@ -153,7 +167,7 @@ export default function ModulPacking(props: any) {
               border: "1px solid #000",
               backgroundColor: "white",
               overflow: "scroll",
-              height:"100vh"
+              height: "100vh"
             }}
           >
             <Box>

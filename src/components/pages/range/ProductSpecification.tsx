@@ -43,7 +43,7 @@ interface IFormInputs {
 
 export default function ProductSpecification({ props, data }: any) {
   const dispatch = useDispatch();
-  const imgFileUrl = props.imgFileUrl;
+  const imgFileUrl = props.productOnly.data.attributes.Image_Tile_Face.data?.[0]?.attributes.url ;
   const {
     register,
     watch,
@@ -208,7 +208,7 @@ export default function ProductSpecification({ props, data }: any) {
                 </Box>
               </Zoom>
               <Box
-                sx={{ my: "20px", display: "flex", justifyContent: "center" }}
+                sx={{my: "20px", display: "flex", justifyContent: "center" }}
               >
                 {imgFileUrl ? (
                   <Link
