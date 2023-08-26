@@ -279,12 +279,12 @@ export default async function handler(
     });
 
     request
-      .then((result) => {
+      .then((result: any) => {
         // return result
         console.log(result.body);
         return res.status(200).send(result.body);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         // return err
         console.log(err.statusCode);
         return res.status(400).send(err.statusCode);
