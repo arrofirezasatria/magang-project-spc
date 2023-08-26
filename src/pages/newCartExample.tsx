@@ -35,6 +35,7 @@ import ProductLayout from "@layouts/ProductLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { dropCart, removeItemFromCart } from "store/cartSlice";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useRouter } from "next/router";
 
 const headers = {
   Authorization:
@@ -46,6 +47,8 @@ const fetcher2 = (url: RequestInfo | URL) =>
 // axios.get(url, { headers }).then((res) => res.data())
 
 export default function ProductExample() {
+  const router = useRouter();
+
   type Inputs = {
     name: string;
     email: string;
@@ -197,7 +200,6 @@ export default function ProductExample() {
 
   return (
     <>
-      <Box sx={{ height: "64px" }}></Box>
       <ProductLayout backgroundColor="#f2f1f0">
         <Box
           className="cart"
@@ -251,14 +253,7 @@ export default function ProductExample() {
                                 position: "relative",
                               }}
                             >
-                              <Image
-                                src={
-                                  item.attributes.Image_Tile_Face.data[0]
-                                    .attributes.formats.thumbnail.url
-                                }
-                                alt=""
-                                fill
-                              />
+                              <Image src={item.imageSrc} alt="" fill />
                             </Box>
                             <Box
                               sx={{
@@ -275,7 +270,7 @@ export default function ProductExample() {
                                   fontWeight: "500",
                                 }}
                               >
-                                {item.attributes.Name}
+                                {item.name}
                               </Typography>
                               <Box display="flex">
                                 <Typography
@@ -285,7 +280,7 @@ export default function ProductExample() {
                                     fontWeight: "400",
                                   }}
                                 >
-                                  {item.attributes.Code}
+                                  {item.code}
                                 </Typography>
                                 <Divider
                                   orientation="vertical"
@@ -298,10 +293,7 @@ export default function ProductExample() {
                                     lineHeight: "1.5em",
                                   }}
                                 >
-                                  {
-                                    item.attributes.tile_dimension.data
-                                      .attributes.Dimension
-                                  }
+                                  {item.dimension}
                                 </Typography>
                               </Box>
                               <Box>
@@ -313,7 +305,7 @@ export default function ProductExample() {
                                 >
                                   <NumericFormat
                                     // value={item.pricePerBox * item.quantity}
-                                    value={item.attributes.Price}
+                                    value={item.pricePerBox}
                                     decimalScale={3}
                                     displayType={"text"}
                                     thousandSeparator={true}
@@ -334,6 +326,9 @@ export default function ProductExample() {
                             }}
                             // onClick={() => handleDelete(index)}
                             // handleDelete tidak ada
+                            onClick={() =>
+                              dispatch(removeItemFromCart({ id: item.id }))
+                            }
                           >
                             <DeleteForeverIcon sx={{ color: "#DC362E" }} />
                           </IconButton>
@@ -354,7 +349,7 @@ export default function ProductExample() {
                           >
                             <NumericFormat
                               // value={item.pricePerBox * item.quantity}
-                              value={item.attributes.Price * 5}
+                              value={item.priceTotal}
                               decimalScale={3}
                               displayType={"text"}
                               thousandSeparator={true}
@@ -392,7 +387,7 @@ export default function ProductExample() {
                                   },
                               }}
                               type="number"
-                              value={5}
+                              value={item.quantity}
                               onChange={(event) => handleChange(event, index)}
                               variant="standard"
                               InputProps={{
@@ -585,6 +580,7 @@ export default function ProductExample() {
                         textAlign: "center",
                         px: "16px",
                       }}
+                      onClick={() => router.push("/range")}
                     >
                       Continue Browsing
                     </Button>
