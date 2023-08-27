@@ -1,23 +1,6 @@
 import React from "react";
 
-import {
-  Box,
-  Button,
-  Grid,
-  Link,
-  Stack,
-  Typography,
-  TextField,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Divider,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, Button, Grid, Link, Stack, Typography, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Divider, useMediaQuery, useTheme } from "@mui/material";
 import Image from "next/image";
 import Zoom from "react-medium-image-zoom";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
@@ -29,6 +12,8 @@ import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "store/counterSlice";
 import { addToCart } from "store/cartSlice";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface IFormInputs {
   id: number;
@@ -43,7 +28,7 @@ interface IFormInputs {
 
 export default function ProductSpecification({ props, data }: any) {
   const dispatch = useDispatch();
-  const imgFileUrl = props.productOnly.data.attributes.Image_Tile_Face.data?.[0]?.attributes.url ;
+  const imgFileUrl = props.productOnly.data.attributes.Image_Tile_Face.data?.[0]?.attributes.url;
   const {
     register,
     watch,
@@ -77,27 +62,35 @@ export default function ProductSpecification({ props, data }: any) {
   const [totalPrice, setTotalPrice] = React.useState(0);
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    {
-      // @ts-ignore
-      data.quantity !== "" &&
-        dispatch(
-          addToCart({
-            id: props.product.data.id,
-            code: props.productOnly.data.attributes.Code,
-            name: props.productOnly.data.attributes.Name,
-            dimension:
-              props.productOnly.data.attributes.tile_dimension.data.attributes
-                .Dimension,
-            imageSrc:
-              props.productOnly.data.attributes.Image_Tile_Face.data[0]
-                .attributes.formats.thumbnail.url,
-            quantity: data.quantity !== null ? data.quantity : 0,
-            pricePerBox:
-              props.productOnly.data.attributes.SQM_Box *
-              props.productOnly.data.attributes.Price,
-            priceTotal: totalPrice,
-          })
-        );
+    if (!data.quantity || data.quantity < 1) {
+      toast.error("Please enter a valid quantity", {
+        position: isMobile ? toast.POSITION.TOP_CENTER : toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+      });
+    } else {
+      dispatch(
+        addToCart({
+          id: props.product.data.id,
+          code: props.productOnly.data.attributes.Code,
+          name: props.productOnly.data.attributes.Name,
+          dimension: props.productOnly.data.attributes.tile_dimension.data.attributes.Dimension,
+          imageSrc: props.productOnly.data.attributes.Image_Tile_Face.data[0].attributes.formats.thumbnail.url,
+          quantity: data.quantity,
+          pricePerBox: props.productOnly.data.attributes.SQM_Box * props.productOnly.data.attributes.Price,
+          priceTotal: totalPrice,
+        })
+      );
+
+      toast.success("Item added to cart", {
+        position: isMobile ? toast.POSITION.TOP_CENTER : toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+      });
     }
   };
 
@@ -164,41 +157,24 @@ export default function ProductSpecification({ props, data }: any) {
             <Grid item xs={12} md={6}>
               <Zoom>
                 <Box
-                  height={
-                    props.productOnly.data.attributes?.tile_dimension.data
-                      .attributes.Dimension == "60x60cm"
-                      ? "auto"
-                      : { xs: "auto", sm: "715px" }
-                  }
+                  height={props.productOnly.data.attributes?.tile_dimension.data.attributes.Dimension == "60x60cm" ? "auto" : { xs: "auto", sm: "715px" }}
                   sx={{
                     width: { xs: "100%", md: "80%" },
-                    minHeight:
-                      props.productOnly.data.attributes?.tile_dimension.data
-                        .attributes.Dimension == "60x60cm"
-                        ? "none"
-                        : "100%",
-                    maxHeight:
-                      props.productOnly.data.attributes?.tile_dimension.data
-                        .attributes.Dimension == "60x60cm"
-                        ? "427.500px"
-                        : "none",
+                    minHeight: props.productOnly.data.attributes?.tile_dimension.data.attributes.Dimension == "60x60cm" ? "none" : "100%",
+                    maxHeight: props.productOnly.data.attributes?.tile_dimension.data.attributes.Dimension == "60x60cm" ? "427.500px" : "none",
                     position: "relative",
                     aspectRatio: "1 / 1",
                   }}
                 >
                   {props.productOnly.data.attributes.Image_Tile_Face.data ? (
                     <Image
-                      src={
-                        props.productOnly.data.attributes.Image_Tile_Face
-                          .data[0]?.attributes?.formats?.large?.url
-                      }
+                      src={props.productOnly.data.attributes.Image_Tile_Face.data[0]?.attributes?.formats?.large?.url}
                       fill
                       alt=""
                       style={{
                         borderRadius: "0px",
                         background: "#e0e0e0",
-                        boxShadow:
-                          "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
+                        boxShadow: "5px 5px 10px #cacaca, -5px -5px 10px #f6f6f6",
                         objectFit: "cover",
                       }}
                     />
@@ -207,9 +183,7 @@ export default function ProductSpecification({ props, data }: any) {
                   )}
                 </Box>
               </Zoom>
-              <Box
-                sx={{my: "20px", display: "flex", justifyContent: "center" }}
-              >
+              <Box sx={{ my: "20px", display: "flex", justifyContent: "center" }}>
                 {imgFileUrl ? (
                   <Link
                     onClick={() => {
@@ -222,8 +196,7 @@ export default function ProductSpecification({ props, data }: any) {
                       color: "#fff",
                       borderRadius: "5px",
                       p: "8px 8px 8px 8px",
-                      fontFamily:
-                        '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                       fontSize: "14px",
                       mb: "5px",
                       display: "flex",
@@ -232,9 +205,7 @@ export default function ProductSpecification({ props, data }: any) {
                       cursor: "pointer",
                     }}
                   >
-                    <FileDownloadOutlinedIcon
-                      sx={{ pr: "8px", fontSize: "18px" }}
-                    />
+                    <FileDownloadOutlinedIcon sx={{ pr: "8px", fontSize: "18px" }} />
                     Download Tile Preview
                   </Link>
                 ) : (
@@ -296,8 +267,7 @@ export default function ProductSpecification({ props, data }: any) {
                     }}
                   >
                     <Typography sx={{ fontSize: "26px", fontWeight: "bold" }}>
-                      {props.productOnly.data.attributes?.Name} -{" "}
-                      {props.productOnly.data.attributes?.Code}
+                      {props.productOnly.data.attributes?.Name} - {props.productOnly.data.attributes?.Code}
                     </Typography>
                   </Box>
                   <Typography
@@ -308,13 +278,7 @@ export default function ProductSpecification({ props, data }: any) {
                       mb: "20px",
                     }}
                   >
-                    <NumericFormat
-                      value={props.productOnly.data.attributes?.Price}
-                      decimalScale={3}
-                      displayType={"text"}
-                      thousandSeparator={true}
-                      prefix={"Rp. "}
-                    />
+                    <NumericFormat value={props.productOnly.data.attributes?.Price} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
                     /m²
                   </Typography>
                 </Box>
@@ -333,18 +297,13 @@ export default function ProductSpecification({ props, data }: any) {
                     {
                       title: "Product Varian",
                       value:
-                        props.motif.data.attributes.motif.data.attributes
-                          .product_varians?.data?.length > 0
-                          ? props.motif.data.attributes.motif.data.attributes.product_varians?.data
-                            .map((item: any) => item.attributes.Varian)
-                            .join(", ")
+                        props.motif.data.attributes.motif.data.attributes.product_varians?.data?.length > 0
+                          ? props.motif.data.attributes.motif.data.attributes.product_varians?.data.map((item: any) => item.attributes.Varian).join(", ")
                           : "-",
                     },
                     {
                       title: "Dimension",
-                      value:
-                        props.productOnly.data.attributes?.tile_dimension.data
-                          ?.attributes?.Dimension,
+                      value: props.productOnly.data.attributes?.tile_dimension.data?.attributes?.Dimension,
                     },
                     {
                       title: "Face",
@@ -356,30 +315,19 @@ export default function ProductSpecification({ props, data }: any) {
                     },
                     {
                       title: "Finish",
-                      value:
-                        props.productOnly.data.attributes?.surface_finish.data
-                          ?.attributes?.Name,
+                      value: props.productOnly.data.attributes?.surface_finish.data?.attributes?.Name,
                     },
                     {
                       title: "Rectified Edge",
-                      value:
-                        props.productOnly.data.attributes?.Rectified.toString() ==
-                          "true"
-                          ? "Yes"
-                          : "No",
+                      value: props.productOnly.data.attributes?.Rectified.toString() == "true" ? "Yes" : "No",
                     },
                     {
                       title: "Shade Variation",
-                      value:
-                        props.productOnly.data.attributes?.Shade_Variation ||
-                        "-",
+                      value: props.productOnly.data.attributes?.Shade_Variation || "-",
                     },
                     {
                       title: "Suitability",
-                      value:
-                        props.productOnly.data.attributes?.tile_suitabilities?.data
-                          ?.map((item: any) => item.attributes.Suitability)
-                          ?.join(", ") || "-",
+                      value: props.productOnly.data.attributes?.tile_suitabilities?.data?.map((item: any) => item.attributes.Suitability)?.join(", ") || "-",
                     },
                     {
                       title: "Tiles per Box",
@@ -452,10 +400,7 @@ export default function ProductSpecification({ props, data }: any) {
                           flexBasis: "50%",
                         }}
                       >
-                        <ModulSpec
-                          motif={props?.motif?.data.attributes}
-                          name={props.productOnly.data.attributes}
-                        />
+                        <ModulSpec motif={props?.motif?.data.attributes} name={props.productOnly.data.attributes} />
                       </Box>
                     </Box>
                     <Divider
@@ -488,10 +433,7 @@ export default function ProductSpecification({ props, data }: any) {
                           flexBasis: "50%",
                         }}
                       >
-                        <ModulPacking
-                          motif={props?.motif?.data.attributes}
-                          name={props.productOnly.data.attributes}
-                        />
+                        <ModulPacking motif={props?.motif?.data.attributes} name={props.productOnly.data.attributes} />
                       </Box>
                     </Box>
                     <Divider
@@ -526,15 +468,7 @@ export default function ProductSpecification({ props, data }: any) {
                           my: "8px",
                         }}
                       >
-                        <CircleIcon
-                          color={
-                            props.productOnly.data.attributes?.IsInStock
-                              ? "success"
-                              : "error"
-                          }
-                          fontSize="inherit"
-                          sx={{ mt: "2px" }}
-                        />
+                        <CircleIcon color={props.productOnly.data.attributes?.IsInStock ? "success" : "error"} fontSize="inherit" sx={{ mt: "2px" }} />
                         <Typography
                           sx={{
                             fontSize: "16px",
@@ -542,9 +476,7 @@ export default function ProductSpecification({ props, data }: any) {
                             ml: 1,
                           }}
                         >
-                          {props.productOnly.data.attributes?.IsInStock
-                            ? "Available"
-                            : "Not Available"}
+                          {props.productOnly.data.attributes?.IsInStock ? "Available" : "Not Available"}
                         </Typography>
                       </Box>
                     </Box>
@@ -561,9 +493,7 @@ export default function ProductSpecification({ props, data }: any) {
                       height: "100%",
                     }}
                   >
-                    <Typography sx={{ fontSize: "22px", fontWeight: "bold" }}>
-                      Order tiles now
-                    </Typography>
+                    <Typography sx={{ fontSize: "22px", fontWeight: "bold" }}>Order tiles now</Typography>
                     <TableContainer
                       component="div"
                       sx={{
@@ -588,22 +518,8 @@ export default function ProductSpecification({ props, data }: any) {
                                   // @ts-ignore
                                   name={"quantity"}
                                   control={control}
-                                  render={({
-                                    field: { onChange, value },
-                                    fieldState: { error },
-                                    formState,
-                                  }) => (
-                                    <TextField
-                                      helperText={error ? error.message : null}
-                                      size="small"
-                                      error={!!error}
-                                      onChange={onChange}
-                                      type="number"
-                                      fullWidth
-                                      label={"Box"}
-                                      variant="outlined"
-                                      sx={{ width: "100px" }}
-                                    />
+                                  render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
+                                    <TextField helperText={error ? error.message : null} size="small" error={!!error} onChange={onChange} type="number" fullWidth label={"Box"} variant="outlined" sx={{ width: "100px" }} />
                                   )}
                                 />
                               </TableCell>
@@ -611,41 +527,20 @@ export default function ProductSpecification({ props, data }: any) {
                             <TableRow>
                               <TableCell>Coverage:</TableCell>
                               <TableCell>
-                                <NumericFormat
-                                  value={coverage}
-                                  decimalScale={3}
-                                  displayType={"text"}
-                                  thousandSeparator={true}
-                                  prefix={"Rp. "}
-                                />
+                                <NumericFormat value={coverage} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
                                 {" /m²"}
                               </TableCell>
                             </TableRow>
                             <TableRow>
                               <TableCell>Box Price:</TableCell>
                               <TableCell>
-                                <NumericFormat
-                                  value={
-                                    props.productOnly.data.attributes.SQM_Box *
-                                    props.productOnly.data.attributes.Price
-                                  }
-                                  decimalScale={3}
-                                  displayType={"text"}
-                                  thousandSeparator={true}
-                                  prefix={"Rp. "}
-                                />
+                                <NumericFormat value={props.productOnly.data.attributes.SQM_Box * props.productOnly.data.attributes.Price} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
                               </TableCell>
                             </TableRow>
                             <TableRow>
                               <TableCell>Total Price:</TableCell>
                               <TableCell>
-                                <NumericFormat
-                                  value={totalPrice}
-                                  decimalScale={3}
-                                  displayType={"text"}
-                                  thousandSeparator={true}
-                                  prefix={"Rp. "}
-                                />
+                                <NumericFormat value={totalPrice} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
                               </TableCell>
                             </TableRow>
                           </>
@@ -653,25 +548,14 @@ export default function ProductSpecification({ props, data }: any) {
                           <>
                             <TableHead>
                               <TableRow>
-                                <TableCell sx={{ minWidth: "19%" }}>
-                                  Required
-                                </TableCell>
-                                <TableCell
-                                  sx={{ minWidth: "19%" }}
-                                  align="right"
-                                >
+                                <TableCell sx={{ minWidth: "19%" }}>Required</TableCell>
+                                <TableCell sx={{ minWidth: "19%" }} align="right">
                                   Coverage
                                 </TableCell>
-                                <TableCell
-                                  sx={{ minWidth: "19%" }}
-                                  align="right"
-                                >
+                                <TableCell sx={{ minWidth: "19%" }} align="right">
                                   Box Price
                                 </TableCell>
-                                <TableCell
-                                  sx={{ minWidth: "19%" }}
-                                  align="right"
-                                >
+                                <TableCell sx={{ minWidth: "19%" }} align="right">
                                   Total Price
                                 </TableCell>
                               </TableRow>
@@ -683,58 +567,20 @@ export default function ProductSpecification({ props, data }: any) {
                                     // @ts-ignore
                                     name={"quantity"}
                                     control={control}
-                                    render={({
-                                      field: { onChange, value },
-                                      fieldState: { error },
-                                      formState,
-                                    }) => (
-                                      <TextField
-                                        helperText={
-                                          error ? error.message : null
-                                        }
-                                        size="small"
-                                        error={!!error}
-                                        onChange={onChange}
-                                        type="number"
-                                        fullWidth
-                                        label={"Box"}
-                                        variant="outlined"
-                                        sx={{ width: "100px" }}
-                                      />
+                                    render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
+                                      <TextField helperText={error ? error.message : null} size="small" error={!!error} onChange={onChange} type="number" fullWidth label={"Box"} variant="outlined" sx={{ width: "100px" }} />
                                     )}
                                   />
                                 </TableCell>
                                 <TableCell align="right">
-                                  <NumericFormat
-                                    value={coverage}
-                                    decimalScale={3}
-                                    displayType={"text"}
-                                    thousandSeparator={true}
-                                    prefix={"Rp. "}
-                                  />
+                                  <NumericFormat value={coverage} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
                                   {" /m²"}
                                 </TableCell>
                                 <TableCell align="right">
-                                  <NumericFormat
-                                    value={
-                                      props.productOnly.data.attributes
-                                        .SQM_Box *
-                                      props.productOnly.data.attributes.Price
-                                    }
-                                    decimalScale={3}
-                                    displayType={"text"}
-                                    thousandSeparator={true}
-                                    prefix={"Rp. "}
-                                  />
+                                  <NumericFormat value={props.productOnly.data.attributes.SQM_Box * props.productOnly.data.attributes.Price} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
                                 </TableCell>
                                 <TableCell align="right">
-                                  <NumericFormat
-                                    value={totalPrice}
-                                    decimalScale={3}
-                                    displayType={"text"}
-                                    thousandSeparator={true}
-                                    prefix={"Rp. "}
-                                  />
+                                  <NumericFormat value={totalPrice} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
                                 </TableCell>
                               </TableRow>
                             </TableBody>
@@ -758,6 +604,7 @@ export default function ProductSpecification({ props, data }: any) {
                     >
                       Add to Cart
                     </Button>
+                    <ToastContainer style={{ marginTop: isMobile ? "80px" : "0%" }} />
                   </Box>
                 </Box>
               </Box>
