@@ -1,4 +1,4 @@
-import { Box, Tabs, Tab, Container, Grid, Stack, Typography, Button, FormControl, Select, MenuItem, InputLabel, Tooltip, useMediaQuery } from "@mui/material";
+import { Box, Tabs, Tab, Container, Grid, Stack, Typography, Button, FormControl, Select, MenuItem, InputLabel, useMediaQuery, useTheme } from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 import Image from "next/image";
@@ -13,7 +13,10 @@ export default function ProductRange({ props }: any) {
   const [open, setOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState("asc");
   const [showNewItems, setShowNewItems] = useState(false);
-  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("md"));
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isSizeLessThan380 = useMediaQuery(theme.breakpoints.down(380));
 
   const filteredAndSortedData = props.response.data
     .sort((a: any, b: any) => (sortOrder === "asc" ? a.attributes.Name.localeCompare(b.attributes.Name) : b.attributes.Name.localeCompare(a.attributes.Name)))
@@ -39,8 +42,8 @@ export default function ProductRange({ props }: any) {
             PRODUCT RANGES: CONCRETE
           </Typography> */}
         </Box>
-        <Stack direction={{ xs: "column", md: "row" }} spacing={{ xs: 1, sm: 2, md: 4 }} justifyContent="space-between" sx={{ marginBottom: "30px" }}>
-          <Stack direction="row" sx={{ visibility: "hidden" }}>
+        <Stack direction={{ xs: "column", md: "row" }} spacing={{ xs: 1, sm: 2, md: 4 }} justifyContent="flex-end" sx={{ marginBottom: "30px" }}>
+          {/* <Stack direction="row" sx={{visibility:"hidden"}}>
             <Box display="flex" flexDirection="row" sx={{ marginRight: "35px" }}>
               <Box
                 sx={{
@@ -50,7 +53,7 @@ export default function ProductRange({ props }: any) {
                   mt: "6px",
                 }}
               >
-                <Image src={"/static/images/colours-removebg-preview.svg"} fill alt={""} style={{}} />
+                <Image src={"/static/images/icon-colour-black.svg"} fill alt={""} style={{}} />
               </Box>
               <Typography
                 sx={{
@@ -74,7 +77,7 @@ export default function ProductRange({ props }: any) {
                   mt: "6px",
                 }}
               >
-                <Image src={"/static/images/style-removebg-preview.svg"} fill alt={""} style={{}} />
+                <Image src={"/static/images/icon-size-black.svg"} fill alt={""} style={{}} />
               </Box>
               <Typography
                 sx={{
@@ -98,7 +101,7 @@ export default function ProductRange({ props }: any) {
                   mt: "6px",
                 }}
               >
-                <Image src={"/static/images/finishes-removebg-preview.svg"} fill alt={""} style={{}} />
+                <Image src={"/static/images/icon-finish-black.svg"} fill alt={""} style={{}} />
               </Box>
               <Typography
                 sx={{
@@ -113,7 +116,7 @@ export default function ProductRange({ props }: any) {
                 Finishes
               </Typography>
             </Box>
-          </Stack>
+          </Stack> */}
           <Stack direction="row">
             <Box display="flex" flexDirection="row" sx={{ marginTop: { xs: "20px", md: "0" } }}>
               <Box display="flex" flexDirection="row">
@@ -135,7 +138,7 @@ export default function ProductRange({ props }: any) {
                 onChange={(event, newValue) => (newValue === "new" ? setShowNewItems(true) : setShowNewItems(false))}
                 TabIndicatorProps={{
                   style: {
-                    height: 1,
+                    height: 1, // Set the height of the tab indicator (active indicator line)
                   },
                 }}
                 sx={{}}
@@ -247,7 +250,7 @@ export default function ProductRange({ props }: any) {
         <Grid container spacing={2}>
           {filteredAndSortedData.map((item: any, index: React.Key | null | undefined) => {
             return (
-              <Grid item key={index} xs={6} sm={4} md={3} lg={2.4}>
+              <Grid item key={index} xs={6} md={3} lg={2.4}>
                 <Link href={`/range/${item.id}`} key={index} style={{ color: "black", textDecoration: "none" }}>
                   <Box sx={{ cursor: "pointer" }}>
                     <Box
@@ -285,7 +288,6 @@ export default function ProductRange({ props }: any) {
                         </Box>
                       )}
                       <Image fill alt="ads" src={item.attributes.Image_Thumbnail_350px.data?.attributes.url} />
-
                       {/* <HoverInProduct /> */}
                     </Box>
                     <Box
@@ -300,70 +302,54 @@ export default function ProductRange({ props }: any) {
                           fontSize: "18px",
                           fontWeight: "medium",
                           textDecorationLine: "none !important",
-                          pb: "10px",
+                          paddingBottom: "10px",
                         }}
                       >
                         {item.attributes.Name}
                       </Typography>
-                      <Box sx={{ display: "flex", flexDirection: "row", borderTop: "1px solid #000" }}>
+                      <Box sx={{ display: "flex", flexDirection: "row", borderTop: "2px solid #000" }}>
                         {item.attributes.product_varians.data.length > 0 ? (
-                          <Box key={index} sx={{ justifyContent: "space-between" }}>
-                            {item.attributes.product_varians.data.map((varian: any, index: number) => {
-                              let varianText = varian.attributes.Varian;
-                              if (varianText === "Wall Tile Set") {
-                                varianText = isSmallScreen ? "WTS" : "Wall Tile Set";
-                              } else if (varianText === "Sun Step Stop") {
-                                varianText = isSmallScreen ? "SSS" : "Sun Step Stop";
-                              }
-                              if (index === 0) {
-                                return (
-                                  <Tooltip
-                                    arrow
-                                    key={index}
-                                    title={
-                                      item.attributes.product_varians.data.length > 1
-                                        ? item.attributes.product_varians.data
-                                            .slice(1)
-                                            .map((v: any) => v.attributes.Varian)
-                                            .join(", ")
-                                        : ""
-                                    }
+                          item.attributes.product_varians.data.map((varian: any, index: number) => {
+                            let varianText = varian.attributes.Varian;
+
+                            if (isMobile && (varianText === "Sun Step Stop" || varianText === "Wall Tile Set")) {
+                              varianText = varianText === "Sun Step Stop" ? "SSS" : "WTS";
+                            }
+
+                            if (index === 0) {
+                              return (
+                                <Box key={index} sx={{ justifyContent: "space-between" }}>
+                                  <Typography
+                                    sx={{
+                                      borderRadius: "5px",
+                                      color: "white",
+                                      fontSize: isSizeLessThan380 ? "10px" : "12px",
+                                      fontWeight: "medium",
+                                      letterSpacing: "1px",
+                                      marginTop: "5px",
+                                      textTransform: "uppercase",
+                                      backgroundColor: "grey",
+                                      border: "1px solid grey",
+                                      marginRight: "5px",
+                                      px: "4px",
+                                    }}
                                   >
-                                    <Typography
-                                      sx={{
-                                        borderRadius: "5px",
-                                        color: "white",
-                                        fontSize: "12px",
-                                        fontWeight: "medium",
-                                        letterSpacing: "1px",
-                                        marginTop: "5px",
-                                        textTransform: "uppercase",
-                                        backgroundColor: "grey",
-                                        border: "1px solid grey",
-                                        marginRight: "5px",
-                                        px: "4px",
-                                      }}
-                                    >
-                                      {varianText}
-                                    </Typography>
-                                  </Tooltip>
-                                );
-                              } else {
-                                return null;
-                              }
-                            })}
-                          </Box>
+                                    {varianText}
+                                  </Typography>
+                                </Box>
+                              );
+                            }
+                          })
                         ) : (
                           <Typography
                             sx={{
                               borderRadius: "5px",
                               color: "white",
-                              fontSize: "12px",
+                              fontSize: isSizeLessThan380 ? "10px" : "12px",
                               fontWeight: "medium",
                               letterSpacing: "1px",
                               marginTop: "5px",
                               textTransform: "uppercase",
-                              px: "4px",
                             }}
                           >
                             {"‏‏‎"}
@@ -371,52 +357,49 @@ export default function ProductRange({ props }: any) {
                         )}
 
                         {item.attributes.style_motifs.data.length > 0 ? (
-                          <Box key={index} sx={{ justifyContent: "space-between" }}>
-                            {item.attributes.style_motifs.data.map((style: any, index: number) => {
-                              if (index === 0) {
-                                return (
-                                  <Tooltip
-                                    arrow
-                                    key={index}
-                                    title={
-                                      item.attributes.style_motifs.data.length > 1
-                                        ? item.attributes.style_motifs.data
-                                            .slice(1)
-                                            .map((v: any) => v.attributes.Style)
-                                            .join(", ")
-                                        : ""
-                                    }
-                                  >
-                                    <Typography
-                                      sx={{
-                                        borderRadius: "5px",
-                                        color: "black",
-                                        display: "inline-block",
-                                        fontSize: "12px",
-                                        fontWeight: "medium",
-                                        letterSpacing: "1px",
-                                        marginTop: "5px",
-                                        textTransform: "uppercase",
-                                        backgroundColor: "white",
-                                        border: "1px solid grey",
-                                        marginRight: "5px",
-                                        px: "4px",
-                                      }}
-                                    >
-                                      {style.attributes.Style}
-                                    </Typography>
-                                  </Tooltip>
-                                );
-                              } else {
-                                return null;
-                              }
-                            })}
-                          </Box>
+                          <>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                flexWrap: "wrap",
+                              }}
+                            >
+                              <Typography
+                                sx={{
+                                  borderRadius: "5px",
+                                  color: "black",
+                                  display: "inline-block",
+                                  fontSize: isSizeLessThan380 ? "10px" : "12px",
+                                  fontWeight: "medium",
+                                  letterSpacing: "1px",
+                                  marginTop: "5px",
+                                  textTransform: "uppercase",
+                                  backgroundColor: "white",
+                                  border: "1px solid grey",
+                                  marginRight: "5px",
+                                  px: "4px",
+                                }}
+                              >
+                                {item.attributes.style_motifs.data[0].attributes.Style}
+                              </Typography>
+                            </Box>
+                            {item.attributes.style_motifs.data.length > 1 && (
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  flexWrap: "wrap",
+                                }}
+                              ></Box>
+                            )}
+                          </>
                         ) : (
                           <Typography
                             sx={{
                               borderRadius: "5px",
-                              color: "white",
+                              color: "black",
+                              display: "inline-block",
                               fontSize: "12px",
                               fontWeight: "medium",
                               letterSpacing: "1px",

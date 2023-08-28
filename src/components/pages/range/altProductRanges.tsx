@@ -1,4 +1,5 @@
-import { Box, Link, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
+import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 
@@ -88,7 +89,7 @@ export default function AltProductRanges(props: any) {
                 flexGrow: 1,
               }}
             >
-              <Link href="about" target="_blank">
+              <Link href="about" target="_blank" style={{ textDecoration: 'none' }}>
                 <Box
                   sx={{
                     height: "353px",
@@ -107,9 +108,9 @@ export default function AltProductRanges(props: any) {
                     "&:hover .poster::before": {
                       bottom: "0px",
                     },
-                    "&:hover .poster img": {
-                      transform: "translateY(-50px)",
-                    },
+                    // "&:hover .poster img": {
+                    //   transform: "translateY(-50px)",
+                    // },
                     "&:hover .details": {
                       bottom: "0px",
                     },
@@ -141,7 +142,7 @@ export default function AltProductRanges(props: any) {
                       },
                     }}
                   >
-                    <Box sx={{ position: 'relative', width: '100%', height: '120%' }}>
+                    <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
                       <Image
                         alt=""
                         fill
