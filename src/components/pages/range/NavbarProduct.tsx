@@ -977,14 +977,41 @@ export default function NavbarProduct() {
                     )}
                   </ListItem>
                 ))}
-                <Stack direction={"row"} display={"flex"} alignItems={"center"}>
-                  <IconButton onClick={toggleDrawer}>
+                {/* <Stack direction={"row"} display={"flex"} alignItems={"center"}> */}
+                <Box>
+                  <Box
+                    sx={{
+                      border: '1px solid #fff',
+                      borderRadius: '50%',
+                      position: "absolute",
+                      zIndex: 999,
+                      width: "14px",
+                      height: "14px",
+                      bgcolor: "#DC362E",
+                      ml: "24px",
+                      top: '0.2rem',
+                      p: '1px',
+                      // mt: "-0.3rem",
+                      textAlign: "center",
+                      fontSize: '12px',
+                      fontWeight: 'medium',
+                      display: cart.length !== 0 ? 'flex' : 'none',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      lineHeight: '0',
+                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                    }}
+                  >
+                    {cart.length}
+                  </Box>
+                  <IconButton onClick={toggleDrawer} centerRipple={false} style={{ borderRadius: 0 }}>
                     <ShoppingCartOutlinedIcon
                       fontSize="medium"
                       style={{ color: "black" }}
                     />
                   </IconButton>
-
+                </Box>
+                {/* 
                   <Typography
                     // @ts-ignore
                     variant="body1_bold"
@@ -992,7 +1019,7 @@ export default function NavbarProduct() {
                   >
                     {cart.length}
                   </Typography>
-                </Stack>
+                </Stack> */}
                 <Drawer
                   anchor="right"
                   open={drawerOpen}
@@ -1034,7 +1061,7 @@ export default function NavbarProduct() {
                       </IconButton>
                     </Box>
                   </Box>
-                  {true ? (
+                  {cart.length !== 0 ? (
                     <>
                       <List
                         sx={{
@@ -1042,7 +1069,7 @@ export default function NavbarProduct() {
                           overflow: "auto",
                           flexGrow: "1",
                         }}
-                        // @ts-ignore
+                      // @ts-ignore
                       >
                         {cart.map((item: any, index: any) => {
                           return (
@@ -1160,9 +1187,9 @@ export default function NavbarProduct() {
                                           fontSize: "14px",
                                         },
                                         "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                          {
-                                            appearance: "none",
-                                          },
+                                        {
+                                          appearance: "none",
+                                        },
                                       }}
                                       type="number"
                                       value={item.quantity}
@@ -1234,7 +1261,9 @@ export default function NavbarProduct() {
                           flexDirection: "column",
                           alignItems: "center",
                           width: "100%",
-                          mt: "5rem",
+                          // mt: "5rem",
+                          justifyContent: 'center',
+                          height: '80%',
                         }}
                       >
                         <ShoppingCartOutlinedIcon sx={{ fontSize: "4rem" }} />
