@@ -1,4 +1,4 @@
-import { Box, Tabs, Tab, Container, Grid, Stack, Typography, Button, FormControl, Select, MenuItem, InputLabel, Tooltip } from "@mui/material";
+import { Box, Tabs, Tab, Container, Grid, Stack, Typography, Button, FormControl, Select, MenuItem, InputLabel, Tooltip, useMediaQuery } from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 import Image from "next/image";
@@ -13,6 +13,7 @@ export default function ProductRange({ props }: any) {
   const [open, setOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState("asc");
   const [showNewItems, setShowNewItems] = useState(false);
+  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   const filteredAndSortedData = props.response.data
     .sort((a: any, b: any) => (sortOrder === "asc" ? a.attributes.Name.localeCompare(b.attributes.Name) : b.attributes.Name.localeCompare(a.attributes.Name)))
@@ -39,7 +40,7 @@ export default function ProductRange({ props }: any) {
           </Typography> */}
         </Box>
         <Stack direction={{ xs: "column", md: "row" }} spacing={{ xs: 1, sm: 2, md: 4 }} justifyContent="space-between" sx={{ marginBottom: "30px" }}>
-          <Stack direction="row">
+          <Stack direction="row" sx={{ visibility: "hidden" }}>
             <Box display="flex" flexDirection="row" sx={{ marginRight: "35px" }}>
               <Box
                 sx={{
@@ -134,7 +135,7 @@ export default function ProductRange({ props }: any) {
                 onChange={(event, newValue) => (newValue === "new" ? setShowNewItems(true) : setShowNewItems(false))}
                 TabIndicatorProps={{
                   style: {
-                    height: 1, // Set the height of the tab indicator (active indicator line)
+                    height: 1,
                   },
                 }}
                 sx={{}}
@@ -299,14 +300,21 @@ export default function ProductRange({ props }: any) {
                           fontSize: "18px",
                           fontWeight: "medium",
                           textDecorationLine: "none !important",
+                          pb: "10px",
                         }}
                       >
                         {item.attributes.Name}
                       </Typography>
-                      <Box sx={{ display: "flex", flexDirection: "row" }}>
+                      <Box sx={{ display: "flex", flexDirection: "row", borderTop: "1px solid #000" }}>
                         {item.attributes.product_varians.data.length > 0 ? (
                           <Box key={index} sx={{ justifyContent: "space-between" }}>
                             {item.attributes.product_varians.data.map((varian: any, index: number) => {
+                              let varianText = varian.attributes.Varian;
+                              if (varianText === "Wall Tile Set") {
+                                varianText = isSmallScreen ? "WTS" : "Wall Tile Set";
+                              } else if (varianText === "Sun Step Stop") {
+                                varianText = isSmallScreen ? "SSS" : "Sun Step Stop";
+                              }
                               if (index === 0) {
                                 return (
                                   <Tooltip
@@ -325,7 +333,7 @@ export default function ProductRange({ props }: any) {
                                       sx={{
                                         borderRadius: "5px",
                                         color: "white",
-                                        fontSize: "10px",
+                                        fontSize: "12px",
                                         fontWeight: "medium",
                                         letterSpacing: "1px",
                                         marginTop: "5px",
@@ -336,7 +344,7 @@ export default function ProductRange({ props }: any) {
                                         px: "4px",
                                       }}
                                     >
-                                      {varian.attributes.Varian}
+                                      {varianText}
                                     </Typography>
                                   </Tooltip>
                                 );
@@ -350,7 +358,7 @@ export default function ProductRange({ props }: any) {
                             sx={{
                               borderRadius: "5px",
                               color: "white",
-                              fontSize: "10px",
+                              fontSize: "12px",
                               fontWeight: "medium",
                               letterSpacing: "1px",
                               marginTop: "5px",
@@ -384,7 +392,7 @@ export default function ProductRange({ props }: any) {
                                         borderRadius: "5px",
                                         color: "black",
                                         display: "inline-block",
-                                        fontSize: "10px",
+                                        fontSize: "12px",
                                         fontWeight: "medium",
                                         letterSpacing: "1px",
                                         marginTop: "5px",
@@ -409,7 +417,7 @@ export default function ProductRange({ props }: any) {
                             sx={{
                               borderRadius: "5px",
                               color: "white",
-                              fontSize: "10px",
+                              fontSize: "12px",
                               fontWeight: "medium",
                               letterSpacing: "1px",
                               marginTop: "5px",
@@ -420,64 +428,6 @@ export default function ProductRange({ props }: any) {
                             {"‏‏‎"}
                           </Typography>
                         )}
-                      </Box>
-
-                      <Box
-                        display="flex"
-                        flexDirection="row"
-                        sx={{
-                          marginTop: "12px",
-                          borderTop: "1px solid black",
-                          justifyContent: "space-between",
-                          paddingTop: "12px",
-                          right: "10px",
-                        }}
-                      >
-                        <Tooltip title="Colours" arrow>
-                          <Box display="flex" flexDirection="row">
-                            <Box
-                              sx={{
-                                width: "24px",
-                                height: "24px",
-                                position: "relative",
-                                marginRight: "5px",
-                              }}
-                            >
-                              <Image src={"/static/images/colours-removebg-preview.svg"} fill alt={""} style={{}} />
-                            </Box>
-                            <Typography sx={{ fontSize: "24x", fontWeight: "medium" }}>0{item.attributes.N_Color}</Typography>
-                          </Box>
-                        </Tooltip>
-                        <Tooltip title="Sizes" arrow>
-                          <Box display="flex" flexDirection="row">
-                            <Box
-                              sx={{
-                                width: "23px",
-                                height: "23px",
-                                position: "relative",
-                                marginRight: "5px",
-                              }}
-                            >
-                              <Image src={"/static/images/style-removebg-preview.svg"} fill alt={""} style={{}} />
-                            </Box>
-                            <Typography sx={{ fontSize: "14x", fontWeight: "medium" }}>0{item.attributes.N_Dimension}</Typography>
-                          </Box>
-                        </Tooltip>
-                        <Tooltip title="Finishes" arrow>
-                          <Box display="flex" flexDirection="row">
-                            <Box
-                              sx={{
-                                width: "24px",
-                                height: "24px",
-                                position: "relative",
-                                marginRight: "5px",
-                              }}
-                            >
-                              <Image src={"/static/images/finishes-removebg-preview.svg"} fill alt={""} style={{}} />
-                            </Box>
-                            <Typography sx={{ fontSize: "14x", fontWeight: "medium" }}>0{item.attributes.N_Finish}</Typography>
-                          </Box>
-                        </Tooltip>
                       </Box>
                     </Box>
                   </Box>
