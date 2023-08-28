@@ -83,7 +83,6 @@ export default function ProductSpecification({ props, data }: any) {
           priceTotal: totalPrice,
         })
       );
-
       toast.success("Item added to cart", {
         position: isMobile ? toast.POSITION.TOP_CENTER : toast.POSITION.TOP_RIGHT,
         autoClose: 2000,
@@ -183,7 +182,7 @@ export default function ProductSpecification({ props, data }: any) {
                   )}
                 </Box>
               </Zoom>
-              <Box sx={{ my: "20px", display: "flex", justifyContent: "center" }}>
+              <Box sx={{ my: "20px", display: "flex", justifyContent: "center",width:{md:"80%"} }}>
                 {imgFileUrl ? (
                   <Link
                     onClick={() => {
@@ -203,6 +202,7 @@ export default function ProductSpecification({ props, data }: any) {
                       justifyContent: "center",
                       alignItems: "center",
                       cursor: "pointer",
+                      width:"100%",
                     }}
                   >
                     <FileDownloadOutlinedIcon sx={{ pr: "8px", fontSize: "18px" }} />
@@ -604,12 +604,12 @@ export default function ProductSpecification({ props, data }: any) {
                     >
                       Add to Cart
                     </Button>
-                    <ToastContainer style={{ marginTop: isMobile ? "80px" : "0%" }} />
                   </Box>
                 </Box>
               </Box>
             </Grid>
           </Grid>
+          <ToastContainer style={{ marginTop: isMobile ? "50px" : "0%" }} />
         </Box>
       </Box>
     </>
