@@ -1,24 +1,4 @@
-import {
-  Box,
-  Container,
-  Button,
-  Grid,
-  Tabs,
-  AppBar,
-  Typography,
-  Divider,
-  MenuItem,
-  Toolbar,
-  Link,
-  Popover,
-  Collapse,
-  Tab,
-  Grow,
-  IconButton,
-  Stack,
-  Drawer,
-  TextField,
-} from "@mui/material";
+import { Box, Container, Button, Grid, Tabs, AppBar, Typography, Divider, MenuItem, Toolbar, Link, Popover, Collapse, Tab, Grow, IconButton, Stack, Drawer, TextField } from "@mui/material";
 // import { GetStaticProps } from "next";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Image from "next/image";
@@ -33,16 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { NumericFormat } from "react-number-format";
-import {
-  DropdownFilter,
-  navbarMobile,
-  productData,
-  aboutNavbar,
-  serviceNavbar,
-  sectorNavbar,
-  projectNavbar,
-  newsNavbar,
-} from "data/navbarHeader/Navbar";
+import { DropdownFilter, navbarMobile, productData, aboutNavbar, serviceNavbar, sectorNavbar, projectNavbar, newsNavbar } from "data/navbarHeader/Navbar";
 import { useTheme } from "@mui/material/styles";
 import { dropCart, removeItemFromCart } from "store/cartSlice";
 import CartButton from "@components/common/CartButton";
@@ -53,8 +24,7 @@ const headers = {
     "Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c",
 };
 
-const fetcher2 = (url: RequestInfo | URL) =>
-  fetch(url, { headers }).then((res) => res.json());
+const fetcher2 = (url: RequestInfo | URL) => fetch(url, { headers }).then((res) => res.json());
 
 interface TabPanelProps {
   children: React.ReactNode;
@@ -63,38 +33,8 @@ interface TabPanelProps {
 }
 
 const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
-  return (
-    <div hidden={value !== index}>
-      {value === index && <Box p={3}>{children}</Box>}
-    </div>
-  );
+  return <div hidden={value !== index}>{value === index && <Box p={3}>{children}</Box>}</div>;
 };
-
-//   {
-//     imgSrc: "/static/images/stylestone.jpg",
-//     text: "Stone",
-//   },
-//   {
-//     imgSrc: "/static/images/styleconcrete.jpg",
-//     text: "Concrete",
-//   },
-//   {
-//     imgSrc: "/static/images/stylemarble.jpg",
-//     text: "Marble",
-//   },
-//   {
-//     imgSrc: "/static/images/stylewood.jpg",
-//     text: "Wood",
-//   },
-//   {
-//     imgSrc: "/static/images/stylecolour.jpg",
-//     text: "Colours",
-//   },
-//   {
-//     imgSrc: "/static/images/stylewhite.jpg",
-//     text: "White",
-//   },
-// ];
 
 export default function NavbarProduct() {
   const router = useRouter();
@@ -105,20 +45,14 @@ export default function NavbarProduct() {
   );
   const [activeTab, setActiveTab] = useState(0);
 
-  const handleChangeTab = (
-    event: any,
-    newValue: React.SetStateAction<number>
-  ) => {
+  const handleChangeTab = (event: any, newValue: React.SetStateAction<number>) => {
     setActiveTab(newValue);
   };
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedDropdown, setSelectedDropdown] = useState(null);
 
-  const handleDropdownOpen = (
-    event: { currentTarget: React.SetStateAction<null> },
-    index: React.SetStateAction<null>
-  ) => {
+  const handleDropdownOpen = (event: { currentTarget: React.SetStateAction<null> }, index: React.SetStateAction<null>) => {
     setAnchorEl(event.currentTarget);
     setSelectedDropdown(index);
   };
@@ -155,6 +89,7 @@ export default function NavbarProduct() {
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
+    setIsCartOpen(!isCartOpen);
   };
 
   const cart = useSelector(
@@ -182,11 +117,7 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {aboutNavbar.map((item, index) => (
-            <Link
-              key={index}
-              href={item.href}
-              sx={{ textDecoration: "none", color: "black" }}
-            >
+            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
@@ -256,11 +187,7 @@ export default function NavbarProduct() {
                           height: "299px",
                         }}
                       >
-                        <Image
-                          src={product.imgSrc}
-                          fill
-                          alt={`Gambar ${productIndex}`}
-                        />
+                        <Image src={product.imgSrc} fill alt={`Gambar ${productIndex}`} />
                       </Box>
                       <Typography
                         variant="subtitle1"
@@ -306,14 +233,14 @@ export default function NavbarProduct() {
                 }}
               >
                 <Typography
-                // @ts-ignore
+                  // @ts-ignore
                   variant="body1_medium"
                   sx={{ mr: "5px", color: "#989898" }}
                 >
                   View All
                 </Typography>
                 <Typography
-                // @ts-ignore
+                  // @ts-ignore
                   variant="body1_bold"
                   sx={{ mr: "5px", color: "#989898" }}
                 >
@@ -329,21 +256,21 @@ export default function NavbarProduct() {
                   }}
                 >
                   <Typography
-                  // @ts-ignore
+                    // @ts-ignore
                     variant="body1_medium"
                     sx={{ mr: "5px", color: "#989898" }}
                   >
                     All Ranges
                   </Typography>
                   <Typography
-                  // @ts-ignore
+                    // @ts-ignore
                     variant="body1_medium"
                     sx={{ mr: "5px", color: "#989898" }}
                   >
                     -
                   </Typography>
                   <Typography
-                  // @ts-ignore
+                    // @ts-ignore
                     variant="body1_bold"
                     sx={{ mr: "5px", color: "#989898" }}
                   >
@@ -358,21 +285,21 @@ export default function NavbarProduct() {
                   }}
                 >
                   <Typography
-                  // @ts-ignore
+                    // @ts-ignore
                     variant="body1_medium"
                     sx={{ mr: "5px", color: "#989898" }}
                   >
                     All Ranges
                   </Typography>
                   <Typography
-                  // @ts-ignore
+                    // @ts-ignore
                     variant="body1_medium"
                     sx={{ mr: "5px", color: "#989898" }}
                   >
                     -
                   </Typography>
                   <Typography
-                  // @ts-ignore
+                    // @ts-ignore
                     variant="body1_bold"
                     sx={{ mr: "5px", color: "#989898" }}
                   >
@@ -390,11 +317,7 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {serviceNavbar.map((item, index) => (
-            <Link
-              key={index}
-              href={item.href}
-              sx={{ textDecoration: "none", color: "black" }}
-            >
+            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
@@ -406,11 +329,7 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {sectorNavbar.map((item, index) => (
-            <Link
-              key={index}
-              href={item.href}
-              sx={{ textDecoration: "none", color: "black" }}
-            >
+            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
@@ -422,11 +341,7 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {projectNavbar.map((item, index) => (
-            <Link
-              key={index}
-              href={item.href}
-              sx={{ textDecoration: "none", color: "black" }}
-            >
+            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
@@ -442,11 +357,7 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {newsNavbar.map((item, index) => (
-            <Link
-              key={index}
-              href={item.href}
-              sx={{ textDecoration: "none", color: "black" }}
-            >
+            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
@@ -467,6 +378,7 @@ export default function NavbarProduct() {
   const handleClearbasket = () => {
     dispatch(dropCart());
   };
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   return (
     <>
@@ -478,7 +390,7 @@ export default function NavbarProduct() {
               display="flex"
               sx={{
                 width: "100%",
-                py: "20px",
+                py: "10px",
                 justifyContent: "space-between",
                 zIndex: "10",
                 backgroundColor: isScrolled ? "white" : "white",
@@ -497,18 +409,13 @@ export default function NavbarProduct() {
               >
                 <Button
                   sx={{
-                    width: "150px",
+                    width: "130px",
                     height: "50px",
                     position: "relative",
                     mr: "10px",
                   }}
                 >
-                  <Image
-                    src={"/static/images/Sunpower.png"}
-                    fill
-                    alt={""}
-                    style={{}}
-                  />
+                  <Image src={"/static/images/Sunpower.png"} fill alt={""} style={{}} />
                 </Button>
               </Link>
               <IconButton
@@ -519,17 +426,13 @@ export default function NavbarProduct() {
                 }}
                 onClick={() => setOpen(!open)}
               >
-                {open ? (
-                  <CloseIcon sx={{ fontSize: "30px" }} />
-                ) : (
-                  <MenuIcon sx={{ fontSize: "30px" }} />
-                )}
+                {open ? <CloseIcon sx={{ fontSize: "30px" }} /> : <MenuIcon sx={{ fontSize: "30px" }} />}
               </IconButton>
             </Box>
           </Grid>
           <Grid display={{ xs: "flex", lg: "none" }} sx={{ width: "100%" }}>
             <Box sx={{ height: "100%" }}>
-              {open && (
+              <Collapse sx={{}} in={!isCartOpen && open} timeout={300}>
                 <Box
                   sx={{
                     backgroundColor: "White",
@@ -540,11 +443,7 @@ export default function NavbarProduct() {
                     height: "98vh",
                   }}
                 >
-                  <Grid
-                    container
-                    spacing={0}
-                    sx={{ px: "24px", my: 2, mb: "80px" }}
-                  >
+                  <Grid container spacing={0} sx={{ px: "24px", my: 2, mb: "80px" }}>
                     <Button
                       sx={{
                         fontSize: "16px",
@@ -565,6 +464,10 @@ export default function NavbarProduct() {
                     </Button>
 
                     <Stack
+                      onClick={() => {
+                        toggleDrawer();
+                        setOpen(false);
+                      }}
                       sx={{
                         alignItems: "center",
                         flexDirection: "row",
@@ -580,11 +483,7 @@ export default function NavbarProduct() {
                         justifyContent: "space-between",
                       }}
                     >
-                      <Box
-                        display="flex"
-                        flexDirection="row"
-                        alignItems="center"
-                      >
+                      <Box display="flex" flexDirection="row" alignItems="center">
                         <Button
                           sx={{
                             p: "0px",
@@ -594,7 +493,6 @@ export default function NavbarProduct() {
                             fontWeight: "medium",
                             typography: { textTransform: "capitalize" },
                           }}
-                          onClick={toggleDrawer}
                         >
                           Cart
                         </Button>
@@ -610,11 +508,7 @@ export default function NavbarProduct() {
                         </Typography>
                       </Box>
                       <IconButton sx={{ p: "0px" }}>
-                        <ShoppingCartOutlinedIcon
-                          fontSize="medium"
-                          style={{ color: "black" }}
-                          onClick={toggleDrawer}
-                        />
+                        <ShoppingCartOutlinedIcon fontSize="medium" style={{ color: "black" }} />
                       </IconButton>
                     </Stack>
 
@@ -650,11 +544,7 @@ export default function NavbarProduct() {
 
                             {
                               // @ts-ignore
-                              orOpen === index ? (
-                                <KeyboardArrowUpIcon />
-                              ) : (
-                                <KeyboardArrowDownIcon />
-                              )
+                              orOpen === index ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
                             }
                           </Button>
                           <Collapse
@@ -757,11 +647,7 @@ export default function NavbarProduct() {
                             {filter.nama}
                             {
                               // @ts-ignore
-                              isOpen === index ? (
-                                <KeyboardArrowUpIcon />
-                              ) : (
-                                <KeyboardArrowDownIcon />
-                              )
+                              isOpen === index ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
                             }
                           </Button>
                           <Collapse
@@ -797,7 +683,7 @@ export default function NavbarProduct() {
                     ))}
                   </Grid>
                 </Box>
-              )}
+              </Collapse>
             </Box>
           </Grid>
         </Grid>
@@ -811,7 +697,7 @@ export default function NavbarProduct() {
             justifyContent: "space-between",
             alignItems: "center",
             width: "100%",
-            py: "12px",
+            py: "4px",
             position: "relative",
             zIndex: "10",
 
@@ -832,18 +718,13 @@ export default function NavbarProduct() {
             >
               <Button
                 sx={{
-                  width: "160px",
-                  height: "52px",
+                  width: "130px",
+                  height: "50px",
                   position: "relative",
                   mr: "10px",
                 }}
               >
-                <Image
-                  src={"/static/images/Sunpower.png"}
-                  fill
-                  alt={""}
-                  style={{}}
-                />
+                <Image src={"/static/images/Sunpower.png"} fill alt={""} style={{}} />
               </Button>
             </Link>
           </Box>
@@ -858,11 +739,7 @@ export default function NavbarProduct() {
                 }}
               >
                 {logoNavbar.map((item, index) => (
-                  <ListItem
-                    key={index}
-                    component="li"
-                    sx={{ marginRight: "10px", p: "0" }}
-                  >
+                  <ListItem key={index} component="li" sx={{ marginRight: "10px", p: "0" }}>
                     {item.dropdown ? (
                       <Box>
                         <Button
@@ -907,9 +784,7 @@ export default function NavbarProduct() {
                           }}
                           // @ts-ignore
                           onClick={(event) => handleDropdownOpen(event, index)}
-                          className={
-                            selectedDropdown === index ? "selected" : ""
-                          }
+                          className={selectedDropdown === index ? "selected" : ""}
                         >
                           {item.namanavbar}
                         </Button>
@@ -983,15 +858,14 @@ export default function NavbarProduct() {
                 ))}
                 <Stack direction={"row"} display={"flex"} alignItems={"center"}>
                   <IconButton onClick={toggleDrawer}>
-                    <ShoppingCartOutlinedIcon
-                      fontSize="medium"
-                      style={{ color: "black" }}
-                    />
+                    <ShoppingCartOutlinedIcon fontSize="medium" style={{ color: "black" }} />
                   </IconButton>
-                  
-                  <Typography 
-                  // @ts-ignore
-                  variant="body1_bold" sx={{ color: "black" }}>
+
+                  <Typography
+                    // @ts-ignore
+                    variant="body1_bold"
+                    sx={{ color: "black" }}
+                  >
                     {cart.length}
                   </Typography>
                 </Stack>
@@ -1025,10 +899,12 @@ export default function NavbarProduct() {
                         flexGrow: 1,
                       }}
                     >
-                      
-                      <Typography 
-                      // @ts-ignore
-                       variant="body1_bold">My Cart</Typography>
+                      <Typography
+                        // @ts-ignore
+                        variant="body1_bold"
+                      >
+                        My Cart
+                      </Typography>
                       <IconButton onClick={toggleDrawer}>
                         <CloseIcon />
                       </IconButton>
@@ -1042,7 +918,7 @@ export default function NavbarProduct() {
                           overflow: "auto",
                           flexGrow: "1",
                         }}
-                      // @ts-ignore
+                        // @ts-ignore
                       >
                         {cart.map((item: any, index: any) => {
                           return (
@@ -1078,14 +954,10 @@ export default function NavbarProduct() {
                                       }}
                                       onClick={() => {
                                         console.log("somethng");
-                                        dispatch(
-                                          removeItemFromCart({ id: item.id })
-                                        );
+                                        dispatch(removeItemFromCart({ id: item.id }));
                                       }}
                                     >
-                                      <CloseIcon
-                                        sx={{ fontSize: "15px", color: "#fff" }}
-                                      />
+                                      <CloseIcon sx={{ fontSize: "15px", color: "#fff" }} />
                                     </IconButton>
                                     <Box
                                       sx={{
@@ -1097,12 +969,7 @@ export default function NavbarProduct() {
                                         overflow: "hidden",
                                       }}
                                     >
-                                      <Image
-                                        src={item.imageSrc}
-                                        fill
-                                        alt=""
-                                        objectFit="cover"
-                                      />
+                                      <Image src={item.imageSrc} fill alt="" objectFit="cover" />
                                     </Box>
                                   </Box>
                                   <Box
@@ -1113,9 +980,11 @@ export default function NavbarProduct() {
                                       maxWidth: "130px",
                                     }}
                                   >
-                                    <Typography 
-                                    // @ts-ignore
-                                    variant="body1_medium" sx={{}}>
+                                    <Typography
+                                      // @ts-ignore
+                                      variant="body1_medium"
+                                      sx={{}}
+                                    >
                                       {item.name}
                                     </Typography>
                                     <Typography
@@ -1130,13 +999,7 @@ export default function NavbarProduct() {
                                 </Box>
                                 <Box>
                                   <Typography sx={{ fontSize: "14px" }}>
-                                    <NumericFormat
-                                      value={item.priceTotal}
-                                      decimalScale={3}
-                                      displayType={"text"}
-                                      thousandSeparator={true}
-                                      prefix={"Rp. "}
-                                    />
+                                    <NumericFormat value={item.priceTotal} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
                                   </Typography>
                                   <Box
                                     display="flex"
@@ -1157,8 +1020,7 @@ export default function NavbarProduct() {
                                           textAlign: "center",
                                           fontSize: "14px",
                                         },
-                                        "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                        {
+                                        "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button": {
                                           appearance: "none",
                                         },
                                       }}
@@ -1208,19 +1070,20 @@ export default function NavbarProduct() {
                           <Box className="cart-calc">
                             <Typography>Total</Typography>
                             <Typography sx={{ fontWeight: "bold" }}>
-                              <NumericFormat
-                                value={totalPrice}
-                                decimalScale={3}
-                                displayType={"text"}
-                                thousandSeparator={true}
-                                prefix={"Rp. "}
-                              />
+                              <NumericFormat value={totalPrice} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
                             </Typography>
                           </Box>
-                          <CartButton
-                            checkout={"checkout"}
-                            onClick={() => router.push("/newCartExample")}
-                          />
+                          {cart.length > 0 ? (
+                            <CartButton
+                              checkout={"checkout"}
+                              onClick={() => {
+                                toggleDrawer();
+                                router.push("/newCartExample");
+                              }}
+                            />
+                          ) : (
+                            <CartButton disabled checkout={"checkout"} />
+                          )}
                         </Box>
                       </Box>
                     </>
@@ -1236,17 +1099,11 @@ export default function NavbarProduct() {
                         }}
                       >
                         <ShoppingCartOutlinedIcon sx={{ fontSize: "4rem" }} />
-                        <Typography
-                          sx={{ fontSize: "1.5rem", fontWeight: "bold" }}
-                        >
-                          Your cart is empty
-                        </Typography>
+                        <Typography sx={{ fontSize: "1.5rem", fontWeight: "bold" }}>Your cart is empty</Typography>
                       </Box>
                     </>
                   )}
-                  <button onClick={() => handleClearbasket()}>
-                    clear basket
-                  </button>
+                  <button onClick={() => handleClearbasket()}>clear basket</button>
                 </Drawer>
               </List>
             </Toolbar>

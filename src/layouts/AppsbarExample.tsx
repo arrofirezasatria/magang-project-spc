@@ -37,7 +37,9 @@ export default function AppsbarExample() {
       <AppBar position="fixed" sx={{ backgroundColor: "white" }}>
         <NavbarProduct />
       </AppBar>
-      <div style={{ paddingTop: "89px" }}></div>
+      {/* <Box sx={{pt:"89px"}}></Box> */}
+      <Box sx={{pt:"73px"}}></Box>
+
     </Box>
   );
 }

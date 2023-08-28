@@ -246,13 +246,15 @@ export default function ProductRange({ props }: any) {
         <Grid container spacing={2}>
           {filteredAndSortedData.map((item: any, index: React.Key | null | undefined) => {
             return (
-              <Grid item key={index} xs={6} md={3} lg={2.4}>
+              <Grid item key={index} xs={6} sm={4} md={3} lg={2.4}>
                 <Link href={`/range/${item.id}`} key={index} style={{ color: "black", textDecoration: "none" }}>
                   <Box sx={{ cursor: "pointer" }}>
                     <Box
                       sx={{
                         position: "relative",
-                        height: "217.6px",
+                        // height: "217.6px",
+                        height: "100%",
+                        aspectRatio: "1",
                         backgroundColor: "lightGray",
                         overflow: "hidden",
                       }}
@@ -374,7 +376,7 @@ export default function ProductRange({ props }: any) {
                                             .slice(1)
                                             .map((v: any) => v.attributes.Style)
                                             .join(", ")
-                                        : "no data"
+                                        : ""
                                     }
                                   >
                                     <Typography
