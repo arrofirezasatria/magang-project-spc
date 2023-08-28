@@ -1,4 +1,5 @@
-import { Grid, Box, Typography, Stack, Link, Button } from "@mui/material";
+import { Grid, Box, Typography, Stack, Button } from "@mui/material";
+import Link from "next/link";
 import React, { useState } from "react";
 import SliderImage from "./SliderImage";
 import TheProduct from "./TheProduct";
@@ -8,12 +9,14 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { FacebookShareButton, PinterestShareButton, TwitterShareButton, LinkedinShareButton } from "react-share";
 import CircleIcon from "@mui/icons-material/Circle";
 import { packingDetailsData } from "data/packingDetailsData";
 
 export default function ProductDescription({ props, data, hightlight }: any) {
   const pathSegments = hightlight.asPath.split("/");
   const idPath = pathSegments[pathSegments.length - 1];
+  const shareProduct = `https://magang-project-spc.vercel.app/${hightlight.asPath}`
 
   const [showFullText, setShowFullText] = useState(false);
 
@@ -65,7 +68,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                   fontSize: "12px",
                   fontWeight: "medium",
                   flexWrap: "wrap",
-                  "& .MuiLink-root": {
+                  "& .black-link": {
                     mb: "5px",
                     mr: "5px",
                     bgcolor: "grey",
@@ -73,6 +76,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                     color: "#fff",
                     p: "6px 6px",
                     borderRadius: "5px",
+                    textDecoration: 'none',
                   },
                   "& .white-link": {
                     mb: "5px",
@@ -82,6 +86,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                     color: "#000",
                     p: "6px 6px",
                     borderRadius: "5px",
+                    textDecoration: 'none',
                   },
                 }}
               >
@@ -89,7 +94,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                   // @ts-ignore
                   (item, index) => {
                     return (
-                      <Link href="#" underline="none" key={index}>
+                      <Link href="#" className="black-link" key={index}>
                         {item.attributes.Varian}
                       </Link>
                     );
@@ -99,17 +104,17 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                   // @ts-ignore
                   (item, index) => {
                     return (
-                      <Link href="#" underline="none" key={index} className="white-link">
+                      <Link href="#" key={index} className="white-link">
                         {item.attributes.Style}
                       </Link>
                     );
                   }
                 )}
 
-                <Link href="#" underline="none" className="white-link">
+                <Link href="#" className="white-link">
                   {props.productOnly.data.attributes.surface_finish?.data?.attributes?.Name || "No Input data"}
                 </Link>
-                <Link href="#" underline="none" className="white-link">
+                <Link href="#" className="white-link">
                   {props.productOnly.data.attributes.tile_color?.data?.attributes?.Name ? props.productOnly.data.attributes.tile_color.data.attributes.Name + " color" : "No Input data"}
                 </Link>
               </Stack>
@@ -138,13 +143,6 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                   ? "Minim fugiat culpa culpa veniam do tempor aliquip aliquip id amet qui proident. Nostrud sunt aliquip ipsum et voluptate commodo. Ullamco sint quis aliquip do nisi. Do culpa duis deserunt adipisicing. Officia culpa voluptate fugiat veniam laboris excepteur duis. Sunt voluptate reprehenderit tempor aliqua reprehenderit. Culpa deserunt qui sint eiusmod."
                   : data.Description}
               </Typography>
-              <Typography component='span'
-                onClick={toggleFullText}
-                sx={{
-                  fontSize: '14px',
-                  color: '#999',
-                  cursor: 'pointer',
-                }}>{showFullText ? 'Read less' : 'Read more'}</Typography>
               <Stack
                 direction="row"
                 spacing={0}
@@ -180,29 +178,42 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                 <Box sx={{ mb: "10px" }}>
                   <Link
                     href="#"
-                    underline="none"
-                    sx={{
-                      bgcolor: "#000",
+                    style={{
+                      backgroundColor: "#000",
                       color: "#fff",
                       borderRadius: "5px",
-                      p: "6px 10px 6px 10px",
+                      padding: "6px 10px 6px 10px",
                       fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                       fontSize: "14px",
-                      mb: "5px",
+                      marginBottom: "5px",
                       display: "flex",
                       justifyContent: "center",
-                      alignItem: "center",
+                      alignItems: "center",
+                      textDecoration: 'none'
                     }}
                   >
                     <FileDownloadOutlinedIcon sx={{ pr: "8px", fontSize: "18px" }} />
-                    Download Range Overview
+                    <Typography sx={{ fontSize: '14px' }}>
+                      Download Range Overview
+                    </Typography>
                   </Link>
                 </Box>
                 <Stack direction="row" spacing={1}>
-                  <FacebookIcon />
-                  <TwitterIcon />
-                  <PinterestIcon />
-                  <LinkedInIcon />
+                  <FacebookShareButton url={shareProduct}>
+                    <FacebookIcon />
+                  </FacebookShareButton>
+                  <TwitterShareButton url={shareProduct}>
+                    <TwitterIcon />
+                  </TwitterShareButton>
+                  <PinterestShareButton
+                    media={props?.productOnly?.data.attributes?.Image_Ambience.data[0].attributes?.formats.large.url}
+                    url={shareProduct}
+                  >
+                    <PinterestIcon />
+                  </PinterestShareButton>
+                  <LinkedinShareButton url={shareProduct}>
+                    <LinkedInIcon />
+                  </LinkedinShareButton>
                 </Stack>
               </Box>
               <Box>
