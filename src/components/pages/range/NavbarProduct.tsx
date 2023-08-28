@@ -910,7 +910,7 @@ export default function NavbarProduct() {
                       </IconButton>
                     </Box>
                   </Box>
-                  {true ? (
+                  {cart.length !== 0 ?(
                     <>
                       <List
                         sx={{
@@ -1104,7 +1104,7 @@ export default function NavbarProduct() {
                       </Box>
                     </>
                   )}
-                  <button onClick={() => handleClearbasket()}>clear basket</button>
+                  {/* <button onClick={() => handleClearbasket()}>clear basket</button> */}
                 </Drawer>
               </List>
             </Toolbar>
