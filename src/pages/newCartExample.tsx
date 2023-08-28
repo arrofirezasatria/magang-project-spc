@@ -33,7 +33,12 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CloseIcon from "@mui/icons-material/Close";
 import ProductLayout from "@layouts/ProductLayout";
 import { useDispatch, useSelector } from "react-redux";
-import { dropCart, removeItemFromCart } from "store/cartSlice";
+import {
+  dropCart,
+  removeItemFromCart,
+  incrementItem,
+  decrementItem,
+} from "store/cartSlice";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
 
@@ -368,7 +373,9 @@ export default function ProductExample() {
                             }}
                           >
                             <IconButton
-                              // onClick={() => handleDecrement(index)}
+                              onClick={() =>
+                                dispatch(decrementItem({ id: item.id }))
+                              }
                               // handleDelete tidak ada
                               size="small"
                             >
@@ -396,7 +403,9 @@ export default function ProductExample() {
                               size="small"
                             />
                             <IconButton
-                              // onClick={() => handleIncrement(index)}
+                              onClick={() =>
+                                dispatch(incrementItem({ id: item.id }))
+                              }
                               // handleDelete tidak ada
                               size="small"
                             >
@@ -474,7 +483,9 @@ export default function ProductExample() {
                               }}
                             >
                               <IconButton
-                                // onClick={() => handleDecrement(index)}
+                                onClick={() =>
+                                  dispatch(decrementItem({ id: row.id }))
+                                }
                                 size="small"
                                 // sx={{ display: "none" }}
                               >
@@ -502,7 +513,9 @@ export default function ProductExample() {
                                 size="small"
                               />
                               <IconButton
-                                // onClick={() => handleIncrement(index)}
+                                onClick={() =>
+                                  dispatch(incrementItem({ id: row.id }))
+                                }
                                 size="small"
                                 // sx={{ display: "none" }}
                               >
