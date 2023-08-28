@@ -16,7 +16,7 @@ import { packingDetailsData } from "data/packingDetailsData";
 export default function ProductDescription({ props, data, hightlight }: any) {
   const pathSegments = hightlight.asPath.split("/");
   const idPath = pathSegments[pathSegments.length - 1];
-  const shareProduct = `https://magang-project-spc.vercel.app/${hightlight.asPath}`
+  const shareProduct = `https://magang-project-spc.vercel.app/${hightlight.asPath}`;
 
   const [showFullText, setShowFullText] = useState(false);
 
@@ -27,10 +27,15 @@ export default function ProductDescription({ props, data, hightlight }: any) {
   return (
     <>
       <Box sx={{ position: "relative", p: { xs: "20px 0x", md: "20px 30px" } }}>
-        <Grid container spacing={6}
-          sx={{
-            // p: { xs: "20px 0x", md: "20px 30px" } 
-          }}>
+        <Grid
+          container
+          spacing={6}
+          sx={
+            {
+              // p: { xs: "20px 0x", md: "20px 30px" }
+            }
+          }
+        >
           <Grid item xs={12} md={6} sx={{}}>
             <Box
               sx={{
@@ -48,7 +53,9 @@ export default function ProductDescription({ props, data, hightlight }: any) {
               >
                 {props.product.data.attributes.Name}
               </Typography>
-              <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>{data.tile_type.data === null ? "Porcelain Tiles" : data.tile_type.data.attributes.Type === "Sun Glazed" ? "Sun Glazed Ceramic Tiles" : "Porcelain Tiles"}</Typography>
+              <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>
+                {data.tile_type.data === null ? "Porcelain Tiles" : data.tile_type.data.attributes.Type === "Sun Glazed" ? "Sun Glazed Ceramic Tiles" : "Porcelain Tiles"}
+              </Typography>
               <Typography
                 sx={{
                   mb: "10px",
@@ -76,7 +83,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                     color: "#fff",
                     p: "6px 6px",
                     borderRadius: "5px",
-                    textDecoration: 'none',
+                    textDecoration: "none",
                   },
                   "& .white-link": {
                     mb: "5px",
@@ -86,7 +93,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                     color: "#000",
                     p: "6px 6px",
                     borderRadius: "5px",
-                    textDecoration: 'none',
+                    textDecoration: "none",
                   },
                 }}
               >
@@ -189,13 +196,11 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      textDecoration: 'none'
+                      textDecoration: "none",
                     }}
                   >
                     <FileDownloadOutlinedIcon sx={{ pr: "8px", fontSize: "18px" }} />
-                    <Typography sx={{ fontSize: '14px' }}>
-                      Download Range Overview
-                    </Typography>
+                    <Typography sx={{ fontSize: "14px" }}>Download Range Overview</Typography>
                   </Link>
                 </Box>
                 <Stack direction="row" spacing={1}>
@@ -205,12 +210,13 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                   <TwitterShareButton url={shareProduct}>
                     <TwitterIcon />
                   </TwitterShareButton>
-                  <PinterestShareButton
-                    media={props?.productOnly?.data.attributes?.Image_Ambience.data[0].attributes?.formats.large.url}
-                    url={shareProduct}
-                  >
-                    <PinterestIcon />
-                  </PinterestShareButton>
+                  {props?.productOnly?.data.attributes?.Image_Ambience?.data ? (
+                    <PinterestShareButton media={props.productOnly.data.attributes.Image_Ambience.data[0].attributes.formats.large.url} url={shareProduct}>
+                      <PinterestIcon />
+                    </PinterestShareButton>
+                  ) : (
+                    <PinterestIcon style={{ opacity: 1, cursor: "not-allowed" }} />
+                  )}
                   <LinkedinShareButton url={shareProduct}>
                     <LinkedInIcon />
                   </LinkedinShareButton>
