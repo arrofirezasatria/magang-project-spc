@@ -306,14 +306,14 @@ export default function NavbarProduct() {
                 }}
               >
                 <Typography
-                // @ts-ignore
+                  // @ts-ignore
                   variant="body1_medium"
                   sx={{ mr: "5px", color: "#989898" }}
                 >
                   View All
                 </Typography>
                 <Typography
-                // @ts-ignore
+                  // @ts-ignore
                   variant="body1_bold"
                   sx={{ mr: "5px", color: "#989898" }}
                 >
@@ -329,21 +329,21 @@ export default function NavbarProduct() {
                   }}
                 >
                   <Typography
-                  // @ts-ignore
+                    // @ts-ignore
                     variant="body1_medium"
                     sx={{ mr: "5px", color: "#989898" }}
                   >
                     All Ranges
                   </Typography>
                   <Typography
-                  // @ts-ignore
+                    // @ts-ignore
                     variant="body1_medium"
                     sx={{ mr: "5px", color: "#989898" }}
                   >
                     -
                   </Typography>
                   <Typography
-                  // @ts-ignore
+                    // @ts-ignore
                     variant="body1_bold"
                     sx={{ mr: "5px", color: "#989898" }}
                   >
@@ -358,21 +358,21 @@ export default function NavbarProduct() {
                   }}
                 >
                   <Typography
-                  // @ts-ignore
+                    // @ts-ignore
                     variant="body1_medium"
                     sx={{ mr: "5px", color: "#989898" }}
                   >
                     All Ranges
                   </Typography>
                   <Typography
-                  // @ts-ignore
+                    // @ts-ignore
                     variant="body1_medium"
                     sx={{ mr: "5px", color: "#989898" }}
                   >
                     -
                   </Typography>
                   <Typography
-                  // @ts-ignore
+                    // @ts-ignore
                     variant="body1_bold"
                     sx={{ mr: "5px", color: "#989898" }}
                   >
@@ -463,10 +463,6 @@ export default function NavbarProduct() {
   ];
 
   const dispatch = useDispatch();
-
-  const handleClearbasket = () => {
-    dispatch(dropCart());
-  };
 
   return (
     <>
@@ -988,10 +984,12 @@ export default function NavbarProduct() {
                       style={{ color: "black" }}
                     />
                   </IconButton>
-                  
-                  <Typography 
-                  // @ts-ignore
-                  variant="body1_bold" sx={{ color: "black" }}>
+
+                  <Typography
+                    // @ts-ignore
+                    variant="body1_bold"
+                    sx={{ color: "black" }}
+                  >
                     {cart.length}
                   </Typography>
                 </Stack>
@@ -1025,10 +1023,12 @@ export default function NavbarProduct() {
                         flexGrow: 1,
                       }}
                     >
-                      
-                      <Typography 
-                      // @ts-ignore
-                       variant="body1_bold">My Cart</Typography>
+                      <Typography
+                        // @ts-ignore
+                        variant="body1_bold"
+                      >
+                        My Cart
+                      </Typography>
                       <IconButton onClick={toggleDrawer}>
                         <CloseIcon />
                       </IconButton>
@@ -1042,7 +1042,7 @@ export default function NavbarProduct() {
                           overflow: "auto",
                           flexGrow: "1",
                         }}
-                      // @ts-ignore
+                        // @ts-ignore
                       >
                         {cart.map((item: any, index: any) => {
                           return (
@@ -1113,9 +1113,11 @@ export default function NavbarProduct() {
                                       maxWidth: "130px",
                                     }}
                                   >
-                                    <Typography 
-                                    // @ts-ignore
-                                    variant="body1_medium" sx={{}}>
+                                    <Typography
+                                      // @ts-ignore
+                                      variant="body1_medium"
+                                      sx={{}}
+                                    >
                                       {item.name}
                                     </Typography>
                                     <Typography
@@ -1158,9 +1160,9 @@ export default function NavbarProduct() {
                                           fontSize: "14px",
                                         },
                                         "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                        {
-                                          appearance: "none",
-                                        },
+                                          {
+                                            appearance: "none",
+                                          },
                                       }}
                                       type="number"
                                       value={item.quantity}
@@ -1244,9 +1246,6 @@ export default function NavbarProduct() {
                       </Box>
                     </>
                   )}
-                  <button onClick={() => handleClearbasket()}>
-                    clear basket
-                  </button>
                 </Drawer>
               </List>
             </Toolbar>
