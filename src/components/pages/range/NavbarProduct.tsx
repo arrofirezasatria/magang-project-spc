@@ -985,6 +985,11 @@ export default function NavbarProduct() {
                                       variant="body1_medium"
                                       sx={{}}
                                     >
+                                    <Typography
+                                      // @ts-ignore
+                                      variant="body1_medium"
+                                      sx={{}}
+                                    >
                                       {item.name}
                                     </Typography>
                                     <Typography
@@ -1020,9 +1025,10 @@ export default function NavbarProduct() {
                                           textAlign: "center",
                                           fontSize: "14px",
                                         },
-                                        "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button": {
-                                          appearance: "none",
-                                        },
+                                        "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
+                                          {
+                                            appearance: "none",
+                                          },
                                       }}
                                       type="number"
                                       value={item.quantity}
