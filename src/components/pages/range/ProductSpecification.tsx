@@ -182,7 +182,7 @@ export default function ProductSpecification({ props, data }: any) {
                   )}
                 </Box>
               </Zoom>
-              <Box sx={{ my: "20px", display: "flex", justifyContent: "center",width:{md:"80%"} }}>
+              <Box sx={{ my: "20px", display: "flex", justifyContent: "center", width: { md: "80%" } }}>
                 {imgFileUrl ? (
                   <Link
                     onClick={() => {
@@ -202,7 +202,7 @@ export default function ProductSpecification({ props, data }: any) {
                       justifyContent: "center",
                       alignItems: "center",
                       cursor: "pointer",
-                      width:"100%",
+                      width: "100%",
                     }}
                   >
                     <FileDownloadOutlinedIcon sx={{ pr: "8px", fontSize: "18px" }} />
@@ -568,7 +568,23 @@ export default function ProductSpecification({ props, data }: any) {
                                     name={"quantity"}
                                     control={control}
                                     render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-                                      <TextField helperText={error ? error.message : null} size="small" error={!!error} onChange={onChange} type="number" fullWidth label={"Box"} variant="outlined" sx={{ width: "100px" }} />
+                                      <TextField
+                                        helperText={error ? error.message : null}
+                                        size="small"
+                                        error={!!error}
+                                        onChange={(event) => {
+                                          const inputValue = event.target.value;
+                                           // @ts-ignore
+                                          if (inputValue >= 0) {
+                                            onChange(inputValue);
+                                          }
+                                        }}
+                                        type="number"
+                                        fullWidth
+                                        label={"Box"}
+                                        variant="outlined"
+                                        sx={{ width: "100px" }}
+                                      />
                                     )}
                                   />
                                 </TableCell>
@@ -612,7 +628,6 @@ export default function ProductSpecification({ props, data }: any) {
         </Box>
       </Box>
       <ToastContainer style={{ marginTop: isMobile ? "50px" : "0%" }} />
-
     </>
   );
 }
