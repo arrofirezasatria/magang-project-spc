@@ -985,11 +985,6 @@ export default function NavbarProduct() {
                                       variant="body1_medium"
                                       sx={{}}
                                     >
-                                    <Typography
-                                      // @ts-ignore
-                                      variant="body1_medium"
-                                      sx={{}}
-                                    >
                                       {item.name}
                                     </Typography>
                                     <Typography

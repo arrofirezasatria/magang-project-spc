@@ -39,7 +39,6 @@ export default function AppsbarExample() {
       </AppBar>
       {/* <Box sx={{pt:"89px"}}></Box> */}
       <Box sx={{pt:"73px"}}></Box>
-
     </Box>
   );
 }

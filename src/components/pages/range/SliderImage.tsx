@@ -5,8 +5,11 @@ import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import { AnyAction } from "@reduxjs/toolkit";
 
-export default function SliderImage(props: any) {
-  console.log(props.productOnly);
+export default function SliderImage({productOnly,propsname}: any) {
+  // console.log(props.productOnly);
+  console.log("propsname.product.data.attributes.Name")
+  
+  console.log(propsname.productOnly.data.attributes.tile_dimension.data.attributes.Dimension)
   // const [counter, setCounter] = useState(
   //   props?.productOnly?.Image_Ambience?.data
   //     ? props?.productOnly?.Image_Ambience?.data.length - 1
@@ -18,7 +21,7 @@ export default function SliderImage(props: any) {
     setCounter(slideIndex);
   };
 
-  const imageAmbienceData = props?.productOnly?.Image_Ambience?.data || [];
+  const imageAmbienceData = productOnly?.Image_Ambience?.data || [];
 
   const sliderData = imageAmbienceData.map((image: any, index: any) => {
     return {
@@ -51,7 +54,7 @@ export default function SliderImage(props: any) {
             transform: `translateX(-${counter * (100 / sliderData.length)}%)`,
           }}
         >
-          {props?.productOnly?.Image_Ambience?.data ? (
+          {productOnly?.Image_Ambience?.data ? (
             sliderData.map((slide: any, index: any) => (
               <Box
                 key={index}
@@ -89,7 +92,7 @@ export default function SliderImage(props: any) {
             backgroundColor: "rgba(0,0,0,.15)",
           }}
         >
-          {props?.productOnly?.Image_Ambience?.data
+          {productOnly?.Image_Ambience?.data
             ? sliderData.map((_: any, index: any) => (
                 <Radio
                   key={index}
@@ -125,10 +128,13 @@ export default function SliderImage(props: any) {
         }}
       >
         <Typography variant="body1" className="title">
-          {sliderData[counter]?.title || "No Title"}
+          {/* {sliderData[counter]?.title || "No Title"} */}
+          {propsname.product.data.attributes.Name +" "+ propsname.productOnly.data.attributes.tile_dimension.data.attributes.Dimension}
           {/* {sliderData[counter].dimension} */}
         </Typography>
       </Box>
     </>
   );
 }
+
+

@@ -220,7 +220,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                 position: "relative",
               }}
             >
-              <SliderImage productOnly={props?.productOnly?.data.attributes} />
+              <SliderImage productOnly={props?.productOnly?.data.attributes} propsname={props} />
             </Box>
           </Grid>
         </Grid>

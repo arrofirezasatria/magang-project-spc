@@ -609,9 +609,10 @@ export default function ProductSpecification({ props, data }: any) {
               </Box>
             </Grid>
           </Grid>
-          <ToastContainer style={{ marginTop: isMobile ? "50px" : "0%" }} />
         </Box>
       </Box>
+      <ToastContainer style={{ marginTop: isMobile ? "50px" : "0%" }} />
+
     </>
   );
 }
