@@ -112,7 +112,7 @@ export default function Index(props: any) {
       </Grid>
       <Container>
         <Grid>
-          <AddressProduct />
+          {/* <AddressProduct address={idRouter} /> */}
           <DescriptionProducts />
         </Grid>
         <ProductRange props={props} />
