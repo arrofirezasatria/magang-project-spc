@@ -10,9 +10,9 @@ import { useState } from "react";
 import AddressProduct from "@components/pages/range/AddressProduct";
 import DescriptionProducts from "@components/pages/range/DescriptionProducts";
 import ProductRange from "@components/pages/range/ProductRange";
+import FeaturedProducts from "@components/pages/range/featuredProducts";
 
 export default function Index(props: any) {
-  console.log(props.response.data[0].attributes.Image_Hero_2880x1138px.data?.attributes.url);
   return (
     <>
       <Grid>
@@ -94,10 +94,9 @@ export default function Index(props: any) {
         </Box>
       </Grid>
       <Container>
-        <Grid>
-          {/* <AddressProduct address={idRouter} /> */}
-          <DescriptionProducts />
-        </Grid>
+        {/* <AddressProduct address={idRouter} /> */}
+        <DescriptionProducts />
+        <FeaturedProducts props={props} />
         <ProductRange props={props} />
       </Container>
     </>
