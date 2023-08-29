@@ -92,7 +92,7 @@ export default function AltProductRanges(props: any) {
               <Link href="about" target="_blank" style={{ textDecoration: 'none' }}>
                 <Box
                   sx={{
-                    height: "353px",
+                    height: "100%",
                     width: "100%",
                     position: "relative",
                     display: "flex",
