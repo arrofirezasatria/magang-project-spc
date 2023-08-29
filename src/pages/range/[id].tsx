@@ -24,7 +24,7 @@ export default function Page(props: any) {
   const idRouter = useRouter();
   const data = props.motif.data.attributes.motif.data.attributes;
   props.product.data.attributes.motif.data.attributes.products.data;
-
+  
   return (
     <>
       <HeroProducts
@@ -36,6 +36,7 @@ export default function Page(props: any) {
         NColor={data.N_Color}
         NDimension={data.N_Dimension}
         NFinish={data.N_Finish}
+        ShortDescription={props.motif.data.attributes.motif.data.attributes.Short_Description}
       />
       <ProductLayout>
         <AddressProduct />
