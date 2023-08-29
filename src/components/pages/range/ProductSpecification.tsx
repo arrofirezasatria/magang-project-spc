@@ -82,7 +82,7 @@ export default function ProductSpecification({ props, data }: any) {
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
     if (!data.quantity || data.quantity < 1) {
       toast.error("Please enter a valid quantity", {
-        position: isMobile
+        position: isSizeLessThan380
           ? toast.POSITION.TOP_CENTER
           : toast.POSITION.TOP_RIGHT,
         autoClose: 2000,
@@ -110,7 +110,7 @@ export default function ProductSpecification({ props, data }: any) {
         })
       );
       toast.success("Item added to cart", {
-        position: isMobile
+        position: isSizeLessThan380
           ? toast.POSITION.TOP_CENTER
           : toast.POSITION.TOP_RIGHT,
         autoClose: 2000,
@@ -143,11 +143,13 @@ export default function ProductSpecification({ props, data }: any) {
     props.productOnly.data.attributes.SQM_Box,
     qtt,
   ]);
-
+  const isSizeLessThan380 = useMediaQuery(theme.breakpoints.down(481));
+  const isSizeLessThan900 = useMediaQuery(theme.breakpoints.down(900));
   React.useState();
 
   return (
     <>
+      <ToastContainer style={{ marginLeft: isSizeLessThan380 ? "4%" : "0",width:isSizeLessThan380 ? "92%" : "",marginTop: isSizeLessThan380 ? "70px" : "50px", marginRight: isSizeLessThan900 ? "0px" : "0" }} />
       <Box sx={{ p: { xs: "20px 0x", md: "20px 30px" } }}>
         <Box sx={{ position: "relative" }}>
           <Box
@@ -809,7 +811,6 @@ export default function ProductSpecification({ props, data }: any) {
           </Grid>
         </Box>
       </Box>
-      <ToastContainer style={{ marginTop: isMobile ? "50px" : "0%" }} />
     </>
   );
 }

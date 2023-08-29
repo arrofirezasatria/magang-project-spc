@@ -9,12 +9,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import {
-  FacebookShareButton,
-  PinterestShareButton,
-  TwitterShareButton,
-  LinkedinShareButton,
-} from "react-share";
+import { FacebookShareButton, PinterestShareButton, TwitterShareButton, LinkedinShareButton } from "react-share";
 import CircleIcon from "@mui/icons-material/Circle";
 import { packingDetailsData } from "data/packingDetailsData";
 
@@ -22,9 +17,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
   const pathSegments = hightlight.asPath.split("/");
   const idPath = pathSegments[pathSegments.length - 1];
   const shareProduct = `https://magang-project-spc.vercel.app/${hightlight.asPath}`;
-
-  const [showFullText, setShowFullText] = useState(false);
-
+  const [showFullText, setShowFullText] = useState(false);  
   const toggleFullText = () => {
     setShowFullText(!showFullText);
   };
@@ -42,7 +35,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
           }
         >
           <Grid item xs={12} md={6} sx={{}}>
-            <Box
+            <Box  
               sx={{
                 textTransform: "uppercase",
                 letterSpacing: "2px",
@@ -58,13 +51,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
               >
                 {props.product.data.attributes.Name}
               </Typography>
-              <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>
-                {data.tile_type.data === null
-                  ? "Porcelain Tiles"
-                  : data.tile_type.data.attributes.Type === "Sun Glazed"
-                  ? "Sun Glazed Ceramic Tiles"
-                  : "Porcelain Tiles"}
-              </Typography>
+              <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>{data.tile_type.data === null ? "Porcelain Tiles" : data.tile_type.data.attributes.Type === "Sun Glazed" ? "Sun Glazed Ceramic Tiles" : "Porcelain Tiles"}</Typography>
               <Typography
                 sx={{
                   mb: "10px",
@@ -129,15 +116,10 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                 )}
 
                 <Link href="#" className="white-link">
-                  {props.productOnly.data.attributes.surface_finish?.data
-                    ?.attributes?.Name || "No Input data"}
+                  {props.productOnly.data.attributes.surface_finish?.data?.attributes?.Name || "No Input data"}
                 </Link>
                 <Link href="#" className="white-link">
-                  {props.productOnly.data.attributes.tile_color?.data
-                    ?.attributes?.Name
-                    ? props.productOnly.data.attributes.tile_color.data
-                        .attributes.Name + " color"
-                    : "No Input data"}
+                  {props.productOnly.data.attributes.tile_color?.data?.attributes?.Name ? props.productOnly.data.attributes.tile_color.data.attributes.Name + " color" : "No Input data"}
                 </Link>
               </Stack>
             </Box>
@@ -208,8 +190,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                       color: "#fff",
                       borderRadius: "5px",
                       padding: "6px 10px 6px 10px",
-                      fontFamily:
-                        '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                       fontSize: "14px",
                       marginBottom: "5px",
                       display: "flex",
@@ -218,12 +199,8 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                       textDecoration: "none",
                     }}
                   >
-                    <FileDownloadOutlinedIcon
-                      sx={{ pr: "8px", fontSize: "18px" }}
-                    />
-                    <Typography sx={{ fontSize: "14px" }}>
-                      Download Range Overview
-                    </Typography>
+                    <FileDownloadOutlinedIcon sx={{ pr: "8px", fontSize: "18px" }} />
+                    <Typography sx={{ fontSize: "14px" }}>Download Range Overview</Typography>
                   </Link>
                 </Box>
                 <Stack direction="row" spacing={1}>
@@ -233,25 +210,24 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                   <TwitterShareButton url={shareProduct}>
                     <TwitterIcon />
                   </TwitterShareButton>
-                  <PinterestShareButton
-                    media={
-                      props?.productOnly?.data.attributes?.Image_Ambience
-                        .data[0].attributes?.formats.large.url
-                    }
-                    url={shareProduct}
-                  >
-                    <PinterestIcon />
-                  </PinterestShareButton>
+                  {props?.productOnly?.data.attributes?.Image_Ambience?.data ? (
+                    <PinterestShareButton media={props.productOnly.data.attributes.Image_Ambience.data[0].attributes.formats.large.url} url={shareProduct}>
+                      <PinterestIcon />
+                    </PinterestShareButton>
+                  ) : (
+                    <PinterestIcon style={{ opacity: 1, cursor: "not-allowed" }} />
+                  )}
+
                   <LinkedinShareButton url={shareProduct}>
                     <LinkedInIcon />
                   </LinkedinShareButton>
                 </Stack>
               </Box>
-              {/* <Box>
+              <Box>
                 <Link href="#">
                   <Image alt="" src="https://www.johnson-tiles.com/static/img/outlet-buy.svg" width={0} height={0} style={{ width: "130px", height: "auto" }} />
                 </Link>
-              </Box> */}
+              </Box>
             </Box>
           </Grid>
           <Grid item xs={12} md={6} sx={{ pb: "50px" }}>

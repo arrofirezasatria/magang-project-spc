@@ -15,7 +15,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { NumericFormat } from "react-number-format";
 import { DropdownFilter, navbarMobile, productData, aboutNavbar, serviceNavbar, sectorNavbar, projectNavbar, newsNavbar } from "data/navbarHeader/Navbar";
 import { useTheme } from "@mui/material/styles";
-import { dropCart, removeItemFromCart } from "store/cartSlice";
+import { dropCart, removeItemFromCart, incrementItem, decrementItem, updateCart } from "store/cartSlice";
 import CartButton from "@components/common/CartButton";
 import { useRouter } from "next/router";
 
@@ -37,6 +37,8 @@ const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
 };
 
 export default function NavbarProduct() {
+
+  
   const router = useRouter();
   const count = useSelector(
     (state) =>
@@ -379,7 +381,19 @@ export default function NavbarProduct() {
     dispatch(dropCart());
   };
   const [isCartOpen, setIsCartOpen] = useState(false);
-
+  const handleQuantityChange = (event, itemId) => {
+    const newQuantity = parseInt(event.target.value);
+  
+    // Ensure the new quantity is between 0 and 1000
+    if (!isNaN(newQuantity) && newQuantity >= 0 && newQuantity <= 1000) {
+      // Calculate the new total price based on the entered quantity and item's pricePerBox
+      const item = cart.find((p) => p.id === itemId);
+      const newPriceTotal = newQuantity * item.pricePerBox;
+  
+      // Dispatch an action to update the item's quantity and priceTotal in the Redux store
+      dispatch(updateCart({ id: itemId, key: "quantity", val: newQuantity, newPriceTotal }));
+    }
+  };
   return (
     <>
       <Container>
@@ -825,13 +839,19 @@ export default function NavbarProduct() {
                           px: "10px",
                           position: "relative",
                           typography: {
-                            letterSpacing: 2,
+                            letterSpacing: 1,
                             color: isScrolled ? "black" : "black",
                             transition: "color 0.3s",
                             fontSize: "12px",
                             fontWeight: "bold",
                             "&:hover": {
                               color: "black",
+                            },
+                            "&.selected": {
+                              color: "black",
+                              "&::after": {
+                                transform: "scaleX(1)",
+                              },
                             },
                           },
                           "&::after": {
@@ -840,11 +860,14 @@ export default function NavbarProduct() {
                             bottom: 0,
                             left: 0,
                             width: "100%",
-                            height: "2px",
+                            height: "3px",
                             backgroundColor: "black",
                             transform: "scaleX(0)",
                             transformOrigin: "left",
                             transition: "transform 0.2s ease-out",
+                          },
+                          "&.selected::after": {
+                            transform: "scaleX(1)",
                           },
                           "&:hover::after": {
                             transform: "scaleX(1)",
@@ -860,34 +883,31 @@ export default function NavbarProduct() {
                 <Box>
                   <Box
                     sx={{
-                      border: '1px solid #fff',
-                      borderRadius: '50%',
+                      border: "1px solid #fff",
+                      borderRadius: "50%",
                       position: "absolute",
                       zIndex: 999,
                       width: "14px",
                       height: "14px",
                       bgcolor: "#DC362E",
                       ml: "24px",
-                      top: '0.2rem',
-                      p: '1px',
+                      top: "0.2rem",
+                      p: "1px",
                       // mt: "-0.3rem",
                       textAlign: "center",
-                      fontSize: '12px',
-                      fontWeight: 'medium',
-                      display: cart.length !== 0 ? 'flex' : 'none',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      lineHeight: '0',
+                      fontSize: "12px",
+                      fontWeight: "medium",
+                      display: cart.length !== 0 ? "flex" : "none",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      lineHeight: "0",
                       fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                     }}
                   >
                     {cart.length}
                   </Box>
                   <IconButton onClick={toggleDrawer} centerRipple={false} style={{ borderRadius: 0 }}>
-                    <ShoppingCartOutlinedIcon
-                      fontSize="medium"
-                      style={{ color: "black" }}
-                    />
+                    <ShoppingCartOutlinedIcon fontSize="medium" style={{ color: "black" }} />
                   </IconButton>
                 </Box>
                 {/* 
@@ -948,7 +968,7 @@ export default function NavbarProduct() {
                           overflow: "auto",
                           flexGrow: "1",
                         }}
-                      // @ts-ignore
+                        // @ts-ignore
                       >
                         {cart.map((item: any, index: any) => {
                           return (
@@ -1040,7 +1060,7 @@ export default function NavbarProduct() {
                                       justifyContent: "space-between",
                                     }}
                                   >
-                                    <IconButton>
+                                    <IconButton onClick={() => dispatch(decrementItem({ id: item.id }))}>
                                       <RemoveIcon sx={{ fontSize: "15px" }} />
                                     </IconButton>
                                     <TextField
@@ -1050,8 +1070,7 @@ export default function NavbarProduct() {
                                           textAlign: "center",
                                           fontSize: "14px",
                                         },
-                                        "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                        {
+                                        "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button": {
                                           appearance: "none",
                                         },
                                       }}
@@ -1062,8 +1081,10 @@ export default function NavbarProduct() {
                                         disableUnderline: true,
                                       }}
                                       size="small"
+                                      onChange={(event) => handleQuantityChange(event, item.id)}
                                     />
-                                    <IconButton>
+
+                                    <IconButton onClick={() => dispatch(incrementItem({ id: item.id }))}>
                                       <AddIcon sx={{ fontSize: "15px" }} />
                                     </IconButton>
                                   </Box>
@@ -1127,8 +1148,8 @@ export default function NavbarProduct() {
                           alignItems: "center",
                           width: "100%",
                           // mt: "5rem",
-                          justifyContent: 'center',
-                          height: '80%',
+                          justifyContent: "center",
+                          height: "80%",
                         }}
                       >
                         <ShoppingCartOutlinedIcon sx={{ fontSize: "4rem" }} />
