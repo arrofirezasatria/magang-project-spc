@@ -38,7 +38,7 @@ export default function Page(props: any) {
         NFinish={data.N_Finish}
       />
       <ProductLayout>
-        <AddressProduct />
+        <AddressProduct props={props} address={idRouter} />
         <ProductDescription props={props} data={data} hightlight={idRouter} />
       </ProductLayout>
       <ProductLayout backgroundColor={'#f5f5f5'}>

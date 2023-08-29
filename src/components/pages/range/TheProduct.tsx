@@ -47,7 +47,9 @@ export default function TheProduct(props: any) {
         </Typography>
         <Grid container columnSpacing={2}>
           {showTheProduct.data.map((item: any, index: any) => (
-            <Grid item key={index} xs={12} md={6} sx={{ mt: "10px" }}>
+            <Grid item key={index} xs={12} md={6} sx={{
+              mt: "10px",
+            }}>
               <Link
                 href={
                   item.id.toString() == props.showHightlight
@@ -60,6 +62,7 @@ export default function TheProduct(props: any) {
                       ? "default"
                       : "",
                   textDecoration: 'none',
+
                 }}
               >
                 <Box
@@ -74,7 +77,15 @@ export default function TheProduct(props: any) {
                     borderBottom:
                       item.id.toString() == props.showHightlight
                         ? "4px solid #3aad6c"
-                        : "none",
+                        : "4px solid rgba(0, 0, 0, 0)",
+                    '&:hover': {
+                      bgcolor:
+                        item.id.toString() == props.showHightlight
+                          ? "grey"
+                          : "#f7f7f7",
+                      borderBottom: "4px solid #3aad6c",
+                      transition: "all 0.2s ease-out",
+                    },
                   }}
                 >
                   <Box
