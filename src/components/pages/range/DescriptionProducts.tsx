@@ -6,10 +6,9 @@ import React from "react";
 export default function DescriptionProducts() {
   return (
     <>
-      <Grid sx={{}}>
+      <Grid sx={{mt:"100px"}}>
           <Box
             sx={{
-              margin: { xs: "0", md: "0 30px" },
               textAlign: "left",
               marginBottom: { xs: "85px", md: "110px" },
             }}
