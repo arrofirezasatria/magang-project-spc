@@ -37,7 +37,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
           }
         >
           <Grid item xs={12} md={6} sx={{}}>
-            <Box
+            <Box  
               sx={{
                 textTransform: "uppercase",
                 letterSpacing: "2px",
@@ -53,9 +53,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
               >
                 {props.product.data.attributes.Name}
               </Typography>
-              <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>
-                {data.tile_type.data === null ? "Porcelain Tiles" : data.tile_type.data.attributes.Type === "Sun Glazed" ? "Sun Glazed Ceramic Tiles" : "Porcelain Tiles"}
-              </Typography>
+              <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>{data.tile_type.data === null ? "Porcelain Tiles" : data.tile_type.data.attributes.Type === "Sun Glazed" ? "Sun Glazed Ceramic Tiles" : "Porcelain Tiles"}</Typography>
               <Typography
                 sx={{
                   mb: "10px",
@@ -71,7 +69,8 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                 sx={{
                   mt: "15px",
                   display: "flex",
-                  fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                  fontFamily:
+                    '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                   fontSize: "12px",
                   fontWeight: "medium",
                   flexWrap: "wrap",
@@ -168,7 +167,10 @@ export default function ProductDescription({ props, data, hightlight }: any) {
               }}
             >
               <Box sx={{ width: "100%" }}>
-                <TheProduct showProducts={props.product} showHightlight={idPath} />
+                <TheProduct
+                  showProducts={props.product}
+                  showHightlight={idPath}
+                />
               </Box>
             </Box>
 
@@ -217,6 +219,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                   ) : (
                     <PinterestIcon style={{ opacity: 1, cursor: "not-allowed" }} />
                   )}
+
                   <LinkedinShareButton url={shareProduct}>
                     <LinkedInIcon />
                   </LinkedinShareButton>
@@ -237,7 +240,10 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                 position: "relative",
               }}
             >
-              <SliderImage productOnly={props?.productOnly?.data.attributes} propsname={props} />
+              <SliderImage
+                productOnly={props?.productOnly?.data.attributes}
+                propsname={props}
+              />
             </Box>
           </Grid>
         </Grid>

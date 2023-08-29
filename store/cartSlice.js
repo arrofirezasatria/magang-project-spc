@@ -71,10 +71,16 @@ export const cartSlice = createSlice({
     incrementItem: (state, action) => {
       const item = state.cartItems.find((p) => p.id === action.payload.id);
       item.quantity += 1;
+      item.priceTotal += item.pricePerBox;
+      state.totalPrice += item.pricePerBox;
     },
     decrementItem: (state, action) => {
       const item = state.cartItems.find((p) => p.id === action.payload.id);
-      item.quantity -= 1;
+      if (item.quantity !== 0) item.quantity -= 1;
+      if (item.quantity !== -1 && item.priceTotal > 0) {
+        item.priceTotal -= item.pricePerBox;
+        state.totalPrice -= item.pricePerBox;
+      }
     },
     updateCart: (state, action) => {
       state.cartItems = state.cartItems.map((p) => {

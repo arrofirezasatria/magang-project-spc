@@ -251,7 +251,15 @@ export default function ProductRange({ props }: any) {
           {filteredAndSortedData.map((item: any, index: React.Key | null | undefined) => {
             return (
               <Grid item key={index} xs={6} md={3} lg={2.4}>
-                <Link href={`/range/${item.id}`} key={index} style={{ color: "black", textDecoration: "none" }}>
+                <Link
+                    href={`/range/${
+                      item.attributes.products.data[0]
+                        ? item.attributes.products.data[0].id
+                        : 153
+                    }`}
+                    key={index}
+                    style={{ color: "black", textDecoration: "none" }}
+                  >
                   <Box sx={{ cursor: "pointer" }}>
                     <Box
                       sx={{
