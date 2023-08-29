@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -31,6 +31,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CloseIcon from "@mui/icons-material/Close";
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import ProductLayout from "@layouts/ProductLayout";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -223,6 +224,7 @@ export default function ProductExample() {
           >
             <Table
               sx={{
+                tableLayout: 'fixed',
                 width: "100%",
                 borderCollapse: "collapse",
                 "& .MuiTableCell-root": {
@@ -249,7 +251,7 @@ export default function ProductExample() {
                             justifyContent: "space-between",
                           }}
                         >
-                          <Box sx={{ width: "100%", display: "flex" }}>
+                          <Box sx={{ width: "100%", height: '100%', display: "flex" }}>
                             <Box
                               sx={{
                                 width: "60px",
@@ -321,22 +323,28 @@ export default function ProductExample() {
                               </Box>
                             </Box>
                           </Box>
-                          <IconButton
-                            sx={{
-                              width: "40px",
-                              height: "40px",
-                              "&:hover": {
-                                bgcolor: "#fcebeb",
-                              },
-                            }}
-                            // onClick={() => handleDelete(index)}
-                            // handleDelete tidak ada
-                            onClick={() =>
-                              dispatch(removeItemFromCart({ id: item.id }))
-                            }
-                          >
-                            <DeleteForeverIcon sx={{ color: "#DC362E" }} />
-                          </IconButton>
+                          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Button
+                              sx={{
+                                minWidth: '40px',
+                                p: 0,
+                                height: '40px',
+                                border: '2px solid #000',
+                                borderRadius: '5px',
+                                "&:hover": {
+                                  bgcolor: "#fff",
+                                },
+                              }}
+                              // onClick={() => handleDelete(index)}
+                              // handleDelete tidak ada
+                              onClick={() =>
+                                dispatch(removeItemFromCart({ id: item.id }))
+                              }
+                            >
+                              {/* <DeleteForeverIcon sx={{ color: "#DC362E" }} /> */}
+                              <DeleteForeverOutlinedIcon sx={{ color: '#000' }} />
+                            </Button>
+                          </Box>
                         </Box>
                         <Box
                           display="flex"
@@ -355,7 +363,7 @@ export default function ProductExample() {
                             <NumericFormat
                               // value={item.pricePerBox * item.quantity}
                               value={item.priceTotal}
-                              decimalScale={3}
+                              decimalScale={0}
                               displayType={"text"}
                               thousandSeparator={true}
                               prefix={"Rp. "}
@@ -389,9 +397,9 @@ export default function ProductExample() {
                                   textAlign: "center",
                                 },
                                 "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                  {
-                                    appearance: "none",
-                                  },
+                                {
+                                  appearance: "none",
+                                },
                               }}
                               type="number"
                               value={item.quantity}
@@ -434,6 +442,7 @@ export default function ProductExample() {
                           key={index}
                           align="left"
                           sx={{
+                            width: item == null ? '90px' : 'auto',
                             textTransform: "capitalize",
                           }}
                         >
@@ -477,9 +486,9 @@ export default function ProductExample() {
                               sx={{
                                 width: "120px",
                                 height: "40px",
-                                p: "5px",
-                                // border: '1px solid #999',
-                                // borderRadius: '5px',
+                                '& .MuiIconButton-root': {
+                                  p: 0,
+                                },
                               }}
                             >
                               <IconButton
@@ -487,7 +496,7 @@ export default function ProductExample() {
                                   dispatch(decrementItem({ id: row.id }))
                                 }
                                 size="small"
-                                // sx={{ display: "none" }}
+                              // sx={{ display: "none" }}
                               >
                                 <RemoveIcon />
                               </IconButton>
@@ -499,9 +508,9 @@ export default function ProductExample() {
                                     textAlign: "center",
                                   },
                                   "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
-                                    {
-                                      appearance: "none",
-                                    },
+                                  {
+                                    appearance: "none",
+                                  },
                                 }}
                                 type="number"
                                 value={row.quantity}
@@ -517,14 +526,14 @@ export default function ProductExample() {
                                   dispatch(incrementItem({ id: row.id }))
                                 }
                                 size="small"
-                                // sx={{ display: "none" }}
+                              // sx={{ display: "none" }}
                               >
                                 <AddIcon />
                               </IconButton>
                             </Box>
                           </Box>
                         </TableCell>
-                        <TableCell align="left">
+                        <TableCell align="left" rowSpan={4}>
                           <NumericFormat
                             // value={item.pricePerBox * item.quantity}
                             value={row.pricePerBox}
@@ -538,25 +547,37 @@ export default function ProductExample() {
                           <NumericFormat
                             // value={item.pricePerBox * item.quantity}
                             value={row.priceTotal}
-                            decimalScale={3}
+                            decimalScale={0}
                             displayType={"text"}
                             thousandSeparator={true}
                             prefix={"Rp. "}
                           />
                         </TableCell>
                         <TableCell align="left">
-                          <IconButton
+                          <Button
                             sx={{
+                              border: '2px solid #000',
+                              borderRadius: '5px',
+                              textAlign: 'left',
                               "&:hover": {
-                                bgcolor: "#fcebeb",
+                                bgcolor: "#fff",
                               },
                             }}
                             onClick={() =>
                               dispatch(removeItemFromCart({ id: row.id }))
                             }
                           >
-                            <DeleteForeverIcon sx={{ color: "#DC362E" }} />
-                          </IconButton>
+                            {/* <DeleteForeverIcon sx={{ color: "#DC362E" }} /> */}
+                            <DeleteForeverOutlinedIcon sx={{ color: '#000' }} />
+                            <Typography sx={{
+                              color: '#000',
+                              fontSize: '12px',
+                              textTransform: 'none',
+                              pl: '8px',
+                              fontWeight: 'medium',
+                              lineHeight: 1.25,
+                            }}>Remove item</Typography>
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -648,7 +669,7 @@ export default function ProductExample() {
                           <NumericFormat
                             // value={item.pricePerBox * item.quantity}
                             value={totalPrice}
-                            decimalScale={3}
+                            decimalScale={0}
                             displayType={"text"}
                             thousandSeparator={true}
                             prefix={"Rp. "}
