@@ -10,7 +10,7 @@ import { useState } from "react";
 import AddressProduct from "@components/pages/range/AddressProduct";
 import DescriptionProducts from "@components/pages/range/DescriptionProducts";
 import ProductRange from "@components/pages/range/ProductRange";
-import FeaturedProducts from "@components/pages/range/featuredProducts";
+// import FeaturedProducts from "@components/pages/range/featuredProducts";
 
 export default function Index(props: any) {
   return (
@@ -96,7 +96,7 @@ export default function Index(props: any) {
       <Container>
         {/* <AddressProduct address={idRouter} /> */}
         <DescriptionProducts />
-        <FeaturedProducts props={props} />
+        {/* <FeaturedProducts props={props} /> */}
         <ProductRange props={props} />
       </Container>
     </>
