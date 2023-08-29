@@ -2,6 +2,8 @@ import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 
 export default function HeroProducts(props: any) {
+  console.log("kwjqoijqwijqiowjeijqweiqw");
+  console.log(props.ShortDescription);
   const stats = [
     {
       name: "Colors",
@@ -75,7 +77,7 @@ export default function HeroProducts(props: any) {
               {props.nameMotif}
             </Typography>
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: 'center' }}>
-              {stats.map((item, index) => {
+              {/* {stats.map((item, index) => {
                 return (
                   <>
                     <Image
@@ -108,7 +110,27 @@ export default function HeroProducts(props: any) {
                     </Typography>
                   </>
                 );
-              })}
+              })} */}
+              <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    variant="h2"
+                    sx={{
+                      fontSize: { xs: "18px", md: "25px" },
+                      fontWeight: "500",
+                      textAlign: "center",
+                      mx: "5px",
+                      textShadow: "0 0 5px rgba(0,0,0,.3)",
+                    }}
+                  >
+                    {props.ShortDescription}
+                  </Typography>
+                </Box>
             </Box>
           </Box>
         </Box>
