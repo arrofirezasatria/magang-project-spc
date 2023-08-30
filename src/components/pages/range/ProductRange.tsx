@@ -53,7 +53,7 @@ export default function ProductRange({ props }: any) {
                   mt: "6px",
                 }}
               >
-                <Image src={"/static/images/icon-colour-black.svg"} fill alt={""} style={{}} />
+                <Image src={"/static/images/colour.svg"} fill alt={""} style={{}} />
               </Box>
               <Typography
                 sx={{
@@ -77,7 +77,7 @@ export default function ProductRange({ props }: any) {
                   mt: "6px",
                 }}
               >
-                <Image src={"/static/images/icon-size-black.svg"} fill alt={""} style={{}} />
+                <Image src={"/static/images/sizes.svg"} fill alt={""} style={{}} />
               </Box>
               <Typography
                 sx={{
@@ -101,7 +101,7 @@ export default function ProductRange({ props }: any) {
                   mt: "6px",
                 }}
               >
-                <Image src={"/static/images/icon-finish-black.svg"} fill alt={""} style={{}} />
+                <Image src={"/static/images/finishies.svg"} fill alt={""} style={{}} />
               </Box>
               <Typography
                 sx={{
@@ -440,7 +440,7 @@ export default function ProductRange({ props }: any) {
                                 marginRight: "5px",
                               }}
                             >
-                              <Image src={"/static/images/colours-removebg-preview.svg"} fill alt={""} style={{}} />
+                              <Image src={"/static/images/colour.svg"} fill alt={""} style={{}} />
                             </Box>
                             <Typography sx={{ fontSize: "24x", fontWeight: "medium" }}>0{item.attributes.N_Color}</Typography>
                           </Box>
@@ -455,7 +455,7 @@ export default function ProductRange({ props }: any) {
                                 marginRight: "5px",
                               }}
                             >
-                              <Image src={"/static/images/style-removebg-preview.svg"} fill alt={""} style={{}} />
+                              <Image src={"/static/images/sizes.svg"} fill alt={""} style={{}} />
                             </Box>
                             <Typography sx={{ fontSize: "14x", fontWeight: "medium" }}>0{item.attributes.N_Dimension}</Typography>
                           </Box>
@@ -470,7 +470,7 @@ export default function ProductRange({ props }: any) {
                                 marginRight: "5px",
                               }}
                             >
-                              <Image src={"/static/images/finishes-removebg-preview.svg"} fill alt={""} style={{}} />
+                              <Image src={"/static/images/finishies.svg"} fill alt={""} style={{}} />
                             </Box>
                             <Typography sx={{ fontSize: "14x", fontWeight: "medium" }}>0{item.attributes.N_Finish}</Typography>
                           </Box>
