@@ -117,7 +117,8 @@ export default function ProductExample() {
   //   },
   // ];
   const headers = [
-    null,
+    // null,
+    "",
     "range name",
     "dimension",
     "code",
@@ -211,7 +212,7 @@ export default function ProductExample() {
       event.target.value.trim() === "" ? "" : parseInt(event.target.value);
     if (
       newQuantity === "" ||
-      (!isNaN(newQuantity) && newQuantity >= 0 && newQuantity <= 50000000000)
+      (!isNaN(newQuantity) && newQuantity >= 0 && newQuantity <= 5000)
     ) {
       // @ts-ignore
       const item = cart.find((p) => p.id === itemId);
@@ -230,7 +231,7 @@ export default function ProductExample() {
 
   return (
     <>
-      <ProductLayout backgroundColor="#f2f1f0" full="calc(100vh - 10vh)">
+      <ProductLayout backgroundColor="#f2f1f0" full={cart.length <= 0 ? "calc(100vh - 10vh)" : "auto"}>
         <Box
           className="cart"
           sx={{
@@ -452,9 +453,7 @@ export default function ProductExample() {
                                   }}
                                   type="number"
                                   value={item.quantity}
-                                  onChange={(event) =>
-                                    handleChange(event, index)
-                                  }
+                                  onChange={(event) => handleQuantityChange(event, row.id)}
                                   variant="standard"
                                   InputProps={{
                                     disableUnderline: true,
@@ -493,9 +492,9 @@ export default function ProductExample() {
                               key={index}
                               align="left"
                               sx={{
-                                width: item == null ? "90px" : "auto",
+                                width: item == "" ? '90px' : 'auto',
                                 textTransform: "capitalize",
-                                p: "16px 12px",
+                                p: '16px 8px',
                               }}
                             >
                               {item}
@@ -512,7 +511,7 @@ export default function ProductExample() {
                                 fontWeight: "medium",
                                 fontSize: "1rem",
                                 letterSpacing: "0.5px",
-                                p: "16px 12px",
+                                p: '16px 8px',
                               },
                             }}
                           >
@@ -567,9 +566,7 @@ export default function ProductExample() {
                                     }}
                                     type="number"
                                     value={row.quantity}
-                                    onChange={(event) =>
-                                      handleChange(event, index)
-                                    }
+                                    onChange={(event) => handleQuantityChange(event, row.id)}
                                     variant="standard"
                                     InputProps={{
                                       disableUnderline: true,
@@ -611,9 +608,10 @@ export default function ProductExample() {
                             <TableCell align="left">
                               <Button
                                 sx={{
-                                  border: "2px solid #000",
-                                  borderRadius: "5px",
-                                  textAlign: "left",
+                                  maxWidth: '100px',
+                                  border: '2px solid #000',
+                                  borderRadius: '5px',
+                                  textAlign: 'left',
                                   "&:hover": {
                                     bgcolor: "#fff",
                                   },
