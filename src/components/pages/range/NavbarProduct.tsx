@@ -1,6 +1,8 @@
-import { Box, Container, Button, Grid, Tabs, AppBar, Typography, Divider, MenuItem, Toolbar, Link, Popover, Collapse, Tab, Grow, IconButton, Stack, Drawer, TextField } from "@mui/material";
+import { Box, Container, Button, Grid, Tabs, AppBar, Typography, Divider, MenuItem, Toolbar, Popover, Collapse, Tab, Grow, IconButton, Stack, Drawer, TextField } from "@mui/material";
 // import { GetStaticProps } from "next";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Link from "next/link";
+
 import Image from "next/image";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -117,7 +119,7 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {aboutNavbar.map((item, index) => (
-            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
+            <Link key={index} href={item.href} style={{ textDecoration: "none", color: "black" }}>
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
@@ -173,7 +175,7 @@ export default function NavbarProduct() {
                   <Grid item md={2} key={productIndex}>
                     <Link
                       href="#"
-                      sx={{
+                      style={{
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
@@ -226,7 +228,8 @@ export default function NavbarProduct() {
               }}
             >
               <Link
-                sx={{
+              href="#"
+                style={{
                   textDecoration: "none",
                   display: "flex",
                   flexDirection: "row",
@@ -249,7 +252,8 @@ export default function NavbarProduct() {
               </Link>
               <Box sx={{ display: "flex", flexDirection: "row" }}>
                 <Link
-                  sx={{
+                  href="#"
+                  style={{
                     textDecoration: "none",
                     display: "flex",
                     flexDirection: "row",
@@ -278,7 +282,8 @@ export default function NavbarProduct() {
                   </Typography>
                 </Link>
                 <Link
-                  sx={{
+                  href="#"
+                  style={{
                     textDecoration: "none",
                     display: "flex",
                     flexDirection: "row",
@@ -317,7 +322,7 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {serviceNavbar.map((item, index) => (
-            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
+            <Link key={index} href={item.href} style={{ textDecoration: "none", color: "black" }}>
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
@@ -329,7 +334,7 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {sectorNavbar.map((item, index) => (
-            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
+            <Link key={index} href={item.href} style={{ textDecoration: "none", color: "black" }}>
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
@@ -341,12 +346,12 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {projectNavbar.map((item, index) => (
-            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
+            <Link key={index} href={item.href} style={{ textDecoration: "none", color: "black" }}>
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
           <Divider />
-          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+          <Link href="#" style={{ textDecoration: "none", color: "black" }}>
             <MenuItem>Show All</MenuItem>
           </Link>
         </Box>
@@ -357,12 +362,12 @@ export default function NavbarProduct() {
       dropdown: (
         <Box sx={{ p: "25px" }}>
           {newsNavbar.map((item, index) => (
-            <Link key={index} href={item.href} sx={{ textDecoration: "none", color: "black" }}>
+            <Link key={index} href={item.href} style={{ textDecoration: "none", color: "black" }}>
               <MenuItem>{item.name}</MenuItem>
             </Link>
           ))}
           <Divider />
-          <Link href="#" sx={{ textDecoration: "none", color: "black" }}>
+          <Link href="#" style={{ textDecoration: "none", color: "black" }}>
             <MenuItem>Show All</MenuItem>
           </Link>
         </Box>
@@ -407,10 +412,11 @@ export default function NavbarProduct() {
               }}
             >
               <Link
-                display="flex"
-                flexDirection="row"
-                sx={{
+                href="#"
+                style={{
                   height: "49px",
+                  display: "flex",
+                  flexDirection: "row",
                   alignItems: "center",
                   textDecoration: "none",
                   cursor: "pointer",
@@ -715,10 +721,11 @@ export default function NavbarProduct() {
         >
           <Box sx={{}}>
             <Link
-              display="flex"
-              flexDirection="row"
+              href="x"
               sx={{
                 width: "100%",
+                display: "flex",
+                flexDirection: "row",
                 height: "49px",
                 alignItems: "center",
                 textDecoration: "none",
