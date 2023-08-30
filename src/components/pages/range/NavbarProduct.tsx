@@ -721,8 +721,8 @@ export default function NavbarProduct() {
         >
           <Box sx={{}}>
             <Link
-              href="x"
-              sx={{
+              href="#"
+              style={{
                 width: "100%",
                 display: "flex",
                 flexDirection: "row",
