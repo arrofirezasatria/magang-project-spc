@@ -1,5 +1,24 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Box, Typography, Button, Grid, Link, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, FormControl, useMediaQuery, useTheme, TextField, IconButton, Divider, createTheme } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  Grid,
+  Link,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+  FormControl,
+  useMediaQuery,
+  useTheme,
+  TextField,
+  IconButton,
+  Divider,
+  createTheme,
+} from "@mui/material";
 import swr from "swr";
 import Image from "next/image";
 import { url } from "inspector";
@@ -15,7 +34,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import ProductLayout from "@layouts/ProductLayout";
 import { useDispatch, useSelector } from "react-redux";
-import { dropCart, removeItemFromCart, incrementItem, decrementItem, updateCart } from "store/cartSlice";
+import {
+  dropCart,
+  removeItemFromCart,
+  incrementItem,
+  decrementItem,
+  updateCart,
+} from "store/cartSlice";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -25,7 +50,8 @@ const headers = {
     "Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c",
 };
 
-const fetcher2 = (url: RequestInfo | URL) => fetch(url, { headers }).then((res) => res.json());
+const fetcher2 = (url: RequestInfo | URL) =>
+  fetch(url, { headers }).then((res) => res.json());
 // axios.get(url, { headers }).then((res) => res.data())
 
 export default function ProductExample() {
@@ -41,7 +67,10 @@ export default function ProductExample() {
   };
 
   const dispatch = useDispatch();
-  const { data, error, isLoading, isValidating } = swr(`https://strapi-app-tnshv.ondigitalocean.app/api/products/93?populate[motif][populate][products][populate]=*`, fetcher2);
+  const { data, error, isLoading, isValidating } = swr(
+    `https://strapi-app-tnshv.ondigitalocean.app/api/products/93?populate[motif][populate][products][populate]=*`,
+    fetcher2
+  );
 
   // table breakpoint
   // const theme = useTheme();
@@ -87,8 +116,20 @@ export default function ProductExample() {
   //     totalPrice: 'Rp. 123.123.123'
   //   },
   // ];
-  const headers = [null, "range name", "dimension", "code", "quantity", "box price", "total price", null];
-  function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: any): void {
+  const headers = [
+    null,
+    "range name",
+    "dimension",
+    "code",
+    "quantity",
+    "box price",
+    "total price",
+    null,
+  ];
+  function handleChange(
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    index: any
+  ): void {
     throw new Error("Function not implemented.");
   }
 
@@ -138,7 +179,9 @@ export default function ProductExample() {
     };
 
     const formBody = Object.keys(isi)
-      .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(isi[key]))
+      .map(
+        (key) => encodeURIComponent(key) + "=" + encodeURIComponent(isi[key])
+      )
       .join("&");
 
     const res = await fetch("/api/mailjet", {
@@ -164,18 +207,30 @@ export default function ProductExample() {
   };
   // @ts-ignore
   const handleQuantityChange = (event, itemId) => {
-    const newQuantity = event.target.value.trim() === "" ? "" : parseInt(event.target.value);
-    if (newQuantity === "" || (!isNaN(newQuantity) && newQuantity >= 0 && newQuantity <= 50000000000)) {
+    const newQuantity =
+      event.target.value.trim() === "" ? "" : parseInt(event.target.value);
+    if (
+      newQuantity === "" ||
+      (!isNaN(newQuantity) && newQuantity >= 0 && newQuantity <= 50000000000)
+    ) {
       // @ts-ignore
       const item = cart.find((p) => p.id === itemId);
-      const newPriceTotal = newQuantity === "" ? 0 : newQuantity * item.pricePerBox;
-      dispatch(updateCart({ id: itemId, key: "quantity", val: newQuantity, newPriceTotal }));
+      const newPriceTotal =
+        newQuantity === "" ? 0 : newQuantity * item.pricePerBox;
+      dispatch(
+        updateCart({
+          id: itemId,
+          key: "quantity",
+          val: newQuantity,
+          newPriceTotal,
+        })
+      );
     }
   };
 
   return (
     <>
-      <ProductLayout backgroundColor="#f2f1f0">
+      <ProductLayout backgroundColor="#f2f1f0" full="calc(100vh - 10vh)">
         <Box
           className="cart"
           sx={{
@@ -183,364 +238,417 @@ export default function ProductExample() {
             p: { xs: "20px 20px", md: "20px 30px" },
           }}
         >
-          <Typography component="h1" sx={{ fontWeight: "medium" }}>
+          <Typography component="h1" sx={{ fontWeight: "medium", mb: "2em" }}>
             My Cart {`(${cart.length})`}
           </Typography>
-          <TableContainer
-            sx={{
-              mt: { xs: "0", sm: "20px" },
-            }}
-          >
-            <Table
-              sx={{
-                tableLayout: "fixed",
-                width: "100%",
-                borderCollapse: "collapse",
-                "& .MuiTableCell-root": {
-                  borderColor: "#c6c6c6",
-                },
-              }}
-              aria-label="simple table"
-            >
-              {isMobile ? (
-                <>
-                  <Box className="cart-mobile">
-                    {cart.map((item: any, index: any) => (
-                      <Box
-                        className="cart-row"
-                        key={index}
-                        sx={{
-                          my: "1rem",
-                          py: "1rem",
-                        }}
-                      >
-                        <Box
-                          sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <Box sx={{ width: "100%", height: "100%", display: "flex" }}>
+          {cart.length <= 0 ? (
+            <>
+              <Box>
+                <Typography sx={{ mb: "24px" }}>
+                  Your cart is currently empty
+                </Typography>
+                <Typography sx={{ mb: "24px" }}>
+                  You can add item by pressing add to cart on product page.
+                </Typography>
+              </Box>
+            </>
+          ) : (
+            <>
+              <TableContainer
+                sx={{
+                  mt: { xs: "0", sm: "20px" },
+                }}
+              >
+                <Table
+                  sx={{
+                    tableLayout: "fixed",
+                    width: "100%",
+                    borderCollapse: "collapse",
+                    "& .MuiTableCell-root": {
+                      borderColor: "#c6c6c6",
+                    },
+                  }}
+                  aria-label="simple table"
+                >
+                  {isMobile ? (
+                    <>
+                      <Box className="cart-mobile">
+                        {cart.map((item: any, index: any) => (
+                          <Box
+                            className="cart-row"
+                            key={index}
+                            sx={{
+                              my: "1rem",
+                              py: "1rem",
+                            }}
+                          >
                             <Box
                               sx={{
-                                width: "60px",
-                                height: "60px",
-                                aspectRatio: "1 / 1",
-                                position: "relative",
+                                display: "flex",
+                                justifyContent: "space-between",
                               }}
                             >
-                              <Image src={item.imageSrc} alt="" fill />
+                              <Box
+                                sx={{
+                                  width: "100%",
+                                  height: "100%",
+                                  display: "flex",
+                                }}
+                              >
+                                <Box
+                                  sx={{
+                                    width: "60px",
+                                    height: "60px",
+                                    aspectRatio: "1 / 1",
+                                    position: "relative",
+                                  }}
+                                >
+                                  <Image src={item.imageSrc} alt="" fill />
+                                </Box>
+                                <Box
+                                  sx={{
+                                    pl: "1rem",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "2px",
+                                  }}
+                                >
+                                  <Typography
+                                    sx={{
+                                      fontSize: "16px",
+                                      lineHeight: "1.5em",
+                                      fontWeight: "500",
+                                    }}
+                                  >
+                                    {item.name}
+                                  </Typography>
+                                  <Box display="flex">
+                                    <Typography
+                                      sx={{
+                                        fontSize: "12px",
+                                        lineHeight: "1.5em",
+                                        fontWeight: "400",
+                                      }}
+                                    >
+                                      {item.code}
+                                    </Typography>
+                                    <Divider
+                                      orientation="vertical"
+                                      flexItem
+                                      sx={{ mx: "10px" }}
+                                    />
+                                    <Typography
+                                      sx={{
+                                        fontSize: "12px",
+                                        lineHeight: "1.5em",
+                                      }}
+                                    >
+                                      {item.dimension}
+                                    </Typography>
+                                  </Box>
+                                  <Box>
+                                    <Typography
+                                      sx={{
+                                        fontSize: "14px",
+                                        lineHeight: "1.25em",
+                                      }}
+                                    >
+                                      <NumericFormat
+                                        // value={item.pricePerBox * item.quantity}
+                                        value={item.pricePerBox}
+                                        decimalScale={3}
+                                        displayType={"text"}
+                                        thousandSeparator={true}
+                                        prefix={"Rp. "}
+                                      />{" "}
+                                      / Box
+                                    </Typography>
+                                  </Box>
+                                </Box>
+                              </Box>
+                              <Box
+                                sx={{ display: "flex", alignItems: "center" }}
+                              >
+                                <Button
+                                  sx={{
+                                    minWidth: "40px",
+                                    p: 0,
+                                    height: "40px",
+                                    border: "2px solid #000",
+                                    borderRadius: "5px",
+                                    "&:hover": {
+                                      bgcolor: "#fff",
+                                    },
+                                  }}
+                                  // onClick={() => handleDelete(index)}
+                                  // handleDelete tidak ada
+                                  onClick={() =>
+                                    dispatch(
+                                      removeItemFromCart({ id: item.id })
+                                    )
+                                  }
+                                >
+                                  {/* <DeleteForeverIcon sx={{ color: "#DC362E" }} /> */}
+                                  <DeleteForeverOutlinedIcon
+                                    sx={{ color: "#000" }}
+                                  />
+                                </Button>
+                              </Box>
                             </Box>
                             <Box
+                              display="flex"
                               sx={{
-                                pl: "1rem",
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "2px",
+                                justifyContent: "space-between",
+                                alignItems: " center",
                               }}
                             >
                               <Typography
                                 sx={{
                                   fontSize: "16px",
-                                  lineHeight: "1.5em",
-                                  fontWeight: "500",
+                                  lineHeight: "1.25em",
+                                  fontWeight: "bold",
                                 }}
                               >
-                                {item.name}
+                                <NumericFormat
+                                  // value={item.pricePerBox * item.quantity}
+                                  value={item.priceTotal}
+                                  decimalScale={0}
+                                  displayType={"text"}
+                                  thousandSeparator={true}
+                                  prefix={"Rp. "}
+                                />
                               </Typography>
-                              <Box display="flex">
-                                <Typography
-                                  sx={{
-                                    fontSize: "12px",
-                                    lineHeight: "1.5em",
-                                    fontWeight: "400",
-                                  }}
-                                >
-                                  {item.code}
-                                </Typography>
-                                <Divider orientation="vertical" flexItem sx={{ mx: "10px" }} />
-                                <Typography
-                                  sx={{
-                                    fontSize: "12px",
-                                    lineHeight: "1.5em",
-                                  }}
-                                >
-                                  {item.dimension}
-                                </Typography>
-                              </Box>
-                              <Box>
-                                <Typography
-                                  sx={{
-                                    fontSize: "14px",
-                                    lineHeight: "1.25em",
-                                  }}
-                                >
-                                  <NumericFormat
-                                    // value={item.pricePerBox * item.quantity}
-                                    value={item.pricePerBox}
-                                    decimalScale={3}
-                                    displayType={"text"}
-                                    thousandSeparator={true}
-                                    prefix={"Rp. "}
-                                  />{" "}
-                                  / Box
-                                </Typography>
-                              </Box>
-                            </Box>
-                          </Box>
-                          <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <Button
-                              sx={{
-                                minWidth: "40px",
-                                p: 0,
-                                height: "40px",
-                                border: "2px solid #000",
-                                borderRadius: "5px",
-                                "&:hover": {
-                                  bgcolor: "#fff",
-                                },
-                              }}
-                              // onClick={() => handleDelete(index)}
-                              // handleDelete tidak ada
-                              onClick={() => dispatch(removeItemFromCart({ id: item.id }))}
-                            >
-                              {/* <DeleteForeverIcon sx={{ color: "#DC362E" }} /> */}
-                              <DeleteForeverOutlinedIcon sx={{ color: "#000" }} />
-                            </Button>
-                          </Box>
-                        </Box>
-                        <Box
-                          display="flex"
-                          sx={{
-                            justifyContent: "space-between",
-                            alignItems: " center",
-                          }}
-                        >
-                          <Typography
-                            sx={{
-                              fontSize: "16px",
-                              lineHeight: "1.25em",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            <NumericFormat
-                              // value={item.pricePerBox * item.quantity}
-                              value={item.priceTotal}
-                              decimalScale={0}
-                              displayType={"text"}
-                              thousandSeparator={true}
-                              prefix={"Rp. "}
-                            />
-                          </Typography>
-                          <Box
-                            display="flex"
-                            alignItems="center"
-                            sx={{
-                              width: "120px",
-                              height: "40px",
-                              p: "5px",
-                              // border: '1px solid #999',
-                              // borderRadius: '5px',
-                            }}
-                          >
-                            <IconButton
-                              onClick={() => dispatch(decrementItem({ id: item.id }))}
-                              // handleDelete tidak ada
-                              size="small"
-                            >
-                              <RemoveIcon />
-                            </IconButton>
-                            <TextField
-                              sx={{
-                                m: "dense",
-                                "& .MuiInputBase-input": {
-                                  fontWeight: "medium",
-                                  textAlign: "center",
-                                },
-                                "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button": {
-                                  appearance: "none",
-                                },
-                              }}
-                              type="number"
-                              value={item.quantity}
-                              onChange={(event) => handleQuantityChange(event, item.id)}
-                              variant="standard"
-                              InputProps={{
-                                disableUnderline: true,
-                              }}
-                              size="small"
-                            />
-                            <IconButton
-                              onClick={() => dispatch(incrementItem({ id: item.id }))}
-                              // handleDelete tidak ada
-                              size="small"
-                            >
-                              <AddIcon />
-                            </IconButton>
-                          </Box>
-                        </Box>
-                      </Box>
-                    ))}
-                  </Box>
-                </>
-              ) : (
-                <>
-                  <TableHead>
-                    <TableRow
-                      sx={{
-                        "& .MuiTableCell-root": {
-                          fontWeight: "400",
-                          fontSize: "1rem",
-                          letterSpacing: "0.5px",
-                        },
-                      }}
-                    >
-                      {headers.map((item, index) => (
-                        <TableCell
-                          key={index}
-                          align="left"
-                          sx={{
-                            width: item == null ? "90px" : "auto",
-                            textTransform: "capitalize",
-                          }}
-                        >
-                          {item}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {cart.map((row: any, index: any) => (
-                      <TableRow
-                        key={index}
-                        sx={{
-                          "& .MuiTableCell-root": {
-                            fontWeight: "medium",
-                            fontSize: "1rem",
-                            letterSpacing: "0.5px",
-                          },
-                        }}
-                      >
-                        <TableCell align="left">
-                          <Box
-                            sx={{
-                              width: "60px",
-                              height: "60px",
-                              position: "relative",
-                              aspectRatio: "1 / 1",
-                            }}
-                          >
-                            <Image src={row.imageSrc} alt="" fill />
-                          </Box>
-                        </TableCell>
-                        <TableCell align="left">{row.name}</TableCell>
-                        <TableCell align="left">{row.dimension}</TableCell>
-                        <TableCell align="left">{row.code}</TableCell>
-                        <TableCell align="left">
-                          <Box display="flex" alignItems="center">
-                            <Box
-                              display="flex"
-                              alignItems="center"
-                              sx={{
-                                width: "120px",
-                                height: "40px",
-                                "& .MuiIconButton-root": {
-                                  p: 0,
-                                },
-                              }}
-                            >
-                              <IconButton
-                                onClick={() => dispatch(decrementItem({ id: row.id }))}
-                                size="small"
-                                // sx={{ display: "none" }}
-                              >
-                                <RemoveIcon />
-                              </IconButton>
-                              <TextField
+                              <Box
+                                display="flex"
+                                alignItems="center"
                                 sx={{
-                                  m: "dense",
-                                  "& .MuiInputBase-input": {
-                                    fontWeight: "medium",
-                                    textAlign: "center",
-                                  },
-                                  "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button": {
-                                    appearance: "none",
-                                  },
+                                  width: "120px",
+                                  height: "40px",
+                                  p: "5px",
+                                  // border: '1px solid #999',
+                                  // borderRadius: '5px',
                                 }}
-                                type="number"
-                                value={row.quantity}
-                                onChange={(event) => handleQuantityChange(event, row.id)}
-                                variant="standard"
-                                InputProps={{
-                                  disableUnderline: true,
-                                }}
-                                size="small"
-                              />
-                              <IconButton
-                                onClick={() => dispatch(incrementItem({ id: row.id }))}
-                                size="small"
-                                // sx={{ display: "none" }}
                               >
-                                <AddIcon />
-                              </IconButton>
+                                <IconButton
+                                  onClick={() =>
+                                    dispatch(decrementItem({ id: item.id }))
+                                  }
+                                  // handleDelete tidak ada
+                                  size="small"
+                                >
+                                  <RemoveIcon />
+                                </IconButton>
+                                <TextField
+                                  sx={{
+                                    m: "dense",
+                                    "& .MuiInputBase-input": {
+                                      fontWeight: "medium",
+                                      textAlign: "center",
+                                    },
+                                    "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
+                                      {
+                                        appearance: "none",
+                                      },
+                                  }}
+                                  type="number"
+                                  value={item.quantity}
+                                  onChange={(event) =>
+                                    handleChange(event, index)
+                                  }
+                                  variant="standard"
+                                  InputProps={{
+                                    disableUnderline: true,
+                                  }}
+                                  size="small"
+                                />
+                                <IconButton
+                                  onClick={() =>
+                                    dispatch(incrementItem({ id: item.id }))
+                                  }
+                                  // handleDelete tidak ada
+                                  size="small"
+                                >
+                                  <AddIcon />
+                                </IconButton>
+                              </Box>
                             </Box>
                           </Box>
-                        </TableCell>
-                        <TableCell align="left" rowSpan={4}>
-                          <NumericFormat
-                            // value={item.pricePerBox * item.quantity}
-                            value={row.pricePerBox}
-                            decimalScale={3}
-                            displayType={"text"}
-                            thousandSeparator={true}
-                            prefix={"Rp. "}
-                          />
-                        </TableCell>
-                        <TableCell align="left">
-                          <NumericFormat
-                            // value={item.pricePerBox * item.quantity}
-                            value={row.priceTotal}
-                            decimalScale={0}
-                            displayType={"text"}
-                            thousandSeparator={true}
-                            prefix={"Rp. "}
-                          />
-                        </TableCell>
-                        <TableCell align="left">
-                          <Button
+                        ))}
+                      </Box>
+                    </>
+                  ) : (
+                    <>
+                      <TableHead>
+                        <TableRow
+                          sx={{
+                            "& .MuiTableCell-root": {
+                              fontWeight: "400",
+                              fontSize: "1rem",
+                              letterSpacing: "0.5px",
+                            },
+                          }}
+                        >
+                          {headers.map((item, index) => (
+                            <TableCell
+                              key={index}
+                              align="left"
+                              sx={{
+                                width: item == null ? "90px" : "auto",
+                                textTransform: "capitalize",
+                                p: "16px 12px",
+                              }}
+                            >
+                              {item}
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {cart.map((row: any, index: any) => (
+                          <TableRow
+                            key={index}
                             sx={{
-                              border: "2px solid #000",
-                              borderRadius: "5px",
-                              textAlign: "left",
-                              "&:hover": {
-                                bgcolor: "#fff",
+                              "& .MuiTableCell-root": {
+                                fontWeight: "medium",
+                                fontSize: "1rem",
+                                letterSpacing: "0.5px",
+                                p: "16px 12px",
                               },
                             }}
-                            onClick={() => dispatch(removeItemFromCart({ id: row.id }))}
                           >
-                            {/* <DeleteForeverIcon sx={{ color: "#DC362E" }} /> */}
-                            <DeleteForeverOutlinedIcon sx={{ color: "#000" }} />
-                            <Typography
-                              sx={{
-                                color: "#000",
-                                fontSize: "12px",
-                                textTransform: "none",
-                                pl: "8px",
-                                fontWeight: "medium",
-                                lineHeight: 1.25,
-                              }}
-                            >
-                              Remove item
-                            </Typography>
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </>
-              )}
-            </Table>
-          </TableContainer>
+                            <TableCell align="left">
+                              <Box
+                                sx={{
+                                  width: "60px",
+                                  height: "60px",
+                                  position: "relative",
+                                  aspectRatio: "1 / 1",
+                                }}
+                              >
+                                <Image src={row.imageSrc} alt="" fill />
+                              </Box>
+                            </TableCell>
+                            <TableCell align="left">{row.name}</TableCell>
+                            <TableCell align="left">{row.dimension}</TableCell>
+                            <TableCell align="left">{row.code}</TableCell>
+                            <TableCell align="left">
+                              <Box display="flex" alignItems="center">
+                                <Box
+                                  display="flex"
+                                  alignItems="center"
+                                  sx={{
+                                    width: "120px",
+                                    height: "40px",
+                                    "& .MuiIconButton-root": {
+                                      p: 0,
+                                    },
+                                  }}
+                                >
+                                  <IconButton
+                                    onClick={() =>
+                                      dispatch(decrementItem({ id: row.id }))
+                                    }
+                                    size="small"
+                                    // sx={{ display: "none" }}
+                                  >
+                                    <RemoveIcon />
+                                  </IconButton>
+                                  <TextField
+                                    sx={{
+                                      m: "dense",
+                                      "& .MuiInputBase-input": {
+                                        fontWeight: "medium",
+                                        textAlign: "center",
+                                      },
+                                      "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
+                                        {
+                                          appearance: "none",
+                                        },
+                                    }}
+                                    type="number"
+                                    value={row.quantity}
+                                    onChange={(event) =>
+                                      handleChange(event, index)
+                                    }
+                                    variant="standard"
+                                    InputProps={{
+                                      disableUnderline: true,
+                                    }}
+                                    size="small"
+                                  />
+                                  <IconButton
+                                    onClick={() =>
+                                      dispatch(incrementItem({ id: row.id }))
+                                    }
+                                    size="small"
+                                    // sx={{ display: "none" }}
+                                  >
+                                    <AddIcon />
+                                  </IconButton>
+                                </Box>
+                              </Box>
+                            </TableCell>
+                            <TableCell align="left">
+                              <NumericFormat
+                                // value={item.pricePerBox * item.quantity}
+                                value={row.pricePerBox}
+                                decimalScale={3}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                prefix={"Rp. "}
+                              />
+                            </TableCell>
+                            <TableCell align="left">
+                              <NumericFormat
+                                // value={item.pricePerBox * item.quantity}
+                                value={row.priceTotal}
+                                decimalScale={0}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                prefix={"Rp. "}
+                              />
+                            </TableCell>
+                            <TableCell align="left">
+                              <Button
+                                sx={{
+                                  border: "2px solid #000",
+                                  borderRadius: "5px",
+                                  textAlign: "left",
+                                  "&:hover": {
+                                    bgcolor: "#fff",
+                                  },
+                                }}
+                                onClick={() =>
+                                  dispatch(removeItemFromCart({ id: row.id }))
+                                }
+                              >
+                                {/* <DeleteForeverIcon sx={{ color: "#DC362E" }} /> */}
+                                <DeleteForeverOutlinedIcon
+                                  sx={{ color: "#000" }}
+                                />
+                                <Typography
+                                  sx={{
+                                    color: "#000",
+                                    fontSize: "12px",
+                                    textTransform: "none",
+                                    pl: "8px",
+                                    fontWeight: "medium",
+                                    lineHeight: 1.25,
+                                  }}
+                                >
+                                  Remove item
+                                </Typography>
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </>
+                  )}
+                </Table>
+              </TableContainer>
+            </>
+          )}
           <Box
             sx={{
               display: { xs: "block", md: "flex" },
@@ -609,12 +717,18 @@ export default function ProductExample() {
               >
                 <Box sx={{ mb: { xs: "1em", md: "0" }, width: "100%" }}>
                   <Box sx={{ mb: { xs: "1em", md: "0" } }}>
-                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <Box
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
                       <Box>
-                        <Typography sx={{ fontSize: "20px", pr: "20px" }}>Total:</Typography>
+                        <Typography sx={{ fontSize: "20px", pr: "20px" }}>
+                          Total:
+                        </Typography>
                       </Box>
                       <Box>
-                        <Typography sx={{ fontSize: "20px", fontWeight: "bold" }}>
+                        <Typography
+                          sx={{ fontSize: "20px", fontWeight: "bold" }}
+                        >
                           <NumericFormat
                             // value={item.pricePerBox * item.quantity}
                             value={totalPrice}
@@ -626,12 +740,16 @@ export default function ProductExample() {
                         </Typography>
                       </Box>
                     </Box>
-                    <Typography sx={{ fontSize: "12px", mt: "10px", textAlign: "end" }}>Tax & shipping rates are calculated during checkout</Typography>
+                    <Typography
+                      sx={{ fontSize: "12px", mt: "10px", textAlign: "end" }}
+                    >
+                      Tax & shipping rates are calculated during checkout
+                    </Typography>
                   </Box>
                   <Box
                     className="cart-form"
                     sx={{
-                      display: "flex",
+                      display: cart.length <= 0 ? "none" : "flex",
                       flexDirection: "column",
                       width: "100%",
                       mt: "36px",
@@ -646,29 +764,71 @@ export default function ProductExample() {
                         gap: "10px",
                       }}
                     >
-                      <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>Contact</Typography>
+                      <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
+                        Contact
+                      </Typography>
                       <Controller
                         // @ts-ignore
                         name={"name"}
                         control={control}
-                        render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-                          <TextField helperText={error ? error.message : null} size="small" required id="outlined-required" error={!!error} onChange={onChange} fullWidth label={"Name"} variant="outlined" />
+                        render={({
+                          field: { onChange, value },
+                          fieldState: { error },
+                          formState,
+                        }) => (
+                          <TextField
+                            helperText={error ? error.message : null}
+                            size="small"
+                            required
+                            id="outlined-required"
+                            error={!!error}
+                            onChange={onChange}
+                            fullWidth
+                            label={"Name"}
+                            variant="outlined"
+                          />
                         )}
                       />
                       <Controller
                         // @ts-ignore
                         name={"email"}
                         control={control}
-                        render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-                          <TextField helperText={error ? error.message : null} size="small" required error={!!error} onChange={onChange} fullWidth label={"Email"} variant="outlined" />
+                        render={({
+                          field: { onChange, value },
+                          fieldState: { error },
+                          formState,
+                        }) => (
+                          <TextField
+                            helperText={error ? error.message : null}
+                            size="small"
+                            required
+                            error={!!error}
+                            onChange={onChange}
+                            fullWidth
+                            label={"Email"}
+                            variant="outlined"
+                          />
                         )}
                       />
                       <Controller
                         // @ts-ignore
                         name={"number"}
                         control={control}
-                        render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-                          <TextField helperText={error ? error.message : null} size="small" required error={!!error} onChange={onChange} fullWidth label={"Phone Number"} variant="outlined" />
+                        render={({
+                          field: { onChange, value },
+                          fieldState: { error },
+                          formState,
+                        }) => (
+                          <TextField
+                            helperText={error ? error.message : null}
+                            size="small"
+                            required
+                            error={!!error}
+                            onChange={onChange}
+                            fullWidth
+                            label={"Phone Number"}
+                            variant="outlined"
+                          />
                         )}
                       />
                     </Box>
@@ -679,18 +839,40 @@ export default function ProductExample() {
                         flexDirection: "column",
                       }}
                     >
-                      <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>Shipping Address</Typography>
+                      <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
+                        Shipping Address
+                      </Typography>
                       <Controller
                         // @ts-ignore
                         name={"address"}
                         control={control}
-                        render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-                          <TextField helperText={error ? error.message : null} size="small" required multiline rows={2} error={!!error} onChange={onChange} fullWidth label={"Address"} variant="outlined" />
+                        render={({
+                          field: { onChange, value },
+                          fieldState: { error },
+                          formState,
+                        }) => (
+                          <TextField
+                            helperText={error ? error.message : null}
+                            size="small"
+                            required
+                            multiline
+                            rows={2}
+                            error={!!error}
+                            onChange={onChange}
+                            fullWidth
+                            label={"Address"}
+                            variant="outlined"
+                          />
                         )}
                       />
                     </Box>
                   </Box>
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Box
+                    sx={{
+                      display: cart.length <= 0 ? "none" : "flex",
+                      alignItems: "center",
+                    }}
+                  >
                     <Button
                       size="small"
                       sx={{
@@ -714,9 +896,11 @@ export default function ProductExample() {
           </Box>
           <Box sx={{ mt: "50px" }}>
             <Typography>
-              To reduce the environmental impact our free samples are provided as 100x100mm cuts.
+              To reduce the environmental impact our free samples are provided
+              as 100x100mm cuts.
               <br />
-              If you wish to order a larger sample, call 01782 524043 or email samples@johnson-tiles.com.
+              If you wish to order a larger sample, call 01782 524043 or email
+              samples@johnson-tiles.com.
             </Typography>
           </Box>
         </Box>
