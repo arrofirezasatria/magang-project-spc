@@ -1,5 +1,24 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Box, Typography, Button, Grid, Link, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, FormControl, useMediaQuery, useTheme, TextField, IconButton, Divider, createTheme } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  Grid,
+  Link,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+  FormControl,
+  useMediaQuery,
+  useTheme,
+  TextField,
+  IconButton,
+  Divider,
+  createTheme,
+} from "@mui/material";
 import swr from "swr";
 import Image from "next/image";
 import { url } from "inspector";
@@ -15,7 +34,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import ProductLayout from "@layouts/ProductLayout";
 import { useDispatch, useSelector } from "react-redux";
-import { dropCart, removeItemFromCart, incrementItem, decrementItem, updateCart } from "store/cartSlice";
+import {
+  dropCart,
+  removeItemFromCart,
+  incrementItem,
+  decrementItem,
+  updateCart,
+} from "store/cartSlice";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -25,7 +50,8 @@ const headers = {
     "Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c",
 };
 
-const fetcher2 = (url: RequestInfo | URL) => fetch(url, { headers }).then((res) => res.json());
+const fetcher2 = (url: RequestInfo | URL) =>
+  fetch(url, { headers }).then((res) => res.json());
 // axios.get(url, { headers }).then((res) => res.data())
 
 export default function ProductExample() {
@@ -41,7 +67,10 @@ export default function ProductExample() {
   };
 
   const dispatch = useDispatch();
-  const { data, error, isLoading, isValidating } = swr(`https://strapi-app-tnshv.ondigitalocean.app/api/products/93?populate[motif][populate][products][populate]=*`, fetcher2);
+  const { data, error, isLoading, isValidating } = swr(
+    `https://strapi-app-tnshv.ondigitalocean.app/api/products/93?populate[motif][populate][products][populate]=*`,
+    fetcher2
+  );
 
   // table breakpoint
   // const theme = useTheme();
@@ -98,7 +127,10 @@ export default function ProductExample() {
     "total price",
     null,
   ];
-  function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: any): void {
+  function handleChange(
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    index: any
+  ): void {
     throw new Error("Function not implemented.");
   }
 
@@ -148,7 +180,9 @@ export default function ProductExample() {
     };
 
     const formBody = Object.keys(isi)
-      .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(isi[key]))
+      .map(
+        (key) => encodeURIComponent(key) + "=" + encodeURIComponent(isi[key])
+      )
       .join("&");
 
     const res = await fetch("/api/mailjet", {
@@ -174,11 +208,16 @@ export default function ProductExample() {
   };
   // @ts-ignore
   const handleQuantityChange = (event, itemId) => {
-    const newQuantity = event.target.value.trim() === "" ? "" : parseInt(event.target.value);
-    if (newQuantity === "" || (!isNaN(newQuantity) && newQuantity >= 0 && newQuantity <= 5000)) {
+    const newQuantity =
+      event.target.value.trim() === "" ? "" : parseInt(event.target.value);
+    if (
+      newQuantity === "" ||
+      (!isNaN(newQuantity) && newQuantity >= 0 && newQuantity <= 5000)
+    ) {
       // @ts-ignore
       const item = cart.find((p) => p.id === itemId);
-      const newPriceTotal = newQuantity === "" ? 0 : newQuantity * item.pricePerBox;
+      const newPriceTotal =
+        newQuantity === "" ? 0 : newQuantity * item.pricePerBox;
       dispatch(
         updateCart({
           id: itemId,
@@ -192,7 +231,10 @@ export default function ProductExample() {
 
   return (
     <>
-      <ProductLayout backgroundColor="#f2f1f0" full={cart.length <= 0 ? "calc(100vh - 10vh)" : "auto"}>
+      <ProductLayout
+        backgroundColor="#f2f1f0"
+        full={cart.length <= 0 ? "calc(100vh - 10vh)" : "auto"}
+      >
         <Box
           className="cart"
           sx={{
@@ -206,8 +248,12 @@ export default function ProductExample() {
           {cart.length <= 0 ? (
             <>
               <Box>
-                <Typography sx={{ mb: "24px" }}>Your cart is currently empty</Typography>
-                <Typography sx={{ mb: "24px" }}>You can add item by pressing add to cart on product page.</Typography>
+                <Typography sx={{ mb: "24px" }}>
+                  Your cart is currently empty
+                </Typography>
+                <Typography sx={{ mb: "24px" }}>
+                  You can add item by pressing add to cart on product page.
+                </Typography>
               </Box>
             </>
           ) : (
@@ -290,7 +336,11 @@ export default function ProductExample() {
                                     >
                                       {item.code}
                                     </Typography>
-                                    <Divider orientation="vertical" flexItem sx={{ mx: "10px" }} />
+                                    <Divider
+                                      orientation="vertical"
+                                      flexItem
+                                      sx={{ mx: "10px" }}
+                                    />
                                     <Typography
                                       sx={{
                                         fontSize: "12px",
@@ -321,7 +371,9 @@ export default function ProductExample() {
                                   </Box>
                                 </Box>
                               </Box>
-                              <Box sx={{ display: "flex", alignItems: "center" }}>
+                              <Box
+                                sx={{ display: "flex", alignItems: "center" }}
+                              >
                                 <Button
                                   sx={{
                                     minWidth: "40px",
@@ -335,10 +387,16 @@ export default function ProductExample() {
                                   }}
                                   // onClick={() => handleDelete(index)}
                                   // handleDelete tidak ada
-                                  onClick={() => dispatch(removeItemFromCart({ id: item.id }))}
+                                  onClick={() =>
+                                    dispatch(
+                                      removeItemFromCart({ id: item.id })
+                                    )
+                                  }
                                 >
                                   {/* <DeleteForeverIcon sx={{ color: "#DC362E" }} /> */}
-                                  <DeleteForeverOutlinedIcon sx={{ color: "#000" }} />
+                                  <DeleteForeverOutlinedIcon
+                                    sx={{ color: "#000" }}
+                                  />
                                 </Button>
                               </Box>
                             </Box>
@@ -378,7 +436,9 @@ export default function ProductExample() {
                                 }}
                               >
                                 <IconButton
-                                  onClick={() => dispatch(decrementItem({ id: item.id }))}
+                                  onClick={() =>
+                                    dispatch(decrementItem({ id: item.id }))
+                                  }
                                   // handleDelete tidak ada
                                   size="small"
                                 >
@@ -391,13 +451,16 @@ export default function ProductExample() {
                                       fontWeight: "medium",
                                       textAlign: "center",
                                     },
-                                    "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button": {
-                                      appearance: "none",
-                                    },
+                                    "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
+                                      {
+                                        appearance: "none",
+                                      },
                                   }}
                                   type="number"
                                   value={item.quantity}
-                                  onChange={(event) => handleQuantityChange(event, row.id)}
+                                  onChange={(event) =>
+                                    handleQuantityChange(event, row.id)
+                                  }
                                   variant="standard"
                                   InputProps={{
                                     disableUnderline: true,
@@ -405,7 +468,9 @@ export default function ProductExample() {
                                   size="small"
                                 />
                                 <IconButton
-                                  onClick={() => dispatch(incrementItem({ id: item.id }))}
+                                  onClick={() =>
+                                    dispatch(incrementItem({ id: item.id }))
+                                  }
                                   // handleDelete tidak ada
                                   size="small"
                                 >
@@ -434,9 +499,9 @@ export default function ProductExample() {
                               key={index}
                               align="left"
                               sx={{
-                                width: item == "" ? "90px" : "auto",
+                                width: item == null ? "90px" : "auto",
                                 textTransform: "capitalize",
-                                p: "16px 8px",
+                                p: "16px 12px",
                               }}
                             >
                               {item}
@@ -453,7 +518,7 @@ export default function ProductExample() {
                                 fontWeight: "medium",
                                 fontSize: "1rem",
                                 letterSpacing: "0.5px",
-                                p: "16px 8px",
+                                p: "16px 12px",
                               },
                             }}
                           >
@@ -486,7 +551,9 @@ export default function ProductExample() {
                                   }}
                                 >
                                   <IconButton
-                                    onClick={() => dispatch(decrementItem({ id: row.id }))}
+                                    onClick={() =>
+                                      dispatch(decrementItem({ id: row.id }))
+                                    }
                                     size="small"
                                     // sx={{ display: "none" }}
                                   >
@@ -499,13 +566,16 @@ export default function ProductExample() {
                                         fontWeight: "medium",
                                         textAlign: "center",
                                       },
-                                      "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button": {
-                                        appearance: "none",
-                                      },
+                                      "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button":
+                                        {
+                                          appearance: "none",
+                                        },
                                     }}
                                     type="number"
                                     value={row.quantity}
-                                    onChange={(event) => handleQuantityChange(event, row.id)}
+                                    onChange={(event) =>
+                                      handleQuantityChange(event, row.id)
+                                    }
                                     variant="standard"
                                     InputProps={{
                                       disableUnderline: true,
@@ -513,7 +583,9 @@ export default function ProductExample() {
                                     size="small"
                                   />
                                   <IconButton
-                                    onClick={() => dispatch(incrementItem({ id: row.id }))}
+                                    onClick={() =>
+                                      dispatch(incrementItem({ id: row.id }))
+                                    }
                                     size="small"
                                     // sx={{ display: "none" }}
                                   >
@@ -547,7 +619,6 @@ export default function ProductExample() {
                             <TableCell align="left">
                               <Button
                                 sx={{
-                                  maxWidth: "100px",
                                   border: "2px solid #000",
                                   borderRadius: "5px",
                                   textAlign: "left",
@@ -555,10 +626,14 @@ export default function ProductExample() {
                                     bgcolor: "#fff",
                                   },
                                 }}
-                                onClick={() => dispatch(removeItemFromCart({ id: row.id }))}
+                                onClick={() =>
+                                  dispatch(removeItemFromCart({ id: row.id }))
+                                }
                               >
                                 {/* <DeleteForeverIcon sx={{ color: "#DC362E" }} /> */}
-                                <DeleteForeverOutlinedIcon sx={{ color: "#000" }} />
+                                <DeleteForeverOutlinedIcon
+                                  sx={{ color: "#000" }}
+                                />
                                 <Typography
                                   sx={{
                                     color: "#000",
@@ -650,12 +725,18 @@ export default function ProductExample() {
               >
                 <Box sx={{ mb: { xs: "1em", md: "0" }, width: "100%" }}>
                   <Box sx={{ mb: { xs: "1em", md: "0" } }}>
-                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <Box
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
                       <Box>
-                        <Typography sx={{ fontSize: "20px", pr: "20px" }}>Total:</Typography>
+                        <Typography sx={{ fontSize: "20px", pr: "20px" }}>
+                          Total:
+                        </Typography>
                       </Box>
                       <Box>
-                        <Typography sx={{ fontSize: "20px", fontWeight: "bold" }}>
+                        <Typography
+                          sx={{ fontSize: "20px", fontWeight: "bold" }}
+                        >
                           <NumericFormat
                             // value={item.pricePerBox * item.quantity}
                             value={totalPrice}
@@ -668,7 +749,11 @@ export default function ProductExample() {
                         </Typography>
                       </Box>
                     </Box>
-                    <Typography sx={{ fontSize: "12px", mt: "10px", textAlign: "end" }}>Tax & shipping rates are calculated during checkout</Typography>
+                    <Typography
+                      sx={{ fontSize: "12px", mt: "10px", textAlign: "end" }}
+                    >
+                      Tax & shipping rates are calculated during checkout
+                    </Typography>
                   </Box>
                   <Box
                     className="cart-form"
@@ -688,29 +773,71 @@ export default function ProductExample() {
                         gap: "10px",
                       }}
                     >
-                      <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>Contact</Typography>
+                      <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
+                        Contact
+                      </Typography>
                       <Controller
                         // @ts-ignore
                         name={"name"}
                         control={control}
-                        render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-                          <TextField helperText={error ? error.message : null} size="small" required id="outlined-required" error={!!error} onChange={onChange} fullWidth label={"Name"} variant="outlined" />
+                        render={({
+                          field: { onChange, value },
+                          fieldState: { error },
+                          formState,
+                        }) => (
+                          <TextField
+                            helperText={error ? error.message : null}
+                            size="small"
+                            required
+                            id="outlined-required"
+                            error={!!error}
+                            onChange={onChange}
+                            fullWidth
+                            label={"Name"}
+                            variant="outlined"
+                          />
                         )}
                       />
                       <Controller
                         // @ts-ignore
                         name={"email"}
                         control={control}
-                        render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-                          <TextField helperText={error ? error.message : null} size="small" required error={!!error} onChange={onChange} fullWidth label={"Email"} variant="outlined" />
+                        render={({
+                          field: { onChange, value },
+                          fieldState: { error },
+                          formState,
+                        }) => (
+                          <TextField
+                            helperText={error ? error.message : null}
+                            size="small"
+                            required
+                            error={!!error}
+                            onChange={onChange}
+                            fullWidth
+                            label={"Email"}
+                            variant="outlined"
+                          />
                         )}
                       />
                       <Controller
                         // @ts-ignore
                         name={"number"}
                         control={control}
-                        render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-                          <TextField helperText={error ? error.message : null} size="small" required error={!!error} onChange={onChange} fullWidth label={"Phone Number"} variant="outlined" />
+                        render={({
+                          field: { onChange, value },
+                          fieldState: { error },
+                          formState,
+                        }) => (
+                          <TextField
+                            helperText={error ? error.message : null}
+                            size="small"
+                            required
+                            error={!!error}
+                            onChange={onChange}
+                            fullWidth
+                            label={"Phone Number"}
+                            variant="outlined"
+                          />
                         )}
                       />
                     </Box>
@@ -721,13 +848,30 @@ export default function ProductExample() {
                         flexDirection: "column",
                       }}
                     >
-                      <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>Shipping Address</Typography>
+                      <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
+                        Shipping Address
+                      </Typography>
                       <Controller
                         // @ts-ignore
                         name={"address"}
                         control={control}
-                        render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-                          <TextField helperText={error ? error.message : null} size="small" required multiline rows={2} error={!!error} onChange={onChange} fullWidth label={"Address"} variant="outlined" />
+                        render={({
+                          field: { onChange, value },
+                          fieldState: { error },
+                          formState,
+                        }) => (
+                          <TextField
+                            helperText={error ? error.message : null}
+                            size="small"
+                            required
+                            multiline
+                            rows={2}
+                            error={!!error}
+                            onChange={onChange}
+                            fullWidth
+                            label={"Address"}
+                            variant="outlined"
+                          />
                         )}
                       />
                     </Box>
@@ -761,9 +905,11 @@ export default function ProductExample() {
           </Box>
           <Box sx={{ mt: "50px" }}>
             <Typography>
-              To reduce the environmental impact our free samples are provided as 100x100mm cuts.
+              To reduce the environmental impact our free samples are provided
+              as 100x100mm cuts.
               <br />
-              If you wish to order a larger sample, call 01782 524043 or email samples@johnson-tiles.com.
+              If you wish to order a larger sample, call 01782 524043 or email
+              samples@johnson-tiles.com.
             </Typography>
           </Box>
         </Box>
