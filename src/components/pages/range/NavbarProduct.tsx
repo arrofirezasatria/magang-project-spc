@@ -37,8 +37,6 @@ const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
 };
 
 export default function NavbarProduct() {
-
-  
   const router = useRouter();
   const count = useSelector(
     (state) =>
@@ -381,14 +379,13 @@ export default function NavbarProduct() {
     dispatch(dropCart());
   };
   const [isCartOpen, setIsCartOpen] = useState(false);
+  // @ts-ignore
   const handleQuantityChange = (event, itemId) => {
-    const newQuantity = parseInt(event.target.value);
-    
-    // Ensure the new quantity is greater than zero
-    if (newQuantity > 0) {
+    const newQuantity = event.target.value.trim() === "" ? "" : parseInt(event.target.value);
+    if (newQuantity === "" || (!isNaN(newQuantity) && newQuantity >= 0 && newQuantity <= 5112000)) {
+      // @ts-ignore
       const item = cart.find((p) => p.id === itemId);
-      const newPriceTotal = newQuantity * item.pricePerBox;
-  
+      const newPriceTotal = newQuantity === "" ? 0 : newQuantity * item.pricePerBox;
       dispatch(updateCart({ id: itemId, key: "quantity", val: newQuantity, newPriceTotal }));
     }
   };
@@ -1045,7 +1042,7 @@ export default function NavbarProduct() {
                                     </Typography>
                                   </Box>
                                 </Box>
-                                <Box>
+                                <Box sx={{ width: "88px", height: "67px" }}>
                                   <Typography sx={{ fontSize: "14px" }}>
                                     <NumericFormat value={item.priceTotal} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
                                   </Typography>
@@ -1056,6 +1053,8 @@ export default function NavbarProduct() {
                                       border: "1px solid #999",
                                       borderRadius: "9999px",
                                       justifyContent: "space-between",
+                                      // width: "120px",
+                                      // height: "40px",
                                     }}
                                   >
                                     <IconButton onClick={() => dispatch(decrementItem({ id: item.id }))}>

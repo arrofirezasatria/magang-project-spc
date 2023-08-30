@@ -319,7 +319,6 @@ export default function ProductRange({ props }: any) {
                         {item.attributes.product_varians.data.length > 0 ? (
                           item.attributes.product_varians.data.map((varian: any, index: number) => {
                             let varianText = varian.attributes.Varian;
-
                             if (isMobile && (varianText === "Sun Step Stop" || varianText === "Wall Tile Set")) {
                               varianText = varianText === "Sun Step Stop" ? "SSS" : "WTS";
                             }

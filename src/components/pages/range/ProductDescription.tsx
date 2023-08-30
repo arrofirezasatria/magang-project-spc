@@ -17,9 +17,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
   const pathSegments = hightlight.asPath.split("/");
   const idPath = pathSegments[pathSegments.length - 1];
   const shareProduct = `https://magang-project-spc.vercel.app/${hightlight.asPath}`;
-
-  const [showFullText, setShowFullText] = useState(false);
-
+  const [showFullText, setShowFullText] = useState(false);  
   const toggleFullText = () => {
     setShowFullText(!showFullText);
   };
