@@ -383,12 +383,14 @@ export default function NavbarProduct() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const handleQuantityChange = (event, itemId) => {
     const newQuantity = parseInt(event.target.value);
-    
-    // Ensure the new quantity is greater than zero
-    if (newQuantity > 0) {
+  
+    // Ensure the new quantity is between 0 and 1000
+    if (!isNaN(newQuantity) && newQuantity >= 0 && newQuantity <= 1000) {
+      // Calculate the new total price based on the entered quantity and item's pricePerBox
       const item = cart.find((p) => p.id === itemId);
       const newPriceTotal = newQuantity * item.pricePerBox;
   
+      // Dispatch an action to update the item's quantity and priceTotal in the Redux store
       dispatch(updateCart({ id: itemId, key: "quantity", val: newQuantity, newPriceTotal }));
     }
   };

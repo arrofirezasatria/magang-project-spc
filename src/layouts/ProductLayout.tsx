@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
 import React from "react";
 
-export default function ProductLayout({ children, backgroundColor }: any) {
+export default function ProductLayout({ children, backgroundColor, full }: any) {
   return (
-    <Box className="product-wrap-white" sx={{ display: "flex", bgcolor: backgroundColor, minWidth: '375px' }}>
+    <Box className="product-wrap-white" sx={{ display: "flex", bgcolor: backgroundColor, minWidth: '375px', height: full, }}>
       <Box
         className="product-container"
         sx={{
