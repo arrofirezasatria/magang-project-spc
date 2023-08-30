@@ -44,7 +44,8 @@ export default function FeaturedProducts(props : any) {
             textAlign: "center",
           }}
         >
-          <Typography sx={{ fontSize: "27px", fontWeight: "bold" }}>FEATURED PRODUCT RANGES: CONCRETE</Typography>
+          <Typography sx={{ fontSize: "27px", fontWeight: "bold" }}>FEATURED PRODUCT RANGES</Typography>
+          <Typography sx={{ fontSize: "32px", fontWeight: "bold",mt:"16px" }}>CONCRETE</Typography>
         </Box>
         <Grid container spacing={3} sx={{ mt: "40px" }}>
           {featurproduct.map((item, index) => (
