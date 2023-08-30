@@ -1,4 +1,4 @@
-import { Box, Tabs, Tab, Container, Grid, Stack, Typography, Button, FormControl, Select, MenuItem, InputLabel, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Tabs, Tab, Container, Grid, Stack, Typography, Button, FormControl, Select, MenuItem, InputLabel, useMediaQuery, useTheme, Tooltip } from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 import Image from "next/image";
@@ -42,8 +42,8 @@ export default function ProductRange({ props }: any) {
             PRODUCT RANGES: CONCRETE
           </Typography> */}
         </Box>
-        <Stack direction={{ xs: "column", md: "row" }} spacing={{ xs: 1, sm: 2, md: 4 }} justifyContent="flex-end" sx={{ marginBottom: "30px" }}>
-          {/* <Stack direction="row" sx={{visibility:"hidden"}}>
+        <Stack direction={{ xs: "column", md: "row" }} spacing={{ xs: 1, sm: 2, md: 4 }} justifyContent="space-between" sx={{ marginBottom: "30px" }}>
+          <Stack direction="row" sx={{}}>
             <Box display="flex" flexDirection="row" sx={{ marginRight: "35px" }}>
               <Box
                 sx={{
@@ -116,7 +116,7 @@ export default function ProductRange({ props }: any) {
                 Finishes
               </Typography>
             </Box>
-          </Stack> */}
+          </Stack>
           <Stack direction="row">
             <Box display="flex" flexDirection="row" sx={{ marginTop: { xs: "20px", md: "0" } }}>
               <Box display="flex" flexDirection="row">
@@ -310,12 +310,12 @@ export default function ProductRange({ props }: any) {
                           fontSize: "18px",
                           fontWeight: "medium",
                           textDecorationLine: "none !important",
-                          paddingBottom: "10px",
+                          // paddingBottom: "10px",
                         }}
                       >
                         {item.attributes.Name}
                       </Typography>
-                      <Box sx={{ display: "flex", flexDirection: "row", borderTop: "2px solid #000" }}>
+                      <Box sx={{ display: "flex", flexDirection: "row" }}>
                         {item.attributes.product_varians.data.length > 0 ? (
                           item.attributes.product_varians.data.map((varian: any, index: number) => {
                             let varianText = varian.attributes.Varian;
@@ -418,6 +418,63 @@ export default function ProductRange({ props }: any) {
                             {"‏‏‎"}
                           </Typography>
                         )}
+                      </Box>
+                      <Box
+                        display="flex"
+                        flexDirection="row"
+                        sx={{
+                          marginTop: "12px",
+                          borderTop: "1px solid black",
+                          justifyContent: "space-between",
+                          paddingTop: "12px",
+                          right: "10px",
+                        }}
+                      >
+                        <Tooltip title="Colours" arrow>
+                          <Box display="flex" flexDirection="row">
+                            <Box
+                              sx={{
+                                width: "24px",
+                                height: "24px",
+                                position: "relative",
+                                marginRight: "5px",
+                              }}
+                            >
+                              <Image src={"/static/images/colours-removebg-preview.svg"} fill alt={""} style={{}} />
+                            </Box>
+                            <Typography sx={{ fontSize: "24x", fontWeight: "medium" }}>0{item.attributes.N_Color}</Typography>
+                          </Box>
+                        </Tooltip>
+                        <Tooltip title="Sizes" arrow>
+                          <Box display="flex" flexDirection="row">
+                            <Box
+                              sx={{
+                                width: "23px",
+                                height: "23px",
+                                position: "relative",
+                                marginRight: "5px",
+                              }}
+                            >
+                              <Image src={"/static/images/style-removebg-preview.svg"} fill alt={""} style={{}} />
+                            </Box>
+                            <Typography sx={{ fontSize: "14x", fontWeight: "medium" }}>0{item.attributes.N_Dimension}</Typography>
+                          </Box>
+                        </Tooltip>
+                        <Tooltip title="Finishes" arrow>
+                          <Box display="flex" flexDirection="row">
+                            <Box
+                              sx={{
+                                width: "24px",
+                                height: "24px",
+                                position: "relative",
+                                marginRight: "5px",
+                              }}
+                            >
+                              <Image src={"/static/images/finishes-removebg-preview.svg"} fill alt={""} style={{}} />
+                            </Box>
+                            <Typography sx={{ fontSize: "14x", fontWeight: "medium" }}>0{item.attributes.N_Finish}</Typography>
+                          </Box>
+                        </Tooltip>
                       </Box>
                     </Box>
                   </Box>
