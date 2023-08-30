@@ -360,9 +360,10 @@ export default function ProductExample() {
                                       <NumericFormat
                                         // value={item.pricePerBox * item.quantity}
                                         value={item.pricePerBox}
-                                        decimalScale={3}
+                                        decimalScale={0}
                                         displayType={"text"}
-                                        thousandSeparator={true}
+                                        thousandSeparator={"."}
+                                        decimalSeparator={","}
                                         prefix={"Rp. "}
                                       />{" "}
                                       / Box
@@ -418,7 +419,8 @@ export default function ProductExample() {
                                   value={item.priceTotal}
                                   decimalScale={0}
                                   displayType={"text"}
-                                  thousandSeparator={true}
+                                  thousandSeparator={"."}
+                                  decimalSeparator={","}
                                   prefix={"Rp. "}
                                 />
                               </Typography>
@@ -596,9 +598,10 @@ export default function ProductExample() {
                               <NumericFormat
                                 // value={item.pricePerBox * item.quantity}
                                 value={row.pricePerBox}
-                                decimalScale={3}
+                                decimalScale={0}
                                 displayType={"text"}
-                                thousandSeparator={true}
+                                thousandSeparator={"."}
+                                decimalSeparator={","}
                                 prefix={"Rp. "}
                               />
                             </TableCell>
@@ -608,7 +611,8 @@ export default function ProductExample() {
                                 value={row.priceTotal}
                                 decimalScale={0}
                                 displayType={"text"}
-                                thousandSeparator={true}
+                                thousandSeparator={"."}
+                                decimalSeparator={","}
                                 prefix={"Rp. "}
                               />
                             </TableCell>
@@ -738,7 +742,8 @@ export default function ProductExample() {
                             value={totalPrice}
                             decimalScale={0}
                             displayType={"text"}
-                            thousandSeparator={true}
+                            thousandSeparator={"."}
+                            decimalSeparator={","}
                             prefix={"Rp. "}
                           />
                         </Typography>
