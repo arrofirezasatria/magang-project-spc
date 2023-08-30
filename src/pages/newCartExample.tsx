@@ -206,7 +206,7 @@ export default function ProductExample() {
 
   return (
     <>
-      <ProductLayout backgroundColor="#f2f1f0" full="calc(100vh - 10vh)">
+      <ProductLayout backgroundColor="#f2f1f0" full={cart.length <= 0 ? "calc(100vh - 10vh)" : "auto"}>
         <Box
           className="cart"
           sx={{
