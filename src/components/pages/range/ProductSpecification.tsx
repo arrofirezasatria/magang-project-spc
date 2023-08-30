@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Box, Button, Grid, Stack, Typography, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Divider, useMediaQuery, useTheme } from "@mui/material";
 import Image from "next/image";
@@ -46,7 +46,7 @@ export default function ProductSpecification({ props, data }: any) {
         .then((blob) => {
           const blobURL = window.URL.createObjectURL(new Blob([blob]));
           // const fileName = imgFileUrl.split("/").pop();
-          const fileNameFromAPI = props.productOnly.data.attributes.Image_Ambience.data?.[0]?.attributes.alternativeText;
+          const fileNameFromAPI = props.productOnly.data.attributes.Name + ' ' + props.productOnly.data.attributes.tile_dimension.data.attributes?.Dimension;
 
           const urlParts = imgFileUrl.split("/");
           const urlFileName = urlParts.pop();
@@ -63,6 +63,13 @@ export default function ProductSpecification({ props, data }: any) {
         });
     }
   };
+
+  const [expanded, setExpanded] = useState(false);
+
+  const handleBoxClick = () => {
+    setExpanded(!expanded);
+  };
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
