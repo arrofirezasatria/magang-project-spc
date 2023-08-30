@@ -228,7 +228,7 @@ export default function NavbarProduct() {
               }}
             >
               <Link
-              href="#"
+                href="#"
                 style={{
                   textDecoration: "none",
                   display: "flex",
@@ -1051,7 +1051,14 @@ export default function NavbarProduct() {
                                 </Box>
                                 <Box sx={{ width: "88px", height: "67px" }}>
                                   <Typography sx={{ fontSize: "14px" }}>
-                                    <NumericFormat value={item.priceTotal} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
+                                    <NumericFormat
+                                      value={item.priceTotal}
+                                      decimalScale={0}
+                                      displayType={"text"}
+                                      thousandSeparator={"."} 
+                                      decimalSeparator={","}
+                                      prefix={"Rp. "}
+                                    />
                                   </Typography>
                                   <Box
                                     display="flex"
@@ -1126,7 +1133,14 @@ export default function NavbarProduct() {
                           <Box className="cart-calc">
                             <Typography>Total</Typography>
                             <Typography sx={{ fontWeight: "bold" }}>
-                              <NumericFormat value={totalPrice} decimalScale={3} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
+                              <NumericFormat
+                                value={totalPrice}
+                                decimalScale={0}
+                                displayType={"text"}
+                                thousandSeparator={"."} 
+                                decimalSeparator={","}
+                                prefix={"Rp. "}
+                              />
                             </Typography>
                           </Box>
                           {cart.length > 0 ? (
