@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Grid,
-  Link,
   Stack,
   Typography,
   TextField,
@@ -63,10 +62,18 @@ export default function ProductSpecification({ props, data }: any) {
         .then((response) => response.blob())
         .then((blob) => {
           const blobURL = window.URL.createObjectURL(new Blob([blob]));
-          const fileName = imgFileUrl.split("/").pop();
+          // const fileName = imgFileUrl.split("/").pop();
+          const fileNameFromAPI = props.productOnly.data.attributes.Image_Ambience.data?.[0]?.attributes.alternativeText;
+
+          const urlParts = imgFileUrl.split("/");
+          const urlFileName = urlParts.pop();
+          const urlFileNameParts = urlFileName.split(".");
+          const fileExtension = urlFileNameParts.pop();
+
+          const fileNameWithExtension = `${fileNameFromAPI}.${fileExtension}`;
           const aTag = document.createElement("a");
           aTag.href = blobURL;
-          aTag.setAttribute("download", fileName);
+          aTag.setAttribute("download", fileNameWithExtension);
           document.body.appendChild(aTag);
           aTag.click();
           aTag.remove();
@@ -135,8 +142,8 @@ export default function ProductSpecification({ props, data }: any) {
     // @ts-ignore
     setTotalPrice(
       qtt *
-        props.productOnly.data.attributes.SQM_Box *
-        props.productOnly.data.attributes.Price
+      props.productOnly.data.attributes.SQM_Box *
+      props.productOnly.data.attributes.Price
     );
   }, [
     props.productOnly.data.attributes.Price,
@@ -149,7 +156,7 @@ export default function ProductSpecification({ props, data }: any) {
 
   return (
     <>
-      <ToastContainer style={{ marginLeft: isSizeLessThan380 ? "4%" : "0",width:isSizeLessThan380 ? "92%" : "",marginTop: isSizeLessThan380 ? "70px" : "50px", marginRight: isSizeLessThan900 ? "0px" : "0" }} />
+      <ToastContainer style={{ marginLeft: isSizeLessThan380 ? "4%" : "0", width: isSizeLessThan380 ? "92%" : "", marginTop: isSizeLessThan380 ? "70px" : "50px", marginRight: isSizeLessThan900 ? "0px" : "0" }} />
       <Box sx={{ p: { xs: "20px 0x", md: "20px 30px" } }}>
         <Box sx={{ position: "relative" }}>
           <Box
@@ -203,7 +210,7 @@ export default function ProductSpecification({ props, data }: any) {
                     props.productOnly.data.attributes?.tile_dimension.data
                       .attributes.Dimension == "60x60cm"
                       ? "auto"
-                      : { xs: "auto", sm: "715px" }
+                      : { xs: "auto", sm: "715px" } // 600-610px responsive problem
                   }
                   sx={{
                     width: { xs: "100%", md: "80%" },
@@ -251,33 +258,35 @@ export default function ProductSpecification({ props, data }: any) {
                 }}
               >
                 {imgFileUrl ? (
-                  <Link
+                  <Button
+                    href=''
                     onClick={() => {
                       downloadFileAtUrl();
                     }}
-                    underline="none"
                     download={imgFileUrl}
-                    sx={{
-                      bgcolor: "#000",
+                    style={{
+                      backgroundColor: "#000",
                       color: "#fff",
                       borderRadius: "5px",
-                      p: "8px 8px 8px 8px",
+                      padding: "8px 8px 8px 8px",
                       fontFamily:
                         '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                       fontSize: "14px",
-                      mb: "5px",
+                      marginBottom: "5px",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      cursor: "pointer",
-                      width: "100%",
+                      textTransform: 'capitalize',
+                      width: '100%',
                     }}
                   >
                     <FileDownloadOutlinedIcon
                       sx={{ pr: "8px", fontSize: "18px" }}
                     />
-                    Download Tile Preview
-                  </Link>
+                    <Typography sx={{ fontSize: '14px' }}>
+                      Download Tile Preview
+                    </Typography>
+                  </Button>
                 ) : (
                   <Box>No download face image available</Box>
                 )}
@@ -376,8 +385,8 @@ export default function ProductSpecification({ props, data }: any) {
                         props.motif.data.attributes.motif.data.attributes
                           .product_varians?.data?.length > 0
                           ? props.motif.data.attributes.motif.data.attributes.product_varians?.data
-                              .map((item: any) => item.attributes.Varian)
-                              .join(", ")
+                            .map((item: any) => item.attributes.Varian)
+                            .join(", ")
                           : "-",
                     },
                     {
@@ -404,7 +413,7 @@ export default function ProductSpecification({ props, data }: any) {
                       title: "Rectified Edge",
                       value:
                         props.productOnly.data.attributes?.Rectified.toString() ==
-                        "true"
+                          "true"
                           ? "Yes"
                           : "No",
                     },
