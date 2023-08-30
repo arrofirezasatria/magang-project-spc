@@ -231,7 +231,10 @@ export default function ProductExample() {
 
   return (
     <>
-      <ProductLayout backgroundColor="#f2f1f0" full={cart.length <= 0 ? "calc(100vh - 10vh)" : "auto"}>
+      <ProductLayout
+        backgroundColor="#f2f1f0"
+        full={cart.length <= 0 ? "calc(100vh - 10vh)" : "auto"}
+      >
         <Box
           className="cart"
           sx={{
@@ -453,7 +456,9 @@ export default function ProductExample() {
                                   }}
                                   type="number"
                                   value={item.quantity}
-                                  onChange={(event) => handleQuantityChange(event, row.id)}
+                                  onChange={(event) =>
+                                    handleQuantityChange(event, row.id)
+                                  }
                                   variant="standard"
                                   InputProps={{
                                     disableUnderline: true,
@@ -492,9 +497,9 @@ export default function ProductExample() {
                               key={index}
                               align="left"
                               sx={{
-                                width: item == "" ? '90px' : 'auto',
+                                width: item == null ? "90px" : "auto",
                                 textTransform: "capitalize",
-                                p: '16px 8px',
+                                p: "16px 12px",
                               }}
                             >
                               {item}
@@ -511,7 +516,7 @@ export default function ProductExample() {
                                 fontWeight: "medium",
                                 fontSize: "1rem",
                                 letterSpacing: "0.5px",
-                                p: '16px 8px',
+                                p: "16px 12px",
                               },
                             }}
                           >
@@ -566,7 +571,9 @@ export default function ProductExample() {
                                     }}
                                     type="number"
                                     value={row.quantity}
-                                    onChange={(event) => handleQuantityChange(event, row.id)}
+                                    onChange={(event) =>
+                                      handleQuantityChange(event, row.id)
+                                    }
                                     variant="standard"
                                     InputProps={{
                                       disableUnderline: true,
@@ -608,10 +615,9 @@ export default function ProductExample() {
                             <TableCell align="left">
                               <Button
                                 sx={{
-                                  maxWidth: '100px',
-                                  border: '2px solid #000',
-                                  borderRadius: '5px',
-                                  textAlign: 'left',
+                                  border: "2px solid #000",
+                                  borderRadius: "5px",
+                                  textAlign: "left",
                                   "&:hover": {
                                     bgcolor: "#fff",
                                   },
