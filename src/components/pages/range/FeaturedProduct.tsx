@@ -1,38 +1,60 @@
-import { Grid, Stack, Typography, Container, Button, InputLabel, MenuItem, Select, Box } from "@mui/material";
+import {
+  Grid,
+  Stack,
+  Typography,
+  Container,
+  Button,
+  InputLabel,
+  MenuItem,
+  Select,
+  Box,
+} from '@mui/material';
 // import { GetStaticProps } from "next";
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
 export default function FeaturedProducts(props : any) {
-  console.log("isaudy87qec7ye87ywe87rcw6rcwec6r78we67rwe");
-  console.log(props.alt1);
-  console.log(props?.alt1?.data?.attributes.motif.data.attributes.Name)
-  console.log(props.alt2);
-  console.log(props.alt3);
+  const Title = props?.title?.data[0]?.attributes.style_motifs.data[0]?.attributes.Style;
+  console.log(props?.title?.data[0]?.attributes.style_motifs.data[0]?.attributes.Style);
   let featurproduct = [];
   featurproduct.push({
     name: props?.alt1?.data?.attributes.motif.data.attributes.Name,
-    style: props?.alt1?.data?.attributes.motif.data.attributes.style_motifs.data[0].attributes.Style,
-    varian: props?.alt1?.data?.attributes.motif.data.attributes.product_varians.data[0].attributes.Varian,
-    image: props?.alt1?.data?.attributes.Image_Ambience.data[0].attributes.formats.large.url
+    style:
+      props?.alt1?.data?.attributes.motif.data.attributes.style_motifs.data[0]
+        .attributes.Style,
+    varian:
+      props?.alt1?.data?.attributes.motif.data.attributes.product_varians
+        .data[0].attributes.Varian,
+    image:
+      props?.alt1?.data?.attributes.Image_Ambience.data[0].attributes.formats
+        .large.url,
   });
 
   featurproduct.push({
     name: props?.alt2?.data?.attributes.motif.data.attributes.Name,
-    style: props?.alt2?.data?.attributes.motif.data.attributes.style_motifs.data[0].attributes.Style,
-    varian: props?.alt2?.data?.attributes.motif.data.attributes.product_varians.data[0].attributes.Varian,
-    image: props?.alt2?.data?.attributes.Image_Ambience.data[0].attributes.formats.large.url
-
+    style:
+      props?.alt2?.data?.attributes.motif.data.attributes.style_motifs.data[0]
+        .attributes.Style,
+    varian:
+      props?.alt2?.data?.attributes.motif.data.attributes.product_varians
+        .data[0].attributes.Varian,
+    image:
+      props?.alt2?.data?.attributes.Image_Ambience.data[0].attributes.formats
+        .large.url,
   });
 
   featurproduct.push({
     name: props?.alt3?.data?.attributes.motif.data.attributes.Name,
-    style: props?.alt3?.data?.attributes.motif.data.attributes.style_motifs.data[0].attributes.Style,
-    varian: props?.alt3?.data?.attributes.motif.data.attributes.product_varians.data[0].attributes.Varian,
-    image: props?.alt3?.data?.attributes.Image_Ambience.data[0].attributes.formats.large.url
-
+    style:
+      props?.alt3?.data?.attributes.motif.data.attributes.style_motifs.data[0]
+        .attributes.Style,
+    varian:
+      props?.alt3?.data?.attributes.motif.data.attributes.product_varians
+        .data[0].attributes.Varian,
+    image:
+      props?.alt3?.data?.attributes.Image_Ambience.data[0].attributes.formats
+        .large.url,
   });
-
 
   return (
     <>
@@ -42,16 +64,30 @@ export default function FeaturedProducts(props : any) {
             letterSpacing: "2px",
             position: "relative",
             textAlign: "center",
+            pb: "30px",
+
           }}
         >
-          <Typography sx={{ fontSize: "27px", fontWeight: "bold" }}>FEATURED PRODUCT RANGES</Typography>
-          <Typography sx={{ fontSize: "32px", fontWeight: "bold",mt:"16px" }}>CONCRETE</Typography>
+          <Typography sx={{ fontSize: "27px", fontWeight: "bold",textTransform:"uppercase" }}>Featured {Title} Collection</Typography>
+        <Box
+            component="span"
+            sx={{
+              position: "absolute",
+              bottom: "0",
+              left: "50%",
+              width: "100px",
+              height: "3px",
+              backgroundColor: "black",
+              transform: "translateX(-50%)",
+              content: "''",
+            }}
+          />
         </Box>
-        <Grid container spacing={3} sx={{ mt: "40px" }}>
+        <Grid container spacing={3} sx={{ mt: "40px", justifyContent:"center" }}>
           {featurproduct.map((item, index) => (
             <Grid key={index} item md={4} sm={6}  sx={{ width: "359px" }}>
               <Grid item md={12} sx={{ position: "relative", width: "100%", height: "462px" }}>
-              <Image src={item.image} fill alt={""} style={{objectFit:"cover"}} />
+              <Image src={item.image} layout='fill' alt={""} style={{objectFit:"cover"}} />
               </Grid>
               <Grid item md={12}>
                 <Typography
