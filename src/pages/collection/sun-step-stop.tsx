@@ -17,17 +17,17 @@ export default function SunStepStop(props: any) {
   return (
     <>
       <ProductHero props={props} pageTitle="sss" pageImage="sss" />
-      {/* <Container>
+      <Container>
         <Grid>
           <AddressProduct />
-          <DescriptionProducts props={props} />
+          <DescriptionProducts props={props} pageDescription="sss" />
         </Grid>
       </Container>
       <ProductLayout backgroundColor={"#f5f5f5"}>
-        <FeaturedProducts alt1={props.alternative1} alt2={props.alternative2} alt3={props.alternative3} title={props.woodMotif} />
-      </ProductLayout>   */}
+        <FeaturedProducts props={props} pageTitle="sss" />
+      </ProductLayout>  
       <ProductLayout>
-        <ProductRange props={props} />
+        <ProductRange props={props}  pageTitle="sss"/>
       </ProductLayout>
           
     </>

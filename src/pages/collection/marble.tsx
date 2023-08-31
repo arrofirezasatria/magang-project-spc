@@ -18,18 +18,18 @@ export default function Marble(props: any) {
   console.log(props.marble.data[0]?.attributes.style_motifs.data[0]?.attributes.Style );
   return (
     <>
-      <ProductHero props={props} pageTitle="marble" />
-      {/* <Container>
+      <ProductHero props={props} pageTitle="marble" pageImage="marble" />
+      <Container>
         <Grid>
           <AddressProduct />
-          <DescriptionProducts props={props} />
+          <DescriptionProducts props={props} pageDescription="marble"/>
         </Grid>
       </Container>
       <ProductLayout backgroundColor={"#f5f5f5"}>
-        <FeaturedProducts alt1={props.alternative1} alt2={props.alternative2} alt3={props.alternative3} title={props.wallTile} />
-      </ProductLayout>   */}
+        <FeaturedProducts props={props} pageTitle="marble" />
+      </ProductLayout>  
       <ProductLayout>
-        <ProductRange props={props} />
+        <ProductRange props={props} pageTitle="marble"/>
       </ProductLayout>
     </>
   );

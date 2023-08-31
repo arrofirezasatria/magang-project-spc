@@ -18,18 +18,18 @@ export default function Bookmatch(props: any) {
   console.log(props.bookmatch.data[0]?.attributes.product_varians.data[0]?.attributes.Varian);
   return (
     <>
-      <ProductHero props={props} pageTitle="bookmatch" />
-      {/* <Container>
+      <ProductHero props={props} pageTitle="bookmatch" pageImage="bookmatch" />
+      <Container>
         <Grid>
           <AddressProduct />
-          <DescriptionProducts props={props} />
+          <DescriptionProducts props={props} pageDescription="bookmatch"/>
         </Grid>
       </Container>
       <ProductLayout backgroundColor={"#f5f5f5"}>
-        <FeaturedProducts alt1={props.alternative1} alt2={props.alternative2} alt3={props.alternative3} title={props.wallTile} />
-      </ProductLayout>   */}
+        <FeaturedProducts props={props} pageTitle="bookmatch" />
+      </ProductLayout>  
       <ProductLayout>
-        <ProductRange props={props} />
+        <ProductRange props={props} pageTitle="bookmatch"/>
       </ProductLayout>
     </>
   );

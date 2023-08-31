@@ -18,18 +18,18 @@ export default function Endmatch(props: any) {
   console.log(props.endmatch.data[0]?.attributes.product_varians.data[1]?.attributes.Varian);
   return (
     <>
-      <ProductHero props={props} pageTitle="endmatch" />
-      {/* <Container>
+      <ProductHero props={props} pageTitle="endmatch" pageImage="endmatch"/>
+      <Container>
         <Grid>
           <AddressProduct />
-          <DescriptionProducts props={props} />
+          <DescriptionProducts props={props} pageDescription="endmatch"/>
         </Grid>
       </Container>
       <ProductLayout backgroundColor={"#f5f5f5"}>
-        <FeaturedProducts alt1={props.alternative1} alt2={props.alternative2} alt3={props.alternative3} title={props.wallTile} />
-      </ProductLayout>   */}
+        <FeaturedProducts props={props} pageTitle="endmatch" />
+      </ProductLayout>  
       <ProductLayout>
-        <ProductRange props={props} />
+        <ProductRange props={props}  pageTitle="endmatch"/>
       </ProductLayout>
     </>
   );

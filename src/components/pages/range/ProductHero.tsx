@@ -30,27 +30,27 @@ export default function ProductHero({ props, pageTitle, pageImage }: any) {
       : "";
 
   const image =
-    pageTitle === "wood"
+    pageImage === "wood"
       ? props.woodMotif.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
-      : pageTitle === "wall-tile-set"
+      : pageImage === "wall-tile-set"
       ? props.walltile.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
-      : pageTitle === "sss"
+      : pageImage === "sss"
       ? props.sss.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
-      : pageTitle === "stone"
+      : pageImage === "stone"
       ? props.stone.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
-      : pageTitle === "plain"
+      : pageImage === "plain"
       ? props.plain2.data[1]?.attributes.Image_Hero_2880x1138px.data.attributes.url
-      : pageTitle === "mixture"
+      : pageImage === "mixture"
       ? props.mixture.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
-      : pageTitle === "marble"
+      : pageImage === "marble"
       ? props.marble.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
-      : pageTitle === "infinity"
+      : pageImage === "infinity"
       ? props.infinity.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
-      : pageTitle === "endmatch"
+      : pageImage === "endmatch"
       ? props.endmatch.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
-      : pageTitle === "concrete"
+      : pageImage === "concrete"
       ? props.concrete.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
-      : pageTitle === "bookmatch"
+      : pageImage === "bookmatch"
       ? props.bookmatch.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
       :"";
   console.log("propszijaidhasdhaishdauisd");

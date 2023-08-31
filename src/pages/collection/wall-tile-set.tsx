@@ -15,18 +15,18 @@ export default function WallTileSet(props: any) {
   return (
     <>
       <ProductHero props={props} pageTitle="wall-tile-set" pageImage="wall-tile-set" />
-      {/* <Container>
+      <Container>
         <Grid>
           <AddressProduct />
-          <DescriptionProducts props={props} />
+          <DescriptionProducts props={props} pageDescription="wall-tile-set" />
         </Grid>
       </Container>
       <ProductLayout backgroundColor={"#f5f5f5"}>
-        <FeaturedProducts alt1={props.alternative1} alt2={props.alternative2} alt3={props.alternative3} title={props.wallTile} />
+        <FeaturedProducts props={props} pageTitle="wall-tile-set" />
       </ProductLayout>  
       <ProductLayout>
-        <ProductRange props={props} />
-      </ProductLayout> */}
+        <ProductRange props={props} pageTitle="wall-tile-set" />
+      </ProductLayout>
     </>
   );
 }

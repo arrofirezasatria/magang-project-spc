@@ -31,10 +31,31 @@ const theme = createTheme({
   },
 });
 
-export default function ProductRange({ props }: any) {
-  // const Title = props.woodMotif.data[0]?.attributes.style_motifs.data[0]?.attributes.Style;
-  
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+export default function ProductRange({ props,pageTitle }: any) {
+  const Title =
+    pageTitle === "wall-tile-set"
+      ? props.walltile.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
+      : pageTitle === "wood"
+      ? props.woodMotif.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "sss"
+      ? props.sss.data[0]?.attributes.product_varians.data[1]?.attributes.Varian
+      : pageTitle === "stone"
+      ? props.stone.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "plain"
+      ? props.plain.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "mixture"
+      ? props.mixture.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
+      : pageTitle === "marble"
+      ? props.marble.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "infinity"
+      ? props.infinity.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
+      : pageTitle === "endmatch"
+      ? props.endmatch.data[0]?.attributes.product_varians.data[1]?.attributes.Varian
+      : pageTitle === "concrete"
+      ? props.concrete.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "bookmatch"
+      ? props.bookmatch.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
+      : "";
   const [open, setOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState('asc');
   const [showNewItems, setShowNewItems] = useState(false);
@@ -74,7 +95,7 @@ export default function ProductRange({ props }: any) {
                 fontWeight: 'bold',
                 textTransform: 'uppercase',
               }}>
-              {/* {Title} Collection */}
+              {Title} Collection
             </Typography>
             <Box
               component="span"

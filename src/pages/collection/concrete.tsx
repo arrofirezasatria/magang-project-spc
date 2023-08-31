@@ -18,18 +18,18 @@ export default function Concrete(props: any) {
   console.log(props.concrete.data[0]?.attributes.style_motifs.data[0]?.attributes.Style );
   return (
     <>
-      <ProductHero props={props} pageTitle="concrete" />
-      {/* <Container>
+      <ProductHero props={props} pageTitle="concrete" pageImage="concrete"/>
+      <Container>
         <Grid>
           <AddressProduct />
-          <DescriptionProducts props={props} />
+          <DescriptionProducts props={props} pageDescription="concrete" />
         </Grid>
       </Container>
       <ProductLayout backgroundColor={"#f5f5f5"}>
-        <FeaturedProducts alt1={props.alternative1} alt2={props.alternative2} alt3={props.alternative3} title={props.wallTile} />
-      </ProductLayout>   */}
+        <FeaturedProducts props={props} pageTitle="concrete" />
+      </ProductLayout>  
       <ProductLayout>
-        <ProductRange props={props} />
+        <ProductRange props={props} pageTitle="concrete"/>
       </ProductLayout>
     </>
   );

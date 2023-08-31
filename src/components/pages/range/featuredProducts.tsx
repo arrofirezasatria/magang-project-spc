@@ -5,6 +5,7 @@ import Image from "next/image";
 
 export default function FeaturedProducts({ props }: any) {
   // console.log("isaudy87qec7ye87ywe87rcw6rcwec6r78we67rwe");
+  
   const featuredProducts = [
     {
       imgSrc: "/static/images/contoh.jpg",

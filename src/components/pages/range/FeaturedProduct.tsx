@@ -13,48 +13,59 @@ import {
 import React from 'react';
 import Image from 'next/image';
 
-export default function FeaturedProducts(props : any) {
-  const Title = props?.title?.data[0]?.attributes.style_motifs.data[0]?.attributes.Style;
-  console.log(props?.title?.data[0]?.attributes.style_motifs.data[0]?.attributes.Style);
-  let featurproduct = [];
-  featurproduct.push({
-    name: props?.alt1?.data?.attributes.motif.data.attributes.Name,
-    style:
-      props?.alt1?.data?.attributes.motif.data.attributes.style_motifs.data[0]
-        .attributes.Style,
-    varian:
-      props?.alt1?.data?.attributes.motif.data.attributes.product_varians
-        .data[0].attributes.Varian,
-    image:
-      props?.alt1?.data?.attributes.Image_Ambience.data[0].attributes.formats
-        .large.url,
-  });
+export default function FeaturedProducts({props, pageTitle,alt1,alt2,alt3} : any) {
 
-  featurproduct.push({
-    name: props?.alt2?.data?.attributes.motif.data.attributes.Name,
-    style:
-      props?.alt2?.data?.attributes.motif.data.attributes.style_motifs.data[0]
-        .attributes.Style,
-    varian:
-      props?.alt2?.data?.attributes.motif.data.attributes.product_varians
-        .data[0].attributes.Varian,
-    image:
-      props?.alt2?.data?.attributes.Image_Ambience.data[0].attributes.formats
-        .large.url,
-  });
+    const Title  =
+    pageTitle === "wall-tile-set"
+      ? props.walltile.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
+      : pageTitle === "wood"
+      ? props.woodMotif.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "sss"
+      ? props.sss.data[0]?.attributes.product_varians.data[1]?.attributes.Varian
+      : pageTitle === "stone"
+      ? props.stone.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "plain"
+      ? props.plain.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "mixture"
+      ? props.mixture.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
+      : pageTitle === "marble"
+      ? props.marble.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "infinity"
+      ? props.infinity.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
+      : pageTitle === "endmatch"
+      ? props.endmatch.data[0]?.attributes.product_varians.data[1]?.attributes.Varian
+      : pageTitle === "concrete"
+      ? props.concrete.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "bookmatch"
+      ? props.bookmatch.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
+      : "";
 
-  featurproduct.push({
-    name: props?.alt3?.data?.attributes.motif.data.attributes.Name,
-    style:
-      props?.alt3?.data?.attributes.motif.data.attributes.style_motifs.data[0]
-        .attributes.Style,
-    varian:
-      props?.alt3?.data?.attributes.motif.data.attributes.product_varians
-        .data[0].attributes.Varian,
-    image:
-      props?.alt3?.data?.attributes.Image_Ambience.data[0].attributes.formats
-        .large.url,
-  });
+    console.log('props.pageTitle:', Title);
+    let featurproduct = [];
+
+    // Push alternative 1 data into featurproduct
+    featurproduct.push({
+      name: props.alternative1.data.attributes.motif.data.attributes.Name,
+      style: props.alternative1.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
+      varian: props.alternative1.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
+      image: props.alternative1.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+    });
+    
+    // Push alternative 2 data into featurproduct
+    featurproduct.push({
+      name: props.alternative2.data.attributes.motif.data.attributes.Name,
+      style: props.alternative2.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
+      varian: props.alternative2.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
+      image: props.alternative2.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+    });
+    
+    // Push alternative 3 data into featurproduct
+    featurproduct.push({
+      name: props.alternative3.data.attributes.motif.data.attributes.Name,
+      style: props.alternative3.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
+      varian: props.alternative3.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
+      image: props.alternative3.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+    });
 
   return (
     <>
