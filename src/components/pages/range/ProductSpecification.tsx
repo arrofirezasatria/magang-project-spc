@@ -46,7 +46,7 @@ export default function ProductSpecification({ props, data }: any) {
         .then((blob) => {
           const blobURL = window.URL.createObjectURL(new Blob([blob]));
           // const fileName = imgFileUrl.split("/").pop();
-          const fileNameFromAPI = props.productOnly.data.attributes.Name + ' ' + props.productOnly.data.attributes.tile_dimension.data.attributes?.Dimension;
+          const fileNameFromAPI = props.productOnly.data.attributes.Name + " " + props.productOnly.data.attributes.tile_dimension.data.attributes?.Dimension;
 
           const urlParts = imgFileUrl.split("/");
           const urlFileName = urlParts.pop();

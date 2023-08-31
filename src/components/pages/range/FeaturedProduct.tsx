@@ -1,38 +1,71 @@
-import { Grid, Stack, Typography, Container, Button, InputLabel, MenuItem, Select, Box } from "@mui/material";
+import {
+  Grid,
+  Stack,
+  Typography,
+  Container,
+  Button,
+  InputLabel,
+  MenuItem,
+  Select,
+  Box,
+} from '@mui/material';
 // import { GetStaticProps } from "next";
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
-export default function FeaturedProducts(props : any) {
-  console.log("isaudy87qec7ye87ywe87rcw6rcwec6r78we67rwe");
-  console.log(props.alt1);
-  console.log(props?.alt1?.data?.attributes.motif.data.attributes.Name)
-  console.log(props.alt2);
-  console.log(props.alt3);
-  let featurproduct = [];
-  featurproduct.push({
-    name: props?.alt1?.data?.attributes.motif.data.attributes.Name,
-    style: props?.alt1?.data?.attributes.motif.data.attributes.style_motifs.data[0].attributes.Style,
-    varian: props?.alt1?.data?.attributes.motif.data.attributes.product_varians.data[0].attributes.Varian,
-    image: props?.alt1?.data?.attributes.Image_Ambience.data[0].attributes.formats.large.url
-  });
+export default function FeaturedProducts({props, pageTitle,alt1,alt2,alt3} : any) {
 
-  featurproduct.push({
-    name: props?.alt2?.data?.attributes.motif.data.attributes.Name,
-    style: props?.alt2?.data?.attributes.motif.data.attributes.style_motifs.data[0].attributes.Style,
-    varian: props?.alt2?.data?.attributes.motif.data.attributes.product_varians.data[0].attributes.Varian,
-    image: props?.alt2?.data?.attributes.Image_Ambience.data[0].attributes.formats.large.url
+    const Title  =
+    pageTitle === "wall-tile-set"
+      ? props.walltile.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
+      : pageTitle === "wood"
+      ? props.woodMotif.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "sss"
+      ? props.sss.data[0]?.attributes.product_varians.data[1]?.attributes.Varian
+      : pageTitle === "stone"
+      ? props.stone.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "plain"
+      ? props.plain.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "mixture"
+      ? props.mixture.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
+      : pageTitle === "marble"
+      ? props.marble.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "infinity"
+      ? props.infinity.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
+      : pageTitle === "endmatch"
+      ? props.endmatch.data[0]?.attributes.product_varians.data[1]?.attributes.Varian
+      : pageTitle === "concrete"
+      ? props.concrete.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
+      : pageTitle === "bookmatch"
+      ? props.bookmatch.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
+      : "";
 
-  });
+    console.log('props.pageTitle:', Title);
+    let featurproduct = [];
 
-  featurproduct.push({
-    name: props?.alt3?.data?.attributes.motif.data.attributes.Name,
-    style: props?.alt3?.data?.attributes.motif.data.attributes.style_motifs.data[0].attributes.Style,
-    varian: props?.alt3?.data?.attributes.motif.data.attributes.product_varians.data[0].attributes.Varian,
-    image: props?.alt3?.data?.attributes.Image_Ambience.data[0].attributes.formats.large.url
-
-  });
-
+    // Push alternative 1 data into featurproduct
+    featurproduct.push({
+      name: props.alternative1.data.attributes.motif.data.attributes.Name,
+      style: props.alternative1.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
+      varian: props.alternative1.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
+      image: props.alternative1.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+    });
+    
+    // Push alternative 2 data into featurproduct
+    featurproduct.push({
+      name: props.alternative2.data.attributes.motif.data.attributes.Name,
+      style: props.alternative2.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
+      varian: props.alternative2.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
+      image: props.alternative2.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+    });
+    
+    // Push alternative 3 data into featurproduct
+    featurproduct.push({
+      name: props.alternative3.data.attributes.motif.data.attributes.Name,
+      style: props.alternative3.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
+      varian: props.alternative3.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
+      image: props.alternative3.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+    });
 
   return (
     <>
@@ -42,15 +75,30 @@ export default function FeaturedProducts(props : any) {
             letterSpacing: "2px",
             position: "relative",
             textAlign: "center",
+            pb: "30px",
+
           }}
         >
-          <Typography sx={{ fontSize: "27px", fontWeight: "bold" }}>FEATURED PRODUCT RANGES: CONCRETE</Typography>
+          <Typography sx={{ fontSize: "27px", fontWeight: "bold",textTransform:"uppercase" }}>Featured {Title} Collection</Typography>
+        <Box
+            component="span"
+            sx={{
+              position: "absolute",
+              bottom: "0",
+              left: "50%",
+              width: "100px",
+              height: "3px",
+              backgroundColor: "black",
+              transform: "translateX(-50%)",
+              content: "''",
+            }}
+          />
         </Box>
-        <Grid container spacing={3} sx={{ mt: "40px" }}>
+        <Grid container spacing={3} sx={{ mt: "40px", justifyContent:"center" }}>
           {featurproduct.map((item, index) => (
             <Grid key={index} item md={4} sm={6}  sx={{ width: "359px" }}>
               <Grid item md={12} sx={{ position: "relative", width: "100%", height: "462px" }}>
-              <Image src={item.image} fill alt={""} style={{objectFit:"cover"}} />
+              <Image src={item.image} layout='fill' alt={""} style={{objectFit:"cover"}} />
               </Grid>
               <Grid item md={12}>
                 <Typography

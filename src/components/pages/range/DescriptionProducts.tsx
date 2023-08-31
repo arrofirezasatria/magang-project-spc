@@ -1,15 +1,39 @@
-import { Box, Container, Grid, Stack, Typography, Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 
 
-export default function DescriptionProducts() {
+export default function DescriptionProducts({props,pageDescription}: any) {
+  const description =
+  pageDescription === "wall-tile-set"
+    ? props.walltile.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description"
+    : pageDescription === "wood"
+    ? props.woodMotif.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description"
+    : pageDescription === "sss"
+    ? props.sss.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description"
+    : pageDescription === "stone"
+    ? props.stone.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description"
+    : pageDescription === "plain"
+    ? props.plain.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description"
+    : pageDescription === "mixture"
+    ? props.mixture.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description"
+    : pageDescription === "marble"
+    ? props.marble.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description"
+    : pageDescription === "infinity"
+    ? props.infinity.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description"
+    : pageDescription === "endmatch"
+    ? props.endmatch.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description"
+    : pageDescription === "concrete"
+    ? props.concrete.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description"
+    : pageDescription === "bookmatch"
+    ? props.bookmatch.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description"
+    : "asjdoiqduqiowdquiooqwdiu";
   return (
     <>
       <Grid sx={{mt:"100px"}}>
           <Box
             sx={{
-              textAlign: "left",
+              textAlign: "justify",
               marginBottom: { xs: "85px", md: "110px" },
             }}
           >
@@ -21,10 +45,9 @@ export default function DescriptionProducts() {
                 marginBottom: { xs: "18px", md: "24px" },
               }}
             >
-              Our selection of concrete effect products range from small-format wall options with a stunning weathered effect, to large-format structured flooring products with PTV 36+ slip resistance ratings. Tile your next project here
-              with products ideal for residential or commercial applications, and everything in between.
+              {description}
             </Typography>
-            <Typography
+            {/* <Typography
               sx={{
                 fontWeight: "medium",
                 lineHeight: "33px",
@@ -33,7 +56,7 @@ export default function DescriptionProducts() {
             >
               We have an inspirational range of tiles covering all size formats, styles, shapes, and colours. Our portfolio consists of three product collections: Intro, Select and Absolute. Navigate through the entire selection of concrete
               products below, co-ordinating both colour and style. Whatever your budget, we’re confident we have what you’re looking for.
-            </Typography>
+            </Typography> */}
           </Box>
         </Grid>
     </>

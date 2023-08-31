@@ -44,6 +44,7 @@ import {
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
+import { event } from "cypress/types/jquery";
 
 const headers = {
   Authorization:
@@ -458,9 +459,8 @@ export default function ProductExample() {
                                   }}
                                   type="number"
                                   value={item.quantity}
-                                  onChange={(event) =>
-                                    handleQuantityChange(event, row.id)
-                                  }
+                                  // @ts-ignore
+                                  onChange={(event) => handleQuantityChange(event, row.id)}
                                   variant="standard"
                                   InputProps={{
                                     disableUnderline: true,
