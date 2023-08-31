@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Stack, Typography, Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 
@@ -9,7 +9,7 @@ export default function DescriptionProducts() {
       <Grid sx={{mt:"100px"}}>
           <Box
             sx={{
-              textAlign: "left",
+              textAlign: "justify",
               marginBottom: { xs: "85px", md: "110px" },
             }}
           >
