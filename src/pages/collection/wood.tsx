@@ -13,9 +13,10 @@ import ProductLayout from "@layouts/ProductLayout";
 
 export default function Wood(props: any) {
   console.log("ziahihauushdbfdsuifsduiicbudsyfuisydfsd");
+  console.log(props.woodMotif.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url);
   return (
     <>
-      <ProductHero props={props} pageTitle="wood" />
+      <ProductHero props={props} pageTitle="wood" pageImage="wood" />
       {/* <Container>
         <Grid>
           <AddressProduct />

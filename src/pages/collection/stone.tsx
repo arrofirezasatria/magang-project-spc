@@ -18,7 +18,7 @@ export default function stone(props: any) {
   console.log(props.stone.data[0]?.attributes.style_motifs.data[0]?.attributes.Style );
   return (
     <>
-      <ProductHero props={props} pageTitle="stone" />
+      <ProductHero props={props} pageTitle="stone" pageImage="stone" />
       {/* <Container>
         <Grid>
           <AddressProduct />

@@ -11,9 +11,10 @@ import ProductLayout from "@layouts/ProductLayout";
 
 export default function WallTileSet(props: any) {
   console.log("ziahihauushdbfdsuifsduiicbudsyfuisydfsd");
+  console.log(props.walltile.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url);
   return (
     <>
-      <ProductHero props={props} pageTitle="wall-tile-set" />
+      <ProductHero props={props} pageTitle="wall-tile-set" pageImage="wall-tile-set" />
       {/* <Container>
         <Grid>
           <AddressProduct />

@@ -16,7 +16,7 @@ export default function SunStepStop(props: any) {
   // console.log(props.sss.data[0]?.attributes.product_varians.data[1]?.attributes.Varian);
   return (
     <>
-      <ProductHero props={props} pageTitle="sss" />
+      <ProductHero props={props} pageTitle="sss" pageImage="sss" />
       {/* <Container>
         <Grid>
           <AddressProduct />

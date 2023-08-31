@@ -3,7 +3,7 @@ import { Box, Grid, Typography } from "@mui/material";
 // import { GetStaticProps } from "next";
 import Image from "next/image";
 
-export default function ProductHero({ props,  pageTitle }: any) {
+export default function ProductHero({ props, pageTitle, pageImage }: any) {
   const title =
     pageTitle === "wall-tile-set"
       ? props.walltile.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
@@ -29,6 +29,30 @@ export default function ProductHero({ props,  pageTitle }: any) {
       ? props.bookmatch.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
       : "";
 
+  const image =
+    pageTitle === "wood"
+      ? props.woodMotif.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
+      : pageTitle === "wall-tile-set"
+      ? props.walltile.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
+      : pageTitle === "sss"
+      ? props.sss.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
+      : pageTitle === "stone"
+      ? props.stone.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
+      : pageTitle === "plain"
+      ? props.plain2.data[1]?.attributes.Image_Hero_2880x1138px.data.attributes.url
+      : pageTitle === "mixture"
+      ? props.mixture.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
+      : pageTitle === "marble"
+      ? props.marble.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
+      : pageTitle === "infinity"
+      ? props.infinity.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
+      : pageTitle === "endmatch"
+      ? props.endmatch.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
+      : pageTitle === "concrete"
+      ? props.concrete.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
+      : pageTitle === "bookmatch"
+      ? props.bookmatch.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url
+      :"";
   console.log("propszijaidhasdhaishdauisd");
   // const imageUrl = props.woodMotif.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url;
   // console.log(TitleWalltile);
@@ -46,14 +70,14 @@ export default function ProductHero({ props,  pageTitle }: any) {
         }}
       >
         <Box sx={{ height: "100%", position: "relative" }}>
-          {/* <Image
-              src={imageUrl}
-              fill
-              alt="hero"
-              style={{
-                objectFit: "cover",
-              }}
-            /> */}
+          <Image
+            src={image}
+            fill
+            alt="hero"
+            style={{
+              objectFit: "cover",
+            }}
+          />
           <Box
             className="transparent-bg"
             sx={{
