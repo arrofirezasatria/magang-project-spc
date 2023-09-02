@@ -12,22 +12,23 @@ import FeaturedProducts from "@components/pages/range/FeaturedProduct";
 import ProductLayout from "@layouts/ProductLayout";
 
 export default function SunStepStop(props: any) {
-  console.log("ziahihauushdbfdsuifsduiicbudsyfuisydfsd");
-  // console.log(props.sss.data[0]?.attributes.product_varians.data[1]?.attributes.Varian);
+  const pageTitle = props.sss.data[0]?.attributes.product_varians.data[1]?.attributes.Varian;
+  const pageImage = props.sss.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url;
+  const pageDescription = props.sss.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description";
   return (
     <>
-      <ProductHero props={props} pageTitle="sss" pageImage="sss" />
+      <ProductHero props={props}  pageTitle={pageTitle} pageImage={pageImage} />
       <Container>
         <Grid>
           <AddressProduct />
-          <DescriptionProducts props={props} pageDescription="sss" />
+          <DescriptionProducts props={props} pageDescription={pageDescription} />
         </Grid>
       </Container>
       <ProductLayout backgroundColor={"#f5f5f5"}>
-        <FeaturedProducts props={props} pageTitle="sss" />
+        <FeaturedProducts props={props} pageTitle={pageTitle} />
       </ProductLayout>  
       <ProductLayout>
-        <ProductRange props={props}  pageTitle="sss"/>
+        <ProductRange props={props}  pageTitle={pageTitle}/>
       </ProductLayout>
           
     </>

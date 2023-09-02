@@ -1,6 +1,23 @@
 import React, { useState } from "react";
 
-import { Box, Button, Grid, Stack, Typography, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Divider, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Link,
+  Stack,
+  Typography,
+  TextField,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Divider,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import Image from "next/image";
 import Zoom from "react-medium-image-zoom";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
@@ -120,8 +137,16 @@ export default function ProductSpecification({ props, data }: any) {
 
   React.useEffect(() => {
     // @ts-ignore
-    setTotalPrice(qtt * props.productOnly.data.attributes.SQM_Box * props.productOnly.data.attributes.Price);
-  }, [props.productOnly.data.attributes.Price, props.productOnly.data.attributes.SQM_Box, qtt]);
+    setTotalPrice(
+      qtt *
+        props.productOnly.data.attributes.SQM_Box *
+        props.productOnly.data.attributes.Price
+    );
+  }, [
+    props.productOnly.data.attributes.Price,
+    props.productOnly.data.attributes.SQM_Box,
+    qtt,
+  ]);
   const isSizeLessThan380 = useMediaQuery(theme.breakpoints.down(481));
   const isSizeLessThan900 = useMediaQuery(theme.breakpoints.down(900));
   React.useState();
@@ -232,12 +257,14 @@ export default function ProductSpecification({ props, data }: any) {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      textTransform: "capitalize",
-                      width: "100%",
+                      textTransform: 'capitalize',
+                      width: '100%',
                     }}
                   >
-                    <FileDownloadOutlinedIcon sx={{ pr: "8px", fontSize: "18px" }} />
-                    <Typography sx={{ fontSize: "14px" }}>Download Tile Preview</Typography>
+                    <FileDownloadOutlinedIcon
+                      sx={{ pr: "8px", fontSize: "18px" }}
+                    />
+                    Download Tile Preview
                   </Button>
                 ) : (
                   <Box>No download face image available</Box>
@@ -327,8 +354,11 @@ export default function ProductSpecification({ props, data }: any) {
                     {
                       title: "Product Varian",
                       value:
-                        props.motif.data.attributes.motif.data.attributes.product_varians?.data?.length > 0
-                          ? props.motif.data.attributes.motif.data.attributes.product_varians?.data.map((item: any) => item.attributes.Varian).join(", ")
+                        props.motif.data.attributes.motif.data.attributes
+                          .product_varians?.data?.length > 0
+                          ? props.motif.data.attributes.motif.data.attributes.product_varians?.data
+                            .map((item: any) => item.attributes.Varian)
+                            .join(", ")
                           : "-",
                     },
                     {
@@ -349,7 +379,11 @@ export default function ProductSpecification({ props, data }: any) {
                     },
                     {
                       title: "Rectified Edge",
-                      value: props.productOnly.data.attributes?.Rectified.toString() == "true" ? "Yes" : "No",
+                      value:
+                        props.productOnly.data.attributes?.Rectified.toString() ==
+                          "true"
+                          ? "Yes"
+                          : "No",
                     },
                     {
                       title: "Shade Variation",

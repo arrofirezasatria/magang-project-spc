@@ -1,12 +1,8 @@
 import {
   Grid,
-  Stack,
   Typography,
   Container,
   Button,
-  InputLabel,
-  MenuItem,
-  Select,
   Box,
 } from '@mui/material';
 // import { GetStaticProps } from "next";
@@ -14,52 +10,20 @@ import React from 'react';
 import Image from 'next/image';
 
 export default function FeaturedProducts({props, pageTitle,alt1,alt2,alt3} : any) {
-
-    const Title  =
-    pageTitle === "wall-tile-set"
-      ? props.walltile.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
-      : pageTitle === "wood"
-      ? props.woodMotif.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
-      : pageTitle === "sss"
-      ? props.sss.data[0]?.attributes.product_varians.data[1]?.attributes.Varian
-      : pageTitle === "stone"
-      ? props.stone.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
-      : pageTitle === "plain"
-      ? props.plain.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
-      : pageTitle === "mixture"
-      ? props.mixture.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
-      : pageTitle === "marble"
-      ? props.marble.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
-      : pageTitle === "infinity"
-      ? props.infinity.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
-      : pageTitle === "endmatch"
-      ? props.endmatch.data[0]?.attributes.product_varians.data[1]?.attributes.Varian
-      : pageTitle === "concrete"
-      ? props.concrete.data[0]?.attributes.style_motifs.data[0]?.attributes.Style
-      : pageTitle === "bookmatch"
-      ? props.bookmatch.data[0]?.attributes.product_varians.data[0]?.attributes.Varian
-      : "";
-
-    console.log('props.pageTitle:', Title);
+  const Title = pageTitle;
     let featurproduct = [];
-
-    // Push alternative 1 data into featurproduct
     featurproduct.push({
       name: props.alternative1.data.attributes.motif.data.attributes.Name,
       style: props.alternative1.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
       varian: props.alternative1.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
       image: props.alternative1.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
     });
-    
-    // Push alternative 2 data into featurproduct
     featurproduct.push({
       name: props.alternative2.data.attributes.motif.data.attributes.Name,
       style: props.alternative2.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
       varian: props.alternative2.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
       image: props.alternative2.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
     });
-    
-    // Push alternative 3 data into featurproduct
     featurproduct.push({
       name: props.alternative3.data.attributes.motif.data.attributes.Name,
       style: props.alternative3.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,

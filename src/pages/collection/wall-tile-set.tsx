@@ -10,22 +10,25 @@ import FeaturedProducts from "@components/pages/range/FeaturedProduct";
 import ProductLayout from "@layouts/ProductLayout";
 
 export default function WallTileSet(props: any) {
-  console.log("ziahihauushdbfdsuifsduiicbudsyfuisydfsd");
-  console.log(props.walltile.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url);
+  const pageTitle = props.walltile.data[0]?.attributes.product_varians.data[0]?.attributes.Varian;
+  const pageImage = props.walltile.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url;
+  const pageDescription = props.walltile.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description";
   return (
     <>
-      <ProductHero props={props} pageTitle="wall-tile-set" pageImage="wall-tile-set" />
+      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} />
       <Container>
         <Grid>
           <AddressProduct />
-          <DescriptionProducts props={props} pageDescription="wall-tile-set" />
+          <DescriptionProducts props={props} pageDescription={pageDescription} />
         </Grid>
       </Container>
       <ProductLayout backgroundColor={"#f5f5f5"}>
-        <FeaturedProducts props={props} pageTitle="wall-tile-set" />
+        <FeaturedProducts props={props} pageTitle={pageTitle} />
       </ProductLayout>  
       <ProductLayout>
-        <ProductRange props={props} pageTitle="wall-tile-set" />
+        <ProductRange props={props}
+          pageTitle={pageTitle}
+        />
       </ProductLayout>
     </>
   );

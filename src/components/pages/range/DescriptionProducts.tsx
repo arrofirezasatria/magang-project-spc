@@ -4,30 +4,7 @@ import React from "react";
 
 
 export default function DescriptionProducts({props,pageDescription}: any) {
-  const description =
-  pageDescription === "wall-tile-set"
-    ? props.walltile.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description"
-    : pageDescription === "wood"
-    ? props.woodMotif.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description"
-    : pageDescription === "sss"
-    ? props.sss.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description"
-    : pageDescription === "stone"
-    ? props.stone.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description"
-    : pageDescription === "plain"
-    ? props.plain.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description"
-    : pageDescription === "mixture"
-    ? props.mixture.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description"
-    : pageDescription === "marble"
-    ? props.marble.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description"
-    : pageDescription === "infinity"
-    ? props.infinity.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description"
-    : pageDescription === "endmatch"
-    ? props.endmatch.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description"
-    : pageDescription === "concrete"
-    ? props.concrete.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description"
-    : pageDescription === "bookmatch"
-    ? props.bookmatch.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description"
-    : "asjdoiqduqiowdquiooqwdiu";
+  const description = pageDescription;
   return (
     <>
       <Grid sx={{mt:"100px"}}>

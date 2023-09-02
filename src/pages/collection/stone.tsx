@@ -15,21 +15,23 @@ import FeaturedProducts from "@components/pages/range/FeaturedProduct";
 import ProductLayout from "@layouts/ProductLayout";
 
 export default function stone(props: any) {
-  console.log(props.stone.data[0]?.attributes.style_motifs.data[0]?.attributes.Style );
+  const pageTitle = props.stone.data[0]?.attributes.style_motifs.data[0]?.attributes.Style;
+  const pageImage = props.stone.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url;
+  const pageDescription = props.stone.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description";
   return (
     <>
-      <ProductHero props={props} pageTitle="stone" pageImage="stone" />
+      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} />
       <Container>
         <Grid>
           <AddressProduct />
-          <DescriptionProducts props={props} pageDescription="stone" />
+          <DescriptionProducts props={props} pageDescription={pageDescription} />
         </Grid>
       </Container>
       <ProductLayout backgroundColor={"#f5f5f5"}>
         <FeaturedProducts props={props} pageTitle="stone" />
       </ProductLayout>  
       <ProductLayout>
-        <ProductRange props={props} pageTitle="stone" />
+        <ProductRange props={props} pageTitle={pageTitle} />
       </ProductLayout>
     </>
   );

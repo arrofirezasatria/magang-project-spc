@@ -12,24 +12,24 @@ import FeaturedProducts from "@components/pages/range/FeaturedProduct";
 import ProductLayout from "@layouts/ProductLayout";
 
 export default function Wood(props: any) {
-  console.log("ziahihauushdbfdsuifsduiicbudsyfuisydfsd");
-  console.log(props.woodMotif.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url);
+  const PageTitle = props.woodMotif.data[0]?.attributes.style_motifs.data[0]?.attributes.Style;
+  const pageImage = props.woodMotif.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url;
+  const pageDescription = props.woodMotif.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description";
   return (
     <>
-      <ProductHero props={props} pageTitle="wood" pageImage="wood" />
+      <ProductHero props={props} pageTitle={PageTitle} pageImage={pageImage} />
       <Container>
         <Grid>
           <AddressProduct />
-          <DescriptionProducts props={props} pageDescription="wood"/>
+          <DescriptionProducts props={props} pageDescription={pageDescription}/>
         </Grid>
       </Container>
       <ProductLayout backgroundColor={"#f5f5f5"}>
-        <FeaturedProducts props={props} pageTitle="wood" />
+        <FeaturedProducts props={props} pageTitle={PageTitle} />
       </ProductLayout>  
       <ProductLayout>
-        <ProductRange props={props} pageTitle="wood" />
+        <ProductRange props={props} pageTitle={PageTitle} />
       </ProductLayout>
-          
     </>
   );
 }

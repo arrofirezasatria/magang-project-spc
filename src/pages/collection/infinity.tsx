@@ -16,20 +16,23 @@ import ProductLayout from "@layouts/ProductLayout";
 
 export default function Infinity(props: any) {
   console.log(props.infinity.data[0]?.attributes.product_varians.data[0]?.attributes.Varian);
+  const pageTitle = props.infinity.data[0]?.attributes.product_varians.data[0]?.attributes.Varian;
+  const pageImage = props.infinity.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url;
+  const pageDescription =  props.infinity.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description";
   return (
     <>
-      <ProductHero props={props} pageTitle="infinity" pageImage="infinity" />
+      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} />
       <Container>
         <Grid>
           <AddressProduct />
-          <DescriptionProducts props={props} pageDescription="infinity"/>
+          <DescriptionProducts props={props} pageDescription={pageDescription}/>
         </Grid>
       </Container>
       <ProductLayout backgroundColor={"#f5f5f5"}>
-        <FeaturedProducts props={props} pageTitle="infinity" />
+        <FeaturedProducts props={props} pageTitle={pageTitle} />
       </ProductLayout>  
       <ProductLayout>
-        <ProductRange props={props}  pageTitle="infinity"/>
+        <ProductRange props={props} pageTitle={pageTitle} />
       </ProductLayout>
     </>
   );

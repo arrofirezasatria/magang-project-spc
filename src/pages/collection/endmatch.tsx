@@ -15,21 +15,23 @@ import FeaturedProducts from "@components/pages/range/FeaturedProduct";
 import ProductLayout from "@layouts/ProductLayout";
 
 export default function Endmatch(props: any) {
-  console.log(props.endmatch.data[0]?.attributes.product_varians.data[1]?.attributes.Varian);
+  const pageTitle = props.endmatch.data[0]?.attributes.product_varians.data[1]?.attributes.Varian;
+  const pageImage = props.endmatch.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url;
+  const pageDescription = props.endmatch.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description";
   return (
     <>
-      <ProductHero props={props} pageTitle="endmatch" pageImage="endmatch"/>
+      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} />
       <Container>
         <Grid>
           <AddressProduct />
-          <DescriptionProducts props={props} pageDescription="endmatch"/>
+          <DescriptionProducts props={props} pageDescription={pageDescription}/>
         </Grid>
       </Container>
       <ProductLayout backgroundColor={"#f5f5f5"}>
-        <FeaturedProducts props={props} pageTitle="endmatch" />
+        <FeaturedProducts props={props} pageTitle={pageTitle} />
       </ProductLayout>  
       <ProductLayout>
-        <ProductRange props={props}  pageTitle="endmatch"/>
+        <ProductRange props={props} pageTitle={pageTitle} />
       </ProductLayout>
     </>
   );
