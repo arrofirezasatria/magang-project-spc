@@ -16,11 +16,12 @@ import ProductLayout from "@layouts/ProductLayout";
 
 export default function Endmatch(props: any) {
   const pageTitle = props.endmatch.data[0]?.attributes.product_varians.data[1]?.attributes.Varian;
+  const pageShortDescription =props.endmatch.data[0]?.attributes.product_varians.data[1]?.attributes.Short_Description;
   const pageImage = props.endmatch.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url;
   const pageDescription = props.endmatch.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description";
   return (
     <>
-      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} />
+      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} pageShortDescription={pageShortDescription}/>
       <ProductLayout>
         <AddressProduct />
         <DescriptionProducts props={props} pageDescription={pageDescription} />

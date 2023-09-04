@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
+import {Box} from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 import axios from "axios";
@@ -13,11 +13,12 @@ import ProductLayout from "@layouts/ProductLayout";
 
 export default function SunStepStop(props: any) {
   const pageTitle = props.sss.data[0]?.attributes.product_varians.data[1]?.attributes.Varian;
+  const pageShortDescription = props.sss.data[0]?.attributes.product_varians.data[1]?.attributes.Short_Description;
   const pageImage = props.sss.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url;
   const pageDescription = props.sss.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description";
   return (
     <>
-      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} />
+      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} pageShortDescription={pageShortDescription} />
       <ProductLayout>
         <AddressProduct />
         <DescriptionProducts props={props} pageDescription={pageDescription} />

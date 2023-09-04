@@ -16,11 +16,12 @@ import ProductLayout from "@layouts/ProductLayout";
 
 export default function Concrete(props: any) {
   const pageTitle = props.concrete.data[0]?.attributes.style_motifs.data[0]?.attributes.Style;
+  const pageShortDescription = props.concrete.data[0]?.attributes.style_motifs.data[0]?.attributes.Short_Description;
   const pageImage = props.concrete.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url;
   const pageDescription = props.concrete.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description";
   return (
     <>
-      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} />
+      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} pageShortDescription={pageShortDescription}/>
       <ProductLayout>
         <AddressProduct />
         <DescriptionProducts props={props} pageDescription={pageDescription} />

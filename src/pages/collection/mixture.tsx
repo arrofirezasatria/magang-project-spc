@@ -16,11 +16,12 @@ import ProductLayout from "@layouts/ProductLayout";
 
 export default function Mixture(props: any) {
   const pageTitle = props.mixture.data[0]?.attributes.product_varians.data[0]?.attributes.Varian;
+  const pageShortDescription =props.mixture.data[0]?.attributes.product_varians.data[0]?.attributes.Short_Description;
   const pageImage = props.mixture.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url;
   const pageDescription = props.mixture.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description";
   return (
     <>
-      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} />
+      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} pageShortDescription={pageShortDescription}/>
       <ProductLayout>
         <AddressProduct />
         <DescriptionProducts props={props} pageDescription={pageDescription} />

@@ -2,7 +2,7 @@
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 
-export default function ProductHero({ pageTitle, pageImage }: any) {
+export default function ProductHero({ pageTitle, pageImage,pageShortDescription }: any) {
 
   const title = pageTitle;
   const image = pageImage;
@@ -51,7 +51,7 @@ export default function ProductHero({ pageTitle, pageImage }: any) {
               variant="h1"
               sx={{
                 fontSize: { xs: "40px", md: "70px" },
-                fontWeight: "600",
+                fontWeight: "700",
                 letterSpacing: "5px",
                 mb: "1rem",
                 textTransform: "uppercase",
@@ -112,7 +112,7 @@ export default function ProductHero({ pageTitle, pageImage }: any) {
                       textShadow: "0 0 5px rgba(0,0,0,.3)",
                     }}
                   >
-                    {/* {props.ShortDescription} */}
+                    {pageShortDescription}
                   </Typography>
                 </Box>
             </Box>
