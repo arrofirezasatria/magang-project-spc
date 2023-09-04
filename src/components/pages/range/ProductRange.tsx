@@ -1,4 +1,4 @@
-import { Box, Tabs, Tab, Container, Grid, Stack, Typography, Button, FormControl, Select, MenuItem, InputLabel, useMediaQuery, useTheme, Tooltip } from "@mui/material";
+import { Box, Tabs, Tab, Container, Grid, Stack, Typography, Button, FormControl, Select, MenuItem, InputLabel, useMediaQuery, useTheme, Tooltip, TextField } from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 import Image from "next/image";
@@ -8,6 +8,8 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { useState } from "react";
 import Link from "next/link";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+
 const theme = createTheme({
   typography: {
     fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
@@ -22,25 +24,30 @@ export default function ProductRange({ props, pageTitle }: any) {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isSizeLessThan380 = useMediaQuery(theme.breakpoints.down(380));
   const [activeTab, setActiveTab] = useState("az");
+  const [filterText, setFilterText] = useState("");
 
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
   };
 
+
   const filteredAndSortedData = props.response.data
-    .sort((a: any, b: any) => {
-      if (sortOrder === "asc") {
-        return a.attributes.Name.localeCompare(b.attributes.Name);
-      } else {
-        return b.attributes.Name.localeCompare(a.attributes.Name);
-      }
-    })
-    .sort((a: any, b: any) => {
-      if (activeTab === "new") {
-        return b.attributes.isNew - a.attributes.isNew;
-      }
-      return 0;
-    });
+  .filter((item: any) => {
+    return item.attributes.Name.toLowerCase().includes(filterText.toLowerCase());
+  })
+  .sort((a: any, b: any) => {
+    if (sortOrder === "asc") {
+      return a.attributes.Name.localeCompare(b.attributes.Name);
+    } else {
+      return b.attributes.Name.localeCompare(a.attributes.Name);
+    }
+  })
+  .sort((a: any, b: any) => {
+    if (activeTab === "new") {
+      return b.attributes.isNew - a.attributes.isNew;
+    }
+    return 0;
+  });
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -78,98 +85,98 @@ export default function ProductRange({ props, pageTitle }: any) {
               }}
             />
           </Box>
-          <Stack direction={{md:"row" }} spacing={{ xs: 1, sm: 2, md: 4 }} justifyContent="center" sx={{ marginBottom: "30px" }}>
-            <Stack  sx={{flexWrap:"wrap",display:"flex",flexDirection:"row",justifyContent:"center"}}>
+          <Stack direction={{ md: "row" }} spacing={{ xs: 1, sm: 2, md: 4 }} justifyContent="center" sx={{ marginBottom: "30px", }}>
+            <Stack sx={{ flexWrap: "wrap", display: "flex", flexDirection: "row", justifyContent: "center",alignItems:"center" }}>
               <Stack direction="row">
-                <Box display="flex" flexDirection="row" sx={{  marginRight: {xs:"15px",sm:"35px",md:"35px"}}}>
-                <Box
-                  sx={{
-                    width: "30px",
-                    height: "30px",
-                    position: "relative",
-                    mt: "6px",
-                  }}
-                >
-                  <Image src={"/static/images/colour.svg"} layout="fill" alt={""} style={{}} />
+                <Box display="flex" flexDirection="row" sx={{ marginRight: { xs: "15px", sm: "35px", md: "35px" } }}>
+                  <Box
+                    sx={{
+                      width: "30px",
+                      height: "30px",
+                      position: "relative",
+                      mt: "6px",
+                    }}
+                  >
+                    <Image src={"/static/images/colour.svg"} layout="fill" alt={""} style={{}} />
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontWeight: 500,
+                      fontSize: "16px",
+                      textAlign: "center",
+                      paddingLeft: "10px",
+                      paddingTop: "5px",
+                      lineHeight: 2.2,
+                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                    }}
+                  >
+                    Colours
+                  </Typography>
                 </Box>
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                    fontSize: "16px",
-                    textAlign: "center",
-                    paddingLeft: "10px",
-                    paddingTop: "5px",
-                    lineHeight: 2.2,
-                    fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
-                  }}
-                >
-                  Colours
-                </Typography>
-              </Box>
-              <Box display="flex" flexDirection="row" sx={{ marginRight: {xs:"15px",sm:"35px",md:"35px"} }}>
-                <Box
-                  sx={{
-                    width: "30px",
-                    height: "30px",
-                    position: "relative",
-                    mt: "6px",
-                  }}
-                >
-                  <Image src={"/static/images/sizes.svg"} layout="fill" alt={""} style={{}} />
+                <Box display="flex" flexDirection="row" sx={{ marginRight: { xs: "15px", sm: "35px", md: "35px" } }}>
+                  <Box
+                    sx={{
+                      width: "30px",
+                      height: "30px",
+                      position: "relative",
+                      mt: "6px",
+                    }}
+                  >
+                    <Image src={"/static/images/sizes.svg"} layout="fill" alt={""} style={{}} />
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontWeight: 500,
+                      fontSize: "16px",
+                      textAlign: "center",
+                      paddingLeft: "10px",
+                      paddingTop: "5px",
+                      lineHeight: 2.2,
+                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                    }}
+                  >
+                    Sizes
+                  </Typography>
                 </Box>
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                    fontSize: "16px",
-                    textAlign: "center",
-                    paddingLeft: "10px",
-                    paddingTop: "5px",
-                    lineHeight: 2.2,
-                    fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
-                  }}
-                >
-                  Sizes
-                </Typography>
-              </Box>
-              <Box display="flex" flexDirection="row" sx={{marginRight: {xs:"0px",sm:"35px",md:"35px"}}}>
-                <Box
-                  sx={{
-                    width: "30px",
-                    height: "30px",
-                    position: "relative",
-                    mt: "6px",
-                  }}
-                >
-                  <Image src={"/static/images/finishies.svg"} layout="fill" alt={""} style={{}} />
+                <Box display="flex" flexDirection="row" sx={{ marginRight: { xs: "0px", sm: "35px", md: "35px" } }}>
+                  <Box
+                    sx={{
+                      width: "30px",
+                      height: "30px",
+                      position: "relative",
+                      mt: "6px",
+                    }}
+                  >
+                    <Image src={"/static/images/finishies.svg"} layout="fill" alt={""} style={{}} />
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontWeight: 500,
+                      fontSize: "16px",
+                      textAlign: "center",
+                      paddingLeft: "10px",
+                      paddingTop: "5px",
+                      lineHeight: 2.2,
+                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important',
+                    }}
+                  >
+                    Finishes
+                  </Typography>
                 </Box>
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                    fontSize: "16px",
-                    textAlign: "center",
-                    paddingLeft: "10px",
-                    paddingTop: "5px",
-                    lineHeight: 2.2,
-                    fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important',
-                  }}
-                >
-                  Finishes
-                </Typography>
-              </Box>
               </Stack>
-              
+
               <Stack direction="row" sx={{}}>
-                <Box display="flex" flexDirection="row" sx={{ marginTop: { xs: "20px",sm:"0px", md: "0px" } }}>
+                <Box display="flex" flexDirection="row" sx={{ marginTop: { xs: "20px", sm: "0px", md: "0px" } }}>
                   <Button
                     onClick={() => handleTabClick("az")}
                     sx={{
                       py: "0px",
                       pl: "0px",
                       pr: "3px",
-                      marginRight: {xs:"15px",sm:"35px",md:"35px"},
-                      color: activeTab === "az" ? "black" : "gray", 
+                      marginRight: { xs: "15px", sm: "35px", md: "35px" },
+                      color: activeTab === "az" ? "black" : "gray",
                       fontWeight: 500,
-                      borderBottom: activeTab === "az" ? "3px solid black" : "none", 
+                      borderBottom: activeTab === "az" ? "3px solid black" : "none",
                       borderRadius: "0px",
                     }}
                   >
@@ -182,7 +189,7 @@ export default function ProductRange({ props, pageTitle }: any) {
                         paddingLeft: "10px",
                         color: "black",
                         textTransform: "capitalize",
-                        
+
                         fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important',
                       }}
                     >
@@ -209,7 +216,7 @@ export default function ProductRange({ props, pageTitle }: any) {
                         textAlign: "center",
                         paddingLeft: "10px",
                         textTransform: "capitalize",
-                        color:"black",
+                        color: "black",
                         fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important',
                       }}
                     >
@@ -218,6 +225,34 @@ export default function ProductRange({ props, pageTitle }: any) {
                   </Button>
                 </Box>
               </Stack>
+
+              <Box sx={{ backgroundColor: "#F2F1F0", height: "30px", display: "flex", flexDirection: "row", alignItems: "center",pr:"5px",borderRadius:"8px",justifyContent:"center",ml:"35px" }}>
+                <TextField
+                  sx={{
+                    width: "130px",
+                    "& .MuiInputBase-input": {
+                      textAlign: "left",
+                      fontSize: "14px",
+                      p: "0px",
+                      px:"10px",
+                      height: "30px",
+                    },
+                    "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button": {
+                      appearance: "none",
+                    },
+                  }}
+                  variant="standard"
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
+                  size="small"
+                  value={filterText} 
+                  onChange={(e) => setFilterText(e.target.value)}
+                />
+                <Button sx={{ p: "0px",px:"7px",py:"4px", minWidth: 0,backgroundColor:"white",borderRadius:"8px" }}>
+                  <SearchOutlinedIcon sx={{fontSize:"16px",color:"black"}} />
+                </Button>
+              </Box>
             </Stack>
           </Stack>
         </Grid>
