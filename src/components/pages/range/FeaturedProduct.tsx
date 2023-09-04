@@ -1,4 +1,4 @@
-import { Grid, Typography, Container, Button, Box } from "@mui/material";
+import { Grid, Typography, Tooltip, Button, Box } from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 import Image from "next/image";
@@ -11,128 +11,217 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
     style: props.alternative1.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
     varian: props.alternative1.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
     image: props.alternative1.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+    color: props.alternative1.data.attributes.motif.data.attributes.N_Color,
+    size: props.alternative1.data.attributes.motif.data.attributes.N_Dimension,
+    finish: props.alternative1.data.attributes.motif.data.attributes.N_Finish,
   });
   featurproduct.push({
     name: props.alternative2.data.attributes.motif.data.attributes.Name,
     style: props.alternative2.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
     varian: props.alternative2.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
     image: props.alternative2.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+    color: props.alternative2.data.attributes.motif.data.attributes.N_Color,
+    size: props.alternative2.data.attributes.motif.data.attributes.N_Dimension,
+    finish: props.alternative2.data.attributes.motif.data.attributes.N_Finish,
   });
   featurproduct.push({
     name: props.alternative3.data.attributes.motif.data.attributes.Name,
     style: props.alternative3.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
     varian: props.alternative3.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
     image: props.alternative3.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+    color: props.alternative3.data.attributes.motif.data.attributes.N_Color,
+    size: props.alternative3.data.attributes.motif.data.attributes.N_Dimension,
+    finish: props.alternative3.data.attributes.motif.data.attributes.N_Finish,
   });
 
   return (
     <>
+      <Box
+        sx={{
+          letterSpacing: "2px",
+          position: "relative",
+          textAlign: "center",
+          pb: "30px",
+        }}
+      >
+        <Typography sx={{ fontSize: "27px", fontWeight: "bold", textTransform: "uppercase" }}>Featured {Title} Collection</Typography>
         <Box
+          component="span"
           sx={{
-            letterSpacing: "2px",
-            position: "relative",
-            textAlign: "center",
-            pb: "30px",
+            position: "absolute",
+            bottom: "0",
+            left: "50%",
+            width: "100px",
+            height: "3px",
+            backgroundColor: "black",
+            transform: "translateX(-50%)",
+            content: "''",
           }}
-        >
-          <Typography sx={{ fontSize: "27px", fontWeight: "bold", textTransform: "uppercase" }}>Featured {Title} Collection</Typography>
-          <Box
-            component="span"
-            sx={{
-              position: "absolute",
-              bottom: "0",
-              left: "50%",
-              width: "100px",
-              height: "3px",
-              backgroundColor: "black",
-              transform: "translateX(-50%)",
-              content: "''",
-            }}
-          />
-        </Box>
-        <Grid container spacing={3} sx={{ mt: "40px", justifyContent: "center" }}>
-          {featurproduct.map((item, index) => (
-            <Grid key={index} item md={4} sm={6} sx={{ width: "359px" }}>
-              <Grid item md={12} sx={{ position: "relative", width: "100%", height: "462px" }}>
-                <Image src={item.image} layout="fill" alt={""} style={{ objectFit: "cover" }} />
-              </Grid>
-              <Grid item md={12}>
+        />
+      </Box>
+      <Grid container spacing={3} sx={{ mt: "40px", justifyContent: "center" }}>
+        {featurproduct.map((item, index) => (
+          <Grid key={index} item md={4} sm={6} sx={{ width: "359px" }}>
+            <Grid item md={12} sx={{ position: "relative", width: "100%", height: "462px" }}>
+              <Image src={item.image} layout="fill" alt={""} style={{ objectFit: "cover" }} />
+            </Grid>
+            <Grid item md={12}>
+              <Typography
+                sx={{
+                  marginTop: "20px",
+                  textTransform: "uppercase",
+                  fontWeight: "bold",
+                  letterSpacing: "2px",
+                  textAlign: "center",
+                  fontSize: "24px",
+                }}
+              >
+                {item.name}
+              </Typography>
+            </Grid>
+            <Grid display="flex" flexDirection="row" sx={{ justifyContent: "center", marginTop: "5px" }}>
+              <Box>
                 <Typography
                   sx={{
-                    marginTop: "20px",
-                    textTransform: "uppercase",
-                    fontWeight: "bold",
-                    letterSpacing: "2px",
-                    textAlign: "center",
-                    fontSize: "24px",
-                  }}
-                >
-                  {item.name}
-                </Typography>
-              </Grid>
-
-              <Grid display="flex" flexDirection="row" sx={{ justifyContent: "center", marginTop: "5px" }}>
-                <Box>
-                  <Typography
-                    sx={{
-                      borderRadius: "5px",
-                      color: "white",
-                      display: "inline-block",
-                      fontSize: "13px",
-                      fontWeight: "medium",
-                      letterSpacing: "1px",
-                      textTransform: "uppercase",
-                      backgroundColor: item.varian ? "grey" : "transparent", // Conditional background color
-                      border: item.varian ? "1px solid grey" : "none", // Conditional border
-                      marginRight: item.varian ? "5px" : "0px",
-                      py: item.varian ? "3px": "0px",
-                      px: item.varian ? "4px": "0px",
-                    }}
-                  >
-                    {item.varian ? item.varian : ""}
-                  </Typography>
-                </Box>
-
-                <Typography
-                  sx={{
-                    border: "1px solid black",
                     borderRadius: "5px",
-                    color: "black",
+                    color: "white",
                     display: "inline-block",
                     fontSize: "13px",
                     fontWeight: "medium",
                     letterSpacing: "1px",
                     textTransform: "uppercase",
-                    py: "3px",
-                    px: "4px",
+                    backgroundColor: item.varian ? "grey" : "transparent", // Conditional background color
+                    border: item.varian ? "1px solid grey" : "none", // Conditional border
+                    marginRight: item.varian ? "5px" : "0px",
+                    py: item.varian ? "3px" : "0px",
+                    px: item.varian ? "4px" : "0px",
                   }}
                 >
-                  {item.style}
+                  {item.varian ? item.varian : ""}
                 </Typography>
-              </Grid>
+              </Box>
+              <Typography
+                sx={{
+                  border: "1px solid black",
+                  borderRadius: "5px",
+                  color: "black",
+                  display: "inline-block",
+                  fontSize: "13px",
+                  fontWeight: "medium",
+                  letterSpacing: "1px",
+                  textTransform: "uppercase",
+                  py: "3px",
+                  px: "4px",
+                }}
+              >
+                {item.style}
+              </Typography>
             </Grid>
-          ))}
-        </Grid>
+            <Box
+              display="flex"
+              flexDirection="row"
+              sx={{
+                marginTop: "12px",
+                justifyContent: "center",
+                paddingTop: "12px",
+                right: "10px",
+              }}
+            >
+              <Tooltip title="Colours" arrow>
+                <Box display="flex" flexDirection="row" sx={{alignItems:"center"}}>
+                  <Box
+                    sx={{
+                      width: "30px",
+                      height: "30px",
+                      position: "relative",
+                      marginRight: "5px",
+                    }}
+                  >
+                    <Image src={"/static/images/colour.svg"} layout="fill" alt={""} style={{}} />
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontSize: "16px",
+                      fontWeight: "medium",
+                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                    }}
+                  >
+                    0{item.color}
+                  </Typography>
+                </Box>
+              </Tooltip>
+              <Tooltip title="Sizes" arrow>
+                <Box display="flex" flexDirection="row" sx={{alignItems:"center"}}>
+                  <Box
+                    sx={{
+                      width: "30px",
+                      height: "30px",
+                      position: "relative",
+                      marginRight: "5px",
+                      ml: "20px",
+                    }}
+                  >
+                    <Image src={"/static/images/sizes.svg"} layout="fill" alt={""} style={{}} />
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontSize: "14x",
+                      fontWeight: "medium",
+                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                    }}
+                  >
+                    0{item.size}
+                  </Typography>
+                </Box>
+              </Tooltip>
+              <Tooltip title="Finishes" arrow>
+                <Box display="flex" flexDirection="row" sx={{alignItems:"center"}}>
+                  <Box
+                    sx={{
+                      width: "30px",
+                      height: "30px",
+                      position: "relative",
+                      marginRight: "5px",
+                      ml: "20px",
+                    }}
+                  >
+                    <Image src={"/static/images/finishies.svg"} layout="fill" alt={""} style={{}} />
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontSize: "14x",
+                      fontWeight: "medium",
+                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                    }}
+                  >
+                    0{item.finish}
+                  </Typography>
+                </Box>
+              </Tooltip>
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
 
-        <Box
-          display="flex"
+      <Box
+        display="flex"
+        sx={{
+          justifyContent: "center",
+          marginTop: "50px",
+        }}
+      >
+        <Button
           sx={{
-            justifyContent: "center",
-            marginTop: "50px",
+            textTransform: "capitalize",
+            border: "1px solid #000",
+            color: "#000",
+            padding: "8px 10px 5px",
+            borderRadius: "5px",
           }}
         >
-          <Button
-            sx={{
-              textTransform: "capitalize",
-              border: "1px solid #000",
-              color: "#000",
-              padding: "8px 10px 5px",
-              borderRadius: "5px",
-            }}
-          >
-            View All Product Ranges
-          </Button>
-        </Box>
+          View All Product Ranges
+        </Button>
+      </Box>
     </>
   );
 }
