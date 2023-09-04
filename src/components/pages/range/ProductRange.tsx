@@ -16,19 +16,28 @@ const theme = createTheme({
 
 export default function ProductRange({ props, pageTitle }: any) {
   const Title = pageTitle;
-  const [open, setOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState("asc");
-  const [showNewItems, setShowNewItems] = useState(false);
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isSizeLessThan380 = useMediaQuery(theme.breakpoints.down(380));
+  const [activeTab, setActiveTab] = useState("az");
+
+  const handleTabClick = (tabName: string) => {
+    setActiveTab(tabName);
+  };
 
   const filteredAndSortedData = props.response.data
-    .sort((a: any, b: any) => (sortOrder === "asc" ? a.attributes.Name.localeCompare(b.attributes.Name) : b.attributes.Name.localeCompare(a.attributes.Name)))
     .sort((a: any, b: any) => {
-      if (showNewItems) {
-        return b.attributes.isNew - a.attributes.isNew; // Show new items first
+      if (sortOrder === "asc") {
+        return a.attributes.Name.localeCompare(b.attributes.Name);
+      } else {
+        return b.attributes.Name.localeCompare(a.attributes.Name);
+      }
+    })
+    .sort((a: any, b: any) => {
+      if (activeTab === "new") {
+        return b.attributes.isNew - a.attributes.isNew;
       }
       return 0;
     });
@@ -69,15 +78,10 @@ export default function ProductRange({ props, pageTitle }: any) {
               }}
             />
           </Box>
-          <Stack
-            direction={{ xs: "column", md: "row" }}
-            spacing={{ xs: 1, sm: 2, md: 4 }}
-            // justifyContent="space-between"
-            justifyContent="center"
-            sx={{ marginBottom: "30px" }}
-          >
-            <Stack direction="row" sx={{}}>
-              <Box display="flex" flexDirection="row" sx={{ marginRight: "35px" }}>
+          <Stack direction={{ xs: "column", md: "row" }} spacing={{ xs: 1, sm: 2, md: 4 }} justifyContent="center" sx={{ marginBottom: "30px" }}>
+            <Stack  sx={{flexDirection:{sm:"column",md:"row"}}}>
+              <Stack direction="row">
+                <Box display="flex" flexDirection="row" sx={{ marginRight: "35px" }}>
                 <Box
                   sx={{
                     width: "30px",
@@ -127,7 +131,7 @@ export default function ProductRange({ props, pageTitle }: any) {
                   Sizes
                 </Typography>
               </Box>
-              <Box display="flex" flexDirection="row">
+              <Box display="flex" flexDirection="row" sx={{marginRight: "35px",}}>
                 <Box
                   sx={{
                     width: "30px",
@@ -152,115 +156,65 @@ export default function ProductRange({ props, pageTitle }: any) {
                   Finishes
                 </Typography>
               </Box>
-              <Stack direction="row" sx={{ marginLeft: "15px" }}>
+              </Stack>
+              
+              <Stack direction="row" sx={{}}>
                 <Box display="flex" flexDirection="row" sx={{ marginTop: { xs: "20px", md: "0" } }}>
-                  <Tabs
-                    value={showNewItems ? "new" : "az"}
-                    onChange={(event, newValue) => (newValue === "new" ? setShowNewItems(true) : setShowNewItems(false))}
-                    sx={{
-                      "& .MuiTabs-indicator": {
-                        backgroundColor: "black",
-                        height: 3,
-                      },
-                      ml: "5px",
-                      typography: { color: "black !important", fontWeight: "medium" },
-                      "& .MuiTab-root.Mui-selected": {
-                        color: "black",
-                      },
-                    }}
-                    TabIndicatorProps={{
-                      style: {
-                        height: 3,
-                        color: "black",
-                      },
-                    }}
-                  >
-                    <Tab
-                      sx={{
-                        minWidth: 0,
-                        py: "0px",
-                        pl: "5px",
-                        pr: "10px",
-                        color: "black",
-                        fontWeight: 500,
-                        fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
-                      }}
-                      label={
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                          <Image width={30} height={30} alt="A-Z Icon" src="/static/images/sort-alphabetic-down-svgrepo-com.svg" />
-                          <Typography
-                            sx={{
-                              fontWeight: 500,
-                              fontSize: "16px",
-                              textAlign: "center",
-                              paddingLeft: "10px",
-                              fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important',
-                            }}
-                          >
-                            Sort
-                          </Typography>
-                        </Box>
-                      }
-                      value="az"
-                    />
-                    <Tab
-                      sx={{
-                        minWidth: 30,
-                        py: "0px",
-                        pl: "10px",
-                        pr: "10px",
-                        color: "black",
-                        fontWeight: "500",
-                        textTransform: "capitalize",
-                        fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
-                      }}
-                      label={
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                          <Image width={26} height={26} alt="A-Z Icon" src="/static/images/new-5-svgrepo-com.svg" />
-                          <Typography
-                            sx={{
-                              fontWeight: 500,
-                              fontSize: "16px",
-                              textAlign: "center",
-                              paddingLeft: "10px",
-                              textTransform: "capitalize",
-                              fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important',
-                            }}
-                          >
-                            Product
-                          </Typography>
-                        </Box>
-                      }
-                      value="new"
-                    />
-                  </Tabs>
                   <Button
-                    onClick={() => setOpen(!open)}
+                    onClick={() => handleTabClick("az")}
                     sx={{
-                      display: "none",
-                      marginLeft: { xs: "10px", md: "40px" },
-                      backgroundColor: "#F2F1F0",
-                      p: "5px",
-                      borderRadius: "5px",
-                      border: "0.5px solid #000",
+                      py: "0px",
+                      pl: "0px",
+                      pr: "3px",
+                      marginRight: "35px",
+                      color: activeTab === "az" ? "black" : "gray", // Change color based on selection
+                      fontWeight: 500,
+                      borderBottom: activeTab === "az" ? "3px solid black" : "none", // Add borderBottom when selected
+                      borderRadius: "0px",
                     }}
                   >
+                    <Image width={30} height={30} alt="A-Z Icon" src="/static/images/sort-alphabetic-down-svgrepo-com.svg" />
                     <Typography
                       sx={{
-                        fontWeight: "medium",
-                        fontSize: { xs: "14px", md: "16px" },
+                        fontWeight: 500,
+                        fontSize: "16px",
                         textAlign: "center",
+                        paddingLeft: "10px",
+                        color: "black",
+                        textTransform: "capitalize",
+                        
                         fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important',
                       }}
                     >
-                      FILTERS
+                      Sort
                     </Typography>
-                    <FilterListIcon
+                  </Button>
+                  <Button
+                    onClick={() => handleTabClick("new")}
+                    sx={{
+                      py: "0px",
+                      pl: "0px",
+                      pr: "0px",
+                      color: activeTab === "new" ? "black" : "gray",
+                      fontWeight: 500,
+                      borderBottom: activeTab === "new" ? "3px solid black" : "none",
+                      borderRadius: "0px",
+                    }}
+                  >
+                    <Image width={26} height={26} alt="A-Z Icon" src="/static/images/new-5-svgrepo-com.svg" />
+                    <Typography
                       sx={{
-                        marginLeft: "13px",
-                        fontSize: { xs: "18px", md: "23px" },
+                        fontWeight: 500,
+                        fontSize: "16px",
+                        textAlign: "center",
+                        paddingLeft: "10px",
+                        textTransform: "capitalize",
+                        color:"black",
+                        fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important',
                       }}
-                    />
+                    >
+                      Product
+                    </Typography>
                   </Button>
                 </Box>
               </Stack>
@@ -268,75 +222,6 @@ export default function ProductRange({ props, pageTitle }: any) {
           </Stack>
         </Grid>
         <Grid display="flex" flexDirection="column" sx={{ position: "relative" }}>
-          {open && (
-            <Box
-              sx={{
-                backgroundColor: "rgba(242, 241, 240)",
-                position: "absolute ",
-                width: "100%",
-                zIndex: "2",
-                boxShadow: "0px 0px 0px 0px rgba(0,0,0,0.75)",
-              }}
-            >
-              <Typography
-                sx={{
-                  marginTop: "24px",
-                  marginLeft: "24px",
-                  fontSize: "18px",
-                  letterSpacing: "2px",
-                  fontWeight: "bold",
-                  fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important',
-                }}
-              >
-                PRODUCT FILTERS
-              </Typography>
-              <Grid container spacing={2} sx={{ px: "24px", my: 2, mb: "80px" }}>
-                {/* {DropdownFilter.map((filter, index) => (
-                  <Grid item key={index} xs={6} md={4}>
-                    <Box sx={{}}>
-                      <FormControl
-                        sx={{
-                          backgroundColor: 'rgba(242, 241, 240) !important',
-                        }}
-                        fullWidth>
-                        <InputLabel
-                          sx={{backgroundColor: 'rgba(242, 241, 240)'}}
-                          id={`filter-label-${index}`}>
-                          {filter.nama}
-                        </InputLabel>
-                        <Select
-                          sx={{
-                            backgroundColor: 'rgba(242, 241, 240) !important',
-                            color: '#000',
-                            fontWeight: 'medium',
-                          }}
-                          labelId={`filter-label-${index}`}
-                          id={`filter-select-${index}`}
-                          label={filter.nama}>
-                          {filter.Subitem.map((subitem, subindex) => (
-                            <MenuItem
-                              sx={{
-                                backgroundColor: 'rgba(242, 241, 240)',
-                                color: 'grey',
-                                '&:hover': {
-                                  fontWeight: 'medium',
-                                  color: '#000',
-                                  cursor: 'pointer',
-                                },
-                              }}
-                              key={subindex}
-                              value={subitem}>
-                              {subitem}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    </Box>
-                  </Grid>
-                ))} */}
-              </Grid>
-            </Box>
-          )}
           <Grid container spacing={2}>
             {filteredAndSortedData.map((item: any, index: React.Key | null | undefined) => {
               return (
