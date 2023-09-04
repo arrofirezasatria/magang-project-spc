@@ -21,15 +21,13 @@ export default function Endmatch(props: any) {
   return (
     <>
       <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} />
-      <Container>
-        <Grid>
-          <AddressProduct />
-          <DescriptionProducts props={props} pageDescription={pageDescription}/>
-        </Grid>
-      </Container>
+      <ProductLayout>
+        <AddressProduct />
+        <DescriptionProducts props={props} pageDescription={pageDescription} />
+      </ProductLayout>
       <ProductLayout backgroundColor={"#f5f5f5"}>
         <FeaturedProducts props={props} pageTitle={pageTitle} />
-      </ProductLayout>  
+      </ProductLayout>
       <ProductLayout>
         <ProductRange props={props} pageTitle={pageTitle} />
       </ProductLayout>
@@ -37,16 +35,12 @@ export default function Endmatch(props: any) {
   );
 }
 
-
 export const getStaticProps = async () => {
-  const res = await fetch(
-    "https://strapi-app-tnshv.ondigitalocean.app/api/motifs?pagination[pageSize]=999&populate=*&filters[product_varians][Varian][$eq]=Endmatch",
-    {
-      headers: {
-        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-      },
-    }
-  );
+  const res = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/motifs?pagination[pageSize]=999&populate=*&filters[product_varians][Varian][$eq]=Endmatch", {
+    headers: {
+      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
+    },
+  });
 
   const response = await res.json();
   const endmatch = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/motifs?pagination[pageSize]=999&populate=*&filters[product_varians][Varian][$eq]=Endmatch", {

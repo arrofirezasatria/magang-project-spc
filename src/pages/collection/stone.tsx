@@ -21,15 +21,13 @@ export default function stone(props: any) {
   return (
     <>
       <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} />
-      <Container>
-        <Grid>
-          <AddressProduct />
-          <DescriptionProducts props={props} pageDescription={pageDescription} />
-        </Grid>
-      </Container>
+      <ProductLayout>
+        <AddressProduct />
+        <DescriptionProducts props={props} pageDescription={pageDescription} />
+      </ProductLayout>
       <ProductLayout backgroundColor={"#f5f5f5"}>
-        <FeaturedProducts props={props} pageTitle="stone" />
-      </ProductLayout>  
+        <FeaturedProducts props={props} pageTitle={pageTitle} />
+      </ProductLayout>
       <ProductLayout>
         <ProductRange props={props} pageTitle={pageTitle} />
       </ProductLayout>

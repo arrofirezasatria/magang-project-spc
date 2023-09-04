@@ -27,7 +27,6 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
 
   return (
     <>
-      <Container sx={{ p: { xs: "20px 0x", md: "20px 30px" } }}>
         <Box
           sx={{
             letterSpacing: "2px",
@@ -134,7 +133,6 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
             View All Product Ranges
           </Button>
         </Box>
-      </Container>
     </>
   );
 }

@@ -78,10 +78,10 @@ export default function ProductRange({ props, pageTitle }: any) {
               }}
             />
           </Box>
-          <Stack direction={{ xs: "column", md: "row" }} spacing={{ xs: 1, sm: 2, md: 4 }} justifyContent="center" sx={{ marginBottom: "30px" }}>
-            <Stack  sx={{flexDirection:{sm:"column",md:"row"}}}>
+          <Stack direction={{md:"row" }} spacing={{ xs: 1, sm: 2, md: 4 }} justifyContent="center" sx={{ marginBottom: "30px" }}>
+            <Stack  sx={{flexWrap:"wrap",display:"flex",flexDirection:"row",justifyContent:"center"}}>
               <Stack direction="row">
-                <Box display="flex" flexDirection="row" sx={{ marginRight: "35px" }}>
+                <Box display="flex" flexDirection="row" sx={{  marginRight: {xs:"15px",sm:"35px",md:"35px"}}}>
                 <Box
                   sx={{
                     width: "30px",
@@ -106,7 +106,7 @@ export default function ProductRange({ props, pageTitle }: any) {
                   Colours
                 </Typography>
               </Box>
-              <Box display="flex" flexDirection="row" sx={{ marginRight: "35px" }}>
+              <Box display="flex" flexDirection="row" sx={{ marginRight: {xs:"15px",sm:"35px",md:"35px"} }}>
                 <Box
                   sx={{
                     width: "30px",
@@ -131,7 +131,7 @@ export default function ProductRange({ props, pageTitle }: any) {
                   Sizes
                 </Typography>
               </Box>
-              <Box display="flex" flexDirection="row" sx={{marginRight: "35px",}}>
+              <Box display="flex" flexDirection="row" sx={{marginRight: {xs:"0px",sm:"35px",md:"35px"}}}>
                 <Box
                   sx={{
                     width: "30px",
@@ -159,17 +159,17 @@ export default function ProductRange({ props, pageTitle }: any) {
               </Stack>
               
               <Stack direction="row" sx={{}}>
-                <Box display="flex" flexDirection="row" sx={{ marginTop: { xs: "20px", md: "0" } }}>
+                <Box display="flex" flexDirection="row" sx={{ marginTop: { xs: "20px",sm:"0px", md: "0px" } }}>
                   <Button
                     onClick={() => handleTabClick("az")}
                     sx={{
                       py: "0px",
                       pl: "0px",
                       pr: "3px",
-                      marginRight: "35px",
-                      color: activeTab === "az" ? "black" : "gray", // Change color based on selection
+                      marginRight: {xs:"15px",sm:"35px",md:"35px"},
+                      color: activeTab === "az" ? "black" : "gray", 
                       fontWeight: 500,
-                      borderBottom: activeTab === "az" ? "3px solid black" : "none", // Add borderBottom when selected
+                      borderBottom: activeTab === "az" ? "3px solid black" : "none", 
                       borderRadius: "0px",
                     }}
                   >

@@ -7,7 +7,7 @@ export default function DescriptionProducts({props,pageDescription}: any) {
   const description = pageDescription;
   return (
     <>
-      <Grid sx={{mt:"100px"}}>
+      <Grid sx={{mt:"30px"}}>
           <Box
             sx={{
               textAlign: "justify",

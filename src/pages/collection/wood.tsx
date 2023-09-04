@@ -18,12 +18,10 @@ export default function Wood(props: any) {
   return (
     <>
       <ProductHero props={props} pageTitle={PageTitle} pageImage={pageImage} />
-      <Container>
-        <Grid>
+      <ProductLayout>
           <AddressProduct />
           <DescriptionProducts props={props} pageDescription={pageDescription}/>
-        </Grid>
-      </Container>
+      </ProductLayout>
       <ProductLayout backgroundColor={"#f5f5f5"}>
         <FeaturedProducts props={props} pageTitle={PageTitle} />
       </ProductLayout>  

@@ -17,20 +17,17 @@ export default function SunStepStop(props: any) {
   const pageDescription = props.sss.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description";
   return (
     <>
-      <ProductHero props={props}  pageTitle={pageTitle} pageImage={pageImage} />
-      <Container>
-        <Grid>
-          <AddressProduct />
-          <DescriptionProducts props={props} pageDescription={pageDescription} />
-        </Grid>
-      </Container>
+      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} />
+      <ProductLayout>
+        <AddressProduct />
+        <DescriptionProducts props={props} pageDescription={pageDescription} />
+      </ProductLayout>
       <ProductLayout backgroundColor={"#f5f5f5"}>
         <FeaturedProducts props={props} pageTitle={pageTitle} />
-      </ProductLayout>  
-      <ProductLayout>
-        <ProductRange props={props}  pageTitle={pageTitle}/>
       </ProductLayout>
-          
+      <ProductLayout>
+        <ProductRange props={props} pageTitle={pageTitle} />
+      </ProductLayout>
     </>
   );
 }
@@ -49,42 +46,27 @@ export const getStaticProps = async () => {
     },
   });
   const SSS = await sss.json();
-  const responseAlt1 = await fetch(
-    'https://strapi-app-tnshv.ondigitalocean.app/api/products/' +
-      49 +
-      '?populate=deep,10',
-    {
-      headers: {
-        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-      },
+  const responseAlt1 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + 49 + "?populate=deep,10", {
+    headers: {
+      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
     },
-  );
+  });
 
   const responseAlternative1 = await responseAlt1.json();
 
-  const responseAlt2 = await fetch(
-    'https://strapi-app-tnshv.ondigitalocean.app/api/products/' +
-      296 +
-      '?populate=deep,10',
-    {
-      headers: {
-        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-      },
+  const responseAlt2 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + 296 + "?populate=deep,10", {
+    headers: {
+      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
     },
-  );
+  });
 
   const responseAlternative2 = await responseAlt2.json();
 
-  const responseAlt3 = await fetch(
-    'https://strapi-app-tnshv.ondigitalocean.app/api/products/' +
-      109 +
-      '?populate=deep,10',
-    {
-      headers: {
-        Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
-      },
+  const responseAlt3 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + 109 + "?populate=deep,10", {
+    headers: {
+      Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
     },
-  );
+  });
 
   const responseAlternative3 = await responseAlt3.json();
 
