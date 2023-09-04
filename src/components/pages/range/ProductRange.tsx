@@ -165,8 +165,8 @@ export default function ProductRange({ props, pageTitle }: any) {
                 </Box>
               </Stack>
 
-              <Stack direction="row" sx={{}}>
-                <Box display="flex" flexDirection="row" sx={{ marginTop: { xs: "20px", sm: "0px", md: "0px" } }}>
+              <Stack direction="row" sx={{ alignItems:"center",mt:{xs:"15px",sm:"0px",md:"0px"}}}>
+                <Box display="flex" flexDirection="row" sx={{ }}>
                   <Button
                     onClick={() => handleTabClick("az")}
                     sx={{
@@ -224,18 +224,19 @@ export default function ProductRange({ props, pageTitle }: any) {
                     </Typography>
                   </Button>
                 </Box>
-              </Stack>
-
-              <Box sx={{ backgroundColor: "#F2F1F0", height: "30px", display: "flex", flexDirection: "row", alignItems: "center",pr:"5px",borderRadius:"8px",justifyContent:"center",ml:"35px" }}>
+                <Box sx={{ backgroundColor: "white", height: "30px", display: "flex", flexDirection: "row", alignItems: "center",  borderRadius: "8px", justifyContent: "center",marginLeft: { xs: "15px", sm: "35px", md: "35px" }  }}>
+                  <SearchOutlinedIcon sx={{fontSize:"30px",mr:"10px"}} />
                 <TextField
                   sx={{
-                    width: "130px",
+                    width: "66px",
                     "& .MuiInputBase-input": {
                       textAlign: "left",
-                      fontSize: "14px",
+                      fontSize: "16px",
                       p: "0px",
-                      px:"10px",
                       height: "30px",
+                      fontWeight: "500",
+                      color: "black",
+                      
                     },
                     "& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button": {
                       appearance: "none",
@@ -243,16 +244,16 @@ export default function ProductRange({ props, pageTitle }: any) {
                   }}
                   variant="standard"
                   InputProps={{
-                    disableUnderline: true,
                   }}
                   size="small"
+                  placeholder="Search"
                   value={filterText} 
                   onChange={(e) => setFilterText(e.target.value)}
                 />
-                <Button sx={{ p: "0px",px:"7px",py:"4px", minWidth: 0,backgroundColor:"white",borderRadius:"8px" }}>
-                  <SearchOutlinedIcon sx={{fontSize:"16px",color:"black"}} />
-                </Button>
               </Box>
+              </Stack>
+
+
             </Stack>
           </Stack>
         </Grid>
