@@ -51,7 +51,7 @@ export const getStaticProps = async () => {
   const SSS = await sss.json();
   const responseAlt1 = await fetch(
     'https://strapi-app-tnshv.ondigitalocean.app/api/products/' +
-      153 +
+      49 +
       '?populate=deep,10',
     {
       headers: {
@@ -64,7 +64,7 @@ export const getStaticProps = async () => {
 
   const responseAlt2 = await fetch(
     'https://strapi-app-tnshv.ondigitalocean.app/api/products/' +
-      159 +
+      296 +
       '?populate=deep,10',
     {
       headers: {
@@ -77,7 +77,7 @@ export const getStaticProps = async () => {
 
   const responseAlt3 = await fetch(
     'https://strapi-app-tnshv.ondigitalocean.app/api/products/' +
-      156 +
+      109 +
       '?populate=deep,10',
     {
       headers: {

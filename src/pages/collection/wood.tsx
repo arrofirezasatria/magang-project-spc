@@ -50,7 +50,7 @@ export const getStaticProps = async () => {
   const woodMotif = await wood.json();
   const responseAlt1 = await fetch(
     'https://strapi-app-tnshv.ondigitalocean.app/api/products/' +
-      153 +
+      246 +
       '?populate=deep,10',
     {
       headers: {
@@ -63,7 +63,7 @@ export const getStaticProps = async () => {
 
   const responseAlt2 = await fetch(
     'https://strapi-app-tnshv.ondigitalocean.app/api/products/' +
-      159 +
+      91 +
       '?populate=deep,10',
     {
       headers: {
@@ -76,7 +76,7 @@ export const getStaticProps = async () => {
 
   const responseAlt3 = await fetch(
     'https://strapi-app-tnshv.ondigitalocean.app/api/products/' +
-      156 +
+      243 +
       '?populate=deep,10',
     {
       headers: {

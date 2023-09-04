@@ -1,50 +1,43 @@
-import {
-  Grid,
-  Typography,
-  Container,
-  Button,
-  Box,
-} from '@mui/material';
+import { Grid, Typography, Container, Button, Box } from "@mui/material";
 // import { GetStaticProps } from "next";
-import React from 'react';
-import Image from 'next/image';
+import React from "react";
+import Image from "next/image";
 
-export default function FeaturedProducts({props, pageTitle,alt1,alt2,alt3} : any) {
+export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }: any) {
   const Title = pageTitle;
-    let featurproduct = [];
-    featurproduct.push({
-      name: props.alternative1.data.attributes.motif.data.attributes.Name,
-      style: props.alternative1.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
-      varian: props.alternative1.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
-      image: props.alternative1.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
-    });
-    featurproduct.push({
-      name: props.alternative2.data.attributes.motif.data.attributes.Name,
-      style: props.alternative2.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
-      varian: props.alternative2.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
-      image: props.alternative2.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
-    });
-    featurproduct.push({
-      name: props.alternative3.data.attributes.motif.data.attributes.Name,
-      style: props.alternative3.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
-      varian: props.alternative3.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
-      image: props.alternative3.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
-    });
+  let featurproduct = [];
+  featurproduct.push({
+    name: props.alternative1.data.attributes.motif.data.attributes.Name,
+    style: props.alternative1.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
+    varian: props.alternative1.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
+    image: props.alternative1.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+  });
+  featurproduct.push({
+    name: props.alternative2.data.attributes.motif.data.attributes.Name,
+    style: props.alternative2.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
+    varian: props.alternative2.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
+    image: props.alternative2.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+  });
+  featurproduct.push({
+    name: props.alternative3.data.attributes.motif.data.attributes.Name,
+    style: props.alternative3.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
+    varian: props.alternative3.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
+    image: props.alternative3.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+  });
 
   return (
     <>
-      <Container sx={{ p: { xs: "20px 0x", md: "20px 30px" }}}>
+      <Container sx={{ p: { xs: "20px 0x", md: "20px 30px" } }}>
         <Box
           sx={{
             letterSpacing: "2px",
             position: "relative",
             textAlign: "center",
             pb: "30px",
-
           }}
         >
-          <Typography sx={{ fontSize: "27px", fontWeight: "bold",textTransform:"uppercase" }}>Featured {Title} Collection</Typography>
-        <Box
+          <Typography sx={{ fontSize: "27px", fontWeight: "bold", textTransform: "uppercase" }}>Featured {Title} Collection</Typography>
+          <Box
             component="span"
             sx={{
               position: "absolute",
@@ -58,11 +51,11 @@ export default function FeaturedProducts({props, pageTitle,alt1,alt2,alt3} : any
             }}
           />
         </Box>
-        <Grid container spacing={3} sx={{ mt: "40px", justifyContent:"center" }}>
+        <Grid container spacing={3} sx={{ mt: "40px", justifyContent: "center" }}>
           {featurproduct.map((item, index) => (
-            <Grid key={index} item md={4} sm={6}  sx={{ width: "359px" }}>
+            <Grid key={index} item md={4} sm={6} sx={{ width: "359px" }}>
               <Grid item md={12} sx={{ position: "relative", width: "100%", height: "462px" }}>
-              <Image src={item.image} layout='fill' alt={""} style={{objectFit:"cover"}} />
+                <Image src={item.image} layout="fill" alt={""} style={{ objectFit: "cover" }} />
               </Grid>
               <Grid item md={12}>
                 <Typography
@@ -78,6 +71,7 @@ export default function FeaturedProducts({props, pageTitle,alt1,alt2,alt3} : any
                   {item.name}
                 </Typography>
               </Grid>
+
               <Grid display="flex" flexDirection="row" sx={{ justifyContent: "center", marginTop: "5px" }}>
                 <Box>
                   <Typography
@@ -89,14 +83,14 @@ export default function FeaturedProducts({props, pageTitle,alt1,alt2,alt3} : any
                       fontWeight: "medium",
                       letterSpacing: "1px",
                       textTransform: "uppercase",
-                      backgroundColor: "grey",
-                      border: "1px solid grey",
-                      marginRight: "5px",
-                      py: "3px",
-                      px: "4px",
+                      backgroundColor: item.varian ? "grey" : "transparent", // Conditional background color
+                      border: item.varian ? "1px solid grey" : "none", // Conditional border
+                      marginRight: item.varian ? "5px" : "0px",
+                      py: item.varian ? "3px": "0px",
+                      px: item.varian ? "4px": "0px",
                     }}
                   >
-                    {item.varian}
+                    {item.varian ? item.varian : ""}
                   </Typography>
                 </Box>
 
