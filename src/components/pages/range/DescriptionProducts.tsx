@@ -7,24 +7,28 @@ export default function DescriptionProducts({props,pageDescription}: any) {
   const description = pageDescription;
   return (
     <>
-      <Grid sx={{mt:"100px"}}>
-          <Box
+      <Grid sx={{ mt: "100px" }}>
+        <Box
+          sx={{
+            textAlign: "justify",
+            marginBottom: { xs: "85px", md: "110px" },
+          }}
+        >
+          <Typography
             sx={{
-              textAlign: "justify",
-              marginBottom: { xs: "85px", md: "110px" },
+              fontWeight: "medium",
+              lineHeight: "33px",
+              fontSize: { xs: "18px", md: "24px" },
+              marginBottom: { xs: "18px", md: "24px" },
             }}
           >
-            <Typography
-              sx={{
-                fontWeight: "medium",
-                lineHeight: "33px",
-                fontSize: { xs: "18px", md: "24px" },
-                marginBottom: { xs: "18px", md: "24px" },
-              }}
-            >
-              {description}
-            </Typography>
-            {/* <Typography
+            Built to last, the wall tiles set collection offer the perfect
+            long-term solution for anyone looking to keep their home looking
+            stylish for longer. With an extensive range of wall tile colors and
+            finishes available, you'll be spoilt for choosing how to decorate
+            your home according to your creativity.
+          </Typography>
+          {/* <Typography
               sx={{
                 fontWeight: "medium",
                 lineHeight: "33px",
@@ -34,8 +38,8 @@ export default function DescriptionProducts({props,pageDescription}: any) {
               We have an inspirational range of tiles covering all size formats, styles, shapes, and colours. Our portfolio consists of three product collections: Intro, Select and Absolute. Navigate through the entire selection of concrete
               products below, co-ordinating both colour and style. Whatever your budget, we’re confident we have what you’re looking for.
             </Typography> */}
-          </Box>
-        </Grid>
+        </Box>
+      </Grid>
     </>
   );
 }
