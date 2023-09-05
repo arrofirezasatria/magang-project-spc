@@ -172,7 +172,7 @@ export default function ProductRange({ props, pageTitle }: any) {
                     sx={{
                       py: "0px",
                       pl: "0px",
-                      pr: "3px",
+                      pb:"0px",
                       marginRight: { xs: "15px", sm: "35px", md: "35px" },
                       color: activeTab === "az" ? "black" : "gray",
                       fontWeight: 500,
@@ -201,7 +201,8 @@ export default function ProductRange({ props, pageTitle }: any) {
                     sx={{
                       py: "0px",
                       pl: "0px",
-                      pr: "0px",
+                      pr: "3px",
+                      pb:"3px",
                       color: activeTab === "new" ? "black" : "gray",
                       fontWeight: 500,
                       borderBottom: activeTab === "new" ? "3px solid black" : "none",
@@ -246,7 +247,7 @@ export default function ProductRange({ props, pageTitle }: any) {
                   InputProps={{
                   }}
                   size="small"
-                  placeholder="Search"
+                  placeholder="Search..."
                   value={filterText} 
                   onChange={(e) => setFilterText(e.target.value)}
                 />
@@ -262,7 +263,7 @@ export default function ProductRange({ props, pageTitle }: any) {
             {filteredAndSortedData.map((item: any, index: React.Key | null | undefined) => {
               return (
                 <Grid item key={index} xs={6} md={3} lg={3}>
-                  <Link href={`/range/${item.attributes.products.data[0] ? item.attributes.products.data[0].id : 153}`} key={index} style={{ color: "black", textDecoration: "none" }}>
+                  <Link href={`/range/${item.attributes.products.data[0] ? item.attributes.products.data[0].attributes.Slug : 153}`} key={index} style={{ color: "black", textDecoration: "none" }}>
                     <Box sx={{ cursor: "pointer" }}>
                       <Box
                         sx={{

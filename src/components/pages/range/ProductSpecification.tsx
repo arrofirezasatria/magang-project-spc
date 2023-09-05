@@ -1,23 +1,6 @@
 import React, { useState } from "react";
 
-import {
-  Box,
-  Button,
-  Grid,
-  Link,
-  Stack,
-  Typography,
-  TextField,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Divider,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, Button, Grid, Link, Stack, Typography, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Divider, useMediaQuery, useTheme } from "@mui/material";
 import Image from "next/image";
 import Zoom from "react-medium-image-zoom";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
@@ -31,6 +14,7 @@ import { increment, decrement } from "store/counterSlice";
 import { addToCart } from "store/cartSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { props } from "cypress/types/bluebird";
 
 interface IFormInputs {
   id: number;
@@ -45,7 +29,7 @@ interface IFormInputs {
 
 export default function ProductSpecification({ props, data }: any) {
   const dispatch = useDispatch();
-  const imgFileUrl = props.productOnly.data.attributes.Image_Tile_Face.data?.[0]?.attributes.url;
+  const imgFileUrl = props.motif.data[0].attributes.Image_Tile_Face.data?.[0]?.attributes.url;
   const {
     register,
     watch,
@@ -63,7 +47,7 @@ export default function ProductSpecification({ props, data }: any) {
         .then((blob) => {
           const blobURL = window.URL.createObjectURL(new Blob([blob]));
           // const fileName = imgFileUrl.split("/").pop();
-          const fileNameFromAPI = props.productOnly.data.attributes.Name + " " + props.productOnly.data.attributes.tile_dimension.data.attributes?.Dimension;
+          const fileNameFromAPI = props.motif.data[0].attributes.Name + " " + props.motif.data[0].attributes.tile_dimension.data.attributes?.Dimension;
 
           const urlParts = imgFileUrl.split("/");
           const urlFileName = urlParts.pop();
@@ -106,12 +90,12 @@ export default function ProductSpecification({ props, data }: any) {
       dispatch(
         addToCart({
           id: props.product.data.id,
-          code: props.productOnly.data.attributes.Code,
-          name: props.productOnly.data.attributes.Name,
-          dimension: props.productOnly.data.attributes.tile_dimension.data.attributes.Dimension,
-          imageSrc: props.productOnly.data.attributes.Image_Tile_Face.data[0].attributes.formats.thumbnail.url,
+          code: props.motif.data[0].attributes.Code,
+          name: props.motif.data[0].attributes.Name,
+          dimension: props.motif.data[0].attributes.tile_dimension.data.attributes.Dimension,
+          imageSrc: props.motif.data[0].attributes.Image_Tile_Face.data[0].attributes.formats.thumbnail.url,
           quantity: data.quantity,
-          pricePerBox: props.productOnly.data.attributes.SQM_Box * props.productOnly.data.attributes.Price,
+          pricePerBox: props.motif.data[0].attributes.SQM_Box * props.motif.data[0].attributes.Price,
           priceTotal: totalPrice,
         })
       );
@@ -129,24 +113,16 @@ export default function ProductSpecification({ props, data }: any) {
     // @ts-ignore
 
     if (qtt !== 0) {
-      setCoverage(qtt * props.productOnly.data.attributes.SQM_Box);
+      setCoverage(qtt * props.motif.data[0].attributes.SQM_Box);
     } else {
       setCoverage(0);
     }
-  }, [props.productOnly.data.attributes.SQM_Box, qtt]);
+  }, [props.motif.data[0].attributes.SQM_Box, qtt]);
 
   React.useEffect(() => {
     // @ts-ignore
-    setTotalPrice(
-      qtt *
-        props.productOnly.data.attributes.SQM_Box *
-        props.productOnly.data.attributes.Price
-    );
-  }, [
-    props.productOnly.data.attributes.Price,
-    props.productOnly.data.attributes.SQM_Box,
-    qtt,
-  ]);
+    setTotalPrice(qtt * props.product.data[0].attributes.SQM_Box * props.motif.data[0].attributes.Price);
+  }, [props.product.data[0].attributes.Price, props.product.data[0].attributes.SQM_Box, qtt]);
   const isSizeLessThan380 = useMediaQuery(theme.breakpoints.down(481));
   const isSizeLessThan900 = useMediaQuery(theme.breakpoints.down(900));
   React.useState();
@@ -204,19 +180,19 @@ export default function ProductSpecification({ props, data }: any) {
               <Zoom>
                 <Box
                   height={
-                    props.productOnly.data.attributes?.tile_dimension.data.attributes.Dimension == "60x60cm" ? "auto" : { xs: "auto", sm: "715px" } // 600-610px responsive problem
+                    props.motif.data[0].attributes?.tile_dimension.data.attributes.Dimension == "60x60cm" ? "auto" : { xs: "auto", sm: "715px" } // 600-610px responsive problem
                   }
                   sx={{
                     width: { xs: "100%", md: "80%" },
-                    minHeight: props.productOnly.data.attributes?.tile_dimension.data.attributes.Dimension == "60x60cm" ? "none" : "100%",
-                    maxHeight: props.productOnly.data.attributes?.tile_dimension.data.attributes.Dimension == "60x60cm" ? "427.500px" : "none",
+                    minHeight: props.motif.data[0].attributes?.tile_dimension.data.attributes.Dimension == "60x60cm" ? "none" : "100%",
+                    maxHeight: props.motif.data[0].attributes?.tile_dimension.data.attributes.Dimension == "60x60cm" ? "427.500px" : "none",
                     position: "relative",
                     aspectRatio: "1 / 1",
                   }}
                 >
-                  {props.productOnly.data.attributes.Image_Tile_Face.data ? (
+                  {props.motif.data[0].attributes.Image_Tile_Face.data ? (
                     <Image
-                      src={props.productOnly.data.attributes.Image_Tile_Face.data[0]?.attributes?.formats?.large?.url}
+                      src={props.motif.data[0].attributes.Image_Tile_Face.data[0]?.attributes?.formats?.large?.url}
                       fill
                       alt=""
                       style={{
@@ -257,13 +233,11 @@ export default function ProductSpecification({ props, data }: any) {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      textTransform: 'capitalize',
-                      width: '100%',
+                      textTransform: "capitalize",
+                      width: "100%",
                     }}
                   >
-                    <FileDownloadOutlinedIcon
-                      sx={{ pr: "8px", fontSize: "18px" }}
-                    />
+                    <FileDownloadOutlinedIcon sx={{ pr: "8px", fontSize: "18px" }} />
                     Download Tile Preview
                   </Button>
                 ) : (
@@ -325,7 +299,7 @@ export default function ProductSpecification({ props, data }: any) {
                     }}
                   >
                     <Typography sx={{ fontSize: "26px", fontWeight: "bold" }}>
-                      {props.productOnly.data.attributes?.Name} - {props.productOnly.data.attributes?.Code}
+                      {props.motif.data[0].attributes?.Name} - {props.motif.data[0].attributes?.Code}
                     </Typography>
                   </Box>
                   <Typography
@@ -336,7 +310,7 @@ export default function ProductSpecification({ props, data }: any) {
                       mb: "20px",
                     }}
                   >
-                    <NumericFormat value={props.productOnly.data.attributes?.Price} decimalScale={0} displayType={"text"} thousandSeparator={"."} decimalSeparator={","} suffix="/m²" />
+                    <NumericFormat value={props.motif.data[0].attributes?.Price} decimalScale={0} displayType={"text"} thousandSeparator={"."} decimalSeparator={","} suffix="/m²" />
                   </Typography>
                 </Box>
                 <Divider
@@ -349,57 +323,50 @@ export default function ProductSpecification({ props, data }: any) {
                   {[
                     {
                       title: "Code",
-                      value: props.productOnly.data.attributes?.Code,
+                      value: props.motif.data[0].attributes?.Code,
                     },
                     {
                       title: "Product Varian",
                       value:
-                        props.motif.data.attributes.motif.data.attributes
-                          .product_varians?.data?.length > 0
-                          ? props.motif.data.attributes.motif.data.attributes.product_varians?.data
-                            .map((item: any) => item.attributes.Varian)
-                            .join(", ")
+                        props.motif.data[0].attributes.motif.data.attributes.product_varians?.data?.length > 0
+                          ? props.motif.data[0].attributes.motif.data.attributes.product_varians?.data.map((item: any) => item.attributes.Varian).join(", ")
                           : "-",
                     },
                     {
                       title: "Dimension",
-                      value: props.productOnly.data.attributes?.tile_dimension.data?.attributes?.Dimension,
+                      value: props.motif.data[0].attributes?.tile_dimension.data?.attributes?.Dimension,
                     },
                     {
                       title: "Face",
-                      value: props.productOnly.data.attributes?.N_Face,
+                      value: props.motif.data[0].attributes?.N_Face,
                     },
                     {
                       title: "Colour",
-                      value: props.productOnly.data.attributes?.Motif_Color,
+                      value: props.motif.data[0].attributes?.Motif_Color,
                     },
                     {
                       title: "Finish",
-                      value: props.productOnly.data.attributes?.surface_finish.data?.attributes?.Name,
+                      value: props.motif.data[0].attributes?.surface_finish.data?.attributes?.Name,
                     },
                     {
                       title: "Rectified Edge",
-                      value:
-                        props.productOnly.data.attributes?.Rectified.toString() ==
-                          "true"
-                          ? "Yes"
-                          : "No",
+                      value: props.motif.data[0].attributes?.Rectified.toString() == "true" ? "Yes" : "No",
                     },
                     {
                       title: "Shade Variation",
-                      value: props.productOnly.data.attributes?.Shade_Variation || "-",
+                      value: props.motif.data[0].attributes?.Shade_Variation || "-",
                     },
                     {
                       title: "Suitability",
-                      value: props.productOnly.data.attributes?.tile_suitabilities?.data?.map((item: any) => item.attributes.Suitability)?.join(", ") || "-",
+                      value: props.motif.data[0].attributes?.tile_suitabilities?.data?.map((item: any) => item.attributes.Suitability)?.join(", ") || "-",
                     },
                     {
                       title: "Tiles per Box",
-                      value: props.productOnly.data.attributes?.Tile_Per_Box,
+                      value: props.motif.data[0].attributes?.Tile_Per_Box,
                     },
                     {
                       title: "Square Meter per Box",
-                      value: props.productOnly.data.attributes?.SQM_Box + "/m²",
+                      value: props.motif.data[0].attributes?.SQM_Box + "/m²",
                     },
                   ].map((item, index) => {
                     return (
@@ -464,7 +431,7 @@ export default function ProductSpecification({ props, data }: any) {
                           flexBasis: "50%",
                         }}
                       >
-                        <ModulSpec motif={props?.motif?.data.attributes} name={props.productOnly.data.attributes} />
+                        <ModulSpec motif={props?.motif?.data[0].attributes} name={props.motif.data[0].attributes} />
                       </Box>
                     </Box>
                     <Divider
@@ -497,7 +464,7 @@ export default function ProductSpecification({ props, data }: any) {
                           flexBasis: "50%",
                         }}
                       >
-                        <ModulPacking motif={props?.motif?.data.attributes} name={props.productOnly.data.attributes} />
+                        <ModulPacking motif={props?.motif?.data[0].attributes} name={props.motif.data[0].attributes} />
                       </Box>
                     </Box>
                     <Divider
@@ -532,7 +499,7 @@ export default function ProductSpecification({ props, data }: any) {
                           my: "8px",
                         }}
                       >
-                        <CircleIcon color={props.productOnly.data.attributes?.IsInStock ? "success" : "error"} fontSize="inherit" sx={{ mt: "2px" }} />
+                        <CircleIcon color={props.motif.data[0].attributes?.IsInStock ? "success" : "error"} fontSize="inherit" sx={{ mt: "2px" }} />
                         <Typography
                           sx={{
                             fontSize: "16px",
@@ -540,7 +507,7 @@ export default function ProductSpecification({ props, data }: any) {
                             ml: 1,
                           }}
                         >
-                          {props.productOnly.data.attributes?.IsInStock ? "Available" : "Not Available"}
+                          {props.motif.data[0].attributes?.IsInStock ? "Available" : "Not Available"}
                         </Typography>
                       </Box>
                     </Box>
@@ -599,7 +566,7 @@ export default function ProductSpecification({ props, data }: any) {
                               <TableCell>Box Price:</TableCell>
                               <TableCell>
                                 <NumericFormat
-                                  value={props.productOnly.data.attributes.SQM_Box * props.productOnly.data.attributes.Price}
+                                  value={props.motif.data[0].attributes.SQM_Box * props.motif.data[0].attributes.Price}
                                   decimalScale={0}
                                   displayType={"text"}
                                   thousandSeparator={"."}
@@ -665,7 +632,7 @@ export default function ProductSpecification({ props, data }: any) {
                                 </TableCell>
                                 <TableCell align="right">
                                   <NumericFormat
-                                    value={props.productOnly.data.attributes.SQM_Box * props.productOnly.data.attributes.Price}
+                                    value={props.motif.data[0].attributes.SQM_Box * props.motif.data[0].attributes.Price}
                                     decimalScale={0}
                                     displayType={"text"}
                                     thousandSeparator={"."}
