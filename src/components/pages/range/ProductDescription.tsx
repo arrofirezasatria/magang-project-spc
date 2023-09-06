@@ -17,10 +17,12 @@ export default function ProductDescription({ props, data, hightlight }: any) {
   const pathSegments = hightlight.asPath.split("/");
   const idPath = pathSegments[pathSegments.length - 1];
   const shareProduct = `https://magang-project-spc.vercel.app/${hightlight.asPath}`;
-  const [showFullText, setShowFullText] = useState(false);  
+  const [showFullText, setShowFullText] = useState(false);
   const toggleFullText = () => {
     setShowFullText(!showFullText);
   };
+  // console.log("ajsdasdnajsdansdnasdkasndkanssdnasndknk")
+  // console.log(props.product)
 
   return (
     <>
@@ -35,7 +37,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
           }
         >
           <Grid item xs={12} md={6} sx={{}}>
-            <Box  
+            <Box
               sx={{
                 textTransform: "uppercase",
                 letterSpacing: "2px",
@@ -49,9 +51,11 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                   fontWeight: "bold",
                 }}
               >
-                {props.product.data.attributes.Name}
+                {props.product.data[0].attributes.Name}
               </Typography>
-              <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>{data.tile_type.data === null ? "Porcelain Tiles" : data.tile_type.data.attributes.Type === "Sun Glazed" ? "Sun Glazed Ceramic Tiles" : "Porcelain Tiles"}</Typography>
+              <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>
+                {data.tile_type.data === null ? "Porcelain Tiles" : data.tile_type.data.attributes.Type === "Sun Glazed" ? "Sun Glazed Ceramic Tiles" : "Porcelain Tiles"}
+              </Typography>
               <Typography
                 sx={{
                   mb: "10px",
@@ -67,8 +71,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                 sx={{
                   mt: "15px",
                   display: "flex",
-                  fontFamily:
-                    '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
+                  fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";',
                   fontSize: "12px",
                   fontWeight: "medium",
                   flexWrap: "wrap",
@@ -94,7 +97,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                   },
                 }}
               >
-                {props.motif.data.attributes.motif.data.attributes.product_varians.data.map(
+                {props.motif.data[0].attributes.motif.data.attributes.product_varians.data.map(
                   // @ts-ignore
                   (item, index) => {
                     return (
@@ -104,7 +107,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                     );
                   }
                 )}
-                {props.motif.data.attributes.motif.data.attributes.style_motifs.data.map(
+                {props.motif.data[0].attributes.motif.data.attributes.style_motifs.data.map(
                   // @ts-ignore
                   (item, index) => {
                     return (
@@ -116,10 +119,10 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                 )}
 
                 <Link href="#" className="white-link">
-                  {props.productOnly.data.attributes.surface_finish?.data?.attributes?.Name || "No Input data"}
+                  {props.motif.data[0].attributes.surface_finish?.data?.attributes?.Name || "No Input data"}
                 </Link>
                 <Link href="#" className="white-link">
-                  {props.productOnly.data.attributes.tile_color?.data?.attributes?.Name ? props.productOnly.data.attributes.tile_color.data.attributes.Name + " color" : "No Input data"}
+                  {props.motif.data[0].attributes.tile_color?.data?.attributes?.Name ? props.motif.data[0].attributes.tile_color.data.attributes.Name + " color" : "No Input data"}
                 </Link>
               </Stack>
             </Box>
@@ -165,10 +168,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
               }}
             >
               <Box sx={{ width: "100%" }}>
-                <TheProduct
-                  showProducts={props.product}
-                  showHightlight={idPath}
-                />
+                <TheProduct showProducts={props.product} showHightlight={idPath} />
               </Box>
             </Box>
 
@@ -210,8 +210,8 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                   <TwitterShareButton url={shareProduct}>
                     <TwitterIcon />
                   </TwitterShareButton>
-                  {props?.productOnly?.data.attributes?.Image_Ambience?.data ? (
-                    <PinterestShareButton media={props.productOnly.data.attributes.Image_Ambience.data[0].attributes.formats.large.url} url={shareProduct}>
+                  {props?.motif?.data[0].attributes?.Image_Ambience?.data ? (
+                    <PinterestShareButton media={props.motif.data[0].attributes.Image_Ambience.data[0].attributes.formats.large.url} url={shareProduct}>
                       <PinterestIcon />
                     </PinterestShareButton>
                   ) : (
@@ -238,10 +238,7 @@ export default function ProductDescription({ props, data, hightlight }: any) {
                 position: "relative",
               }}
             >
-              <SliderImage
-                productOnly={props?.productOnly?.data.attributes}
-                propsname={props}
-              />
+              <SliderImage productOnly={props?.motif?.data[0].attributes} propsname={props} />
             </Box>
           </Grid>
         </Grid>

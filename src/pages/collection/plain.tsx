@@ -16,22 +16,21 @@ import ProductLayout from "@layouts/ProductLayout";
 
 export default function Plain(props: any) {
   const pageTitle = props.plain.data[0]?.attributes.style_motifs.data[0]?.attributes.Style;
+  const pageShortDescription =props.plain.data[0]?.attributes.style_motifs.data[0]?.attributes.Short_Description;
   const pageImage = props.plain2.data[1]?.attributes.Image_Hero_2880x1138px.data.attributes.url;
-  const pageDescription =  props.plain.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description";
+  const pageDescription = props.plain.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description";
   return (
     <>
-      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} />
-      <Container>
-        <Grid>
-          <AddressProduct />
-          <DescriptionProducts props={props} pageDescription={pageDescription} />
-        </Grid>
-      </Container>
+      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} pageShortDescription={pageShortDescription} />
+      <ProductLayout>
+        <AddressProduct />
+        <DescriptionProducts props={props} pageDescription={pageDescription} />
+      </ProductLayout>
       <ProductLayout backgroundColor={"#f5f5f5"}>
         <FeaturedProducts props={props} pageTitle={pageTitle} />
-      </ProductLayout>  
+      </ProductLayout>
       <ProductLayout>
-        <ProductRange props={props} pageTitle={pageTitle}/>
+        <ProductRange props={props} pageTitle={pageTitle} />
       </ProductLayout>
     </>
   );

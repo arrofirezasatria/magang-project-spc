@@ -2,12 +2,11 @@ import { Box, Grid, Typography } from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 
-
-export default function DescriptionProducts({props,pageDescription}: any) {
+export default function DescriptionProducts({ props, pageDescription }: any) {
   const description = pageDescription;
   return (
     <>
-      <Grid sx={{ mt: "100px" }}>
+      <Grid sx={{ mt: "30px" }}>
         <Box
           sx={{
             textAlign: "justify",
@@ -22,11 +21,7 @@ export default function DescriptionProducts({props,pageDescription}: any) {
               marginBottom: { xs: "18px", md: "24px" },
             }}
           >
-            Built to last, the wall tiles set collection offer the perfect
-            long-term solution for anyone looking to keep their home looking
-            stylish for longer. With an extensive range of wall tile colors and
-            finishes available, you'll be spoilt for choosing how to decorate
-            your home according to your creativity.
+            {description}
           </Typography>
           {/* <Typography
               sx={{

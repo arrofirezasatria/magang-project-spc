@@ -9,7 +9,7 @@ export default function SliderImage({productOnly,propsname}: any) {
   // console.log(props.productOnly);
   console.log("propsname.product.data.attributes.Name")
   
-  console.log(propsname.productOnly.data.attributes.tile_dimension.data.attributes.Dimension)
+  console.log(propsname.motif.data[0].attributes.tile_dimension.data.attributes.Dimension)
   // const [counter, setCounter] = useState(
   //   props?.productOnly?.Image_Ambience?.data
   //     ? props?.productOnly?.Image_Ambience?.data.length - 1
@@ -129,7 +129,7 @@ export default function SliderImage({productOnly,propsname}: any) {
       >
         <Typography variant="body1" className="title">
           {/* {sliderData[counter]?.title || "No Title"} */}
-          {propsname.product.data.attributes.Name +" "+ propsname.productOnly.data.attributes.tile_dimension.data.attributes.Dimension}
+          {propsname.product.data[0].attributes.Name +" "+ propsname.motif.data[0].attributes.tile_dimension.data.attributes.Dimension}
           {/* {sliderData[counter].dimension} */}
         </Typography>
       </Box>
