@@ -2,6 +2,8 @@ import { Grid, Typography, Tooltip, Button, Box } from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+
 
 export default function FeaturedProducts({
   props,
@@ -13,6 +15,7 @@ export default function FeaturedProducts({
   const Title = pageTitle;
   let featurproduct = [];
   featurproduct.push({
+    slug: props.alternative1.data.attributes.Slug,
     name: props.alternative1.data.attributes.motif.data.attributes.Name,
     style:
       props.alternative1.data.attributes.motif.data.attributes.style_motifs
@@ -28,6 +31,7 @@ export default function FeaturedProducts({
     finish: props.alternative1.data.attributes.motif.data.attributes.N_Finish,
   });
   featurproduct.push({
+    slug: props.alternative2.data.attributes.Slug,
     name: props.alternative2.data.attributes.motif.data.attributes.Name,
     style:
       props.alternative2.data.attributes.motif.data.attributes.style_motifs
@@ -43,6 +47,7 @@ export default function FeaturedProducts({
     finish: props.alternative2.data.attributes.motif.data.attributes.N_Finish,
   });
   featurproduct.push({
+    slug: props.alternative2.data.attributes.Slug,
     name: props.alternative3.data.attributes.motif.data.attributes.Name,
     style:
       props.alternative3.data.attributes.motif.data.attributes.style_motifs
@@ -95,6 +100,7 @@ export default function FeaturedProducts({
       <Grid container spacing={3} sx={{ mt: "40px", justifyContent: "center" }}>
         {featurproduct.map((item, index) => (
           <Grid key={index} item md={4} sm={6} sx={{ width: "359px" }}>
+            <Link href={`/range/${item.slug ? item.slug : 153}`}  style={{ color: "black", textDecoration: "none" }}>
             <Grid
               item
               md={12}
@@ -276,6 +282,7 @@ export default function FeaturedProducts({
                 </Box>
               </Tooltip>
             </Box>
+          </Link>
           </Grid>
         ))}
       </Grid>
