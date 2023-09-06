@@ -10,7 +10,7 @@ export default function DescriptionProducts({ props, pageDescription }: any) {
         <Box
           sx={{
             textAlign: "justify",
-            marginBottom: { xs: "85px", md: "110px" },
+            marginBottom: { xs: "85px", md: "40px" },
           }}
         >
           <Typography
