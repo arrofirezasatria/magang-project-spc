@@ -13,6 +13,7 @@ import ProductRange from "@components/pages/range/ProductRange";
 import ProductHero from "@components/pages/range/ProductHero";
 import FeaturedProducts from "@components/pages/range/FeaturedProduct";
 import ProductLayout from "@layouts/ProductLayout";
+import AddressProduct2 from "@components/pages/range/AddressProduct2";
 
 export default function Bookmatch(props: any) {
   const pageTitle = props.bookmatch.data[0]?.attributes.product_varians.data[0]?.attributes.Varian;

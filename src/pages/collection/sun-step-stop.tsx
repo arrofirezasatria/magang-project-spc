@@ -14,7 +14,6 @@ import { useRouter } from "next/router";
 
 export default function SunStepStop(props: any) {
   const idRouter = useRouter();
-
   const pageTitle =
     props.sss.data[0]?.attributes.product_varians.data[1]?.attributes.Varian;
   const pageShortDescription =
@@ -37,7 +36,7 @@ export default function SunStepStop(props: any) {
         <AddressProduct2
           address={idRouter}
           firstPath={"Collection"}
-          secondPath={"Sun-step-stop"}
+          secondPath={"Sun-Step-Stop"}
         />
         <DescriptionProducts props={props} pageDescription={pageDescription} />
       </ProductLayout>

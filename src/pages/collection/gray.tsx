@@ -1,58 +1,61 @@
-import { Box, Container, Grid, Stack, Typography, Button, FormControl, Select, MenuItem, InputLabel } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 import axios from "axios";
 import useSWR from "swr";
 import Image from "next/image";
-import HoverInProduct from "@components/pages/range/hoverInProduct";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import { useState } from "react";
 import AddressProduct from "@components/pages/range/AddressProduct";
 import DescriptionProducts from "@components/pages/range/DescriptionProducts";
-import ProductRange from "@components/pages/range/ProductRange";
+// import ProductRange from "@components/pages/range/ProductRange";
 import ProductHero from "@components/pages/range/ProductHero";
 import FeaturedProducts from "@components/pages/range/FeaturedProduct";
 import ProductLayout from "@layouts/ProductLayout";
+import ProductRangeColor from "@components/pages/range/ProductRangeColor";
 import AddressProduct2 from "@components/pages/range/AddressProduct2";
+import { useRouter } from "next/router";
 
-export default function Concrete(props: any) {
-  const pageTitle = props.concrete.data[0]?.attributes.style_motifs.data[0]?.attributes.Style;
-  const pageShortDescription = props.concrete.data[0]?.attributes.style_motifs.data[0]?.attributes.Short_Description;
-  const pageImage = props.concrete.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url;
-  const pageDescription = props.concrete.data[0]?.attributes.style_motifs.data[0]?.attributes.Description || "No data Description";
+export default function Gray(props: any) {
+  const pageTitle = props.Gray.data[0]?.attributes.tile_color.data.attributes.Name;
+  const pageShortDescription = props.Gray.data[0]?.attributes.tile_color.data.attributes.Short_Description;
+  const pageImage = props.Gray.data[0]?.attributes.motif.data.attributes.Image_Hero_2880x1138px.data.attributes.url;
+  const pageDescription = props.Gray.data[0]?.attributes.tile_color.data.attributes.Description || "No data Description";
+  const idRouter = useRouter();
   return (
     <>
-      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} pageShortDescription={pageShortDescription}/>
+      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} pageShortDescription={pageShortDescription} />
       <ProductLayout>
-        <AddressProduct />
-        <DescriptionProducts props={props} pageDescription={pageDescription} />
+      <AddressProduct2
+          address={idRouter}
+          firstPath={"Collection"}
+          secondPath={"Wood"}
+        />
+          <DescriptionProducts props={props} pageDescription={pageDescription}/>
       </ProductLayout>
       <ProductLayout backgroundColor={"#f5f5f5"}>
         <FeaturedProducts props={props} pageTitle={pageTitle} />
-      </ProductLayout>
+      </ProductLayout>  
       <ProductLayout>
-        <ProductRange props={props} pageTitle={pageTitle} />
+        <ProductRangeColor props={props} pageTitle={pageTitle} />
       </ProductLayout>
     </>
   );
 }
 
 export const getStaticProps = async () => {
-  const res = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/motifs?pagination[pageSize]=999&populate=*&filters[style_motifs][Style][$eq]=Concrete", {
+  const res = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products?pagination[pageSize]=999&populate=deep,10&filters[tile_color][Name][$eq]=Gray", {
     headers: {
       Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
     },
   });
 
   const response = await res.json();
-  const concrete = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/motifs?pagination[pageSize]=999&populate=*&filters[style_motifs][Style][$eq]=Concrete", {
+  const Gray = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products?pagination[pageSize]=2&populate=deep,10&filters[tile_color][Name][$eq]=Gray", {
     headers: {
       Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
     },
   });
-
-  const Concrete = await concrete.json();
-  const responseAlt1 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + 283 + "?populate=deep,10", {
+  const gray = await Gray.json();
+  const responseAlt1 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + 172 + "?populate=deep,10", {
     headers: {
       Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
     },
@@ -60,7 +63,7 @@ export const getStaticProps = async () => {
 
   const responseAlternative1 = await responseAlt1.json();
 
-  const responseAlt2 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + 221 + "?populate=deep,10", {
+  const responseAlt2 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + 281 + "?populate=deep,10", {
     headers: {
       Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
     },
@@ -68,7 +71,7 @@ export const getStaticProps = async () => {
 
   const responseAlternative2 = await responseAlt2.json();
 
-  const responseAlt3 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + 338 + "?populate=deep,10", {
+  const responseAlt3 = await fetch("https://strapi-app-tnshv.ondigitalocean.app/api/products/" + 236 + "?populate=deep,10", {
     headers: {
       Authorization: `Bearer 9c54bfb85749cfdc1ea1f98fb2f1a64b7cac4ad7662fda7a099556577a20343b945b20f2b1b68dfab82266337804834c1a1ef342c8a4c5e2886835ba072f49746a825df9e09c46fa214a33fa384134c89d18c0dae1d142c2c441f5876fa4a984012020b22d38a08b5fc2fd60ce80248ebae5c5c2f9511e84c7cae90cfe3a246c`,
     },
@@ -77,10 +80,11 @@ export const getStaticProps = async () => {
   const responseAlternative3 = await responseAlt3.json();
 
   console.log(response);
+  // console.log(woodMotif);
   return {
     props: {
       response: response,
-      concrete: Concrete,
+      Gray: gray,
       alternative1: responseAlternative1,
       alternative2: responseAlternative2,
       alternative3: responseAlternative3,

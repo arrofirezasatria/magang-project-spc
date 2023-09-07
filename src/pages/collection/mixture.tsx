@@ -13,22 +13,29 @@ import ProductRange from "@components/pages/range/ProductRange";
 import ProductHero from "@components/pages/range/ProductHero";
 import FeaturedProducts from "@components/pages/range/FeaturedProduct";
 import ProductLayout from "@layouts/ProductLayout";
+import AddressProduct2 from "@components/pages/range/AddressProduct2";
+import { useRouter } from "next/router";
 
 export default function Mixture(props: any) {
   const pageTitle = props.mixture.data[0]?.attributes.product_varians.data[0]?.attributes.Varian;
   const pageShortDescription =props.mixture.data[0]?.attributes.product_varians.data[0]?.attributes.Short_Description;
   const pageImage = props.mixture.data[0]?.attributes.Image_Hero_2880x1138px.data.attributes.url;
   const pageDescription = props.mixture.data[0]?.attributes.product_varians.data[0]?.attributes.Description || "No data Description";
+  const idRouter = useRouter();
   return (
     <>
-      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} pageShortDescription={pageShortDescription}/>
+      <ProductHero props={props} pageTitle={pageTitle} pageImage={pageImage} pageShortDescription={pageShortDescription} />
       <ProductLayout>
-        <AddressProduct />
-        <DescriptionProducts props={props} pageDescription={pageDescription} />
+      <AddressProduct2
+          address={idRouter}
+          firstPath={"Collection"}
+          secondPath={"Mixture"}
+        />
+          <DescriptionProducts props={props} pageDescription={pageDescription}/>
       </ProductLayout>
       <ProductLayout backgroundColor={"#f5f5f5"}>
         <FeaturedProducts props={props} pageTitle={pageTitle} />
-      </ProductLayout>
+      </ProductLayout>  
       <ProductLayout>
         <ProductRange props={props} pageTitle={pageTitle} />
       </ProductLayout>
