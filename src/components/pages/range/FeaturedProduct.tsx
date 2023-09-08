@@ -1,4 +1,13 @@
-import { Grid, Typography, Tooltip, Button, Box, Container, Stack, useMediaQuery } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Tooltip,
+  Button,
+  Box,
+  Container,
+  Stack,
+  useMediaQuery,
+} from "@mui/material";
 // import { GetStaticProps } from "next";
 import React from "react";
 import Image from "next/image";
@@ -9,16 +18,28 @@ import "slick-carousel/slick/slick-theme.css";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
-export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }: any) {
+export default function FeaturedProducts({
+  props,
+  pageTitle,
+  alt1,
+  alt2,
+  alt3,
+}: any) {
   const sliderRef = React.useRef(null);
   const Title = pageTitle;
   let featurproduct = [];
   featurproduct.push({
     slug: props.alternative1.data.attributes.Slug,
     name: props.alternative1.data.attributes.motif.data.attributes.Name,
-    style: props.alternative1.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
-    varian: props.alternative1.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
-    image: props.alternative1.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+    style:
+      props.alternative1.data.attributes.motif.data.attributes.style_motifs
+        .data[0]?.attributes.Style,
+    varian:
+      props.alternative1.data.attributes.motif.data.attributes.product_varians
+        .data[0]?.attributes.Varian,
+    image:
+      props.alternative1.data.attributes.Image_Ambience.data[0]?.attributes
+        .formats.large.url,
     color: props.alternative1.data.attributes.motif.data.attributes.N_Color,
     size: props.alternative1.data.attributes.motif.data.attributes.N_Dimension,
     finish: props.alternative1.data.attributes.motif.data.attributes.N_Finish,
@@ -26,9 +47,15 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
   featurproduct.push({
     slug: props.alternative2.data.attributes.Slug,
     name: props.alternative2.data.attributes.motif.data.attributes.Name,
-    style: props.alternative2.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
-    varian: props.alternative2.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
-    image: props.alternative2.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+    style:
+      props.alternative2.data.attributes.motif.data.attributes.style_motifs
+        .data[0]?.attributes.Style,
+    varian:
+      props.alternative2.data.attributes.motif.data.attributes.product_varians
+        .data[0]?.attributes.Varian,
+    image:
+      props.alternative2.data.attributes.Image_Ambience.data[0]?.attributes
+        .formats.large.url,
     color: props.alternative2.data.attributes.motif.data.attributes.N_Color,
     size: props.alternative2.data.attributes.motif.data.attributes.N_Dimension,
     finish: props.alternative2.data.attributes.motif.data.attributes.N_Finish,
@@ -36,9 +63,15 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
   featurproduct.push({
     slug: props.alternative2.data.attributes.Slug,
     name: props.alternative3.data.attributes.motif.data.attributes.Name,
-    style: props.alternative3.data.attributes.motif.data.attributes.style_motifs.data[0]?.attributes.Style,
-    varian: props.alternative3.data.attributes.motif.data.attributes.product_varians.data[0]?.attributes.Varian,
-    image: props.alternative3.data.attributes.Image_Ambience.data[0]?.attributes.formats.large.url,
+    style:
+      props.alternative3.data.attributes.motif.data.attributes.style_motifs
+        .data[0]?.attributes.Style,
+    varian:
+      props.alternative3.data.attributes.motif.data.attributes.product_varians
+        .data[0]?.attributes.Varian,
+    image:
+      props.alternative3.data.attributes.Image_Ambience.data[0]?.attributes
+        .formats.large.url,
     color: props.alternative3.data.attributes.motif.data.attributes.N_Color,
     size: props.alternative3.data.attributes.motif.data.attributes.N_Dimension,
     finish: props.alternative3.data.attributes.motif.data.attributes.N_Finish,
@@ -52,11 +85,13 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  const isLargeScreen = useMediaQuery((theme: any) => theme.breakpoints.up("md"));
+  const isLargeScreen = useMediaQuery((theme: any) =>
+    theme.breakpoints.up("md")
+  );
 
   return (
     <>
-      <Stack sx={{ width: "100%" }}>
+      <Stack sx={{ width: "100%", overflow: "hidden" }}>
         <Box
           sx={{
             letterSpacing: "2px",
@@ -92,9 +127,19 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
         {isLargeScreen ? (
           // Content for screen size >= 900px
           <Box>
-            <Grid container spacing={3} sx={{ mt: "40px", justifyContent: "center" }}>
+            <Grid
+              container
+              spacing={3}
+              sx={{ mt: "40px", justifyContent: "center" }}
+            >
               {featurproduct.map((item, index) => (
-                <Grid key={index} item md={4} sm={6} sx={{ width: "359px", cursor: "pointer" }}>
+                <Grid
+                  key={index}
+                  item
+                  md={4}
+                  sm={6}
+                  sx={{ width: "359px", cursor: "pointer" }}
+                >
                   <Link
                     href={`/range/${item.slug ? item.slug : 153}`}
                     style={{
@@ -103,8 +148,21 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                       cursor: "pointer",
                     }}
                   >
-                    <Grid item md={12} sx={{ position: "relative", width: "100%", height: "462px" }}>
-                      <Image src={item.image} layout="fill" alt={""} objectFit="cover" />
+                    <Grid
+                      item
+                      md={12}
+                      sx={{
+                        position: "relative",
+                        width: "100%",
+                        height: "462px",
+                      }}
+                    >
+                      <Image
+                        src={item.image}
+                        layout="fill"
+                        alt={""}
+                        objectFit="cover"
+                      />
                     </Grid>
                     <Grid item md={12}>
                       <Typography
@@ -120,7 +178,11 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                         {item.name}
                       </Typography>
                     </Grid>
-                    <Grid display="flex" flexDirection="row" sx={{ justifyContent: "center", marginTop: "5px" }}>
+                    <Grid
+                      display="flex"
+                      flexDirection="row"
+                      sx={{ justifyContent: "center", marginTop: "5px" }}
+                    >
                       <Box>
                         <Typography
                           sx={{
@@ -131,7 +193,9 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                             fontWeight: "medium",
                             letterSpacing: "1px",
                             textTransform: "uppercase",
-                            backgroundColor: item.varian ? "grey" : "transparent", // Conditional background color
+                            backgroundColor: item.varian
+                              ? "grey"
+                              : "transparent", // Conditional background color
                             border: item.varian ? "1px solid grey" : "none", // Conditional border
                             marginRight: item.varian ? "5px" : "0px",
                             py: item.varian ? "3px" : "0px",
@@ -169,7 +233,11 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                       }}
                     >
                       <Tooltip title="Colours" arrow>
-                        <Box display="flex" flexDirection="row" sx={{ alignItems: "center", mr: "16px" }}>
+                        <Box
+                          display="flex"
+                          flexDirection="row"
+                          sx={{ alignItems: "center", mr: "16px" }}
+                        >
                           <Box
                             sx={{
                               width: "30px",
@@ -178,7 +246,12 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                               marginRight: "6px",
                             }}
                           >
-                            <Image src={"/static/images/colour.svg"} layout="fill" alt={""} style={{}} />
+                            <Image
+                              src={"/static/images/colour.svg"}
+                              layout="fill"
+                              alt={""}
+                              style={{}}
+                            />
                           </Box>
                           <Typography
                             sx={{
@@ -191,7 +264,11 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                         </Box>
                       </Tooltip>
                       <Tooltip title="Sizes" arrow>
-                        <Box display="flex" flexDirection="row" sx={{ alignItems: "center", mr: "16px" }}>
+                        <Box
+                          display="flex"
+                          flexDirection="row"
+                          sx={{ alignItems: "center", mr: "16px" }}
+                        >
                           <Box
                             sx={{
                               width: "30px",
@@ -201,7 +278,12 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                               ml: "20px",
                             }}
                           >
-                            <Image src={"/static/images/sizes.svg"} layout="fill" alt={""} style={{}} />
+                            <Image
+                              src={"/static/images/sizes.svg"}
+                              layout="fill"
+                              alt={""}
+                              style={{}}
+                            />
                           </Box>
                           <Typography
                             sx={{
@@ -214,7 +296,11 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                         </Box>
                       </Tooltip>
                       <Tooltip title="Finishes" arrow>
-                        <Box display="flex" flexDirection="row" sx={{ alignItems: "center" }}>
+                        <Box
+                          display="flex"
+                          flexDirection="row"
+                          sx={{ alignItems: "center" }}
+                        >
                           <Box
                             sx={{
                               width: "30px",
@@ -224,7 +310,12 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                               ml: "20px",
                             }}
                           >
-                            <Image src={"/static/images/finishies.svg"} layout="fill" alt={""} style={{}} />
+                            <Image
+                              src={"/static/images/finishies.svg"}
+                              layout="fill"
+                              alt={""}
+                              style={{}}
+                            />
                           </Box>
                           <Typography
                             sx={{
@@ -272,12 +363,16 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                 width: "100%",
                 margin: "0 auto",
                 mt: "40px",
-                "& .slick-track": { display: "flex", gap: { xs: "0px", md: "20px" } },
+                "& .slick-track": {
+                  display: "flex",
+                  gap: { xs: "0px", md: "20px" },
+                },
               }}
             >
               <Slider
                 {...settings}
                 ref={sliderRef}
+                dotsClass={"slick-dots"}
                 style={{
                   maxWidth: "89vw",
                   margin: "0 auto",
@@ -286,8 +381,19 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                 {featurproduct.map((item, index) => (
                   <Box key={index} sx={{}}>
                     {/* <Link href={`/range/${item.slug ? item.slug : 153}`} style={{ color: "black", textDecoration: "none" }}> */}
-                    <Box sx={{ position: "relative", width: "100%", height: "462px" }}>
-                      <Image src={item.image} layout="fill" alt={""} style={{ objectFit: "cover" }} />
+                    <Box
+                      sx={{
+                        position: "relative",
+                        width: "100%",
+                        height: "462px",
+                      }}
+                    >
+                      <Image
+                        src={item.image}
+                        layout="fill"
+                        alt={""}
+                        style={{ objectFit: "cover" }}
+                      />
                     </Box>
                     <Typography
                       sx={{
@@ -301,7 +407,11 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                     >
                       {item.name}
                     </Typography>
-                    <Grid display="flex" flexDirection="row" sx={{ justifyContent: "center", marginTop: "5px" }}>
+                    <Grid
+                      display="flex"
+                      flexDirection="row"
+                      sx={{ justifyContent: "center", marginTop: "5px" }}
+                    >
                       <Box>
                         <Typography
                           sx={{
@@ -312,7 +422,9 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                             fontWeight: "medium",
                             letterSpacing: "1px",
                             textTransform: "uppercase",
-                            backgroundColor: item.varian ? "grey" : "transparent", // Conditional background color
+                            backgroundColor: item.varian
+                              ? "grey"
+                              : "transparent", // Conditional background color
                             border: item.varian ? "1px solid grey" : "none", // Conditional border
                             marginRight: item.varian ? "5px" : "0px",
                             py: item.varian ? "3px" : "0px",
@@ -350,7 +462,11 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                       }}
                     >
                       <Tooltip title="Colours" arrow>
-                        <Box display="flex" flexDirection="row" sx={{ alignItems: "center", mr: "16px" }}>
+                        <Box
+                          display="flex"
+                          flexDirection="row"
+                          sx={{ alignItems: "center", mr: "16px" }}
+                        >
                           <Box
                             sx={{
                               width: "30px",
@@ -359,13 +475,19 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                               marginRight: "6px",
                             }}
                           >
-                            <Image src={"/static/images/colour.svg"} layout="fill" alt={""} style={{}} />
+                            <Image
+                              src={"/static/images/colour.svg"}
+                              layout="fill"
+                              alt={""}
+                              style={{}}
+                            />
                           </Box>
                           <Typography
                             sx={{
                               fontSize: "16px",
                               fontWeight: "medium",
-                              fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                              fontFamily:
+                                '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
                             }}
                           >
                             0{item.color}
@@ -373,7 +495,11 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                         </Box>
                       </Tooltip>
                       <Tooltip title="Sizes" arrow>
-                        <Box display="flex" flexDirection="row" sx={{ alignItems: "center", mr: "16px" }}>
+                        <Box
+                          display="flex"
+                          flexDirection="row"
+                          sx={{ alignItems: "center", mr: "16px" }}
+                        >
                           <Box
                             sx={{
                               width: "30px",
@@ -383,13 +509,19 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                               ml: "20px",
                             }}
                           >
-                            <Image src={"/static/images/sizes.svg"} layout="fill" alt={""} style={{}} />
+                            <Image
+                              src={"/static/images/sizes.svg"}
+                              layout="fill"
+                              alt={""}
+                              style={{}}
+                            />
                           </Box>
                           <Typography
                             sx={{
                               fontSize: "14x",
                               fontWeight: "medium",
-                              fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                              fontFamily:
+                                '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
                             }}
                           >
                             0{item.size}
@@ -397,7 +529,11 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                         </Box>
                       </Tooltip>
                       <Tooltip title="Finishes" arrow>
-                        <Box display="flex" flexDirection="row" sx={{ alignItems: "center" }}>
+                        <Box
+                          display="flex"
+                          flexDirection="row"
+                          sx={{ alignItems: "center" }}
+                        >
                           <Box
                             sx={{
                               width: "30px",
@@ -407,13 +543,19 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                               ml: "20px",
                             }}
                           >
-                            <Image src={"/static/images/finishies.svg"} layout="fill" alt={""} style={{}} />
+                            <Image
+                              src={"/static/images/finishies.svg"}
+                              layout="fill"
+                              alt={""}
+                              style={{}}
+                            />
                           </Box>
                           <Typography
                             sx={{
                               fontSize: "14x",
                               fontWeight: "medium",
-                              fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                              fontFamily:
+                                '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
                               marginLeft: "3px",
                             }}
                           >
@@ -436,7 +578,9 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
               }}
             >
               <Button onClick={() => sliderRef.current.slickPrev()}>
-                <KeyboardArrowLeftIcon sx={{ fontSize: "40px", color: "black" }} />
+                <KeyboardArrowLeftIcon
+                  sx={{ fontSize: "40px", color: "black" }}
+                />
               </Button>
               <Button
                 sx={{
@@ -451,7 +595,9 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                 View All Product Ranges
               </Button>
               <Button onClick={() => sliderRef.current.slickNext()}>
-                <KeyboardArrowRightIcon sx={{ fontSize: "40px", color: "black" }} />
+                <KeyboardArrowRightIcon
+                  sx={{ fontSize: "40px", color: "black" }}
+                />
               </Button>
             </Box>
           </Box>
