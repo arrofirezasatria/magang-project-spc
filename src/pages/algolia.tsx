@@ -16,12 +16,12 @@ const Algolia = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      search: "", // Provide an initial value for the search field
+      search: "", 
     },
   });
 
   const fuse = new Fuse(dataAlgolia, fuseOptions);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -36,7 +36,7 @@ const Algolia = () => {
       <Box marginTop="100px"></Box>
       <Button
         sx={{ backgroundColor: "black", color: "white" }}
-        onClick={handleOpenModal} // Open the modal when the button is clicked
+        onClick={handleOpenModal}
       >
         Tekan Ini
       </Button>
@@ -53,7 +53,7 @@ const Algolia = () => {
               })}
               sx={{
                 "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                  border: "none", // Remove the border
+                  border: "none",
                 },
                 width: "100%",
               }}
