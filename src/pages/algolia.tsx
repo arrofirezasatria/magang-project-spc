@@ -1,553 +1,11 @@
-import { Box, TextField, Typography } from "@mui/material";
-import { productData } from "data/navbarHeader/Navbar";
-import React from "react";
+import React, { useState } from "react";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField, Typography } from "@mui/material";
 import Fuse from "fuse.js";
 import { useForm } from "react-hook-form";
-
-const list = [
-  {
-    id: 16,
-    attributes: {
-      Name: "Metropole Geometria",
-      Description: null,
-      Code: "G30226D",
-      createdAt: "2023-07-28T07:01:09.312Z",
-      updatedAt: "2023-09-08T02:11:37.731Z",
-      publishedAt: "2023-07-28T07:01:10.806Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 10,
-      Price: 125000,
-      Motif_Color: "Geometria",
-      Slug: "metropole-geometria-g30226d",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 40,
-    attributes: {
-      Name: "Gardena White ",
-      Description: null,
-      Code: "GS1261181",
-      createdAt: "2023-07-28T07:25:10.837Z",
-      updatedAt: "2023-09-07T06:33:50.022Z",
-      publishedAt: "2023-07-28T07:25:13.253Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 4,
-      Price: 243000,
-      Motif_Color: "White",
-      Slug: "gardena-white-gs1261181",
-      Shade_Variation: "Slight",
-      IsInStock: null,
-      SQM_Box: 1.44,
-      Tile_Per_Box: 2,
-    },
-  },
-  {
-    id: 34,
-    attributes: {
-      Name: "Arte Black",
-      Description: null,
-      Code: "MC1263322",
-      createdAt: "2023-07-28T07:20:54.949Z",
-      updatedAt: "2023-09-09T04:57:03.798Z",
-      publishedAt: "2023-07-29T03:55:25.565Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 4,
-      Price: 263000,
-      Motif_Color: "Black",
-      Slug: "arte-black-mc1263322",
-      Shade_Variation: "Slight",
-      IsInStock: null,
-      SQM_Box: 1.44,
-      Tile_Per_Box: 2,
-    },
-  },
-  {
-    id: 13,
-    attributes: {
-      Name: "Metropole Decore",
-      Description: null,
-      Code: "G30225D",
-      createdAt: "2023-07-28T06:55:54.824Z",
-      updatedAt: "2023-09-08T02:05:26.614Z",
-      publishedAt: "2023-07-28T06:55:56.473Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 10,
-      Price: 125000,
-      Motif_Color: "Decore",
-      Slug: "metropole-decore-g30225d",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 7,
-    attributes: {
-      Name: "Cirrus Decore",
-      Description: null,
-      Code: "G30221D",
-      createdAt: "2023-07-28T06:45:58.088Z",
-      updatedAt: "2023-09-08T01:42:36.862Z",
-      publishedAt: "2023-07-28T06:47:08.283Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 10,
-      Price: 125000,
-      Motif_Color: "Decore",
-      Slug: "cirrus-decore-g30221d",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 47,
-    attributes: {
-      Name: "Bellisima Azura",
-      Description: null,
-      Code: "GS126323",
-      createdAt: "2023-07-28T07:31:11.867Z",
-      updatedAt: "2023-08-24T02:52:19.049Z",
-      publishedAt: "2023-07-28T07:31:13.061Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 6,
-      Price: 263000,
-      Motif_Color: "Azura",
-      Slug: "bellisima-azura-gs126323",
-      Shade_Variation: "Slight",
-      IsInStock: null,
-      SQM_Box: 1.44,
-      Tile_Per_Box: 2,
-    },
-  },
-  {
-    id: 2,
-    attributes: {
-      Name: "Callanish Decore",
-      Description: null,
-      Code: "G30229D",
-      createdAt: "2023-07-28T06:34:16.177Z",
-      updatedAt: "2023-09-08T01:11:31.419Z",
-      publishedAt: "2023-07-28T06:42:40.096Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 10,
-      Price: 125000,
-      Motif_Color: "Decore",
-      Slug: "callanish-decore-g30229d",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 53,
-    attributes: {
-      Name: "Carola Bianca",
-      Description: null,
-      Code: "M661195",
-      createdAt: "2023-07-28T07:35:23.520Z",
-      updatedAt: "2023-08-15T03:33:23.552Z",
-      publishedAt: "2023-07-28T08:08:36.776Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 8,
-      Price: 105000,
-      Motif_Color: "Bianca",
-      Slug: "carola-bianca-m661195",
-      Shade_Variation: null,
-      IsInStock: null,
-      SQM_Box: 1.44,
-      Tile_Per_Box: 4,
-    },
-  },
-  {
-    id: 60,
-    attributes: {
-      Name: "Lorca Structura",
-      Description: null,
-      Code: "G301119D",
-      createdAt: "2023-07-28T07:39:22.442Z",
-      updatedAt: "2023-09-08T01:05:37.416Z",
-      publishedAt: "2023-07-28T07:39:24.592Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 6,
-      Price: 115000,
-      Motif_Color: "Structura",
-      Slug: "lorca-structura-g301119d",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 55,
-    attributes: {
-      Name: "Carola Bianca",
-      Description: null,
-      Code: "M1261195",
-      createdAt: "2023-07-28T07:36:37.278Z",
-      updatedAt: "2023-09-07T06:49:00.884Z",
-      publishedAt: "2023-07-28T07:36:38.446Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 4,
-      Price: 243000,
-      Motif_Color: "Bianca",
-      Slug: "carola-bianca-m1261195",
-      Shade_Variation: null,
-      IsInStock: null,
-      SQM_Box: 1.43,
-      Tile_Per_Box: 2,
-    },
-  },
-  {
-    id: 38,
-    attributes: {
-      Name: "Gardena White ",
-      Description: null,
-      Code: "GS661181",
-      createdAt: "2023-07-28T07:24:04.208Z",
-      updatedAt: "2023-08-15T04:34:59.822Z",
-      publishedAt: "2023-07-28T07:24:05.422Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 8,
-      Price: 153000,
-      Motif_Color: "White",
-      Slug: "gardena-white-gs661181",
-      Shade_Variation: "Slight",
-      IsInStock: null,
-      SQM_Box: 1.44,
-      Tile_Per_Box: 4,
-    },
-  },
-  {
-    id: 52,
-    attributes: {
-      Name: "Laguna Griss",
-      Description: null,
-      Code: "G301105",
-      createdAt: "2023-07-28T07:34:02.863Z",
-      updatedAt: "2023-09-08T01:07:51.280Z",
-      publishedAt: "2023-07-28T07:34:04.252Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 12,
-      Price: 115000,
-      Motif_Color: "Griss",
-      Slug: "laguna-griss-g301105",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 33,
-    attributes: {
-      Name: "Baltic Oscuro",
-      Description: null,
-      Code: "G60302",
-      createdAt: "2023-07-28T07:20:46.778Z",
-      updatedAt: "2023-08-16T04:55:22.505Z",
-      publishedAt: "2023-07-28T07:20:48.693Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 12,
-      Price: 125000,
-      Motif_Color: "Oscuro",
-      Slug: "baltic-oscuro-g60302",
-      Shade_Variation: "Slight",
-      IsInStock: null,
-      SQM_Box: 1.44,
-      Tile_Per_Box: 4,
-    },
-  },
-  {
-    id: 39,
-    attributes: {
-      Name: "Huelva Decora",
-      Description: null,
-      Code: "G301113D",
-      createdAt: "2023-07-28T07:25:02.565Z",
-      updatedAt: "2023-09-08T01:06:04.648Z",
-      publishedAt: "2023-07-28T07:25:04.330Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 6,
-      Price: 115000,
-      Motif_Color: "Decora",
-      Slug: "huelva-decora-g301113d",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 42,
-    attributes: {
-      Name: "Secada Bianca",
-      Description: null,
-      Code: "M661121",
-      createdAt: "2023-07-28T07:26:42.266Z",
-      updatedAt: "2023-08-15T06:58:51.301Z",
-      publishedAt: "2023-07-28T07:26:43.470Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 8,
-      Price: 153000,
-      Motif_Color: "Bianca",
-      Slug: "secanda-bianca-m661121",
-      Shade_Variation: "Slight",
-      IsInStock: null,
-      SQM_Box: 1.44,
-      Tile_Per_Box: 4,
-    },
-  },
-  {
-    id: 36,
-    attributes: {
-      Name: "Cartagena Bianca",
-      Description: null,
-      Code: "G301101",
-      createdAt: "2023-07-28T07:22:52.936Z",
-      updatedAt: "2023-09-07T08:00:56.119Z",
-      publishedAt: "2023-07-28T07:22:54.438Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 12,
-      Price: null,
-      Motif_Color: "Bianca",
-      Slug: "cartagena-bianca-g301101",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 56,
-    attributes: {
-      Name: "Lorca Decora",
-      Description: null,
-      Code: "G301118D",
-      createdAt: "2023-07-28T07:36:59.178Z",
-      updatedAt: "2023-09-08T01:04:47.763Z",
-      publishedAt: "2023-07-28T07:37:36.723Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 6,
-      Price: 115000,
-      Motif_Color: "Decora",
-      Slug: "lorca-decora-g301118d",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 50,
-    attributes: {
-      Name: "Laguna Decora",
-      Description: null,
-      Code: "G301106D",
-      createdAt: "2023-07-28T07:33:17.914Z",
-      updatedAt: "2023-09-08T01:07:38.395Z",
-      publishedAt: "2023-07-28T07:33:19.328Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 12,
-      Price: 115000,
-      Motif_Color: "Decora",
-      Slug: "laguna-decora-g301106d",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 31,
-    attributes: {
-      Name: "Baltic Gris",
-      Description: null,
-      Code: "G60160",
-      createdAt: "2023-07-28T07:19:10.561Z",
-      updatedAt: "2023-08-15T03:16:44.418Z",
-      publishedAt: "2023-07-28T07:19:12.117Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 12,
-      Price: 105000,
-      Motif_Color: "Griss",
-      Slug: "baltic-gris-g60160",
-      Shade_Variation: "Slight",
-      IsInStock: null,
-      SQM_Box: 1.44,
-      Tile_Per_Box: 4,
-    },
-  },
-  {
-    id: 45,
-    attributes: {
-      Name: "Livia Decora",
-      Description: null,
-      Code: "G301116D",
-      createdAt: "2023-07-28T07:28:34.364Z",
-      updatedAt: "2023-09-08T01:06:48.066Z",
-      publishedAt: "2023-07-28T07:28:36.037Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 6,
-      Price: 115000,
-      Motif_Color: "Decora",
-      Slug: "livia-decora-g301116d",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 46,
-    attributes: {
-      Name: "Livia Bianca",
-      Description: null,
-      Code: "G301108",
-      createdAt: "2023-07-28T07:30:29.907Z",
-      updatedAt: "2023-09-08T01:06:59.605Z",
-      publishedAt: "2023-07-28T07:30:31.398Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 12,
-      Price: 115000,
-      Motif_Color: "Bianca",
-      Slug: "livia-bianca-g301108",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 43,
-    attributes: {
-      Name: "Huelva Structura",
-      Description: null,
-      Code: "G301115D",
-      createdAt: "2023-07-28T07:27:39.518Z",
-      updatedAt: "2023-09-08T01:06:30.661Z",
-      publishedAt: "2023-07-28T07:27:40.917Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 6,
-      Price: 115000,
-      Motif_Color: "Structura",
-      Slug: "huelva-structura-g301115d",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 10,
-    attributes: {
-      Name: "Cirrus Prisma",
-      Description: null,
-      Code: "G30222D",
-      createdAt: "2023-07-28T06:50:38.630Z",
-      updatedAt: "2023-09-08T01:46:08.538Z",
-      publishedAt: "2023-07-28T08:51:10.850Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 10,
-      Price: 125000,
-      Motif_Color: "Prisma",
-      Slug: "cirrus-prisma-g30222d",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 58,
-    attributes: {
-      Name: "Lorca Beige",
-      Description: null,
-      Code: "G301117",
-      createdAt: "2023-07-28T07:38:22.520Z",
-      updatedAt: "2023-09-08T01:05:18.369Z",
-      publishedAt: "2023-07-28T07:38:30.649Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 8,
-      Price: 115000,
-      Motif_Color: "Beige",
-      Slug: "lorca-beige-g301117",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-  {
-    id: 20,
-    attributes: {
-      Name: "Vena Decore",
-      Description: null,
-      Code: "G30227D",
-      createdAt: "2023-07-28T07:06:54.955Z",
-      updatedAt: "2023-09-09T03:01:36.559Z",
-      publishedAt: "2023-09-09T03:01:36.542Z",
-      locale: "en",
-      Rectified: true,
-      N_Face: 12,
-      Price: 125000,
-      Motif_Color: "Decore",
-      Slug: "vena-decore-g30227d",
-      Shade_Variation: "Moderate",
-      IsInStock: null,
-      SQM_Box: 1.08,
-      Tile_Per_Box: 6,
-    },
-  },
-];
-
-const getData = async () => {};
+import { dataAlgolia } from "data/algolia/algolia";
+import Image from "next/image";
 
 const fuseOptions = {
-  // isCaseSensitive: false,
-  // includeScore: false,
-  // shouldSort: true,
-  // includeMatches: false,
-  // findAllMatches: false,
-  // minMatchCharLength: 1,
-  // location: 0,
-  // threshold: 0.6,
-  // distance: 100,
-  // useExtendedSearch: false,
-  // ignoreLocation: false,
-  // ignoreFieldNorm: false,
-  // fieldNormWeight: 1,
   keys: ["attributes.Code", "attributes.Name"],
 };
 
@@ -556,39 +14,74 @@ const Algolia = () => {
     register,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      search: "", // Provide an initial value for the search field
+    },
+  });
 
-  const fuse = new Fuse(list, fuseOptions);
+  const fuse = new Fuse(dataAlgolia, fuseOptions);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal
 
-  const searchValue = watch("search");
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
 
-  console.log(watch().search);
-
-  const pattern = "geome";
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
-      <Box height={"200px"}></Box>
-      <Box>
-        <Typography>Search</Typography>
-
-        <TextField
-          size="small"
-          id="search"
-          // name="name"
-          label="Search..."
-          variant="outlined"
-          // error={!!errors.name}
-          // helperText={errors.name ? errors.name.message : ""}
-          {...register("search", {
-            required: "Required Field",
-          })}
-        />
-
-        {fuse.search(watch().search).map((item, index) => {
-          return <>{item.item.attributes.Name}</>;
-        })}
-      </Box>
+      <Box marginTop="100px"></Box>
+      <Button
+        sx={{ backgroundColor: "black", color: "white" }}
+        onClick={handleOpenModal} // Open the modal when the button is clicked
+      >
+        Tekan Ini
+      </Button>
+      <Dialog open={isModalOpen} onClose={handleCloseModal} fullWidth>
+        <DialogTitle>
+          <Box sx={{ border: "1px solid black", width: "100%" }}>
+            <TextField
+              size="small"
+              id="search"
+              placeholder="search product"
+              variant="outlined"
+              {...register("search", {
+                required: "Required Field",
+              })}
+              sx={{
+                "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                  border: "none", // Remove the border
+                },
+                width: "100%",
+              }}
+            />
+          </Box>
+        </DialogTitle>
+        <DialogContent>
+          <Stack
+            spacing={1}
+            sx={{
+              flex: 1,
+              height: "70vh",
+            }}
+          >
+            <Box sx={{}}>
+              {fuse.search(watch("search")).map((item, index) => (
+                <Box key={index} sx={{py:"10px"}}>
+                  <Typography>{item.item.attributes.Name}</Typography>
+                  <Typography>{item.item.attributes.Code}</Typography>
+                </Box>
+              ))}
+            </Box>
+          </Stack>
+        </DialogContent>
+        <DialogActions sx={{p:"16px 24px",borderTop:"1px solid #000"}}>
+          <Image src={"/static/images/Sunpower.png"} width={100} height={30} alt={""} />
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
