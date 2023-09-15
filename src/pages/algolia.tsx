@@ -3,6 +3,7 @@ import { productData } from "data/navbarHeader/Navbar";
 import React from "react";
 import Fuse from "fuse.js";
 import { useForm } from "react-hook-form";
+import { watch } from "fs";
 
 const list = [
   {
@@ -556,7 +557,11 @@ const Algolia = () => {
     register,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      search: "",
+    },
+  });
 
   const fuse = new Fuse(list, fuseOptions);
 
@@ -575,7 +580,7 @@ const Algolia = () => {
         <TextField
           size="small"
           id="search"
-          // name="name"
+          // name="search"
           label="Search..."
           variant="outlined"
           // error={!!errors.name}
@@ -585,7 +590,7 @@ const Algolia = () => {
           })}
         />
 
-        {fuse.search(watch().search).map((item, index) => {
+        {fuse.search(watch("search")).map((item, index) => {
           return <>{item.item.attributes.Name}</>;
         })}
       </Box>
