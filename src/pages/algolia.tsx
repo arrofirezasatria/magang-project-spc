@@ -1,4 +1,4 @@
-import { Box, Stack, TextField, Typography } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import { productData } from "data/navbarHeader/Navbar";
 import React from "react";
 import Fuse from "fuse.js";
@@ -560,6 +560,12 @@ const Algolia = () => {
 
   const fuse = new Fuse(list, fuseOptions);
 
+  const searchValue = watch("search");
+
+  console.log(watch().search);
+
+  const pattern = "geome";
+
   return (
     <>
       <Box height={"200px"}></Box>
@@ -579,16 +585,9 @@ const Algolia = () => {
           })}
         />
 
-        <Stack spacing={1}>
-          {fuse.search(watch("search")).map((item, index) => {
-            return (
-              <Box key={index}>
-                <Typography>{item.item.attributes.Name}</Typography>
-                <Typography>{item.item.attributes.Code}</Typography>
-              </Box>
-            );
-          })}
-        </Stack>
+        {fuse.search(watch().search).map((item, index) => {
+          return <>{item.item.attributes.Name}</>;
+        })}
       </Box>
     </>
   );
