@@ -89,7 +89,7 @@ export default function ProductSpecification({ props, data }: any) {
     } else {
       dispatch(
         addToCart({
-          id: props.product.data.id,
+          id: props.product.data[0].id,
           code: props.motif.data[0].attributes.Code,
           name: props.motif.data[0].attributes.Name,
           dimension: props.motif.data[0].attributes.tile_dimension.data.attributes.Dimension,
@@ -247,72 +247,72 @@ export default function ProductSpecification({ props, data }: any) {
             </Grid>
             <Grid item xs={12} md={6}>
               <Box sx={{ width: "100%", overflow: "auto" }}>
-                <Box sx={{}}>
-                  <Box
-                    sx={{
-                      background: "#3aad6c",
-                      borderRadius: "5px",
-                      color: "#fff",
-                      display: "flex",
-                      mb: "20px",
-                    }}
-                  >
+                  <Box sx={{}}>
                     <Box
                       sx={{
+                        background: "#3aad6c",
+                        borderRadius: "5px",
+                        color: "#fff",
                         display: "flex",
-                        flexBasis: "50%",
-                        alignItems: "center",
+                        mb: "20px",
                       }}
                     >
-                      <Image
-                        src="/static/icons/icon-leaf.svg"
-                        alt=""
-                        width={15}
-                        height={15}
-                        style={{
-                          padding: "6px 0 3px 10px",
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexBasis: "50%",
+                          alignItems: "center",
                         }}
-                      />
+                      >
+                        <Image
+                          src="/static/icons/icon-leaf.svg"
+                          alt=""
+                          width={15}
+                          height={15}
+                          style={{
+                            padding: "6px 0 3px 10px",
+                          }}
+                        />
+                        <Typography
+                          sx={{
+                            p: "6px 6px 6px 10px",
+                            fontSize: "16px",
+                            fontWeight: "400",
+                          }}
+                        >
+                          Recycled Content
+                        </Typography>
+                      </Box>
                       <Typography
                         sx={{
                           p: "6px 6px 6px 10px",
                           fontSize: "16px",
-                          fontWeight: "400",
+                          fontWeight: "bold",
                         }}
                       >
-                        Recycled Content
+                        Up to 40%
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+                      }}
+                    >
+                      <Typography sx={{ fontSize: "26px", fontWeight: "bold" }}>
+                        {props.motif.data[0].attributes?.Name} - {props.motif.data[0].attributes?.Code}
                       </Typography>
                     </Box>
                     <Typography
                       sx={{
-                        p: "6px 6px 6px 10px",
-                        fontSize: "16px",
+                        fontSize: "24px",
                         fontWeight: "bold",
+                        color: "#14b9b9",
+                        mb: "20px",
                       }}
                     >
-                      Up to 40%
+                      <NumericFormat value={props.motif.data[0].attributes?.Price} decimalScale={0} displayType={"text"} thousandSeparator={"."} decimalSeparator={","} suffix="/m²" />
                     </Typography>
                   </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                    }}
-                  >
-                    <Typography sx={{ fontSize: "26px", fontWeight: "bold" }}>
-                      {props.motif.data[0].attributes?.Name} - {props.motif.data[0].attributes?.Code}
-                    </Typography>
-                  </Box>
-                  <Typography
-                    sx={{
-                      fontSize: "24px",
-                      fontWeight: "bold",
-                      color: "#14b9b9",
-                      mb: "20px",
-                    }}
-                  >
-                    <NumericFormat value={props.motif.data[0].attributes?.Price} decimalScale={0} displayType={"text"} thousandSeparator={"."} decimalSeparator={","} suffix="/m²" />
-                  </Typography>
-                </Box>
                 <Divider
                   sx={{
                     borderBottomWidth: "2px",

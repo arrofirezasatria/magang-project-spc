@@ -1,7 +1,8 @@
-import { Box, Button, Grid, Typography, useMediaQuery,Stack } from "@mui/material";
+import { Box, Button, Grid, Typography, useMediaQuery, Stack } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
+// @ts-ignore
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -667,10 +668,13 @@ export default function AltProductRanges(props: any) {
                   </Box>
                 ))}
               </Slider>
-              <Box sx={{ width: "100%", justifyContent: "center",display:"flex" }}>
+                <Box sx={{ width: "100%", justifyContent: "center", display: "flex" }}>
+                {/* @ts-ignore */}
                 <Button onClick={() => sliderRef.current.slickPrev()}>
                   <KeyboardArrowLeftIcon sx={{ fontSize: "40px", color: "black" }} />
-                </Button>
+                  </Button>
+                {/* @ts-ignore */}
+                  
                 <Button onClick={() => sliderRef.current.slickNext()}>
                   <KeyboardArrowRightIcon sx={{ fontSize: "40px", color: "black" }} />
                 </Button>

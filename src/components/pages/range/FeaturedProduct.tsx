@@ -435,7 +435,7 @@ export default function FeaturedProducts({ props, pageTitle, alt1, alt2, alt3 }:
                 justifyContent: "center",
                 marginTop: "50px",
                 marginBottom: "40px",
-              }}
+              }}  
             >
               <Button onClick={() => sliderRef.current.slickPrev()}>
                 <KeyboardArrowLeftIcon sx={{ fontSize: "40px", color: "black" }} />

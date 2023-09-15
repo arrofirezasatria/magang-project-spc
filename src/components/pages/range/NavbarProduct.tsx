@@ -1,7 +1,7 @@
 import { Box, Container, Button, Grid, Tabs, AppBar, Typography, Divider, MenuItem, Toolbar, Popover, Collapse, Tab, Grow, IconButton, Stack, Drawer, TextField } from "@mui/material";
 // import { GetStaticProps } from "next";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import Link from "next/link"; 
+import Link from "next/link";
 
 import Image from "next/image";
 import List from "@mui/material/List";
@@ -19,7 +19,7 @@ import { DropdownFilter, navbarMobile, productData, aboutNavbar, serviceNavbar, 
 import { useTheme } from "@mui/material/styles";
 import { dropCart, removeItemFromCart, incrementItem, decrementItem, updateCart } from "store/cartSlice";
 import CartButton from "@components/common/CartButton";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 
 const headers = {
   Authorization:
@@ -404,17 +404,17 @@ export default function NavbarProduct() {
               display="flex"
               sx={{
                 width: "100%",
-                py: "10px",
                 justifyContent: "space-between",
                 zIndex: "10",
                 backgroundColor: isScrolled ? "white" : "white",
                 transition: "background-color 0.3s",
+                alignItems: "center",
+                minHeight: "60px",
               }}
             >
               <Link
                 href="#"
                 style={{
-                  height: "49px",
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
@@ -424,25 +424,32 @@ export default function NavbarProduct() {
               >
                 <Button
                   sx={{
-                    width: "130px",
-                    height: "50px",
+                    width: "109.28px",
+                    height: "36px",
                     position: "relative",
-                    mr: "10px",
                   }}
                 >
                   <Image src={"/static/images/Sunpower.png"} fill alt={""} style={{}} />
                 </Button>
               </Link>
-              <IconButton
-                sx={{
-                  color: "black",
-                  transition: "transform 0.3s ease",
-                  transform: open ? "rotate(90deg)" : "rotate(0deg)",
-                }}
-                onClick={() => setOpen(!open)}
-              >
-                {open ? <CloseIcon sx={{ fontSize: "30px" }} /> : <MenuIcon sx={{ fontSize: "30px" }} />}
-              </IconButton>
+              <Box>
+                <Box sx={{ border: "1px solid #E5EAF2", borderRadius: "6px" }}>
+                  <Button
+                    sx={{
+                      color: "black",
+                      transition: "transform 0.3s ease",
+                      transform: open ? "rotate(90deg)" : "rotate(0deg)",
+                      minWidth: "0px",
+                      p: "6px",
+                    }}
+                    TouchRippleProps={false}
+                    disableTouchRipple={true}
+                    onClick={() => setOpen(!open)}
+                  >
+                    {open ? <CloseIcon sx={{ fontSize: "16px" }} /> : <MenuIcon sx={{ fontSize: "16px" }} />}
+                  </Button>
+                </Box>
+              </Box>
             </Box>
           </Grid>
           <Grid display={{ xs: "flex", lg: "none" }} sx={{ width: "100%" }}>
@@ -477,7 +484,6 @@ export default function NavbarProduct() {
                     >
                       Home
                     </Button>
-
                     <Stack
                       onClick={() => {
                         toggleDrawer();
@@ -926,16 +932,20 @@ export default function NavbarProduct() {
                   open={drawerOpen}
                   onClose={toggleDrawer}
                   sx={{
+                    fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
                     "& .MuiPaper-root": {
                       width: "100%",
                       maxWidth: { xs: "100%", sm: "390px" },
+                    },
+                    "& .MuiTypography-root": {
+                      fontFamily: '--rubik-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
                     },
                   }}
                 >
                   <Box
                     sx={{
                       px: "1.5rem",
-                      pt: "1.5rem",
+                      py: "0.9rem",
                       minWidth: { xs: "100vw", sm: "390px" },
                       boxSizing: "border-box",
                       width: "100%",
@@ -954,6 +964,7 @@ export default function NavbarProduct() {
                       <Typography
                         // @ts-ignore
                         variant="body1_bold"
+                        sx={{ textTransform: "uppercase", fontWeight: "bold" }}
                       >
                         My Cart
                       </Typography>
@@ -962,6 +973,7 @@ export default function NavbarProduct() {
                       </IconButton>
                     </Box>
                   </Box>
+                  <Divider />
                   {cart.length !== 0 ? (
                     <>
                       <List
@@ -972,7 +984,26 @@ export default function NavbarProduct() {
                         }}
                         // @ts-ignore
                       >
-                        {cart.map((item: any, index: any) => {
+                        <Box sx={{ display: "flex", justifyContent: "end" }}>
+                          <Box
+                            component="button"
+                            onClick={() => {
+                              dispatch(dropCart());
+                            }}
+                            sx={{ textAlign: "right", cursor: "pointer" }}
+                          >
+                            <Typography
+                              sx={{
+                                fontSize: "12px",
+                                color: "#DC362E",
+                                textDecoration: "underline",
+                              }}
+                            >
+                              Remove All
+                            </Typography>
+                          </Box>
+                        </Box>
+                        {cart.map((item, index) => {
                           return (
                             <ListItem
                               key={index}
@@ -1021,7 +1052,7 @@ export default function NavbarProduct() {
                                         overflow: "hidden",
                                       }}
                                     >
-                                      <Image src={item.imageSrc} fill alt="" objectFit="cover" />
+                                      <Image src={item.imageSrc} layout="fill" alt="" objectFit="cover" />
                                     </Box>
                                   </Box>
                                   <Box
@@ -1049,16 +1080,16 @@ export default function NavbarProduct() {
                                     </Typography>
                                   </Box>
                                 </Box>
-                                <Box sx={{ width: "88px", height: "67px" }}>
-                                  <Typography sx={{ fontSize: "14px" }}>
-                                    <NumericFormat
-                                      value={item.priceTotal}
-                                      decimalScale={0}
-                                      displayType={"text"}
-                                      thousandSeparator={"."} 
-                                      decimalSeparator={","}
-                                      prefix={"Rp. "}
-                                    />
+                                <Box sx={{ ml: "16px" }}>
+                                  <Typography
+                                    sx={{
+                                      fontSize: "14px",
+                                      color: "#000",
+                                      mb: "2px",
+                                      fontWeight: "medium",
+                                    }}
+                                  >
+                                    <NumericFormat value={item.priceTotal} decimalScale={0} displayType={"text"} thousandSeparator={"."} decimalSeparator={","} prefix={"Rp. "} />
                                   </Typography>
                                   <Box
                                     display="flex"
@@ -1067,16 +1098,14 @@ export default function NavbarProduct() {
                                       border: "1px solid #999",
                                       borderRadius: "9999px",
                                       justifyContent: "space-between",
-                                      // width: "120px",
-                                      // height: "40px",
                                     }}
                                   >
                                     <IconButton onClick={() => dispatch(decrementItem({ id: item.id }))}>
-                                      <RemoveIcon sx={{ fontSize: "15px" }} />
+                                      <RemoveIcon sx={{ fontSize: "14px" }} />
                                     </IconButton>
                                     <TextField
                                       sx={{
-                                        width: "24px",
+                                        width: "2rem",
                                         "& .MuiInputBase-input": {
                                           textAlign: "center",
                                           fontSize: "14px",
@@ -1094,9 +1123,8 @@ export default function NavbarProduct() {
                                       size="small"
                                       onChange={(event) => handleQuantityChange(event, item.id)}
                                     />
-
                                     <IconButton onClick={() => dispatch(incrementItem({ id: item.id }))}>
-                                      <AddIcon sx={{ fontSize: "15px" }} />
+                                      <AddIcon sx={{ fontSize: "14px" }} />
                                     </IconButton>
                                   </Box>
                                 </Box>
@@ -1133,14 +1161,7 @@ export default function NavbarProduct() {
                           <Box className="cart-calc">
                             <Typography>Total</Typography>
                             <Typography sx={{ fontWeight: "bold" }}>
-                              <NumericFormat
-                                value={totalPrice}
-                                decimalScale={0}
-                                displayType={"text"}
-                                thousandSeparator={"."} 
-                                decimalSeparator={","}
-                                prefix={"Rp. "}
-                              />
+                              <NumericFormat value={totalPrice} decimalScale={0} displayType={"text"} thousandSeparator={"."} decimalSeparator={","} prefix={"Rp. "} />
                             </Typography>
                           </Box>
                           {cart.length > 0 ? (
@@ -1165,13 +1186,31 @@ export default function NavbarProduct() {
                           flexDirection: "column",
                           alignItems: "center",
                           width: "100%",
-                          // mt: "5rem",
                           justifyContent: "center",
                           height: "80%",
                         }}
                       >
-                        <ShoppingCartOutlinedIcon sx={{ fontSize: "4rem" }} />
-                        <Typography sx={{ fontSize: "1.5rem", fontWeight: "bold" }}>Your cart is empty</Typography>
+                        <ShoppingCartOutlinedIcon sx={{ fontSize: "4rem", mb: "0.5rem" }} />
+                        <Typography sx={{ fontSize: "1.5rem", fontWeight: "bold" }}>Your cart is empty.</Typography>
+                        <Typography sx={{ fontSize: "14px", fontWeight: "medium" }}>
+                          Start filling it with your favorite items right{" "}
+                          <Link href="/range">
+                            <Typography
+                              sx={{
+                                textDecoration: "underline",
+                                fontSize: "14px",
+                                display: "inline",
+                                cursor: "pointer",
+                                "&:hover": {
+                                  color: "#000",
+                                },
+                              }}
+                            >
+                              here
+                            </Typography>
+                          </Link>
+                          .
+                        </Typography>
                       </Box>
                     </>
                   )}
