@@ -52,7 +52,7 @@ const Algolia = () => {
   const listRef = useRef(null);
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: any) => {
       if (e.key === "ArrowDown") {
         e.preventDefault();
         const searchResults = fuse.search(watch("search"));
@@ -81,7 +81,7 @@ const Algolia = () => {
       }
     };
 
-    const scrollIntoView = (index) => {
+    const scrollIntoView = (index: any) => {
       const listItem = document.getElementById(`product-${index}`);
       if (listItem) {
         listItem.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -102,13 +102,81 @@ const Algolia = () => {
     };
   }, [selectedIndex, watch("search")]);
 
+  useEffect(() => {
+    const handleCtrlK = (e: any) => {
+      // Check for "CTRL + K" key combination
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault(); // Prevent the default browser behavior
+        setIsModalOpen(true); // Open the modal
+      }
+    };
+
+    window.addEventListener("keydown", handleCtrlK);
+
+    return () => {
+      window.removeEventListener("keydown", handleCtrlK);
+    };
+  }, []);
+
   return (
     <>
       <Box marginTop="100px"></Box>
-      <Button sx={{ backgroundColor: "black", color: "white" }} onClick={handleOpenModal}>
-        Tekan Ini
-      </Button>
-      <Dialog open={isModalOpen} onClose={handleCloseModal} fullWidth>
+      <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+        <Button sx={{
+          backgroundColor: "#fff", 
+          color: "#94a3b8",
+          borderRadius: '.5rem',
+          border: '1px solid #e5e7eb',
+          px: '1rem',
+          width: '18rem',
+          height: '3rem',
+          justifyContent: 'space-between',
+          }} onClick={handleOpenModal}>
+          <Box sx={{display: 'flex', gap: '12px', alignItems: 'center'}}>
+            <Box sx={{ width: "18px", height: "18px", position: "relative" }}>
+              <Image src="/static/images/search-icon-grey.svg" alt="" layout="fill" />
+            </Box>
+            <Typography sx={{textTransform: 'capitalize', fontSize: '16px'}}>Search Product...</Typography>
+          </Box>
+          <Box>
+            <kbd
+              style={{
+                backgroundColor: '#f7f7f7',
+                border: '1px solid #ccc',
+                padding: '2px 6px',
+                borderRadius: '3px',
+                fontSize: '14px',
+              }}
+            >
+              CTRL
+            </kbd>
+              +
+            <kbd
+              style={{
+                backgroundColor: '#f7f7f7',
+                border: '1px solid #ccc',
+                padding: '2px 6px',
+                borderRadius: '3px',
+                fontSize: '14px',
+              }}
+            >
+              K
+            </kbd>
+          </Box>
+        </Button>
+      </Box>
+      <Dialog open={isModalOpen} onClose={handleCloseModal} fullWidth
+        sx={{
+          height: 'auto',
+          p: '12vh',
+          '& .MuiDialog-container': {
+            alignItems: 'start !important',
+          },
+          '& .MuiDialog-paper': {
+            borderRadius: '10px',
+          },
+        }}
+      >
         <DialogTitle sx={{ borderBottom: "1px solid #ededed", p: "0 1rem" }}>
           <Box sx={{ width: "100%", display: "flex", alignItems: "center", height: "3.5rem" }}>
             <Box sx={{ width: "24px", height: "24px", position: "relative" }} onClick={handleImageClick}>
@@ -126,9 +194,16 @@ const Algolia = () => {
                 "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                   border: "none",
                 },
+                '& .MuiInputBase-input': {
+                  pl: '8px',
+                },
+                '& input::placeholder': {
+                  fontWeight: '500',
+                },
                 width: "100%",
                 ml: "0.5rem",
                 mr: "0.5rem",
+                fontWeight: '500',
               }}
               inputRef={searchInputRef}
             />
@@ -142,7 +217,10 @@ const Algolia = () => {
             spacing={1}
             sx={{
               flex: 1,
-              height: "60vh",
+              minHeight: '20vh',
+              maxHeight: '60vh',
+              height: '100%',
+              justifyContent: watch("search") ? 'none' : 'center',
               gap: 1,
               pt: "1rem",
             }}
@@ -187,7 +265,7 @@ const Algolia = () => {
               ))
             ) : (
               <Box className="empty-search" sx={{ display: "flex", height: "100%", alignItems: "center", justifyContent: "center" }}>
-                <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>Begin your product exploration by entering a keyword</Typography>
+                <Typography sx={{ fontSize: "16px", fontWeight: "500", color: '#a2a2a2' }}>Begin your product exploration by entering a keyword</Typography>
               </Box>
             )}
           </Stack>
