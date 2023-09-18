@@ -27,7 +27,7 @@ const Algolia = () => {
       search: "",
     },
   });
-  const searchInputRef = useRef(null);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageClick = () => {
     if (searchInputRef.current) {
@@ -165,10 +165,11 @@ const Algolia = () => {
           </Box>
         </Button>
       </Box>
-      <Dialog open={isModalOpen} onClose={handleCloseModal} fullWidth
+      <Dialog open={isModalOpen} onClose={handleCloseModal} 
+        fullWidth disableRestoreFocus
         sx={{
           height: 'auto',
-          p: '12vh',
+          p: {xs: '12vh 0', md: '12vh'},
           '& .MuiDialog-container': {
             alignItems: 'start !important',
           },
@@ -179,10 +180,13 @@ const Algolia = () => {
       >
         <DialogTitle sx={{ borderBottom: "1px solid #ededed", p: "0 1rem" }}>
           <Box sx={{ width: "100%", display: "flex", alignItems: "center", height: "3.5rem" }}>
-            <Box sx={{ width: "24px", height: "24px", position: "relative" }} onClick={handleImageClick}>
+            <Box sx={{ width: "24px", height: "24px", position: "relative" }} 
+            onClick={handleImageClick}
+            >
               <Image src="/static/images/search-icon.svg" alt="" layout="fill" />
             </Box>
             <TextField
+              autoFocus
               size="small"
               id="search"
               placeholder="Search Product"
@@ -207,8 +211,18 @@ const Algolia = () => {
               }}
               inputRef={searchInputRef}
             />
-            <Button sx={{ minWidth: "0", minHeight: "0" }} onClick={handleCloseModal}>
-              <CloseIcon sx={{ fontSize: "24px", color: "#000" }} />
+            <Button sx={{ 
+              minWidth: "0", 
+              minHeight: "0", 
+              p: '2px 4px',
+              bgColor: '#f7f7f7',
+              border: '1px solid #ddd',
+              borderRadius: '3px',
+              '&:hover':{
+                boxShadow: '0px 0px 4px -1px rgba(0,0,0,0.2)',
+              },
+            }} onClick={handleCloseModal}>
+              <CloseIcon sx={{ fontSize: "20px", color: "#000" }} />
             </Button>
           </Box>
         </DialogTitle>
@@ -242,11 +256,12 @@ const Algolia = () => {
                     spacing={3}
                     sx={{
                       p: ".75rem 1rem",
-                      mx: "1.5rem",
+                      mx: {xs: "1rem", sm: "1.5rem"},
                       borderRadius: ".5rem",
                       bgcolor: selectedIndex === index ? "#f1f1f1" : "#f8fafc",
                       alignItems: "center",
-                      justifyContent: { xs: "start", sm: "space-between" },
+                      // justifyContent: { xs: "start", sm: "space-between" },
+                      justifyContent: "space-between",
                       "&:hover": {
                         bgcolor: "#f1f1f1",
                       },
@@ -254,7 +269,7 @@ const Algolia = () => {
                   >
                     <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                       <Box sx={{ height: "40px", width: "auto", bgcolor: "#555", borderRadius: "5px", aspectRatio: "1 / 1" }}></Box>
-                      <Box sx={{ width: "200px" }}>
+                      <Box sx={{ width: '100%'}}>
                         <Typography sx={{ color: "#000", fontSize: ".875rem", fontWeight: "500" }}>{item.item.attributes.Name}</Typography>
                         <Typography sx={{ color: "#999", fontSize: ".75rem" }}>{item.item.attributes.Code}</Typography>
                       </Box>
@@ -264,8 +279,8 @@ const Algolia = () => {
                 </Link>
               ))
             ) : (
-              <Box className="empty-search" sx={{ display: "flex", height: "100%", alignItems: "center", justifyContent: "center" }}>
-                <Typography sx={{ fontSize: "16px", fontWeight: "500", color: '#a2a2a2' }}>Begin your product exploration by entering a keyword</Typography>
+              <Box className="empty-search" sx={{ display: "flex", height: "100%", alignItems: "center", justifyContent: "center", px: '1rem', textAlign: 'center' }}>
+                <Typography sx={{ fontSize: {xs: '14px', sm: "16px"}, fontWeight: "500", color: '#a2a2a2' }}>Begin your product exploration by entering a keyword</Typography>
               </Box>
             )}
           </Stack>
