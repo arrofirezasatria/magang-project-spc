@@ -12,8 +12,11 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const fuseOptions = {
   keys: ["attributes.Code", "attributes.Name"],
-  isCaseSensitive: true,
-  includeScore: 0,
+  includeScore: true,
+  shouldSort: true,
+  minMatchCharLength: 1,
+  threshold: 0.1,
+  distance: 100,
 };
 
 const Algolia = () => {
@@ -36,6 +39,7 @@ const Algolia = () => {
   };
 
   const fuse = new Fuse(dataAlgolia, fuseOptions);
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
